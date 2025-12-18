@@ -25,15 +25,12 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
       className="group relative"
     >
-      <Link to={`/work/${project.id}`} className="block">
+      <Link to={`/work/${project.id}`}>
         {/* Image Container */}
-        <div className="relative aspect-[4/3] overflow-hidden bg-secondary rounded-lg">
+        <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
           <motion.div
-            animate={{ 
-              scale: isHovered ? 1.08 : 1,
-              filter: isHovered ? 'brightness(1.1)' : 'brightness(1)',
-            }}
-            transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+            animate={{ scale: isHovered ? 1.1 : 1 }}
+            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             className="absolute inset-0"
           >
             <img
@@ -47,17 +44,14 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-background/20 backdrop-blur-[2px] flex items-center justify-center"
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center"
           >
             <motion.span
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ 
-                scale: isHovered ? 1 : 0,
-                rotate: isHovered ? 0 : -180,
-              }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-              className="w-20 h-20 rounded-full bg-accent flex items-center justify-center shadow-lg"
+              initial={{ scale: 0 }}
+              animate={{ scale: isHovered ? 1 : 0 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+              className="w-24 h-24 rounded-full bg-accent flex items-center justify-center"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-accent-foreground">
                 <path
@@ -72,62 +66,34 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </motion.div>
 
           {/* Number Badge */}
-          <motion.div 
-            className="absolute top-4 left-4"
-            animate={{
-              y: isHovered ? -2 : 0,
-              opacity: isHovered ? 0.5 : 1,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <span className="label text-foreground/60 bg-background/50 backdrop-blur-sm px-2 py-1 rounded">
+          <div className="absolute top-6 left-6">
+            <span className="label text-foreground/60">
               {String(index + 1).padStart(2, '0')}
             </span>
-          </motion.div>
+          </div>
         </div>
 
         {/* Info */}
-        <div className="pt-5 flex items-start justify-between">
+        <div className="pt-6 flex items-start justify-between">
           <div>
             <motion.h3
-              animate={{ 
-                x: isHovered ? 8 : 0,
-                color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--foreground))',
-              }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
+              animate={{ x: isHovered ? 10 : 0 }}
+              transition={{ duration: 0.3 }}
               className="heading-md mb-2"
             >
               {project.title}
             </motion.h3>
-            <motion.span 
-              className="body-md text-muted-foreground"
-              animate={{ opacity: isHovered ? 0.7 : 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              {project.category}
-            </motion.span>
+            <span className="body-md text-muted-foreground">{project.category}</span>
           </div>
-          <motion.span 
-            className="label text-muted-foreground"
-            animate={{ 
-              scale: isHovered ? 1.1 : 1,
-              color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--muted-foreground))',
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {project.year}
-          </motion.span>
+          <span className="label text-muted-foreground">{project.year}</span>
         </div>
 
         {/* Underline Animation */}
         <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ 
-            scaleX: isHovered ? 1 : 0,
-            opacity: isHovered ? 1 : 0,
-          }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isHovered ? 1 : 0 }}
           transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-          className="h-0.5 bg-gradient-to-r from-accent via-accent to-transparent mt-5 origin-left rounded-full"
+          className="h-px bg-accent mt-6 origin-left"
         />
       </Link>
     </motion.div>

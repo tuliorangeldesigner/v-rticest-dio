@@ -76,16 +76,15 @@ export const CTASection = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center px-4"
           >
-            <MagneticButton className="group relative px-8 sm:px-10 md:px-12 py-5 sm:py-6 bg-accent text-accent-foreground font-syne font-semibold text-base sm:text-lg overflow-hidden rounded-lg btn-press hover-glow">
+            <MagneticButton className="group relative px-8 sm:px-10 md:px-12 py-5 sm:py-6 bg-accent text-accent-foreground font-syne font-semibold text-base sm:text-lg overflow-hidden rounded-lg">
               <span className="relative z-10 flex items-center gap-3">
                 Get in Touch
-                <motion.svg
+                <svg
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
                   fill="none"
                   className="transition-transform duration-300 group-hover:translate-x-1"
-                  whileHover={{ x: 4 }}
                 >
                   <path
                     d="M4 10H16M16 10L11 5M16 10L11 15"
@@ -94,7 +93,7 @@ export const CTASection = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                </motion.svg>
+                </svg>
               </span>
               <motion.div
                 className="absolute inset-0 bg-foreground"
@@ -104,16 +103,15 @@ export const CTASection = () => {
               />
             </MagneticButton>
 
-            <MagneticButton className="group px-8 sm:px-10 md:px-12 py-5 sm:py-6 border border-foreground/20 font-syne font-semibold text-base sm:text-lg hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 rounded-lg btn-press">
+            <MagneticButton className="group px-8 sm:px-10 md:px-12 py-5 sm:py-6 border border-foreground/20 font-syne font-semibold text-base sm:text-lg hover:border-foreground/40 transition-colors duration-300 rounded-lg">
               <span className="flex items-center gap-3">
                 View Our Work
-                <motion.svg
+                <svg
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
                   fill="none"
                   className="transition-transform duration-300 group-hover:translate-x-1"
-                  whileHover={{ x: 4 }}
                 >
                   <path
                     d="M4 10H16M16 10L11 5M16 10L11 15"
@@ -122,7 +120,7 @@ export const CTASection = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                </motion.svg>
+                </svg>
               </span>
             </MagneticButton>
           </motion.div>

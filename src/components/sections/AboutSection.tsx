@@ -52,15 +52,10 @@ export const AboutSection = () => {
                 { number: '12', label: 'Awards' },
                 { number: '98%', label: 'Happy Clients' },
               ].map((stat, i) => (
-                <motion.div 
-                  key={i}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  transition={{ duration: 0.3 }}
-                  className="cursor-default"
-                >
+                <div key={i}>
                   <span className="heading-md text-accent">{stat.number}</span>
                   <span className="block label text-muted-foreground mt-2">{stat.label}</span>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
           </div>
