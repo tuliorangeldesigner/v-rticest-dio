@@ -45,13 +45,14 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
   return (
     <motion.div
       ref={ref}
+      data-cursor="view"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, delay: index * 0.15, ease: [0.19, 1, 0.22, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative cursor-pointer"
+      className="group relative"
     >
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden bg-secondary">

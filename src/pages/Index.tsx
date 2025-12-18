@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import SmoothScroll from '@/components/SmoothScroll';
 import Navigation from '@/components/Navigation';
+import CustomCursor from '@/components/CustomCursor';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -19,6 +20,8 @@ const Index = () => {
         <meta name="keywords" content="digital agency, web design, branding, creative studio, UI/UX design, web development" />
         <link rel="canonical" href="https://studio.com" />
       </Helmet>
+
+      <CustomCursor />
 
       <SmoothScroll>
         {/* Noise overlay for texture */}
