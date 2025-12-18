@@ -51,9 +51,9 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               initial={{ scale: 0 }}
               animate={{ scale: isHovered ? 1 : 0 }}
               transition={{ duration: 0.4, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-              className="w-24 h-24 rounded-full bg-accent flex items-center justify-center"
+              className="w-20 h-20 rounded-full bg-accent flex items-center justify-center"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-accent-foreground">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-accent-foreground">
                 <path
                   d="M7 17L17 7M17 7H7M17 7V17"
                   stroke="currentColor"
@@ -67,25 +67,25 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
           {/* Number Badge */}
           <div className="absolute top-6 left-6">
-            <span className="label text-foreground/60">
+            <span className="caption text-foreground/60">
               {String(index + 1).padStart(2, '0')}
             </span>
           </div>
         </div>
 
         {/* Info */}
-        <div className="pt-6 flex items-start justify-between">
+        <div className="pt-6 flex items-start justify-between gap-4">
           <div>
             <motion.h3
-              animate={{ x: isHovered ? 10 : 0 }}
+              animate={{ x: isHovered ? 8 : 0 }}
               transition={{ duration: 0.3 }}
               className="heading-md mb-2"
             >
               {project.title}
             </motion.h3>
-            <span className="body-md text-muted-foreground">{project.category}</span>
+            <span className="body-sm text-muted-foreground">{project.category}</span>
           </div>
-          <span className="label text-muted-foreground">{project.year}</span>
+          <span className="caption text-muted-foreground">{project.year}</span>
         </div>
 
         {/* Underline Animation */}
@@ -108,7 +108,7 @@ export const WorkSection = () => {
     <section id="work" ref={ref} className="section-padding bg-secondary/20">
       <div className="container-wide">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 lg:mb-20 gap-8">
           <div className="max-w-2xl">
             <AnimatedLine delay={0.2}>
               <span className="label text-accent mb-6 block">Selected Work</span>
@@ -127,12 +127,12 @@ export const WorkSection = () => {
           >
             <Link
               to="/work/luminary"
-              className="link-hover text-foreground font-medium inline-flex items-center gap-2 group"
+              className="link-hover text-foreground body-sm font-medium inline-flex items-center gap-2 group"
             >
               View All Projects
               <svg 
-                width="20" 
-                height="20" 
+                width="16" 
+                height="16" 
                 viewBox="0 0 20 20" 
                 fill="none"
                 className="transition-transform duration-300 group-hover:translate-x-1"
@@ -150,7 +150,7 @@ export const WorkSection = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

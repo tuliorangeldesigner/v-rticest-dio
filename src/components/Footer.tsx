@@ -22,9 +22,9 @@ const footerLinks = {
 
 export const Footer = () => {
   return (
-    <footer className="py-16 md:py-24 border-t border-border">
+    <footer className="py-20 lg:py-24 border-t border-border">
       <div className="container-wide">
-        <div className="grid md:grid-cols-12 gap-12 mb-16">
+        <div className="grid md:grid-cols-12 gap-12 lg:gap-16 mb-16 lg:mb-20">
           {/* Logo & Tagline */}
           <div className="md:col-span-5">
             <a href="#" className="font-syne text-2xl font-bold tracking-tight inline-block mb-6">
@@ -34,7 +34,7 @@ export const Footer = () => {
               A creative digital agency crafting immersive experiences 
               that captivate and inspire.
             </p>
-            <MagneticButton className="px-8 py-4 bg-foreground text-background font-medium hover:bg-accent transition-colors duration-300">
+            <MagneticButton className="px-8 py-4 bg-foreground text-background body-sm font-medium hover:bg-accent transition-colors duration-300">
               Start a Project
             </MagneticButton>
           </div>
@@ -47,7 +47,7 @@ export const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="link-hover text-foreground/80 hover:text-foreground transition-colors"
+                    className="link-hover body-sm text-foreground/80 hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </a>
@@ -64,7 +64,7 @@ export const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="link-hover text-foreground/80 hover:text-foreground transition-colors"
+                    className="link-hover body-sm text-foreground/80 hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </a>
@@ -79,17 +79,17 @@ export const Footer = () => {
             <div className="space-y-4">
               <a
                 href="mailto:hello@studio.com"
-                className="link-hover block text-foreground/80 hover:text-foreground transition-colors"
+                className="link-hover block body-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 hello@studio.com
               </a>
               <a
                 href="tel:+1234567890"
-                className="link-hover block text-foreground/80 hover:text-foreground transition-colors"
+                className="link-hover block body-sm text-foreground/80 hover:text-foreground transition-colors"
               >
                 +1 (234) 567-890
               </a>
-              <p className="text-muted-foreground">
+              <p className="body-sm text-muted-foreground">
                 123 Creative Street<br />
                 New York, NY 10001
               </p>
@@ -105,7 +105,7 @@ export const Footer = () => {
           transition={{ duration: 0.8 }}
           className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4"
         >
-          <p className="text-sm text-muted-foreground">
+          <p className="caption text-muted-foreground">
             © {new Date().getFullYear()} STUDIO. All rights reserved.
           </p>
           <div className="flex gap-6">
@@ -113,7 +113,7 @@ export const Footer = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="caption text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.name}
               </a>

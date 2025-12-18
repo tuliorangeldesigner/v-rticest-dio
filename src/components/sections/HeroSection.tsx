@@ -51,13 +51,13 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
-          className="mb-8"
+          className="mb-8 md:mb-10"
         >
           <span className="label text-muted-foreground">Award-Winning Digital Agency</span>
         </motion.div>
 
         {/* Main Headline */}
-        <h1 className="heading-display mb-8">
+        <h1 className="heading-display mb-10 md:mb-12">
           <motion.span
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,7 +89,7 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4, ease: [0.19, 1, 0.22, 1] }}
-          className="body-lg text-muted-foreground max-w-xl mx-auto mb-12"
+          className="body-lg text-muted-foreground max-w-2xl mx-auto mb-12 md:mb-16"
         >
           A creative studio crafting immersive digital products, brands, 
           and experiences that captivate and inspire.
@@ -101,7 +101,7 @@ export const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.6, ease: [0.19, 1, 0.22, 1] }}
         >
-          <MagneticButton className="group relative px-10 py-5 bg-accent text-accent-foreground font-syne font-semibold text-lg overflow-hidden">
+          <MagneticButton className="group relative px-10 py-5 bg-accent text-accent-foreground font-syne font-semibold text-base md:text-lg overflow-hidden">
             <span className="relative z-10 flex items-center gap-3">
               Explore Our Work
               <motion.svg

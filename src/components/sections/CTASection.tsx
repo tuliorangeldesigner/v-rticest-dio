@@ -29,7 +29,7 @@ export const CTASection = () => {
             <span className="label text-accent mb-8 block">Start a Project</span>
           </AnimatedLine>
 
-          <div className="overflow-hidden mb-8">
+          <div className="overflow-hidden mb-4">
             <motion.h2
               initial={{ y: '100%' }}
               animate={isInView ? { y: 0 } : {}}
@@ -40,7 +40,7 @@ export const CTASection = () => {
             </motion.h2>
           </div>
           
-          <div className="overflow-hidden mb-12">
+          <div className="overflow-hidden mb-12 md:mb-16">
             <motion.h2
               initial={{ y: '100%' }}
               animate={isInView ? { y: 0 } : {}}
@@ -64,7 +64,7 @@ export const CTASection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="body-lg text-muted-foreground max-w-xl mx-auto mb-12"
+            className="body-lg text-muted-foreground max-w-xl mx-auto mb-12 md:mb-14"
           >
             Ready to transform your digital presence? Let's discuss your next project 
             and create something extraordinary together.
@@ -76,12 +76,12 @@ export const CTASection = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <MagneticButton className="group relative px-12 py-6 bg-accent text-accent-foreground font-syne font-semibold text-lg overflow-hidden">
+            <MagneticButton className="group relative px-10 py-5 bg-accent text-accent-foreground font-syne font-semibold text-base overflow-hidden">
               <span className="relative z-10 flex items-center gap-3">
                 Get in Touch
                 <svg
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 20 20"
                   fill="none"
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -103,12 +103,12 @@ export const CTASection = () => {
               />
             </MagneticButton>
 
-            <MagneticButton className="group px-12 py-6 border border-foreground/20 font-syne font-semibold text-lg hover:border-foreground/40 transition-colors duration-300">
+            <MagneticButton className="group px-10 py-5 border border-foreground/20 font-syne font-semibold text-base hover:border-foreground/40 transition-colors duration-300">
               <span className="flex items-center gap-3">
                 View Our Work
                 <svg
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 20 20"
                   fill="none"
                   className="transition-transform duration-300 group-hover:translate-x-1"

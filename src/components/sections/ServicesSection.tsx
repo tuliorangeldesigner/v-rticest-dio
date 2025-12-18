@@ -53,7 +53,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative p-8 md:p-10 border border-border bg-card/50 backdrop-blur-sm transition-all duration-500 hover:bg-secondary/50 cursor-pointer"
+      className="group relative p-8 lg:p-10 border border-border bg-card/50 backdrop-blur-sm transition-all duration-500 hover:bg-secondary/50 cursor-pointer"
       style={{
         transform: isHovered ? 'perspective(1000px) rotateX(2deg) rotateY(-2deg)' : 'none',
       }}
@@ -64,7 +64,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
         transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
         className="w-12 h-12 flex items-center justify-center mb-6"
       >
-        <Icon className="w-8 h-8 text-accent" strokeWidth={1.5} />
+        <Icon className="w-7 h-7 text-accent" strokeWidth={1.5} />
       </motion.div>
 
       {/* Title */}
@@ -73,7 +73,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       </h3>
 
       {/* Description */}
-      <p className="body-md text-muted-foreground">
+      <p className="body-sm text-muted-foreground">
         {service.description}
       </p>
 
@@ -90,9 +90,9 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute top-4 right-4"
+        className="absolute top-6 right-6"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
             d="M7 17L17 7M17 7H7M17 7V17"
             stroke="currentColor"
@@ -115,7 +115,7 @@ export const ServicesSection = () => {
     <section id="services" ref={ref} className="section-padding">
       <div className="container-wide">
         {/* Header */}
-        <div className="max-w-3xl mb-16 md:mb-24">
+        <div className="max-w-3xl mb-16 lg:mb-20">
           <AnimatedLine delay={0.2}>
             <span className="label text-accent mb-6 block">What We Do</span>
           </AnimatedLine>
@@ -127,7 +127,7 @@ export const ServicesSection = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}

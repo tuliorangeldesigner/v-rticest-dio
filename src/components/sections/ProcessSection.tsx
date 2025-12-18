@@ -38,7 +38,7 @@ export const ProcessSection = () => {
     <section ref={ref} className="section-padding">
       <div className="container-wide">
         {/* Header */}
-        <div className="max-w-3xl mb-16 md:mb-24">
+        <div className="max-w-3xl mb-16 lg:mb-20">
           <AnimatedLine delay={0.2}>
             <span className="label text-accent mb-6 block">Our Process</span>
           </AnimatedLine>
@@ -60,7 +60,7 @@ export const ProcessSection = () => {
           />
 
           {/* Steps */}
-          <div className="space-y-12 md:space-y-0">
+          <div className="space-y-16 md:space-y-0">
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}
@@ -68,17 +68,17 @@ export const ProcessSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                className={`relative md:grid md:grid-cols-2 md:gap-12 ${
+                className={`relative md:grid md:grid-cols-2 md:gap-16 ${
                   index % 2 === 0 ? '' : 'md:text-right'
                 }`}
               >
                 {/* Content */}
                 <div
                   className={`${
-                    index % 2 === 0 ? 'md:pr-12' : 'md:order-2 md:pl-12'
-                  } pb-12 md:pb-24`}
+                    index % 2 === 0 ? 'md:pr-16' : 'md:order-2 md:pl-16'
+                  } pb-16 md:pb-24`}
                 >
-                  <span className="heading-display text-secondary/80 mb-4 block">
+                  <span className="heading-display text-secondary/60 mb-4 block text-4xl md:text-5xl">
                     {step.number}
                   </span>
                   <h3 className="heading-md mb-4">{step.title}</h3>
@@ -93,7 +93,7 @@ export const ProcessSection = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
-                  className="absolute left-0 md:left-1/2 -translate-x-1/2 top-0 w-4 h-4 rounded-full bg-accent hidden md:block"
+                  className="absolute left-0 md:left-1/2 -translate-x-1/2 top-0 w-3 h-3 rounded-full bg-accent hidden md:block"
                 />
 
                 {/* Empty column for layout */}
