@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Loader2, CheckCircle } from 'lucide-react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { ArrowRight, Loader2, CheckCircle, Sparkles } from 'lucide-react';
 import { z } from 'zod';
 import { toast } from '@/hooks/use-toast';
+import { useEffect } from 'react';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
 
@@ -16,6 +17,24 @@ const NewsletterForm = ({ variant = 'inline', className = '' }: NewsletterFormPr
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      mouseX.set((clientX / innerWidth - 0.5) * 20);
+      mouseY.set((clientY / innerHeight - 0.5) * 20);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,88 +71,189 @@ const NewsletterForm = ({ variant = 'inline', className = '' }: NewsletterFormPr
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`flex items-center justify-center gap-3 py-4 ${className}`}
+        className={`relative ${className}`}
       >
-        <div className="p-2 rounded-full bg-primary/10">
-          <CheckCircle className="w-5 h-5 text-primary" />
+        {/* Success card with unique styling */}
+        <div className="relative p-8 border border-primary/30 bg-primary/5 backdrop-blur-sm">
+          {/* Corner accents */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-primary" />
+          <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-primary" />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-primary" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-primary" />
+          
+          <div className="flex items-center justify-center gap-4">
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              className="p-3 border border-primary/30"
+            >
+              <CheckCircle className="w-6 h-6 text-primary" />
+            </motion.div>
+            <div className="text-left">
+              <p className="text-foreground font-syne font-bold text-lg">You&apos;re subscribed!</p>
+              <p className="text-sm text-muted-foreground font-mono">Welcome to the creative circle</p>
+            </div>
+          </div>
         </div>
-        <p className="text-foreground font-medium">You're subscribed!</p>
       </motion.div>
     );
   }
 
   if (variant === 'stacked') {
     return (
-      <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
-        <div>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className={`w-full px-6 py-4 bg-background border rounded-full focus:outline-none transition-colors ${
-              error ? 'border-destructive focus:border-destructive' : 'border-border focus:border-primary'
-            }`}
-          />
-          {error && (
-            <p className="mt-2 text-sm text-destructive">{error}</p>
-          )}
+      <form onSubmit={handleSubmit} className={`relative ${className}`}>
+        {/* Floating shapes */}
+        <motion.div
+          className="absolute -top-4 -right-4 w-8 h-8 border border-primary/20 rotate-45"
+          style={{ x: smoothX, y: smoothY }}
+        />
+        
+        <div className="space-y-4">
+          <div className="relative group">
+            {/* Input container with unique border */}
+            <div className={`relative transition-all duration-300 ${isFocused ? 'transform -translate-y-1' : ''}`}>
+              {/* Animated border */}
+              <div className={`absolute inset-0 border transition-colors duration-300 ${
+                error ? 'border-destructive' : isFocused ? 'border-primary' : 'border-border'
+              }`} />
+              
+              {/* Corner accents */}
+              <div className={`absolute -top-1 -left-1 w-3 h-3 border-l-2 border-t-2 transition-colors duration-300 ${
+                isFocused ? 'border-primary' : 'border-transparent'
+              }`} />
+              <div className={`absolute -top-1 -right-1 w-3 h-3 border-r-2 border-t-2 transition-colors duration-300 ${
+                isFocused ? 'border-primary' : 'border-transparent'
+              }`} />
+              <div className={`absolute -bottom-1 -left-1 w-3 h-3 border-l-2 border-b-2 transition-colors duration-300 ${
+                isFocused ? 'border-primary' : 'border-transparent'
+              }`} />
+              <div className={`absolute -bottom-1 -right-1 w-3 h-3 border-r-2 border-b-2 transition-colors duration-300 ${
+                isFocused ? 'border-primary' : 'border-transparent'
+              }`} />
+              
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                placeholder="Enter your email"
+                className="w-full px-6 py-4 bg-transparent focus:outline-none transition-colors font-mono text-sm"
+              />
+            </div>
+            {error && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-3 text-sm text-destructive font-mono flex items-center gap-2"
+              >
+                <span className="w-1 h-1 bg-destructive" />
+                {error}
+              </motion.p>
+            )}
+          </div>
+          
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            whileHover={{ scale: 1.02, x: 5 }}
+            whileTap={{ scale: 0.98 }}
+            className="group w-full relative px-8 py-4 bg-foreground text-background font-syne font-bold overflow-hidden disabled:opacity-70"
+          >
+            {/* Button hover effect */}
+            <div className="absolute inset-0 bg-primary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500" />
+            
+            <span className="relative flex items-center justify-center gap-3">
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="font-mono text-sm">PROCESSING...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4" />
+                  <span>SUBSCRIBE</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
+            </span>
+          </motion.button>
         </div>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full px-8 py-4 bg-foreground text-background font-medium rounded-full hover:bg-primary transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Subscribing...
-            </>
-          ) : (
-            <>
-              Subscribe
-              <ArrowRight className="w-4 h-4" />
-            </>
-          )}
-        </button>
       </form>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className={className}>
+    <form onSubmit={handleSubmit} className={`relative ${className}`}>
+      {/* Decorative elements */}
+      <motion.div
+        className="absolute -top-6 left-10 w-6 h-6 border border-accent/30 rotate-12"
+        style={{ x: smoothX, y: smoothY }}
+      />
+      
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="flex-1">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className={`w-full px-6 py-4 bg-background border rounded-full focus:outline-none transition-colors ${
-              error ? 'border-destructive focus:border-destructive' : 'border-border focus:border-primary'
-            }`}
-          />
+        <div className="flex-1 relative group">
+          {/* Input with unique border style */}
+          <div className={`relative transition-all duration-300 ${isFocused ? 'transform -translate-y-1' : ''}`}>
+            <div className={`absolute inset-0 border transition-colors duration-300 ${
+              error ? 'border-destructive' : isFocused ? 'border-primary' : 'border-border'
+            }`} />
+            
+            {/* Corner accents */}
+            <div className={`absolute -top-1 -left-1 w-3 h-3 border-l-2 border-t-2 transition-colors duration-300 ${
+              isFocused ? 'border-primary' : 'border-transparent'
+            }`} />
+            <div className={`absolute -bottom-1 -right-1 w-3 h-3 border-r-2 border-b-2 transition-colors duration-300 ${
+              isFocused ? 'border-primary' : 'border-transparent'
+            }`} />
+            
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholder="Enter your email"
+              className="w-full px-6 py-4 bg-transparent focus:outline-none transition-colors font-mono text-sm"
+            />
+          </div>
         </div>
-        <button
+        
+        <motion.button
           type="submit"
           disabled={isSubmitting}
-          className="px-8 py-4 bg-foreground text-background font-medium rounded-full hover:bg-primary transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
+          whileHover={{ scale: 1.02, x: 5 }}
+          whileTap={{ scale: 0.98 }}
+          className="group relative px-8 py-4 bg-foreground text-background font-syne font-bold overflow-hidden disabled:opacity-70"
         >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Subscribing...
-            </>
-          ) : (
-            <>
-              Subscribe
-              <ArrowRight className="w-4 h-4" />
-            </>
-          )}
-        </button>
+          {/* Button hover effect */}
+          <div className="absolute inset-0 bg-primary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500" />
+          
+          <span className="relative flex items-center justify-center gap-2">
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="font-mono text-sm">...</span>
+              </>
+            ) : (
+              <>
+                <span>SUBSCRIBE</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </span>
+        </motion.button>
       </div>
+      
       {error && (
-        <p className="mt-2 text-sm text-destructive">{error}</p>
+        <motion.p 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-3 text-sm text-destructive font-mono flex items-center gap-2"
+        >
+          <span className="w-1 h-1 bg-destructive" />
+          {error}
+        </motion.p>
       )}
     </form>
   );

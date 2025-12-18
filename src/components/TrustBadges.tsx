@@ -40,17 +40,26 @@ const TrustBadges = ({ variant = 'horizontal', className = '' }: TrustBadgesProp
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="flex flex-col items-center text-center p-4 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors"
+            whileHover={{ y: -5, scale: 1.02 }}
+            className="group relative p-6 bg-card border border-border hover:border-primary/50 transition-all duration-300"
           >
-            <div className="p-3 rounded-xl bg-primary/10 mb-3">
-              <badge.icon className="w-6 h-6 text-primary" />
+            {/* Corner accents */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-transparent group-hover:border-primary transition-colors duration-300" />
+            <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-transparent group-hover:border-primary transition-colors duration-300" />
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-transparent group-hover:border-primary transition-colors duration-300" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-transparent group-hover:border-primary transition-colors duration-300" />
+            
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 border border-primary/30 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
+                <badge.icon className="w-5 h-5 text-primary" />
+              </div>
+              <h4 className="font-syne font-bold text-foreground text-sm mb-1">
+                {badge.title}
+              </h4>
+              <p className="text-xs text-muted-foreground font-mono">
+                {badge.description}
+              </p>
             </div>
-            <h4 className="font-display font-semibold text-foreground text-sm">
-              {badge.title}
-            </h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              {badge.description}
-            </p>
           </motion.div>
         ))}
       </div>
@@ -58,7 +67,7 @@ const TrustBadges = ({ variant = 'horizontal', className = '' }: TrustBadgesProp
   }
 
   return (
-    <div className={`flex flex-wrap items-center justify-center gap-8 ${className}`}>
+    <div className={`flex flex-wrap items-center justify-center gap-6 md:gap-10 ${className}`}>
       {badges.map((badge, index) => (
         <motion.div
           key={badge.title}
@@ -66,16 +75,21 @@ const TrustBadges = ({ variant = 'horizontal', className = '' }: TrustBadgesProp
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: index * 0.1 }}
-          className="flex items-center gap-3 group"
+          whileHover={{ y: -3, scale: 1.02 }}
+          className="group relative flex items-center gap-4 p-4 border border-transparent hover:border-primary/20 transition-all duration-300"
         >
-          <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-            <badge.icon className="w-5 h-5 text-primary" />
+          {/* Corner accents on hover */}
+          <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-transparent group-hover:border-primary/40 transition-colors duration-300" />
+          <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-transparent group-hover:border-primary/40 transition-colors duration-300" />
+          
+          <div className="w-10 h-10 border border-border group-hover:border-primary/50 flex items-center justify-center transition-colors">
+            <badge.icon className="w-4 h-4 text-primary" />
           </div>
           <div>
-            <p className="font-display font-medium text-foreground text-sm">
+            <p className="font-syne font-bold text-foreground text-sm">
               {badge.title}
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground font-mono">
               {badge.description}
             </p>
           </div>
