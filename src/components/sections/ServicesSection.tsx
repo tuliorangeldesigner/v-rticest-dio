@@ -53,55 +53,72 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative p-6 sm:p-8 md:p-10 border border-border bg-card/50 backdrop-blur-sm rounded-lg transition-all duration-500 hover:bg-secondary/50 cursor-pointer"
-      style={{
-        transform: isHovered ? 'perspective(1000px) rotateX(2deg) rotateY(-2deg)' : 'none',
-      }}
+      className="group relative p-6 sm:p-8 md:p-10 border border-border bg-card/50 backdrop-blur-sm rounded-lg cursor-pointer card-interactive"
     >
+      {/* Animated Background Gradient */}
+      <motion.div
+        className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(var(--accent) / 0.08) 0%, transparent 50%)',
+        }}
+      />
+
       {/* Icon */}
       <motion.div
-        animate={{ rotate: isHovered ? 360 : 0 }}
-        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-        className="w-12 h-12 flex items-center justify-center mb-6"
+        animate={{ 
+          rotate: isHovered ? 360 : 0,
+          scale: isHovered ? 1.1 : 1,
+        }}
+        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+        className="relative w-14 h-14 flex items-center justify-center mb-6 rounded-xl bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300"
       >
-        <Icon className="w-8 h-8 text-accent" strokeWidth={1.5} />
+        <Icon className="w-7 h-7 text-accent icon-bounce" strokeWidth={1.5} />
       </motion.div>
 
       {/* Title */}
-      <h3 className="heading-md mb-4 group-hover:text-accent transition-colors duration-300">
+      <h3 className="heading-md mb-4 group-hover:text-accent transition-colors duration-300 text-slide-up">
         {service.title}
       </h3>
 
       {/* Description */}
-      <p className="body-md text-muted-foreground">
+      <p className="body-md text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-300">
         {service.description}
       </p>
 
       {/* Hover line */}
       <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: isHovered ? 1 : 0 }}
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ 
+          scaleX: isHovered ? 1 : 0,
+          opacity: isHovered ? 1 : 0,
+        }}
         transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-        className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
+        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-accent/50 origin-left rounded-b-lg"
       />
 
       {/* Corner accent */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
+        animate={{ 
+          opacity: isHovered ? 1 : 0,
+          scale: isHovered ? 1 : 0.5,
+          rotate: isHovered ? 0 : -45,
+        }}
+        transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
         className="absolute top-4 right-4"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M7 17L17 7M17 7H7M17 7V17"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-accent"
-          />
-        </svg>
+        <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M7 17L17 7M17 7H7M17 7V17"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-accent"
+            />
+          </svg>
+        </div>
       </motion.div>
     </motion.div>
   );

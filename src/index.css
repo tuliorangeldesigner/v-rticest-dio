@@ -342,6 +342,108 @@
   .card-3d:hover {
     transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) scale(1.02);
   }
+
+  /* Enhanced Card Styles */
+  .card-interactive {
+    @apply relative overflow-hidden transition-all duration-500 ease-out;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 hsl(var(--accent) / 0);
+  }
+
+  .card-interactive::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, hsl(var(--accent) / 0.05) 0%, transparent 60%);
+  }
+
+  .card-interactive:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 20px 40px -15px hsl(var(--foreground) / 0.1),
+                0 0 0 1px hsl(var(--accent) / 0.1);
+  }
+
+  .card-interactive:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Subtle Lift Effect */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px hsl(var(--foreground) / 0.15);
+  }
+
+  /* Glow Effect on Hover */
+  .hover-glow {
+    @apply transition-all duration-500;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--accent) / 0.2);
+  }
+
+  /* Icon Bounce */
+  .icon-bounce {
+    @apply transition-transform duration-300;
+  }
+
+  .group:hover .icon-bounce {
+    animation: iconBounce 0.5s ease-out;
+  }
+
+  @keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  /* Text Slide Up */
+  .text-slide-up {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .group:hover .text-slide-up {
+    transform: translateY(-2px);
+  }
+
+  /* Border Glow */
+  .border-glow {
+    @apply relative;
+  }
+
+  .border-glow::after {
+    content: '';
+    @apply absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500;
+    box-shadow: inset 0 0 0 1px hsl(var(--accent) / 0.5);
+  }
+
+  .border-glow:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Smooth Image Zoom */
+  .img-zoom {
+    @apply overflow-hidden;
+  }
+
+  .img-zoom img {
+    @apply transition-transform duration-700 ease-out;
+  }
+
+  .img-zoom:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Button Press Effect */
+  .btn-press {
+    @apply transition-transform duration-150;
+  }
+
+  .btn-press:active {
+    transform: scale(0.97);
+  }
 }
 
 @layer utilities {

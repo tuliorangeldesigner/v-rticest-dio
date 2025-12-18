@@ -82,15 +82,26 @@ export const TestimonialsSection = () => {
           </div>
 
           {/* Indicators */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-3 mt-8">
             {testimonials.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`w-12 h-1 transition-all duration-300 ${
-                  activeIndex === index ? 'bg-accent' : 'bg-border'
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`relative h-2 rounded-full transition-all duration-500 overflow-hidden ${
+                  activeIndex === index ? 'w-12 bg-accent' : 'w-8 bg-border hover:bg-muted-foreground/30'
                 }`}
-              />
+              >
+                {activeIndex === index && (
+                  <motion.div
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '100%' }}
+                    transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                  />
+                )}
+              </motion.button>
             ))}
           </div>
         </div>
@@ -107,12 +118,13 @@ export const TestimonialsSection = () => {
               className="flex gap-16 whitespace-nowrap"
             >
               {[...clients, ...clients].map((client, index) => (
-                <span
+                <motion.span
                   key={index}
-                  className="label text-muted-foreground/60 hover:text-foreground transition-colors cursor-default"
+                  whileHover={{ scale: 1.1, color: 'hsl(var(--foreground))' }}
+                  className="label text-muted-foreground/60 cursor-default transition-colors duration-300"
                 >
                   {client}
-                </span>
+                </motion.span>
               ))}
             </motion.div>
           </div>
