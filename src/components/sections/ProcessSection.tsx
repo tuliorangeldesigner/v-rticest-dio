@@ -36,103 +36,116 @@ const steps = [
   },
 ];
 
-interface StepCardProps {
+interface StepItemProps {
   step: typeof steps[0];
   index: number;
   activeIndex: number | null;
   setActiveIndex: (index: number | null) => void;
+  isLast: boolean;
 }
 
-const StepCard = ({ step, index, activeIndex, setActiveIndex }: StepCardProps) => {
+const StepItem = ({ step, index, activeIndex, setActiveIndex, isLast }: StepItemProps) => {
   const Icon = step.icon;
   const isActive = activeIndex === index;
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       onMouseEnter={() => setActiveIndex(index)}
       onMouseLeave={() => setActiveIndex(null)}
       className="group relative"
     >
-      <div className={`relative p-8 md:p-10 border transition-all duration-500 ${
-        isActive 
-          ? 'bg-accent/5 border-accent/30' 
-          : 'bg-card/30 border-border/50 hover:border-border'
-      }`}>
-        {/* Number */}
-        <motion.span 
-          className={`absolute top-4 right-4 text-xs font-mono transition-colors duration-300 ${
-            isActive ? 'text-accent' : 'text-muted-foreground/40'
-          }`}
-          animate={{ opacity: isActive ? 1 : 0.4 }}
-        >
-          STEP {step.number}
-        </motion.span>
-
-        {/* Icon with animation */}
-        <motion.div
-          animate={{ 
-            rotate: isActive ? 360 : 0,
-            scale: isActive ? 1.1 : 1 
-          }}
-          transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-          className="w-14 h-14 flex items-center justify-center mb-6 relative"
-        >
-          <div className={`absolute inset-0 rounded-lg border transition-all duration-300 ${
-            isActive ? 'border-accent bg-accent/10' : 'border-border'
-          }`} />
-          <Icon className={`w-7 h-7 relative z-10 transition-colors duration-300 ${
-            isActive ? 'text-accent' : 'text-foreground/70'
-          }`} strokeWidth={1.5} />
-        </motion.div>
-
-        {/* Content */}
-        <motion.h3 
-          className="font-syne font-bold text-xl md:text-2xl mb-3 transition-colors duration-300"
-          animate={{ x: isActive ? 5 : 0 }}
-        >
-          {step.title}
-        </motion.h3>
-        <p className="text-muted-foreground leading-relaxed">
-          {step.description}
-        </p>
-
-        {/* Bottom line */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isActive ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-        />
-
-        {/* Corner accent */}
-        <motion.div
-          className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-accent"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
-          transition={{ duration: 0.3 }}
-        />
-
-        {/* Arrow */}
-        <motion.div
-          className="absolute bottom-4 right-4"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
-          transition={{ duration: 0.3 }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-accent">
-            <path
-              d="M7 17L17 7M17 7H7M17 7V17"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+      <div className="flex gap-6 md:gap-12">
+        {/* Left: Number */}
+        <div className="flex flex-col items-center">
+          <motion.div
+            className={`relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 border-2 transition-all duration-500 ${
+              isActive 
+                ? 'border-accent bg-accent/10' 
+                : 'border-border bg-card/30'
+            }`}
+            animate={{ scale: isActive ? 1.05 : 1 }}
+          >
+            <span className={`font-syne font-bold text-2xl md:text-3xl transition-colors duration-300 ${
+              isActive ? 'text-accent' : 'text-muted-foreground'
+            }`}>
+              {step.number}
+            </span>
+          </motion.div>
+          
+          {/* Connecting line */}
+          {!isLast && (
+            <motion.div
+              className="w-px flex-1 min-h-[60px] bg-border mt-4"
+              initial={{ scaleY: 0 }}
+              animate={isInView ? { scaleY: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              style={{ originY: 0 }}
             />
-          </svg>
-        </motion.div>
+          )}
+        </div>
+
+        {/* Right: Content */}
+        <div className={`flex-1 pb-12 md:pb-16 border-b transition-colors duration-300 ${
+          isLast ? 'border-transparent' : 'border-border/50'
+        }`}>
+          <div className={`p-6 md:p-8 border transition-all duration-500 ${
+            isActive 
+              ? 'bg-accent/5 border-accent/30' 
+              : 'bg-card/30 border-border/50 hover:border-border'
+          }`}>
+            {/* Icon & Title Row */}
+            <div className="flex items-start gap-4 mb-4">
+              <motion.div
+                animate={{ 
+                  rotate: isActive ? 360 : 0,
+                  scale: isActive ? 1.1 : 1 
+                }}
+                transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+                className="w-12 h-12 flex items-center justify-center relative flex-shrink-0"
+              >
+                <div className={`absolute inset-0 rounded-lg border transition-all duration-300 ${
+                  isActive ? 'border-accent bg-accent/10' : 'border-border'
+                }`} />
+                <Icon className={`w-6 h-6 relative z-10 transition-colors duration-300 ${
+                  isActive ? 'text-accent' : 'text-foreground/70'
+                }`} strokeWidth={1.5} />
+              </motion.div>
+
+              <motion.h3 
+                className="font-syne font-bold text-xl md:text-2xl lg:text-3xl transition-colors duration-300 pt-2"
+                animate={{ x: isActive ? 5 : 0 }}
+              >
+                {step.title}
+              </motion.h3>
+            </div>
+
+            <p className="text-muted-foreground leading-relaxed md:text-lg">
+              {step.description}
+            </p>
+
+            {/* Bottom line */}
+            <motion.div
+              className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: isActive ? 1 : 0 }}
+              transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+            />
+
+            {/* Corner accent */}
+            <motion.div
+              className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-accent"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -203,28 +216,16 @@ export const ProcessSection = () => {
           </motion.p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {steps.slice(0, 3).map((step, index) => (
-            <StepCard 
+        {/* Steps - Vertical Stack */}
+        <div className="max-w-4xl">
+          {steps.map((step, index) => (
+            <StepItem 
               key={step.number} 
               step={step} 
               index={index}
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
-            />
-          ))}
-        </div>
-        
-        {/* Bottom row - 2 cards centered */}
-        <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6 max-w-[calc(66.666%+12px)] mx-auto">
-          {steps.slice(3).map((step, index) => (
-            <StepCard 
-              key={step.number} 
-              step={step} 
-              index={index + 3}
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
+              isLast={index === steps.length - 1}
             />
           ))}
         </div>
