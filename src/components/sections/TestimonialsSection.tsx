@@ -1,0 +1,125 @@
+import { motion, useInView } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { AnimatedLine } from '@/components/AnimatedText';
+
+const testimonials = [
+  {
+    id: 1,
+    quote: "Working with STUDIO was transformative. They didn't just deliver a website—they crafted an experience that perfectly captures our brand's essence.",
+    author: 'Sarah Chen',
+    role: 'CEO, Luminary Tech',
+  },
+  {
+    id: 2,
+    quote: "Their attention to detail and creative vision exceeded every expectation. The results speak for themselves—our engagement has never been higher.",
+    author: 'Michael Rivera',
+    role: 'Founder, Cascade Ventures',
+  },
+  {
+    id: 3,
+    quote: "A true partnership from day one. They challenged our thinking, pushed boundaries, and delivered work we're incredibly proud of.",
+    author: 'Emma Watson',
+    role: 'CMO, Ethereal Design',
+  },
+];
+
+const clients = [
+  'LUMINARY', 'ETHEREAL', 'ZENITH', 'CASCADE', 'AURORA', 'NEXUS',
+  'VERTEX', 'PRISM', 'ORBIT', 'STELLAR',
+];
+
+export const TestimonialsSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section ref={ref} className="section-padding bg-secondary/30 overflow-hidden">
+      <div className="container-wide">
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-24">
+          <AnimatedLine delay={0.2}>
+            <span className="label text-accent mb-6 block">Testimonials</span>
+          </AnimatedLine>
+          <AnimatedLine delay={0.4}>
+            <h2 className="heading-xl">
+              Words from those we've worked with.
+            </h2>
+          </AnimatedLine>
+        </div>
+
+        {/* Testimonial Carousel */}
+        <div className="relative max-w-4xl mx-auto mb-24">
+          <div className="relative h-[300px] md:h-[250px]">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                initial={{ opacity: 0, filter: 'blur(10px)' }}
+                animate={{
+                  opacity: activeIndex === index ? 1 : 0,
+                  filter: activeIndex === index ? 'blur(0px)' : 'blur(10px)',
+                  y: activeIndex === index ? 0 : 20,
+                }}
+                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                className="absolute inset-0 flex flex-col items-center justify-center text-center"
+              >
+                <blockquote className="heading-md mb-8 text-balance">
+                  "{testimonial.quote}"
+                </blockquote>
+                <div>
+                  <span className="font-syne font-semibold block">{testimonial.author}</span>
+                  <span className="text-muted-foreground">{testimonial.role}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`w-12 h-1 transition-all duration-300 ${
+                  activeIndex === index ? 'bg-accent' : 'bg-border'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Client Marquee */}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-secondary/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-secondary/30 to-transparent z-10" />
+          
+          <div className="overflow-hidden py-8 border-y border-border">
+            <motion.div
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+              className="flex gap-16 whitespace-nowrap"
+            >
+              {[...clients, ...clients].map((client, index) => (
+                <span
+                  key={index}
+                  className="label text-muted-foreground/60 hover:text-foreground transition-colors cursor-default"
+                >
+                  {client}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TestimonialsSection;
