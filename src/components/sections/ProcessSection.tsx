@@ -1,7 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
-import { Compass, Target, Palette, Code, Rocket, ArrowRight } from 'lucide-react';
+import { Compass, Target, Palette, Code, Rocket } from 'lucide-react';
 
 const steps = [
   {
@@ -46,145 +46,94 @@ interface StepCardProps {
 const StepCard = ({ step, index, activeIndex, setActiveIndex }: StepCardProps) => {
   const Icon = step.icon;
   const isActive = activeIndex === index;
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.19, 1, 0.22, 1] }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
       onMouseEnter={() => setActiveIndex(index)}
       onMouseLeave={() => setActiveIndex(null)}
       className="group relative"
     >
-      {/* Glow effect behind card */}
-      <motion.div
-        className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-accent/20 via-primary/10 to-accent/20 blur-xl opacity-0 transition-opacity duration-500"
-        animate={{ opacity: isActive ? 0.6 : 0 }}
-      />
+      <div className={`relative p-8 md:p-10 border transition-all duration-500 ${
+        isActive 
+          ? 'bg-accent/5 border-accent/30' 
+          : 'bg-card/30 border-border/50 hover:border-border'
+      }`}>
+        {/* Number */}
+        <motion.span 
+          className={`absolute top-4 right-4 text-xs font-mono transition-colors duration-300 ${
+            isActive ? 'text-accent' : 'text-muted-foreground/40'
+          }`}
+          animate={{ opacity: isActive ? 1 : 0.4 }}
+        >
+          STEP {step.number}
+        </motion.span>
 
-      {/* Main Card */}
-      <motion.div
-        className={`relative overflow-hidden rounded-2xl backdrop-blur-xl transition-all duration-500 ${
-          isActive 
-            ? 'bg-card/80 border border-accent/30 shadow-[0_0_40px_-10px] shadow-accent/30' 
-            : 'bg-card/40 border border-border/30 hover:bg-card/60'
-        }`}
-        animate={{ 
-          scale: isActive ? 1.01 : 1,
-          y: isActive ? -4 : 0,
-        }}
-        transition={{ duration: 0.4 }}
-      >
-        {/* Glassmorphism overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent pointer-events-none" />
-        
-        {/* Accent line on left */}
+        {/* Icon with animation */}
         <motion.div
-          className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/50 to-transparent"
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: isActive ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-          style={{ originY: 0 }}
-        />
+          animate={{ 
+            rotate: isActive ? 360 : 0,
+            scale: isActive ? 1.1 : 1 
+          }}
+          transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+          className="w-14 h-14 flex items-center justify-center mb-6 relative"
+        >
+          <div className={`absolute inset-0 rounded-lg border transition-all duration-300 ${
+            isActive ? 'border-accent bg-accent/10' : 'border-border'
+          }`} />
+          <Icon className={`w-7 h-7 relative z-10 transition-colors duration-300 ${
+            isActive ? 'text-accent' : 'text-foreground/70'
+          }`} strokeWidth={1.5} />
+        </motion.div>
 
         {/* Content */}
-        <div className="relative p-8 md:p-10">
-          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
-            {/* Number */}
-            <motion.div
-              className="flex-shrink-0"
-              animate={{ scale: isActive ? 1.05 : 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className={`font-syne font-black text-5xl md:text-6xl bg-gradient-to-br transition-all duration-500 bg-clip-text text-transparent ${
-                isActive 
-                  ? 'from-accent via-accent to-primary' 
-                  : 'from-muted-foreground/30 to-muted-foreground/10'
-              }`}>
-                {step.number}
-              </span>
-            </motion.div>
+        <motion.h3 
+          className="font-syne font-bold text-xl md:text-2xl mb-3 transition-colors duration-300"
+          animate={{ x: isActive ? 5 : 0 }}
+        >
+          {step.title}
+        </motion.h3>
+        <p className="text-muted-foreground leading-relaxed">
+          {step.description}
+        </p>
 
-            {/* Icon */}
-            <motion.div
-              className={`flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center transition-all duration-500 ${
-                isActive 
-                  ? 'bg-accent/20 border border-accent/40' 
-                  : 'bg-muted/30 border border-border/30'
-              }`}
-              animate={{ 
-                rotate: isActive ? 3 : 0,
-              }}
-            >
-              <Icon className={`w-7 h-7 md:w-8 md:h-8 transition-colors duration-300 ${
-                isActive ? 'text-accent' : 'text-muted-foreground'
-              }`} strokeWidth={1.5} />
-            </motion.div>
-
-            {/* Text Content */}
-            <div className="flex-1 min-w-0">
-              <motion.h3 
-                className={`font-syne font-bold text-2xl md:text-3xl mb-3 transition-colors duration-300 ${
-                  isActive ? 'text-foreground' : 'text-foreground/80'
-                }`}
-                animate={{ x: isActive ? 4 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {step.title}
-              </motion.h3>
-              <p className={`text-base md:text-lg leading-relaxed transition-colors duration-300 ${
-                isActive ? 'text-muted-foreground' : 'text-muted-foreground/70'
-              }`}>
-                {step.description}
-              </p>
-            </div>
-
-            {/* Arrow */}
-            <motion.div
-              className="hidden md:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full transition-all duration-500"
-              animate={{ 
-                backgroundColor: isActive ? 'hsl(var(--accent) / 0.15)' : 'transparent',
-                borderColor: isActive ? 'hsl(var(--accent) / 0.4)' : 'hsl(var(--border) / 0.3)',
-                x: isActive ? 4 : 0,
-              }}
-              style={{ borderWidth: '1px' }}
-            >
-              <ArrowRight className={`w-5 h-5 transition-all duration-300 ${
-                isActive ? 'text-accent' : 'text-muted-foreground/50'
-              }`} />
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Shimmer effect on hover */}
+        {/* Bottom line */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full"
-          animate={{ x: isActive ? '200%' : '-100%' }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isActive ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
         />
-      </motion.div>
 
-      {/* Connector dot */}
-      {index < steps.length - 1 && (
-        <div className="flex justify-center py-6">
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-          >
-            <div className="w-2 h-2 rounded-full bg-border" />
-            <motion.div
-              className="absolute inset-0 w-2 h-2 rounded-full bg-accent"
-              animate={{ scale: isActive || activeIndex === index + 1 ? 1.5 : 1, opacity: isActive || activeIndex === index + 1 ? 1 : 0 }}
-              transition={{ duration: 0.3 }}
+        {/* Corner accent */}
+        <motion.div
+          className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-accent"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
+          transition={{ duration: 0.3 }}
+        />
+
+        {/* Arrow */}
+        <motion.div
+          className="absolute bottom-4 right-4"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
+          transition={{ duration: 0.3 }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-accent">
+            <path
+              d="M7 17L17 7M17 7H7M17 7V17"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
-          </motion.div>
-        </div>
-      )}
+          </svg>
+        </motion.div>
+      </div>
     </motion.div>
   );
 };
@@ -196,87 +145,89 @@ export const ProcessSection = () => {
 
   return (
     <section ref={ref} className="section-padding relative overflow-hidden">
-      {/* Background */}
+      {/* Background grid */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Subtle grid */}
-        <div className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }}
-        />
-        {/* Gradient orbs */}
-        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 -left-32 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={`grid-${i}`}
+            className="absolute left-0 right-0 h-px bg-foreground/5"
+            style={{ top: `${20 * (i + 1)}%` }}
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ delay: i * 0.1, duration: 1.5 }}
+          />
+        ))}
       </div>
 
-      <div className="container-wide relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="flex items-center justify-center gap-4 mb-8"
-          >
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-accent" />
-            <span className="text-sm font-mono text-accent">04</span>
-            <span className="text-sm font-mono text-muted-foreground tracking-wider">OUR PROCESS</span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-accent" />
-          </motion.div>
+      {/* Floating shapes */}
+      <motion.div
+        className="absolute top-20 right-20 w-32 h-32 border border-accent/20 rounded-full"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute bottom-40 left-10 w-4 h-4 bg-accent/30 rounded-full"
+        animate={{ y: [-20, 20, -20] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-          <AnimatedLine delay={0.3}>
-            <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1] mb-6">
-              A structured approach to <span className="text-accent">exceptional</span> outcomes.
-            </h2>
-          </AnimatedLine>
+      <div className="container-wide relative z-10">
+        {/* Section header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-24">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <span className="text-sm font-mono text-accent">04</span>
+              <div className="h-px w-12 bg-accent" />
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">OUR PROCESS</span>
+            </motion.div>
+
+            <AnimatedLine delay={0.3}>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
+                A structured approach to exceptional outcomes.
+              </h2>
+            </AnimatedLine>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.5 }}
-            className="text-muted-foreground text-lg"
+            className="text-muted-foreground max-w-md"
           >
             Every project follows our proven methodology, refined over years of delivering successful digital products.
           </motion.p>
         </div>
 
-        {/* Cards */}
-        <div className="max-w-4xl mx-auto">
-          {steps.map((step, index) => (
-            <StepCard
-              key={step.number}
-              step={step}
+        {/* Steps Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {steps.slice(0, 3).map((step, index) => (
+            <StepCard 
+              key={step.number} 
+              step={step} 
               index={index}
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
             />
           ))}
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-16 md:mt-20 text-center"
-        >
-          <motion.a 
-            href="#contact"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-full font-medium text-accent-foreground transition-all duration-300"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {/* Button background with glow */}
-            <div className="absolute inset-0 bg-accent rounded-full" />
-            <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
-            <div className="absolute -inset-1 bg-accent/50 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
-            
-            <span className="relative">Start Your Project</span>
-            <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
-        </motion.div>
+        
+        {/* Bottom row - 2 cards centered */}
+        <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6 max-w-[calc(66.666%+12px)] mx-auto">
+          {steps.slice(3).map((step, index) => (
+            <StepCard 
+              key={step.number} 
+              step={step} 
+              index={index + 3}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
