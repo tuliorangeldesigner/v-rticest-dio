@@ -8,6 +8,8 @@ import CustomCursor from '@/components/CustomCursor';
 import SmoothScroll from '@/components/SmoothScroll';
 import MagneticButton from '@/components/MagneticButton';
 import { AnimatedLine } from '@/components/AnimatedText';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import PageTransition from '@/components/PageTransition';
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,7 +50,7 @@ const CaseStudy = () => {
   const prevProject = getProjectById(project.prevProject);
 
   return (
-    <>
+    <PageTransition>
       <Helmet>
         <title>{project.title} | STUDIO Case Study</title>
         <meta name="description" content={project.description} />
@@ -335,7 +337,7 @@ const CaseStudy = () => {
           </div>
         </section>
       </SmoothScroll>
-    </>
+    </PageTransition>
   );
 };
 

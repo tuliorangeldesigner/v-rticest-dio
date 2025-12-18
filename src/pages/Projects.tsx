@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '@/data/projects';
 import { ArrowLeft } from 'lucide-react';
+import PageTransition from '@/components/PageTransition';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
 
@@ -15,9 +17,10 @@ const Projects = () => {
   }, [activeCategory]);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8">
+    <PageTransition>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8">
         <div className="container-wide flex items-center justify-between">
           <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
             STUDIO<span className="text-accent">.</span>
@@ -164,7 +167,8 @@ const Projects = () => {
           <span className="text-sm text-foreground/50">© 2024 All rights reserved.</span>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

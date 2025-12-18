@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { blogPosts } from '@/data/blog';
+import PageTransition from '@/components/PageTransition';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const categories = ['All', ...Array.from(new Set(blogPosts.map(p => p.category)))];
 
@@ -17,12 +19,13 @@ const Blog = () => {
   const featuredPost = blogPosts.find(p => p.featured);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8 bg-background/80 backdrop-blur-sm">
-        <div className="container-wide flex items-center justify-between">
-          <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
-            STUDIO<span className="text-accent">.</span>
+    <PageTransition>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8 bg-background/80 backdrop-blur-sm">
+          <div className="container-wide flex items-center justify-between">
+            <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
+              STUDIO<span className="text-accent">.</span>
           </Link>
           <Link 
             to="/" 
@@ -221,7 +224,8 @@ const Blog = () => {
           <span className="text-sm text-foreground/50">© 2024 All rights reserved.</span>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

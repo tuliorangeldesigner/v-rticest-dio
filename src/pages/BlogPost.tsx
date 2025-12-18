@@ -2,6 +2,8 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import PageTransition from '@/components/PageTransition';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,34 +24,43 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8 bg-background/80 backdrop-blur-sm">
-        <div className="container-wide flex items-center justify-between">
-          <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
-            STUDIO<span className="text-accent">.</span>
-          </Link>
-          <Link 
-            to="/blog" 
-            className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            All Articles
-          </Link>
-        </div>
-      </header>
+    <PageTransition>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8 bg-background/80 backdrop-blur-sm">
+          <div className="container-wide flex items-center justify-between">
+            <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
+              STUDIO<span className="text-accent">.</span>
+            </Link>
+            <Link 
+              to="/blog" 
+              className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              All Articles
+            </Link>
+          </div>
+        </header>
 
-      {/* Hero */}
-      <section className="pt-32 pb-8 md:pt-40 md:pb-12">
-        <div className="container-wide max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-          >
-            <span className="text-accent text-sm uppercase tracking-widest mb-4 block">
-              {post.category}
-            </span>
+        {/* Hero */}
+        <section className="pt-32 pb-8 md:pt-40 md:pb-12">
+          <div className="container-wide max-w-4xl mx-auto">
+            {/* Breadcrumbs */}
+            <div className="mb-8">
+              <Breadcrumbs items={[
+                { label: 'Blog', href: '/blog' },
+                { label: post.title.length > 40 ? post.title.substring(0, 40) + '...' : post.title }
+              ]} />
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <span className="text-accent text-sm uppercase tracking-widest mb-4 block">
+                {post.category}
+              </span>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6 leading-tight">
               {post.title}
             </h1>
@@ -229,7 +240,8 @@ const BlogPost = () => {
           <span className="text-sm text-foreground/50">© 2024 All rights reserved.</span>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 
