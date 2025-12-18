@@ -1,38 +1,101 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
+
+const stats = [
+  { number: '150+', label: 'Projects', description: 'Successfully delivered' },
+  { number: '12', label: 'Awards', description: 'Industry recognition' },
+  { number: '98%', label: 'Happy Clients', description: 'Satisfaction rate' },
+];
 
 export const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: (e.clientX - rect.left - rect.width / 2) / 30,
+      y: (e.clientY - rect.top - rect.height / 2) / 30,
+    });
+  };
 
   return (
-    <section id="about" ref={ref} className="section-padding bg-secondary/30">
-      <div className="container-wide">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section 
+      id="about" 
+      ref={ref} 
+      onMouseMove={handleMouseMove}
+      className="section-padding bg-secondary/30 relative overflow-hidden"
+    >
+      {/* Grid overlay */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`h-${i}`}
+            className="absolute left-0 right-0 h-px bg-foreground/5"
+            style={{ top: `${16.66 * (i + 1)}%` }}
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ delay: i * 0.05, duration: 1.2 }}
+          />
+        ))}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={`v-${i}`}
+            className="absolute top-0 bottom-0 w-px bg-foreground/5"
+            style={{ left: `${25 * (i + 1)}%` }}
+            initial={{ scaleY: 0 }}
+            animate={isInView ? { scaleY: 1 } : {}}
+            transition={{ delay: 0.2 + i * 0.05, duration: 1.2 }}
+          />
+        ))}
+      </div>
+
+      {/* Floating accent orb */}
+      <motion.div
+        className="absolute w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none"
+        style={{
+          x: mousePosition.x * 2,
+          y: mousePosition.y * 2,
+          top: '20%',
+          right: '10%',
+        }}
+      />
+
+      <div className="container-wide relative z-10">
+        {/* Section header with number */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="flex items-center gap-4 mb-16 md:mb-24"
+        >
+          <span className="text-sm font-mono text-accent">01</span>
+          <div className="h-px w-12 bg-accent" />
+          <span className="text-sm font-mono text-muted-foreground tracking-wider">ABOUT US</span>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Text Content */}
           <div className="order-2 lg:order-1">
             <AnimatedLine delay={0.2}>
-              <span className="label text-accent mb-6 block">About Us</span>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]">
+                We are a team of creative minds & craftsmen.
+              </h2>
             </AnimatedLine>
-            
-            <div className="space-y-6">
-              <AnimatedLine delay={0.3}>
-                <h2 className="heading-lg">
-                  We are a team of creative minds, strategists, and craftsmen.
-                </h2>
-              </AnimatedLine>
 
-              <AnimatedLine delay={0.5}>
-                <p className="body-lg text-muted-foreground">
+            <div className="space-y-6 mb-12">
+              <AnimatedLine delay={0.4}>
+                <p className="text-lg text-muted-foreground leading-relaxed">
                   Founded in 2019, our studio has been at the forefront of digital innovation. 
                   We blend strategy, creativity, and technology to build experiences that 
                   resonate with audiences and drive meaningful results.
                 </p>
               </AnimatedLine>
 
-              <AnimatedLine delay={0.7}>
-                <p className="body-md text-muted-foreground">
+              <AnimatedLine delay={0.5}>
+                <p className="text-muted-foreground leading-relaxed">
                   Our approach is rooted in collaboration. We work closely with brands 
                   to understand their vision, challenge conventions, and create work 
                   that stands apart in today's crowded digital landscape.
@@ -40,49 +103,87 @@ export const AboutSection = () => {
               </AnimatedLine>
             </div>
 
-            {/* Stats */}
+            {/* Stats with unique design */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.9, ease: [0.19, 1, 0.22, 1] }}
-              className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-10 pt-10 border-t border-border"
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="grid grid-cols-3 gap-6"
             >
-              {[
-                { number: '150+', label: 'Projects' },
-                { number: '12', label: 'Awards' },
-                { number: '98%', label: 'Happy Clients' },
-              ].map((stat, i) => (
-                <div key={i}>
-                  <span className="heading-md text-accent">{stat.number}</span>
-                  <span className="block label text-muted-foreground mt-2">{stat.label}</span>
-                </div>
+              {stats.map((stat, i) => (
+                <motion.div 
+                  key={stat.label}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.7 + i * 0.1 }}
+                >
+                  <div className="border-l-2 border-accent/30 pl-4 group-hover:border-accent transition-colors duration-300">
+                    <span className="font-syne font-bold text-3xl md:text-4xl text-foreground group-hover:text-accent transition-colors duration-300">
+                      {stat.number}
+                    </span>
+                    <span className="block text-sm font-medium text-foreground mt-1">{stat.label}</span>
+                    <span className="block text-xs text-muted-foreground mt-0.5">{stat.description}</span>
+                  </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
 
-          {/* Image */}
+          {/* Image with unique frame */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 1, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
-            className="order-1 lg:order-2 relative aspect-[4/5] overflow-hidden"
+            transition={{ duration: 1, delay: 0.3 }}
+            className="order-1 lg:order-2 relative"
+            style={{
+              x: mousePosition.x * -1,
+              y: mousePosition.y * -1,
+            }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent mix-blend-overlay z-10" />
-            <img
-              src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80"
-              alt="Creative team at work"
-              className="w-full h-full object-cover"
+            {/* Decorative frame */}
+            <motion.div 
+              className="absolute -top-4 -right-4 w-full h-full border border-accent/30"
+              initial={{ opacity: 0, x: 20, y: -20 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+              transition={{ delay: 0.6, duration: 0.8 }}
             />
+            
+            <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
+              <img
+                src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80"
+                alt="Creative team at work"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+              
+              {/* Corner decorations */}
+              <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-accent/50" />
+              <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-accent/50" />
+            </div>
             
             {/* Floating badge */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 1, ease: [0.19, 1, 0.22, 1] }}
-              className="absolute -right-4 bottom-12 bg-background px-6 py-4 shadow-elegant"
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="absolute -left-6 bottom-12 bg-background border border-border px-6 py-4 shadow-xl"
             >
-              <span className="label text-muted-foreground">Since</span>
-              <span className="block heading-md mt-1">2019</span>
+              <span className="text-xs font-mono text-muted-foreground">ESTABLISHED</span>
+              <span className="block font-syne font-bold text-3xl mt-1">2019</span>
+            </motion.div>
+
+            {/* Side label */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ delay: 1 }}
+              className="absolute -right-12 top-1/2 -translate-y-1/2 hidden xl:block"
+              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+            >
+              <span className="text-xs font-mono text-muted-foreground tracking-widest">
+                CRAFTING DIGITAL EXPERIENCES
+              </span>
             </motion.div>
           </motion.div>
         </div>
