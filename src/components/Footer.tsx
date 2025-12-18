@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
+import TrustBadges from '@/components/TrustBadges';
 
 const footerLinks = {
   navigation: [
@@ -15,8 +17,8 @@ const footerLinks = {
     { name: 'Dribbble', href: '#' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
   ],
 };
 
@@ -97,6 +99,11 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* Trust Badges */}
+        <div className="mb-12">
+          <TrustBadges variant="horizontal" />
+        </div>
+
         {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -110,13 +117,13 @@ export const Footer = () => {
           </p>
           <div className="flex gap-6">
             {footerLinks.legal.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
         </motion.div>
