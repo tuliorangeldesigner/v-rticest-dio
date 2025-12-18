@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { name: 'Work', href: '/work', isRoute: true },
@@ -34,54 +35,48 @@ export const Navigation = () => {
         }`}
       >
         <div className="container-wide flex items-center justify-between">
-          <a href="#" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
+          <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
             STUDIO<span className="text-accent">.</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              link.isRoute ? (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="link-hover text-sm tracking-wide text-foreground/80 hover:text-foreground transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ) : (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="link-hover text-sm tracking-wide text-foreground/80 hover:text-foreground transition-colors"
-                >
-                  {link.name}
-                </a>
-              )
+              <Link
+                key={link.name}
+                to={link.href}
+                className="link-hover text-sm tracking-wide text-foreground/80 hover:text-foreground transition-colors"
+              >
+                {link.name}
+              </Link>
             ))}
+            <ThemeToggle />
             <MagneticButton className="px-6 py-3 bg-foreground text-background text-sm font-medium hover:bg-accent transition-colors duration-300">
-              Let's Talk
+              <Link to="/contact">Let's Talk</Link>
             </MagneticButton>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative z-50 w-8 h-8 flex flex-col justify-center items-center gap-1.5"
-          >
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-foreground origin-center"
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="w-6 h-0.5 bg-foreground"
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-foreground origin-center"
-            />
-          </button>
+          {/* Mobile Controls */}
+          <div className="md:hidden flex items-center gap-4">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="relative z-50 w-8 h-8 flex flex-col justify-center items-center gap-1.5"
+            >
+              <motion.span
+                animate={isMobileMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                className="w-6 h-0.5 bg-foreground origin-center"
+              />
+              <motion.span
+                animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="w-6 h-0.5 bg-foreground"
+              />
+              <motion.span
+                animate={isMobileMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                className="w-6 h-0.5 bg-foreground origin-center"
+              />
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -97,36 +92,21 @@ export const Navigation = () => {
           >
             <div className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => (
-                link.isRoute ? (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 30 }}
-                    transition={{ delay: i * 0.1, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                  >
-                    <Link
-                      to={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="heading-md text-foreground"
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 30 }}
-                    transition={{ delay: i * 0.1, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 30 }}
+                  transition={{ delay: i * 0.1, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                >
+                  <Link
+                    to={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="heading-md text-foreground"
                   >
                     {link.name}
-                  </motion.a>
-                )
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </motion.div>

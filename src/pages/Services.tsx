@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import PageTransition from '@/components/PageTransition';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const services = [
   {
@@ -85,7 +87,8 @@ const addOns = [
 
 const Services = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <PageTransition>
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8 bg-background/80 backdrop-blur-sm">
         <div className="container-wide flex items-center justify-between">
@@ -329,7 +332,8 @@ const Services = () => {
           <span className="text-sm text-foreground/50">© 2024 All rights reserved.</span>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

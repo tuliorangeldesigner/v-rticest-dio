@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ArrowLeft, Send, CheckCircle, Loader2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import PageTransition from '@/components/PageTransition';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -58,7 +60,8 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <PageTransition>
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8">
         <div className="container-wide flex items-center justify-between">
@@ -291,7 +294,8 @@ const Contact = () => {
           <span className="text-sm text-foreground/50">© 2024 All rights reserved.</span>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 
