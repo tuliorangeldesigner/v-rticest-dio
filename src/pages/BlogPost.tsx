@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageTransition from '@/components/PageTransition';
+import SEO from '@/components/SEO';
+import { ArticleSchema, BreadcrumbSchema } from '@/components/StructuredData';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +27,31 @@ const BlogPost = () => {
 
   return (
     <PageTransition>
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        image={post.image}
+        url={`https://studio.design/blog/${post.id}`}
+        type="article"
+        author={post.author.name}
+        publishedTime={post.date}
+        section={post.category}
+        tags={[post.category, 'Design', 'Digital']}
+      />
+      <ArticleSchema
+        headline={post.title}
+        description={post.excerpt}
+        image={post.image}
+        datePublished={post.date}
+        author={{ name: post.author.name }}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://studio.design' },
+          { name: 'Blog', url: 'https://studio.design/blog' },
+          { name: post.title, url: `https://studio.design/blog/${post.id}` },
+        ]}
+      />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8 bg-background/80 backdrop-blur-sm">

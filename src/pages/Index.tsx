@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { AnimatePresence, motion } from 'framer-motion';
 import SmoothScroll from '@/components/SmoothScroll';
 import Navigation from '@/components/Navigation';
@@ -13,18 +12,22 @@ import ProcessSection from '@/components/sections/ProcessSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
+import { OrganizationSchema, WebsiteSchema, ProfessionalServiceSchema } from '@/components/StructuredData';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
-      <Helmet>
-        <title>STUDIO | Award-Winning Digital Agency</title>
-        <meta name="description" content="A creative digital studio crafting immersive digital products, brands, and experiences that captivate and inspire. Web design, branding, and digital marketing." />
-        <meta name="keywords" content="digital agency, web design, branding, creative studio, UI/UX design, web development" />
-        <link rel="canonical" href="https://studio.com" />
-      </Helmet>
+      <SEO 
+        title="Award-Winning Digital Agency"
+        description="We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team."
+        url="https://studio.design"
+      />
+      <OrganizationSchema />
+      <WebsiteSchema />
+      <ProfessionalServiceSchema />
 
       <CustomCursor />
 
