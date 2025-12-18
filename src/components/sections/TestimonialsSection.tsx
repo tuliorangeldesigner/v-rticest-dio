@@ -44,20 +44,20 @@ export const TestimonialsSection = () => {
     <section ref={ref} className="section-padding bg-secondary/30 overflow-hidden">
       <div className="container-wide">
         {/* Header */}
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-16 lg:mb-20">
           <AnimatedLine delay={0.2}>
             <span className="label text-accent mb-6 block">Testimonials</span>
           </AnimatedLine>
           <AnimatedLine delay={0.4}>
-            <h2 className="heading-xl">
+            <h2 className="heading-xl max-w-3xl mx-auto">
               Words from those we've worked with.
             </h2>
           </AnimatedLine>
         </div>
 
         {/* Testimonial Carousel */}
-        <div className="relative max-w-4xl mx-auto mb-24">
-          <div className="relative h-[300px] md:h-[250px]">
+        <div className="relative max-w-4xl mx-auto mb-20 lg:mb-24">
+          <div className="relative min-h-[280px] md:min-h-[240px]">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.id}
@@ -68,21 +68,21 @@ export const TestimonialsSection = () => {
                   y: activeIndex === index ? 0 : 20,
                 }}
                 transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                className="absolute inset-0 flex flex-col items-center justify-center text-center"
+                className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
               >
-                <blockquote className="heading-md mb-8 text-balance">
+                <blockquote className="heading-lg mb-10 text-balance max-w-3xl">
                   "{testimonial.quote}"
                 </blockquote>
                 <div>
-                  <span className="font-syne font-semibold block">{testimonial.author}</span>
-                  <span className="text-muted-foreground">{testimonial.role}</span>
+                  <span className="font-syne font-semibold block text-lg">{testimonial.author}</span>
+                  <span className="body-sm text-muted-foreground mt-1 block">{testimonial.role}</span>
                 </div>
               </motion.div>
             ))}
           </div>
 
           {/* Indicators */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-3 mt-12">
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -104,12 +104,12 @@ export const TestimonialsSection = () => {
             <motion.div
               animate={{ x: ['0%', '-50%'] }}
               transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              className="flex gap-16 whitespace-nowrap"
+              className="flex gap-20 whitespace-nowrap"
             >
               {[...clients, ...clients].map((client, index) => (
                 <span
                   key={index}
-                  className="label text-muted-foreground/60 hover:text-foreground transition-colors cursor-default"
+                  className="label text-muted-foreground/50 hover:text-foreground transition-colors cursor-default"
                 >
                   {client}
                 </span>

@@ -28,26 +28,26 @@ export const Navigation = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'py-4' : 'py-6 md:py-8'
+          isScrolled ? 'py-4' : 'py-6 lg:py-8'
         }`}
       >
         <div className="container-wide flex items-center justify-between">
-          <a href="#" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
+          <a href="#" className="font-syne text-xl lg:text-2xl font-bold tracking-tight">
             STUDIO<span className="text-accent">.</span>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden md:flex items-center gap-10 lg:gap-12">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="link-hover text-sm tracking-wide text-foreground/80 hover:text-foreground transition-colors"
+                className="link-hover caption tracking-widest text-foreground/80 hover:text-foreground transition-colors"
               >
                 {link.name}
               </a>
             ))}
-            <MagneticButton className="px-6 py-3 bg-foreground text-background text-sm font-medium hover:bg-accent transition-colors duration-300">
+            <MagneticButton className="px-6 py-3 bg-foreground text-background caption tracking-widest font-medium hover:bg-accent transition-colors duration-300">
               Let's Talk
             </MagneticButton>
           </div>
@@ -83,7 +83,7 @@ export const Navigation = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center md:hidden"
           >
-            <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-col items-center gap-10">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.name}
@@ -93,7 +93,7 @@ export const Navigation = () => {
                   exit={{ opacity: 0, y: 30 }}
                   transition={{ delay: i * 0.1, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="heading-md text-foreground"
+                  className="heading-lg text-foreground"
                 >
                   {link.name}
                 </motion.a>
