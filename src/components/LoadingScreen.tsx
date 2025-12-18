@@ -10,9 +10,8 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Simulate loading progress
-    const duration = 2500; // Total loading time in ms
-    const interval = 30; // Update interval
+    const duration = 2500;
+    const interval = 30;
     const increment = 100 / (duration / interval);
 
     const timer = setInterval(() => {
@@ -51,30 +50,78 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
           transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
           className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-background"
         >
-          {/* Background gradient animation */}
+          {/* Background grid - consistent with other sections */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={`h-${i}`}
+                className="absolute left-0 right-0 h-px bg-foreground/5"
+                style={{ top: `${20 * (i + 1)}%` }}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: i * 0.1, duration: 1.5 }}
+              />
+            ))}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={`v-${i}`}
+                className="absolute top-0 bottom-0 w-px bg-foreground/5"
+                style={{ left: `${25 * (i + 1)}%` }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ delay: 0.2 + i * 0.1, duration: 1.5 }}
+              />
+            ))}
+          </div>
+
+          {/* Floating shapes - consistent with sections */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10"
+            className="absolute top-20 right-20 w-32 h-32 border border-accent/20 rounded-full"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1, rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-16 w-24 h-24 border border-border"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.3, rotate: 45 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
+          <motion.div
+            className="absolute top-1/3 left-20 w-4 h-4 bg-accent/30 rounded-full"
+            animate={{ y: [-20, 20, -20] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          {/* Animated circles */}
+          {/* Corner decorations - consistent with cards */}
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.1 }}
-            transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
-            className="absolute w-[600px] h-[600px] rounded-full border border-foreground/10"
+            className="absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-accent/30"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
           />
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.05 }}
-            transition={{ duration: 2, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
-            className="absolute w-[800px] h-[800px] rounded-full border border-foreground/10"
+            className="absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-accent/30"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
           />
 
           {/* Logo container */}
           <div className="relative z-10 flex flex-col items-center">
+            {/* Section number - consistent with section headers */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <div className="h-px w-8 bg-accent" />
+              <span className="text-xs font-mono text-accent">00</span>
+              <span className="text-xs font-mono text-muted-foreground tracking-wider">LOADING</span>
+              <div className="h-px w-8 bg-accent" />
+            </motion.div>
+
             {/* Animated logo */}
             <div className="flex items-center overflow-hidden">
               {letters.map((letter, index) => (
@@ -84,7 +131,7 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{
                     duration: 0.8,
-                    delay: 0.1 + index * 0.08,
+                    delay: 0.3 + index * 0.08,
                     ease: [0.19, 1, 0.22, 1],
                   }}
                   className="font-syne text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight"
@@ -97,7 +144,7 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
                   duration: 0.5,
-                  delay: 0.7,
+                  delay: 0.9,
                   ease: [0.19, 1, 0.22, 1],
                 }}
                 className="font-syne text-5xl md:text-7xl lg:text-8xl font-bold text-accent"
@@ -110,7 +157,7 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.6, delay: 1.1, ease: [0.19, 1, 0.22, 1] }}
               className="mt-4 text-muted-foreground label"
             >
               Digital Experiences
@@ -120,43 +167,78 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              className="mt-12 flex flex-col items-center gap-4"
+              transition={{ duration: 0.5, delay: 1.3 }}
+              className="mt-16 flex flex-col items-center gap-4"
             >
-              {/* Progress bar container */}
-              <div className="w-48 h-px bg-border relative overflow-hidden">
+              {/* Progress bar container - styled like section bottom lines */}
+              <div className="relative w-64 h-px bg-border overflow-hidden">
                 <motion.div
                   className="absolute inset-y-0 left-0 bg-accent"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
+                  style={{ width: `${progress}%` }}
                   transition={{ duration: 0.1, ease: 'linear' }}
                 />
               </div>
 
               {/* Progress percentage */}
-              <motion.span
-                className="font-syne text-sm text-muted-foreground tabular-nums"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.3 }}
-              >
-                {Math.round(progress)}%
-              </motion.span>
+              <div className="flex items-center gap-6">
+                <motion.span
+                  className="font-mono text-sm text-muted-foreground tabular-nums"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.4 }}
+                >
+                  {Math.round(progress)}%
+                </motion.span>
+                <span className="w-px h-4 bg-border" />
+                <motion.span
+                  className="font-mono text-xs text-muted-foreground/60 tracking-wider"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5 }}
+                >
+                  INITIALIZING
+                </motion.span>
+              </div>
             </motion.div>
           </div>
 
-          {/* Bottom decorative elements */}
+          {/* Bottom scroll indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.5 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+            transition={{ duration: 0.5, delay: 1.6 }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-px h-8 bg-gradient-to-b from-foreground/30 to-transparent"
+              className="w-px h-10 bg-gradient-to-b from-foreground/30 to-transparent"
             />
+          </motion.div>
+
+          {/* Side labels - like in AboutSection */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="absolute left-8 top-1/2 -translate-y-1/2 hidden xl:block"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+          >
+            <span className="text-xs font-mono text-muted-foreground/40 tracking-widest">
+              CREATIVE STUDIO
+            </span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.3 }}
+            className="absolute right-8 top-1/2 -translate-y-1/2 hidden xl:block"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg) translateY(50%)' }}
+          >
+            <span className="text-xs font-mono text-muted-foreground/40 tracking-widest">
+              EST. 2019
+            </span>
           </motion.div>
         </motion.div>
       )}
