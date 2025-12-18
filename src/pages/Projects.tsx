@@ -1,16 +1,24 @@
-import { useState, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useMemo, useCallback, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '@/data/projects';
-import { ArrowLeft } from 'lucide-react';
 import PageTransition from '@/components/PageTransition';
 import SearchInput from '@/components/SearchInput';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const heroRef = useRef(null);
+  const projectsRef = useRef(null);
+
+  const heroInView = useInView(heroRef, { once: true });
+  const projectsInView = useInView(projectsRef, { once: true, margin: '-100px' });
 
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query.toLowerCase());
@@ -34,167 +42,277 @@ const Projects = () => {
     return result;
   }, [activeCategory, searchQuery]);
 
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setMousePosition({
+      x: (e.clientX - window.innerWidth / 2) / 30,
+      y: (e.clientY - window.innerHeight / 2) / 30,
+    });
+  };
+
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="fixed top-0 left-0 right-0 z-50 py-6 md:py-8">
-        <div className="container-wide flex items-center justify-between">
-          <Link to="/" className="font-syne text-xl md:text-2xl font-bold tracking-tight">
-            STUDIO<span className="text-accent">.</span>
-          </Link>
-          <Link 
-            to="/" 
-            className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
-        </div>
-      </header>
+      <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
+        <Navigation />
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-          >
-            <h1 className="heading-xl mb-6">
-              Our Work
-            </h1>
-            <p className="text-lg md:text-xl text-foreground/60 max-w-2xl">
-              A collection of projects that showcase our passion for creating 
-              meaningful digital experiences and brand transformations.
-            </p>
-          </motion.div>
+        {/* Hero Section */}
+        <section ref={heroRef} className="pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
+          {/* Grid overlay */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={`h-${i}`}
+                className="absolute left-0 right-0 h-px bg-foreground/5"
+                style={{ top: `${16.66 * (i + 1)}%` }}
+                initial={{ scaleX: 0 }}
+                animate={heroInView ? { scaleX: 1 } : {}}
+                transition={{ delay: i * 0.05, duration: 1.2 }}
+              />
+            ))}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={`v-${i}`}
+                className="absolute top-0 bottom-0 w-px bg-foreground/5"
+                style={{ left: `${25 * (i + 1)}%` }}
+                initial={{ scaleY: 0 }}
+                animate={heroInView ? { scaleY: 1 } : {}}
+                transition={{ delay: 0.2 + i * 0.05, duration: 1.2 }}
+              />
+            ))}
+          </div>
 
-          {/* Search and Category Filter */}
+          {/* Floating shapes */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6 mt-12"
-          >
-            {/* Search Input */}
-            <SearchInput
-              placeholder="Search projects..."
-              onSearch={handleSearch}
-              className="max-w-md"
-            />
-            
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                    activeCategory === category
-                      ? 'bg-foreground text-background'
-                      : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10 hover:text-foreground'
-                  }`}
-                >
-                  {category}
-                </button>
+            className="absolute top-40 right-[15%] w-20 h-20 border border-accent/20"
+            style={{ transform: 'rotate(45deg)', x: mousePosition.x * 2, y: mousePosition.y * 2 }}
+          />
+          <motion.div
+            className="absolute bottom-20 left-[10%] w-32 h-32 rounded-full border border-accent/10"
+            style={{ x: mousePosition.x * -2, y: mousePosition.y * -2 }}
+          />
+
+          {/* Accent orb */}
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full bg-accent/5 blur-[120px] pointer-events-none"
+            style={{ top: '10%', right: '-5%' }}
+          />
+
+          <div className="container-wide relative z-10">
+            {/* Section header */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={heroInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="flex items-center gap-4 mb-12"
+            >
+              <span className="text-sm font-mono text-accent">01</span>
+              <div className="h-px w-12 bg-accent" />
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">PORTFOLIO</span>
+            </motion.div>
+
+            <div className="max-w-4xl">
+              {['Our', 'Work'].map((text, index) => (
+                <div key={text} className="overflow-hidden">
+                  <motion.h1
+                    initial={{ y: '100%' }}
+                    animate={heroInView ? { y: 0 } : {}}
+                    transition={{ duration: 1, delay: 0.2 + index * 0.1, ease: [0.19, 1, 0.22, 1] }}
+                    className={`font-syne font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-[0.9] ${
+                      index === 1 ? 'text-accent' : 'text-foreground'
+                    }`}
+                  >
+                    {text}
+                  </motion.h1>
+                </div>
               ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Masonry Grid */}
-      <section className="pb-24 md:pb-32">
-        <div className="container-wide">
-          <motion.div 
-            layout
-            className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.05,
-                    ease: [0.19, 1, 0.22, 1]
-                  }}
-                  className="break-inside-avoid"
-                >
-                  <Link
-                    to={`/work/${project.id}`}
-                    className="group block relative overflow-hidden rounded-xl"
-                    data-cursor="view"
-                  >
-                    {/* Image with varying heights for masonry effect */}
-                    <div 
-                      className={`relative overflow-hidden ${
-                        index % 3 === 0 ? 'aspect-[3/4]' : 
-                        index % 3 === 1 ? 'aspect-square' : 
-                        'aspect-[4/3]'
-                      }`}
-                    >
-                      <img
-                        src={project.thumbnail}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* Content */}
-                      <div className="absolute inset-0 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                        <span className="text-xs uppercase tracking-widest text-accent mb-2">
-                          {project.category}
-                        </span>
-                        <h3 className="text-2xl md:text-3xl font-syne font-bold text-foreground">
-                          {project.title}
-                        </h3>
-                        <p className="text-sm text-foreground/70 mt-2 line-clamp-2">
-                          {project.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Bottom info bar - always visible */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent group-hover:opacity-0 transition-opacity duration-300">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-syne font-semibold">{project.title}</h3>
-                        <span className="text-xs text-foreground/50">{project.year}</span>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-
-          {/* Empty state */}
-          {filteredProjects.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-20"
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mt-8"
             >
-              <p className="text-foreground/50 text-lg">No projects found in this category.</p>
-            </motion.div>
-          )}
-        </div>
-      </section>
+              A collection of projects that showcase our passion for creating 
+              meaningful digital experiences and brand transformations.
+            </motion.p>
+          </div>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-foreground/10 py-8">
-        <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-syne font-bold">STUDIO<span className="text-accent">.</span></span>
-          <span className="text-sm text-foreground/50">© 2024 All rights reserved.</span>
-        </div>
-      </footer>
+        {/* Search and Category Filter */}
+        <section ref={projectsRef} className="pb-8">
+          <div className="container-wide">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={projectsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-sm font-mono text-accent">02</span>
+                <div className="h-px w-12 bg-accent" />
+                <span className="text-sm font-mono text-muted-foreground tracking-wider">BROWSE PROJECTS</span>
+              </div>
+
+              <SearchInput
+                placeholder="Search projects..."
+                onSearch={handleSearch}
+                className="max-w-md"
+              />
+              
+              <div className="flex flex-wrap gap-3">
+                {categories.map((category, index) => (
+                  <motion.button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={projectsInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: index * 0.05 }}
+                    className={`px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
+                      activeCategory === category
+                        ? 'bg-accent text-accent-foreground'
+                        : 'bg-card border border-border text-muted-foreground hover:border-accent hover:text-foreground'
+                    }`}
+                  >
+                    {category}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Projects Grid */}
+        <section className="pb-24 md:pb-32">
+          <div className="container-wide">
+            <motion.div 
+              layout
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                    onMouseEnter={() => setHoveredProject(project.id)}
+                    onMouseLeave={() => setHoveredProject(null)}
+                    className="group"
+                  >
+                    <Link
+                      to={`/work/${project.id}`}
+                      className="block relative overflow-hidden"
+                    >
+                      <div 
+                        className={`relative overflow-hidden ${
+                          index % 3 === 0 ? 'aspect-[3/4]' : 
+                          index % 3 === 1 ? 'aspect-square' : 
+                          'aspect-[4/3]'
+                        }`}
+                      >
+                        <motion.img
+                          src={project.thumbnail}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                          animate={{ scale: hoveredProject === project.id ? 1.1 : 1 }}
+                          transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+                        />
+                        
+                        {/* Overlay */}
+                        <motion.div 
+                          className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: hoveredProject === project.id ? 1 : 0 }}
+                          transition={{ duration: 0.4 }}
+                        />
+
+                        {/* Number badge */}
+                        <span className="absolute top-4 left-4 text-xs font-mono text-foreground/80 bg-background/80 backdrop-blur-sm px-2 py-1">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+
+                        {/* Corner decorations */}
+                        <motion.div
+                          className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-accent"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: hoveredProject === project.id ? 1 : 0, scale: hoveredProject === project.id ? 1 : 0.8 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        <motion.div
+                          className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-accent"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: hoveredProject === project.id ? 1 : 0, scale: hoveredProject === project.id ? 1 : 0.8 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        
+                        {/* Hover content */}
+                        <motion.div 
+                          className="absolute inset-0 p-6 flex flex-col justify-end"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ 
+                            opacity: hoveredProject === project.id ? 1 : 0,
+                            y: hoveredProject === project.id ? 0 : 20
+                          }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          <span className="text-xs font-mono text-accent mb-2">
+                            {project.category}
+                          </span>
+                          <h3 className="text-2xl md:text-3xl font-syne font-bold text-foreground">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                            {project.description}
+                          </p>
+                        </motion.div>
+                      </div>
+
+                      {/* Bottom info bar */}
+                      <motion.div 
+                        className="pt-4 pb-2"
+                        animate={{ opacity: hoveredProject === project.id ? 0 : 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h3 className="text-lg font-syne font-semibold mb-1">{project.title}</h3>
+                            <span className="text-sm text-muted-foreground">{project.category}</span>
+                          </div>
+                          <span className="text-xs font-mono text-muted-foreground bg-secondary px-2 py-1">
+                            {project.year}
+                          </span>
+                        </div>
+                      </motion.div>
+
+                      {/* Bottom line */}
+                      <motion.div
+                        className="h-px bg-accent origin-left"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: hoveredProject === project.id ? 1 : 0 }}
+                        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                      />
+                    </Link>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Empty state */}
+            {filteredProjects.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-20 border border-border"
+              >
+                <p className="text-muted-foreground text-lg">No projects found matching your criteria.</p>
+              </motion.div>
+            )}
+          </div>
+        </section>
+
+        <Footer />
       </div>
     </PageTransition>
   );
