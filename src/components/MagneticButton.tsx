@@ -8,10 +8,10 @@ interface MagneticButtonProps {
 }
 
 export const MagneticButton = ({ children, className = '', onClick }: MagneticButtonProps) => {
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouse = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current!.getBoundingClientRect();
     const x = (clientX - (left + width / 2)) * 0.3;
@@ -24,17 +24,17 @@ export const MagneticButton = ({ children, className = '', onClick }: MagneticBu
   };
 
   return (
-    <motion.button
+    <motion.div
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       onClick={onClick}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: 'spring', stiffness: 350, damping: 15, mass: 0.5 }}
-      className={className}
+      className={`inline-block ${className}`}
     >
       {children}
-    </motion.button>
+    </motion.div>
   );
 };
 
