@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
 import { Compass, Target, Palette, Code, Rocket } from 'lucide-react';
 
@@ -36,60 +36,128 @@ const steps = [
   },
 ];
 
-interface StepCardProps {
+interface StepItemProps {
   step: typeof steps[0];
   index: number;
+  activeIndex: number | null;
+  setActiveIndex: (index: number | null) => void;
+  isLast: boolean;
 }
 
-const StepCard = ({ step, index }: StepCardProps) => {
+const StepItem = ({ step, index, activeIndex, setActiveIndex, isLast }: StepItemProps) => {
   const Icon = step.icon;
+  const isActive = activeIndex === index;
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative"
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      onMouseEnter={() => setActiveIndex(index)}
+      onMouseLeave={() => setActiveIndex(null)}
+      className="group relative grid grid-cols-12 gap-4 md:gap-8"
     >
-      <div className="relative p-8 md:p-10 border border-border/50 bg-card/30 hover:border-accent/30 hover:bg-accent/5 transition-all duration-500">
-        {/* Number */}
-        <span className="absolute top-4 right-4 text-xs font-mono text-muted-foreground/40 group-hover:text-accent transition-colors duration-300">
+      {/* Left: Large Number */}
+      <div className="col-span-2 md:col-span-1 relative flex flex-col items-center">
+        <motion.span 
+          className={`font-syne font-bold text-4xl md:text-6xl lg:text-7xl transition-colors duration-500 ${
+            isActive ? 'text-accent' : 'text-muted-foreground/30'
+          }`}
+          animate={{ scale: isActive ? 1.05 : 1 }}
+        >
           {step.number}
-        </span>
+        </motion.span>
+        
+        {/* Connecting line */}
+        {!isLast && (
+          <motion.div
+            className={`w-px flex-1 min-h-[40px] mt-4 transition-colors duration-500 ${
+              isActive ? 'bg-accent/50' : 'bg-border'
+            }`}
+            initial={{ scaleY: 0 }}
+            animate={isInView ? { scaleY: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ originY: 0 }}
+          />
+        )}
+      </div>
 
-        {/* Icon */}
-        <div className="w-14 h-14 flex items-center justify-center mb-6 relative">
-          <div className="absolute inset-0 rounded-lg border border-border group-hover:border-accent group-hover:bg-accent/10 transition-all duration-300" />
-          <Icon className="w-7 h-7 relative z-10 text-foreground/70 group-hover:text-accent transition-colors duration-300" strokeWidth={1.5} />
-        </div>
+      {/* Right: Content Card */}
+      <div className="col-span-10 md:col-span-11 pb-8 md:pb-12">
+        <motion.div 
+          className={`relative p-6 md:p-8 border transition-all duration-500 ${
+            isActive 
+              ? 'bg-accent/5 border-accent/40' 
+              : 'bg-card/30 border-border/50 hover:border-border'
+          }`}
+          animate={{ x: isActive ? 8 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* Icon & Title Row */}
+          <div className="flex items-center gap-4 mb-4">
+            <motion.div
+              animate={{ 
+                rotate: isActive ? 360 : 0,
+                scale: isActive ? 1.1 : 1 
+              }}
+              transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+              className={`w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border transition-all duration-300 ${
+                isActive ? 'border-accent bg-accent/10' : 'border-border'
+              }`}
+            >
+              <Icon className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-300 ${
+                isActive ? 'text-accent' : 'text-foreground/70'
+              }`} strokeWidth={1.5} />
+            </motion.div>
 
-        {/* Content */}
-        <h3 className="font-syne font-bold text-xl md:text-2xl mb-3 group-hover:translate-x-1 transition-transform duration-300">
-          {step.title}
-        </h3>
-        <p className="text-muted-foreground leading-relaxed">
-          {step.description}
-        </p>
+            <h3 className={`font-syne font-bold text-xl md:text-2xl lg:text-3xl transition-colors duration-300 ${
+              isActive ? 'text-accent' : 'text-foreground'
+            }`}>
+              {step.title}
+            </h3>
+          </div>
 
-        {/* Bottom line */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-        />
+          <p className="text-muted-foreground leading-relaxed text-sm md:text-base lg:text-lg pl-14 md:pl-16">
+            {step.description}
+          </p>
 
-        {/* Corner accent */}
-        <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-accent opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300" />
+          {/* Corner accents */}
+          <motion.div
+            className="absolute top-0 right-0 w-4 h-4 md:w-6 md:h-6 border-r-2 border-t-2 border-accent"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
+            transition={{ duration: 0.3 }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-4 h-4 md:w-6 md:h-6 border-l-2 border-b-2 border-accent"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
+            transition={{ duration: 0.3 }}
+          />
+
+          {/* Bottom accent line */}
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isActive ? 1 : 0 }}
+            transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+          />
+        </motion.div>
       </div>
     </motion.div>
   );
 };
 
 export const ProcessSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <section id="process" ref={sectionRef} className="section-padding relative overflow-hidden">
+    <section ref={ref} className="section-padding relative overflow-hidden">
       {/* Background grid */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(5)].map((_, i) => (
@@ -104,8 +172,20 @@ export const ProcessSection = () => {
         ))}
       </div>
 
+      {/* Floating shapes */}
+      <motion.div
+        className="absolute top-20 right-20 w-32 h-32 border border-accent/20 rounded-full"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute bottom-40 left-10 w-4 h-4 bg-accent/30 rounded-full"
+        animate={{ y: [-20, 20, -20] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+
       <div className="container-wide relative z-10">
-        {/* Section Header */}
+        {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-24">
           <div className="max-w-2xl">
             <motion.div
@@ -136,10 +216,17 @@ export const ProcessSection = () => {
           </motion.p>
         </div>
 
-        {/* Steps Grid - matching ServicesSection layout */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {/* Steps - Vertical Stack */}
+        <div className="max-w-5xl mx-auto">
           {steps.map((step, index) => (
-            <StepCard key={step.number} step={step} index={index} />
+            <StepItem 
+              key={step.number} 
+              step={step} 
+              index={index}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+              isLast={index === steps.length - 1}
+            />
           ))}
         </div>
       </div>
