@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
 import { Compass, Target, Palette, Code, Rocket } from 'lucide-react';
 
@@ -36,24 +36,83 @@ const steps = [
   },
 ];
 
+interface StepCardProps {
+  step: typeof steps[0];
+  index: number;
+}
+
+const StepCard = ({ step, index }: StepCardProps) => {
+  const Icon = step.icon;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="group relative"
+    >
+      <div className="relative p-8 md:p-10 border border-border/50 bg-card/30 hover:border-accent/30 hover:bg-accent/5 transition-all duration-500">
+        {/* Number */}
+        <span className="absolute top-4 right-4 text-xs font-mono text-muted-foreground/40 group-hover:text-accent transition-colors duration-300">
+          {step.number}
+        </span>
+
+        {/* Icon */}
+        <div className="w-14 h-14 flex items-center justify-center mb-6 relative">
+          <div className="absolute inset-0 rounded-lg border border-border group-hover:border-accent group-hover:bg-accent/10 transition-all duration-300" />
+          <Icon className="w-7 h-7 relative z-10 text-foreground/70 group-hover:text-accent transition-colors duration-300" strokeWidth={1.5} />
+        </div>
+
+        {/* Content */}
+        <h3 className="font-syne font-bold text-xl md:text-2xl mb-3 group-hover:translate-x-1 transition-transform duration-300">
+          {step.title}
+        </h3>
+        <p className="text-muted-foreground leading-relaxed">
+          {step.description}
+        </p>
+
+        {/* Bottom line */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+        />
+
+        {/* Corner accent */}
+        <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-accent opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300" />
+      </div>
+    </motion.div>
+  );
+};
+
 export const ProcessSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
-  const [activeStep, setActiveStep] = useState(0);
-
-  const ActiveIcon = steps[activeStep].icon;
 
   return (
-    <section ref={sectionRef} className="section-padding relative overflow-hidden">
-      <div className="container-wide">
+    <section id="process" ref={sectionRef} className="section-padding relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={`grid-${i}`}
+            className="absolute left-0 right-0 h-px bg-foreground/5"
+            style={{ top: `${20 * (i + 1)}%` }}
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ delay: i * 0.1, duration: 1.5 }}
+          />
+        ))}
+      </div>
+
+      <div className="container-wide relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12 md:mb-16">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-24">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
-              className="flex items-center gap-4 mb-6"
+              className="flex items-center gap-4 mb-8"
             >
               <span className="text-sm font-mono text-accent">04</span>
               <div className="h-px w-12 bg-accent" />
@@ -61,7 +120,7 @@ export const ProcessSection = () => {
             </motion.div>
 
             <AnimatedLine delay={0.3}>
-              <h2 className="font-syne font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1]">
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
                 A structured approach to exceptional outcomes.
               </h2>
             </AnimatedLine>
@@ -71,113 +130,17 @@ export const ProcessSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.5 }}
-            className="text-muted-foreground max-w-md text-sm md:text-base"
+            className="text-muted-foreground max-w-md"
           >
             Every project follows our proven methodology, refined over years of delivering successful digital products.
           </motion.p>
         </div>
 
-        {/* Split Layout: Step List + Detail Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-          {/* Left: Step List */}
-          <div className="lg:col-span-4">
-            <div className="space-y-1">
-              {steps.map((step, index) => (
-                <motion.button
-                  key={step.number}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: index * 0.08 }}
-                  onClick={() => setActiveStep(index)}
-                  className={`w-full flex items-center gap-4 p-4 text-left transition-all duration-300 border-l-2 ${
-                    activeStep === index
-                      ? 'border-accent bg-accent/5'
-                      : 'border-transparent hover:border-border hover:bg-muted/30'
-                  }`}
-                >
-                  <span className={`font-mono text-sm transition-colors duration-300 ${
-                    activeStep === index ? 'text-accent' : 'text-muted-foreground'
-                  }`}>
-                    {step.number}
-                  </span>
-                  <span className={`font-syne font-semibold text-base md:text-lg transition-colors duration-300 ${
-                    activeStep === index ? 'text-foreground' : 'text-muted-foreground'
-                  }`}>
-                    {step.title}
-                  </span>
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Progress indicator */}
-            <motion.div 
-              className="mt-6 flex items-center gap-3"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.5 }}
-            >
-              <div className="flex-1 h-1 bg-border rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-accent rounded-full"
-                  animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-              <span className="text-sm font-mono text-muted-foreground">
-                {activeStep + 1}/{steps.length}
-              </span>
-            </motion.div>
-          </div>
-
-          {/* Right: Detail Card */}
-          <div className="lg:col-span-8">
-            <motion.div
-              key={activeStep}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
-              className="relative p-6 md:p-10 border border-border bg-card/50"
-            >
-              {/* Large number watermark */}
-              <span className="absolute top-2 right-4 font-syne font-bold text-[100px] md:text-[140px] leading-none text-foreground/[0.03] pointer-events-none select-none">
-                {steps[activeStep].number}
-              </span>
-
-              <div className="relative z-10">
-                {/* Icon */}
-                <motion.div
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center border border-accent/30 bg-accent/10 mb-6"
-                >
-                  <ActiveIcon className="w-7 h-7 md:w-8 md:h-8 text-accent" strokeWidth={1.5} />
-                </motion.div>
-
-                {/* Title */}
-                <h3 className="font-syne font-bold text-2xl md:text-3xl lg:text-4xl mb-4">
-                  {steps[activeStep].title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">
-                  {steps[activeStep].description}
-                </p>
-
-                {/* Accent line */}
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.5, delay: 0.15 }}
-                  className="mt-6 h-0.5 w-20 bg-accent origin-left"
-                />
-              </div>
-
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-5 h-5 border-l-2 border-t-2 border-accent" />
-              <div className="absolute bottom-0 right-0 w-5 h-5 border-r-2 border-b-2 border-accent" />
-            </motion.div>
-          </div>
+        {/* Steps Grid - matching ServicesSection layout */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {steps.map((step, index) => (
+            <StepCard key={step.number} step={step} index={index} />
+          ))}
         </div>
       </div>
     </section>
