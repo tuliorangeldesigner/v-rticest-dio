@@ -71,17 +71,60 @@ const StepItem = ({ step, index, activeIndex, setActiveIndex, isLast }: StepItem
           {step.number}
         </motion.span>
         
-        {/* Connecting line */}
+        {/* Connecting line with animated dots */}
         {!isLast && (
-          <motion.div
-            className={`w-px flex-1 min-h-[40px] mt-4 transition-colors duration-500 ${
-              isActive ? 'bg-accent/50' : 'bg-border'
-            }`}
-            initial={{ scaleY: 0 }}
-            animate={isInView ? { scaleY: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ originY: 0 }}
-          />
+          <div className="relative flex flex-col items-center flex-1 min-h-[40px] mt-4">
+            {/* Main line */}
+            <motion.div
+              className={`w-px flex-1 transition-colors duration-500 ${
+                isActive ? 'bg-accent/50' : 'bg-border'
+              }`}
+              initial={{ scaleY: 0 }}
+              animate={isInView ? { scaleY: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              style={{ originY: 0 }}
+            />
+            
+            {/* Animated flowing dots */}
+            <motion.div
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-accent"
+              initial={{ y: 0, opacity: 0 }}
+              animate={isInView ? { 
+                y: [0, 40, 80], 
+                opacity: [0, 1, 0],
+                scale: [0.5, 1, 0.5]
+              } : {}}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity, 
+                delay: index * 0.3,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent/60"
+              initial={{ y: 0, opacity: 0 }}
+              animate={isInView ? { 
+                y: [0, 40, 80], 
+                opacity: [0, 0.7, 0],
+                scale: [0.5, 0.8, 0.5]
+              } : {}}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity, 
+                delay: index * 0.3 + 0.5,
+                ease: "easeInOut"
+              }}
+            />
+            
+            {/* Glow effect on hover */}
+            <motion.div
+              className="absolute inset-0 w-px left-1/2 -translate-x-1/2 bg-gradient-to-b from-accent via-accent/50 to-transparent"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isActive ? 1 : 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
         )}
       </div>
 
