@@ -14,6 +14,7 @@ export interface Project {
   gallery: string[];
   nextProject: string;
   prevProject: string;
+  keyTakeaways?: string;
 }
 
 export const projects: Project[] = [
@@ -41,7 +42,8 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80',
     ],
     nextProject: 'ethereal',
-    prevProject: 'cascade',
+    prevProject: 'apex',
+    keyTakeaways: 'Through this project, we learned that balancing technical innovation with human warmth is crucial for adoption in the renewable sector. The most successful brand elements were those that simplified complex technologies into relatable visual metaphors.',
   },
   {
     id: 'ethereal',
@@ -68,6 +70,7 @@ export const projects: Project[] = [
     ],
     nextProject: 'zenith',
     prevProject: 'luminary',
+    keyTakeaways: 'Restraint is a powerful design tool. By stripping away non-essential UI elements, we allowed the content to take center stage, proving that in luxury markets, less truly is more. The pacing of information reveal is just as important as the information itself.',
   },
   {
     id: 'zenith',
@@ -94,6 +97,7 @@ export const projects: Project[] = [
     ],
     nextProject: 'cascade',
     prevProject: 'ethereal',
+    keyTakeaways: 'Authenticity resonates more than polish. The campaign success was driven by real stories that connected emotionally, demonstrating that in the crowded athletic market, brands must stand for a lifestyle and set of values, not just product specifications.',
   },
   {
     id: 'cascade',
@@ -118,8 +122,63 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80',
     ],
-    nextProject: 'luminary',
+    nextProject: 'nexus',
     prevProject: 'zenith',
+    keyTakeaways: 'Complexity is not the enemy; confusion is. Even the most data-heavy platforms can feel simple if information architecture is prioritized. Progressive disclosure is essential for building confidence in users dealing with sensitive financial operations.',
+  },
+  {
+    id: 'nexus',
+    title: 'Nexus',
+    category: 'Mobile App',
+    year: '2022',
+    client: 'Nexus Health',
+    heroImage: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=2000&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=1200&q=80',
+    description: 'A holistic health management app connecting patients with specialists. We designed an ecosystem that prioritizes empathy, accessibility, and seamless communication.',
+    challenge: 'Nexus Health aimed to bridge the gap between patients and specialized care providers. The existing fragmented systems caused frustration and delays. The challenge was to create a unified platform that felt personal and caring, not clinical and cold, while managing strict data privacy and complex scheduling logistics.',
+    solution: 'We adopted a "human-centric" design philosophy. The interface uses soft, calming colors and rounded typography to reduce anxiety. We simplified the booking flow into a conversational interface. Key features include a secure messaging system, integrated health records, and a personalized wellness dashboard. The design system ensures accessibility for users with varying digital literacy levels.',
+    results: [
+      '30% reduction in appointment no-shows',
+      '92% patient satisfaction score',
+      '15k+ active monthly users within 6 months',
+      'Winner of Best Health App Design 2022',
+    ],
+    services: ['Mobile App Design', 'User Research', 'Interaction Design', 'Visual Identity', 'Usability Testing'],
+    gallery: [
+      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1576091160550-2187d80a0003?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=1200&q=80',
+    ],
+    nextProject: 'apex',
+    prevProject: 'cascade',
+    keyTakeaways: 'Empathy must be baked into the design process, not just the outcome. By involving patients and doctors early in the prototyping phase, we uncovered critical friction points that standard usability testing would have missed.',
+  },
+  {
+    id: 'apex',
+    title: 'Apex',
+    category: 'Fintech Dashboard',
+    year: '2023',
+    client: 'Apex Capital',
+    heroImage: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=2000&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1200&q=80',
+    description: 'A high-frequency trading dashboard for institutional investors. We engineered a data-dense interface that optimizes for speed, clarity, and decision-making under pressure.',
+    challenge: 'Apex Capital needed a trading terminal that could display thousands of real-time data points without overwhelming traders. The previous system was cluttered and slow. Our goal was to reduce cognitive load while maximizing information density, ensuring traders could execute split-second decisions with confidence.',
+    solution: 'We utilized a modular grid system with a dark-mode-first approach to reduce eye strain during long trading sessions. Critical alerts are highlighted using a distinct, color-coded system that cuts through the noise. We implemented customizable workspaces allowing traders to tailor the layout to their specific strategies. Performance optimization was paramount, ensuring zero-latency updates.',
+    results: [
+      '15% increase in trade execution speed',
+      '40% reduction in error rates',
+      'Adopted by 3 major hedge funds',
+      'Top rated platform for institutional UX',
+    ],
+    services: ['Dashboard Design', 'Data Visualization', 'UX/UI Design', 'Frontend Architecture', 'Performance Optimization'],
+    gallery: [
+      'https://images.unsplash.com/photo-1611974765270-ca12586343bb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    ],
+    nextProject: 'luminary',
+    prevProject: 'nexus',
+    keyTakeaways: 'In high-stakes environments, clarity is the ultimate luxury. The success of Apex relied on a rigorous "removal" process—constantly asking what could be taken away rather than what could be added, to focus entirely on the signal, not the noise.',
   },
 ];
 

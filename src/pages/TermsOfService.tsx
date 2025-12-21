@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import PageTransition from '@/components/PageTransition';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Navigation from '@/components/Navigation';
 
 const TermsOfService = () => {
   const breadcrumbItems = [
@@ -9,7 +9,8 @@ const TermsOfService = () => {
   ];
 
   return (
-    <PageTransition>
+    <div className="min-h-screen bg-background">
+      <Navigation />
       <SEO 
         title="Terms of Service"
         description="Read our terms of service to understand the rules and guidelines for using our services."
@@ -135,7 +136,7 @@ const TermsOfService = () => {
           </motion.div>
         </div>
       </main>
-    </PageTransition>
+    </div>
   );
 };
 

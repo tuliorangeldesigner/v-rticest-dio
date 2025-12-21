@@ -64,30 +64,30 @@ export const AboutSection = () => {
       />
 
       <div className="container-wide relative z-10">
-        {/* Section header with number */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="flex items-center gap-4 mb-16 md:mb-24"
-        >
-          <span className="text-sm font-mono text-accent">01</span>
-          <div className="h-px w-12 bg-accent" />
-          <span className="text-sm font-mono text-muted-foreground tracking-wider">ABOUT US</span>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           {/* Text Content */}
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 relative">
+            {/* Section header with number - moved inside for better flow */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <span className="text-sm font-mono text-accent">01</span>
+              <div className="h-px w-12 bg-accent" />
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">ABOUT US</span>
+            </motion.div>
+
             <AnimatedLine delay={0.2}>
               <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]">
                 We are a team of creative minds & craftsmen.
               </h2>
             </AnimatedLine>
 
-            <div className="space-y-6 mb-12">
+            <div className="space-y-6 mb-10">
               <AnimatedLine delay={0.4}>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
                   Founded in 2019, our studio has been at the forefront of digital innovation. 
                   We blend strategy, creativity, and technology to build experiences that 
                   resonate with audiences and drive meaningful results.
@@ -95,7 +95,7 @@ export const AboutSection = () => {
               </AnimatedLine>
 
               <AnimatedLine delay={0.5}>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed max-w-xl">
                   Our approach is rooted in collaboration. We work closely with brands 
                   to understand their vision, challenge conventions, and create work 
                   that stands apart in today's crowded digital landscape.
@@ -103,12 +103,12 @@ export const AboutSection = () => {
               </AnimatedLine>
             </div>
 
-            {/* Stats with unique design */}
+            {/* Stats with improved spacing */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="grid grid-cols-3 gap-6"
+              className="grid grid-cols-3 gap-8 py-8 border-t border-border/50"
             >
               {stats.map((stat, i) => (
                 <motion.div 
@@ -118,12 +118,11 @@ export const AboutSection = () => {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.7 + i * 0.1 }}
                 >
-                  <div className="border-l-2 border-accent/30 pl-4 group-hover:border-accent transition-colors duration-300">
-                    <span className="font-syne font-bold text-3xl md:text-4xl text-foreground group-hover:text-accent transition-colors duration-300">
+                  <div className="pl-4 border-l-2 border-accent/30 group-hover:border-accent transition-colors duration-300">
+                    <span className="font-syne font-bold text-3xl md:text-4xl text-foreground group-hover:text-accent transition-colors duration-300 block mb-1">
                       {stat.number}
                     </span>
-                    <span className="block text-sm font-medium text-foreground mt-1">{stat.label}</span>
-                    <span className="block text-xs text-muted-foreground mt-0.5">{stat.description}</span>
+                    <span className="block text-sm font-medium text-foreground mb-1">{stat.label}</span>
                   </div>
                 </motion.div>
               ))}

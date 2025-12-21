@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatedLine } from '@/components/AnimatedText';
 import { projects } from '@/data/projects';
+import { ArrowUpRight } from 'lucide-react';
 
 interface ProjectCardProps {
   project: typeof projects[0];
@@ -11,109 +12,65 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const ref = useRef(null);
 
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.8, delay: index * 0.15 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative"
+      className={`group ${index % 2 === 1 ? 'md:mt-32' : ''}`}
     >
-      <Link to={`/work/${project.id}`}>
+      <Link to={`/work/${project.id}`} className="block h-full">
         {/* Image Container */}
-        <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
-          <motion.div
-            animate={{ scale: isHovered ? 1.1 : 1 }}
-            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="absolute inset-0"
-          >
-            <img
-              src={project.thumbnail}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
+        <div className="relative overflow-hidden aspect-[4/3] mb-8 rounded-none">
+          <motion.img
+            src={project.thumbnail}
+            alt={project.title}
+            className="w-full h-full object-cover"
+            animate={{ scale: isHovered ? 1.05 : 1 }}
+            transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+          />
           
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
-          {/* Hover content */}
-          <motion.div
+          {/* Hover Overlay - Subtle Tint */}
+          <motion.div 
+            className="absolute inset-0 bg-black/10"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.4 }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <motion.div
-              initial={{ scale: 0, rotate: -45 }}
-              animate={{ scale: isHovered ? 1 : 0, rotate: isHovered ? 0 : -45 }}
-              transition={{ duration: 0.4, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-              className="w-20 h-20 rounded-full bg-accent flex items-center justify-center"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-accent-foreground">
-                <path
-                  d="M7 17L17 7M17 7H7M17 7V17"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </motion.div>
-          </motion.div>
+            transition={{ duration: 0.3 }}
+          />
+          
+          {/* View Project Button - Centered */}
+          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="w-24 h-24 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center">
+              <span className="text-sm font-mono uppercase tracking-widest text-foreground">View</span>
+            </div>
+          </div>
+        </div>
 
-          {/* Corner decorations */}
-          <div className="absolute top-4 left-4 flex items-center gap-3">
-            <span className="text-xs font-mono text-foreground/80 bg-background/80 backdrop-blur-sm px-2 py-1">
+        {/* Content Below Image */}
+        <div className="space-y-4">
+          {/* Meta Data */}
+          <div className="flex items-center gap-4 text-sm font-mono">
+            <span className="text-accent">
               {String(index + 1).padStart(2, '0')}
             </span>
-          </div>
-
-          <motion.div
-            className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-accent"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.div
-            className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-accent"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-
-        {/* Info */}
-        <div className="pt-6 pb-2">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <motion.h3
-                animate={{ x: isHovered ? 8 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="font-syne font-bold text-xl md:text-2xl mb-2 group-hover:text-accent transition-colors duration-300"
-              >
-                {project.title}
-              </motion.h3>
-              <span className="text-muted-foreground">{project.category}</span>
-            </div>
-            <span className="text-xs font-mono text-muted-foreground bg-secondary px-2 py-1">
-              {project.year}
+            <div className="h-px w-8 bg-border" />
+            <span className="text-muted-foreground uppercase tracking-wider">
+              {project.category}
             </span>
           </div>
-        </div>
 
-        {/* Bottom line */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-          className="h-px bg-accent origin-left"
-        />
+          {/* Title & Arrow */}
+          <div className="flex items-end justify-between gap-4 border-b border-border pb-6 group-hover:border-accent/50 transition-colors duration-500">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-syne font-bold leading-tight group-hover:text-accent transition-colors duration-300">
+              {project.title}
+            </h3>
+            <ArrowUpRight className="w-8 h-8 text-muted-foreground group-hover:text-accent group-hover:-translate-y-2 group-hover:translate-x-2 transition-all duration-300 mb-1" />
+          </div>
+        </div>
       </Link>
     </motion.div>
   );
@@ -124,82 +81,43 @@ export const WorkSection = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="work" ref={ref} className="section-padding bg-secondary/20 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={`v-line-${i}`}
-            className="absolute top-0 bottom-0 w-px bg-foreground/5"
-            style={{ left: `${25 * (i + 1)}%` }}
-            initial={{ scaleY: 0 }}
-            animate={isInView ? { scaleY: 1 } : {}}
-            transition={{ delay: i * 0.1, duration: 1.5 }}
-          />
-        ))}
+    <section id="work" ref={ref} className="section-padding bg-secondary/30 relative overflow-hidden">
+      
+      {/* Decorative large text background */}
+      <div className="absolute top-20 left-0 w-full overflow-hidden opacity-[0.03] pointer-events-none select-none">
+         <h2 className="text-[20vw] font-syne font-black leading-none whitespace-nowrap animate-marquee">
+            SELECTED PROJECTS — SELECTED PROJECTS —
+         </h2>
       </div>
-
-      {/* Floating shapes */}
-      <motion.div
-        className="absolute top-32 left-16 w-24 h-24 border border-accent/10"
-        style={{ transform: 'rotate(45deg)' }}
-        animate={{ rotate: [45, 90, 45] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
 
       <div className="container-wide relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 gap-8">
-          <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="flex items-center gap-4 mb-8"
-            >
-              <span className="text-sm font-mono text-accent">03</span>
-              <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">SELECTED WORK</span>
-            </motion.div>
-
-            <AnimatedLine delay={0.3}>
-              <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
-                Projects that define our craft.
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-24 items-end">
+          <div className="md:col-span-8">
+            <div className="flex items-center gap-4 mb-6">
+               <span className="w-3 h-3 bg-accent rounded-full animate-pulse"></span>
+               <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Featured Portfolio</span>
+            </div>
+            <AnimatedLine>
+              <h2 className="font-syne font-bold text-5xl md:text-7xl tracking-tighter leading-[0.9]">
+                Crafting digital<br />
+                <span className="text-accent">masterpieces.</span>
               </h2>
             </AnimatedLine>
           </div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <Link
+          <div className="md:col-span-4 md:text-right">
+             <Link
               to="/work"
-              className="group inline-flex items-center gap-3 px-6 py-3 border border-foreground/20 rounded-full hover:border-accent hover:bg-accent/5 transition-all duration-300"
+              className="group inline-flex flex-col items-end gap-2"
             >
-              <span className="font-medium">View All Projects</span>
-              <motion.div
-                className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent transition-colors duration-300"
-                whileHover={{ rotate: 45 }}
-              >
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="group-hover:text-accent-foreground transition-colors">
-                  <path
-                    d="M2 10L10 2M10 2H4M10 2V8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </motion.div>
+              <span className="text-sm font-bold uppercase tracking-widest border-b border-foreground/20 pb-1 group-hover:border-accent transition-colors">View All Work</span>
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
-          {projects.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
+          {projects.slice(0, 4).map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>

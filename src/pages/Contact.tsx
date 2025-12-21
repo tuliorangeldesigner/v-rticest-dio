@@ -6,9 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Send, CheckCircle, Loader2, MapPin, Mail, Phone, ArrowUpRight } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import PageTransition from '@/components/PageTransition';
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import Navigation from '@/components/Navigation';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -22,10 +21,10 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const budgetOptions = [
   { value: '', label: 'Select a budget range' },
-  { value: '5k-10k', label: '$5,000 - $10,000' },
-  { value: '10k-25k', label: '$10,000 - $25,000' },
-  { value: '25k-50k', label: '$25,000 - $50,000' },
-  { value: '50k+', label: '$50,000+' },
+  { value: '5k-10k', label: ',000 - 0,000' },
+  { value: '10k-25k', label: '0,000 - 5,000' },
+  { value: '25k-50k', label: '5,000 - 0,000' },
+  { value: '50k+', label: '0,000+' },
 ];
 
 const contactInfo = [
@@ -74,7 +73,6 @@ const Contact = () => {
   };
 
   return (
-    <PageTransition>
       <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
         <Navigation />
 
@@ -134,13 +132,13 @@ const Contact = () => {
             </motion.div>
 
             <div className="max-w-4xl">
-              {["Let's create", 'something', 'extraordinary'].map((text, index) => (
-                <div key={text} className="overflow-hidden">
+              {["Let's create", 'something', 'unique'].map((text, index) => (
+                <div key={text} className="py-1">
                   <motion.h1
-                    initial={{ y: '100%' }}
-                    animate={heroInView ? { y: 0 } : {}}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={heroInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 1, delay: 0.2 + index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                    className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] ${
+                    className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none ${
                       index === 2 ? 'text-accent' : 'text-foreground'
                     }`}
                   >
@@ -163,7 +161,7 @@ const Contact = () => {
         </section>
 
         {/* Main Content */}
-        <section ref={formRef} className="pb-24 md:pb-32">
+        <section ref={formRef} className="pb-24 md:pb-32 pt-16">
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
               {/* Left Column - Contact Info */}
@@ -178,35 +176,39 @@ const Contact = () => {
                   <span className="text-sm font-mono text-muted-foreground tracking-wider">CONTACT INFO</span>
                 </div>
 
-                <div className="space-y-8 mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
                   {contactInfo.map((item, index) => (
-                    <motion.div
+                    <motion.a
                       key={item.label}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={formInView ? { opacity: 1, x: 0 } : {}}
+                      href={item.href || '#'}
+                      className={`group relative p-8 border border-border bg-background hover:border-accent transition-all duration-500 flex flex-col justify-between min-h-[200px] ${
+                        item.label === 'Location' ? 'sm:col-span-2' : ''
+                      }`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={formInView ? { opacity: 1, y: 0 } : {}}
                       transition={{ delay: 0.3 + index * 0.1 }}
-                      className="group"
                     >
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-lg border border-border flex items-center justify-center group-hover:border-accent group-hover:bg-accent/10 transition-all duration-300">
-                          <item.icon className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-mono text-muted-foreground block mb-1">{item.label}</span>
-                          {item.href ? (
-                            <a 
-                              href={item.href} 
-                              className="text-lg font-syne font-semibold hover:text-accent transition-colors inline-flex items-center gap-2"
-                            >
-                              {item.value}
-                              <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </a>
-                          ) : (
-                            <span className="text-lg font-syne font-semibold">{item.value}</span>
-                          )}
-                        </div>
+                      <div className="flex justify-between items-start">
+                        <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider group-hover:text-accent transition-colors">
+                          {item.label}
+                        </span>
+                        <item.icon className="w-6 h-6 text-muted-foreground/50 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
                       </div>
-                    </motion.div>
+
+                      <div>
+                        <span className="text-xl md:text-2xl font-syne font-bold leading-tight group-hover:text-accent transition-colors break-words">
+                          {item.value}
+                        </span>
+                        {item.href && (
+                          <div className="mt-4 w-8 h-8 rounded-full border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <ArrowUpRight className="w-4 h-4 text-accent" />
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Hover Fill Effect */}
+                      <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    </motion.a>
                   ))}
                 </div>
 
@@ -215,14 +217,15 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={formInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.6 }}
+                  className="pt-8 border-t border-border"
                 >
-                  <span className="text-xs font-mono text-muted-foreground block mb-4">FOLLOW US</span>
-                  <div className="flex flex-wrap gap-3">
+                  <span className="text-xs font-mono text-muted-foreground block mb-6 uppercase tracking-wider">FOLLOW US</span>
+                  <div className="flex flex-wrap gap-4">
                     {['Twitter', 'LinkedIn', 'Dribbble', 'Instagram'].map((social, index) => (
                       <motion.a
                         key={social}
                         href="#"
-                        className="px-4 py-2 border border-border rounded-full text-sm hover:border-accent hover:bg-accent/10 hover:text-accent transition-all duration-300"
+                        className="px-8 py-4 border border-border text-sm font-bold font-syne hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 min-w-[120px] text-center"
                         initial={{ opacity: 0, y: 10 }}
                         animate={formInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.7 + index * 0.05 }}
@@ -379,7 +382,7 @@ const Contact = () => {
                       disabled={isSubmitting}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full mt-8 py-5 bg-foreground text-background font-semibold text-lg rounded-full flex items-center justify-center gap-3 hover:bg-accent transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full mt-8 py-4 bg-white text-black font-semibold text-base rounded-full flex items-center justify-center gap-3 hover:opacity-90 transition-opacity disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
                         <>
@@ -402,7 +405,6 @@ const Contact = () => {
 
         <Footer />
       </div>
-    </PageTransition>
   );
 };
 

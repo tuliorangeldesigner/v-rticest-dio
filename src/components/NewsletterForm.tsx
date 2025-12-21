@@ -4,6 +4,7 @@ import { ArrowRight, Loader2, CheckCircle, Sparkles } from 'lucide-react';
 import { z } from 'zod';
 import { toast } from '@/hooks/use-toast';
 import { useEffect } from 'react';
+import MagneticButton from '@/components/MagneticButton';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address').max(255);
 
@@ -192,19 +193,11 @@ const NewsletterForm = ({ variant = 'inline', className = '' }: NewsletterFormPr
       />
       
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="flex-1 relative group">
+        <div className="flex-1 relative group h-[56px]">
           {/* Input with unique border style */}
-          <div className={`relative transition-all duration-300 ${isFocused ? 'transform -translate-y-1' : ''}`}>
-            <div className={`absolute inset-0 border transition-colors duration-300 ${
+          <div className={`relative h-full transition-all duration-300 ${isFocused ? 'transform -translate-y-1' : ''}`}>
+            <div className={`absolute inset-0 border rounded-full transition-colors duration-300 ${
               error ? 'border-destructive' : isFocused ? 'border-primary' : 'border-border'
-            }`} />
-            
-            {/* Corner accents */}
-            <div className={`absolute -top-1 -left-1 w-3 h-3 border-l-2 border-t-2 transition-colors duration-300 ${
-              isFocused ? 'border-primary' : 'border-transparent'
-            }`} />
-            <div className={`absolute -bottom-1 -right-1 w-3 h-3 border-r-2 border-b-2 transition-colors duration-300 ${
-              isFocused ? 'border-primary' : 'border-transparent'
             }`} />
             
             <input
@@ -214,22 +207,17 @@ const NewsletterForm = ({ variant = 'inline', className = '' }: NewsletterFormPr
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               placeholder="Enter your email"
-              className="w-full px-6 py-4 bg-transparent focus:outline-none transition-colors font-mono text-sm"
+              className="w-full h-full px-8 bg-transparent focus:outline-none transition-colors font-mono text-sm rounded-full"
             />
           </div>
         </div>
         
-        <motion.button
-          type="submit"
-          disabled={isSubmitting}
-          whileHover={{ scale: 1.02, x: 5 }}
-          whileTap={{ scale: 0.98 }}
-          className="group relative px-8 py-4 bg-foreground text-background font-syne font-bold overflow-hidden disabled:opacity-70"
-        >
-          {/* Button hover effect */}
-          <div className="absolute inset-0 bg-primary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500" />
-          
-          <span className="relative flex items-center justify-center gap-2">
+        <MagneticButton>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="group h-[56px] inline-flex items-center gap-3 px-8 bg-white text-black font-semibold rounded-full transition-all hover:opacity-90 disabled:opacity-70"
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -238,11 +226,16 @@ const NewsletterForm = ({ variant = 'inline', className = '' }: NewsletterFormPr
             ) : (
               <>
                 <span>SUBSCRIBE</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <motion.div
+                  className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center"
+                  whileHover={{ rotate: 45 }}
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </motion.div>
               </>
             )}
-          </span>
-        </motion.button>
+          </button>
+        </MagneticButton>
       </div>
       
       {error && (

@@ -2,10 +2,9 @@ import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { ArrowRight, Linkedin, Twitter } from 'lucide-react';
-import PageTransition from '@/components/PageTransition';
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import MagneticButton from '@/components/MagneticButton';
+import Navigation from '@/components/Navigation';
 
 const teamMembers = [
   {
@@ -121,12 +120,11 @@ const About = () => {
   };
 
   return (
-    <PageTransition>
       <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
         <Navigation />
 
         {/* Hero Section */}
-        <section ref={heroRef} className="pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+        <section ref={heroRef} className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
           {/* Grid overlay */}
           <div className="absolute inset-0 pointer-events-none">
             {[...Array(6)].map((_, i) => (
@@ -139,16 +137,32 @@ const About = () => {
                 transition={{ delay: i * 0.05, duration: 1.2 }}
               />
             ))}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={`v-${i}`}
+                className="absolute top-0 bottom-0 w-px bg-foreground/5"
+                style={{ left: `${25 * (i + 1)}%` }}
+                initial={{ scaleY: 0 }}
+                animate={heroInView ? { scaleY: 1 } : {}}
+                transition={{ delay: 0.2 + i * 0.05, duration: 1.2 }}
+              />
+            ))}
           </div>
 
           {/* Floating shapes */}
           <motion.div
-            className="absolute top-32 right-[15%] w-24 h-24 border border-accent/20"
+            className="absolute top-32 right-[10%] w-20 h-20 border border-accent/20"
             style={{ transform: 'rotate(45deg)', x: mousePosition.x * 2, y: mousePosition.y * 2 }}
           />
           <motion.div
-            className="absolute bottom-20 left-[10%] w-4 h-4 bg-accent/30 rounded-full"
-            style={{ x: mousePosition.x * -3, y: mousePosition.y * -3 }}
+            className="absolute bottom-20 left-[15%] w-32 h-32 rounded-full border border-accent/10"
+            style={{ x: mousePosition.x * -2, y: mousePosition.y * -2 }}
+          />
+
+          {/* Accent orb */}
+          <motion.div
+            className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
+            style={{ top: '20%', right: '10%', x: mousePosition.x * 3, y: mousePosition.y * 3 }}
           />
 
           <div className="container-wide relative z-10">
@@ -194,144 +208,122 @@ const About = () => {
 
         {/* Story Section */}
         <section ref={storyRef} className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(4)].map((_, i) => (
-              <motion.div
-                key={`v-${i}`}
-                className="absolute top-0 bottom-0 w-px bg-foreground/5"
-                style={{ left: `${25 * (i + 1)}%` }}
-                initial={{ scaleY: 0 }}
-                animate={storyInView ? { scaleY: 1 } : {}}
-                transition={{ delay: i * 0.1, duration: 1.2 }}
-              />
-            ))}
-          </div>
-
           <div className="container-wide relative z-10">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={storyInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="flex items-center gap-4 mb-16"
-            >
-              <span className="text-sm font-mono text-accent">02</span>
-              <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">OUR STORY</span>
-            </motion.div>
-
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            {/* Narrative Header */}
+            <div className="max-w-4xl mx-auto text-center mb-24">
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={storyInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8 }}
+                className="flex items-center justify-center gap-4 mb-8"
+              >
+                <span className="text-sm font-mono text-accent">02</span>
+                <div className="h-px w-12 bg-accent" />
+                <span className="text-sm font-mono text-muted-foreground tracking-wider">OUR STORY</span>
+              </motion.div>
+
+              <motion.h2 
+                initial={{ opacity: 0, y: 30 }}
                 animate={storyInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.2 }}
+                className="font-syne font-bold text-4xl md:text-5xl lg:text-6xl mb-8 leading-tight"
               >
-                <h2 className="font-syne font-bold text-3xl md:text-4xl lg:text-5xl mb-8 leading-tight">
-                  Born from a belief that design can change everything
-                </h2>
-                <div className="space-y-6 text-muted-foreground leading-relaxed">
-                  <p>
-                    Studio began in a small San Francisco apartment with a simple mission: 
-                    to create digital experiences that truly matter. We were tired of seeing 
-                    beautiful design sacrificed for speed, and meaningful strategy lost to trends.
-                  </p>
-                  <p>
-                    Today, we work with forward-thinking brands across the globe, from ambitious 
-                    startups to established enterprises. Our approach remains the same—every project 
-                    receives our full attention, creativity, and strategic thinking.
-                  </p>
-                </div>
-              </motion.div>
+                Born from a belief that design can change everything.
+              </motion.h2>
 
-              {/* Timeline */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
                 animate={storyInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="relative"
+                className="space-y-6 text-lg text-muted-foreground leading-relaxed"
               >
-                <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
-                <div className="space-y-8">
-                  {milestones.map((milestone, index) => (
-                    <motion.div
-                      key={milestone.year}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={storyInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                      className="relative pl-12 group"
-                    >
-                      <div className="absolute left-0 w-8 h-8 rounded-full bg-background border-2 border-accent/50 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/10 transition-all duration-300">
-                        <div className="w-2 h-2 rounded-full bg-accent" />
-                      </div>
-                      <span className="text-accent font-syne font-bold text-lg">{milestone.year}</span>
-                      <p className="text-muted-foreground mt-1">{milestone.event}</p>
-                    </motion.div>
-                  ))}
-                </div>
+                <p>
+                  Studio began in a small San Francisco apartment with a simple mission: 
+                  to create digital experiences that truly matter. We were tired of seeing 
+                  beautiful design sacrificed for speed, and meaningful strategy lost to trends.
+                </p>
+                <p>
+                  Today, we work with forward-thinking brands across the globe, from ambitious 
+                  startups to established enterprises. Our approach remains the same—every project 
+                  receives our full attention, creativity, and strategic thinking.
+                </p>
               </motion.div>
+            </div>
+
+            {/* Architectural Timeline Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+              {milestones.map((milestone, index) => (
+                <motion.div
+                  key={milestone.year}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={storyInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                  className="group relative pt-8 border-t border-border hover:border-accent transition-colors duration-500"
+                >
+                  <div className="flex flex-col gap-4">
+                    <span className="text-5xl md:text-6xl font-syne font-bold text-foreground/20 group-hover:text-accent transition-colors duration-500">
+                      {milestone.year}
+                    </span>
+                    <p className="text-foreground/80 font-medium leading-relaxed max-w-xs group-hover:text-foreground transition-colors duration-300">
+                      {milestone.event}
+                    </p>
+                  </div>
+                  
+                  {/* Decorative dot */}
+                  <div className="absolute top-[-5px] right-0 w-2 h-2 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Values Section */}
         <section ref={valuesRef} className="py-24 md:py-32 relative overflow-hidden">
-          <motion.div
-            className="absolute w-[500px] h-[500px] rounded-full bg-accent/5 blur-[120px] pointer-events-none"
-            style={{ top: '20%', right: '-10%' }}
-          />
-
-          <div className="container-wide relative z-10">
+          <div className="container-wide mb-16">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={valuesInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="flex items-center gap-4 mb-8"
-            >
-              <span className="text-sm font-mono text-accent">03</span>
-              <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">WHAT WE BELIEVE</span>
-            </motion.div>
-
-            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-syne font-bold text-4xl md:text-5xl mb-16"
+              transition={{ duration: 0.8 }}
+              className="text-center"
             >
-              Our Values
-            </motion.h2>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <span className="text-sm font-mono text-accent">03</span>
+                <div className="h-px w-12 bg-accent" />
+                <span className="text-sm font-mono text-muted-foreground tracking-wider">WHAT WE BELIEVE</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-syne font-bold">
+                Principles that guide us.
+              </h2>
+            </motion.div>
+          </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="w-full border-y border-border">
+            <div className="flex flex-col lg:flex-row h-auto lg:h-[600px] divide-y lg:divide-y-0 lg:divide-x divide-border">
               {values.map((value, index) => (
-                <motion.div
+                <div
                   key={value.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  className="group relative p-8 border border-border/50 bg-card/30 hover:border-accent/30 hover:bg-accent/5 transition-all duration-500"
+                  className="group relative flex-1 p-8 lg:p-12 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[3] bg-background hover:bg-accent/5 overflow-hidden flex flex-col justify-between min-h-[300px] lg:min-h-0"
                 >
-                  <span className="absolute top-4 right-4 text-xs font-mono text-muted-foreground/40 group-hover:text-accent transition-colors">
-                    {value.number}
-                  </span>
-                  <motion.span 
-                    className="text-4xl mb-6 block text-accent/60 group-hover:text-accent transition-colors"
-                    whileHover={{ rotate: 180, scale: 1.2 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {value.icon}
-                  </motion.span>
-                  <h3 className="text-xl font-syne font-bold mb-3 group-hover:text-accent transition-colors">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {value.description}
-                  </p>
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent origin-left"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                </motion.div>
+                  <div className="flex justify-between items-start">
+                    <span className="text-sm font-mono text-accent">
+                      {value.number}
+                    </span>
+                    <span className="text-3xl text-foreground/20 group-hover:text-accent transition-colors duration-500 transform group-hover:rotate-180">
+                      {value.icon}
+                    </span>
+                  </div>
+
+                  <div className="relative z-10 mt-auto">
+                    <h3 className="text-2xl lg:text-4xl font-syne font-bold mb-4 whitespace-nowrap group-hover:text-accent transition-colors duration-300">
+                      {value.title}
+                    </h3>
+                    <div className="lg:max-w-md lg:opacity-0 lg:group-hover:opacity-100 lg:translate-y-8 lg:group-hover:translate-y-0 transition-all duration-500 delay-100">
+                      <p className="text-muted-foreground leading-relaxed text-lg">
+                        {value.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -339,103 +331,82 @@ const About = () => {
 
         {/* Team Section */}
         <section ref={teamRef} className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(5)].map((_, i) => (
-              <motion.div
-                key={`grid-${i}`}
-                className="absolute left-0 right-0 h-px bg-foreground/5"
-                style={{ top: `${20 * (i + 1)}%` }}
-                initial={{ scaleX: 0 }}
-                animate={teamInView ? { scaleX: 1 } : {}}
-                transition={{ delay: i * 0.05, duration: 1.2 }}
-              />
-            ))}
-          </div>
-
           <div className="container-wide relative z-10">
+            {/* Centered Header */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={teamInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={teamInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
-              className="flex items-center gap-4 mb-8"
+              className="text-center mb-16 md:mb-24"
             >
-              <span className="text-sm font-mono text-accent">04</span>
-              <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">THE PEOPLE</span>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <span className="text-sm font-mono text-accent">04</span>
+                <div className="h-px w-12 bg-accent" />
+                <span className="text-sm font-mono text-muted-foreground tracking-wider">THE PEOPLE</span>
+              </div>
+              
+              <h2 className="text-4xl md:text-6xl font-syne font-bold max-w-3xl mx-auto leading-tight">
+                Meet the dreamers & makers behind the screens.
+              </h2>
             </motion.div>
 
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-              <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                animate={teamInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="font-syne font-bold text-4xl md:text-5xl"
-              >
-                Meet Our Team
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={teamInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                className="text-muted-foreground max-w-md"
-              >
-                A diverse group of thinkers, makers, and strategists united by our love for great design.
-              </motion.p>
-            </div>
+            {/* Horizontal Scroll Gallery */}
+            <div className="relative">
+              {/* Fade masks for scroll indicators */}
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background/50 to-transparent z-10 pointer-events-none md:hidden" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background/50 to-transparent z-10 pointer-events-none md:hidden" />
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={teamInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  className="group relative"
-                >
-                  <div className="relative overflow-hidden mb-5 aspect-[4/5]">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Number */}
-                    <span className="absolute top-4 left-4 text-xs font-mono text-foreground/80 bg-background/80 backdrop-blur-sm px-2 py-1">
-                      {member.number}
-                    </span>
+              <motion.div 
+                className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory scrollbar-none -mx-6 px-6 md:mx-0 md:px-0"
+                initial={{ opacity: 0, x: 50 }}
+                animate={teamInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                {teamMembers.map((member, index) => (
+                  <div
+                    key={member.name}
+                    className="flex-none w-[280px] md:w-[360px] snap-center group relative overflow-hidden rounded-sm cursor-pointer"
+                  >
+                    <div className="aspect-[3/4] overflow-hidden">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                      
+                      {/* Content Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span className="text-xs font-mono text-accent mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                          {member.role}
+                        </span>
+                        <h3 className="text-2xl font-syne font-bold text-white mb-2">
+                          {member.name}
+                        </h3>
+                        <p className="text-gray-300 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                          {member.bio}
+                        </p>
+                        
+                        {/* Social Links */}
+                        <div className="flex gap-3 mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150">
+                          <a href={member.linkedin} className="text-white hover:text-accent transition-colors">
+                            <Linkedin className="w-5 h-5" />
+                          </a>
+                          <a href={member.twitter} className="text-white hover:text-accent transition-colors">
+                            <Twitter className="w-5 h-5" />
+                          </a>
+                        </div>
+                      </div>
 
-                    {/* Corner decoration */}
-                    <motion.div
-                      className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-accent opacity-0 group-hover:opacity-100 transition-opacity"
-                      initial={{ scale: 0.8 }}
-                      whileHover={{ scale: 1 }}
-                    />
-                    
-                    {/* Social Links */}
-                    <div className="absolute bottom-4 left-4 right-4 flex gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                      <a 
-                        href={member.linkedin}
-                        className="w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
-                      >
-                        <Linkedin className="w-4 h-4" />
-                      </a>
-                      <a 
-                        href={member.twitter}
-                        className="w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
-                      >
-                        <Twitter className="w-4 h-4" />
-                      </a>
+                      {/* Number Top Right */}
+                      <span className="absolute top-4 right-4 text-xs font-mono text-white/50 border border-white/20 px-2 py-1 rounded-full">
+                        {member.number}
+                      </span>
                     </div>
                   </div>
-                  
-                  <h3 className="text-xl font-syne font-bold mb-1 group-hover:text-accent transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-accent text-sm mb-2">{member.role}</p>
-                  <p className="text-muted-foreground text-sm">{member.bio}</p>
-                </motion.div>
-              ))}
+                ))}
+              </motion.div>
             </div>
           </div>
         </section>
@@ -443,25 +414,37 @@ const About = () => {
         {/* Stats Section */}
         <section className="py-24 md:py-32 relative overflow-hidden">
           <div className="container-wide">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
               {[
-                { number: '100+', label: 'Projects Completed' },
-                { number: '50+', label: 'Happy Clients' },
-                { number: '15+', label: 'Awards Won' },
-                { number: '6', label: 'Years of Excellence' },
+                { number: '100', suffix: '+', label: 'Projects' },
+                { number: '50', suffix: '+', label: 'Clients' },
+                { number: '15', suffix: '+', label: 'Awards' },
+                { number: '06', suffix: '', label: 'Years' },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group text-center p-6 border border-transparent hover:border-accent/30 hover:bg-accent/5 transition-all duration-300"
+                  transition={{ duration: 0.6, delay: index * 0.1, type: "spring" }}
+                  className="group aspect-square rounded-full border border-border flex flex-col items-center justify-center hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-500 cursor-default relative overflow-hidden"
                 >
-                  <span className="text-4xl md:text-6xl font-syne font-bold text-foreground group-hover:text-accent transition-colors">
-                    {stat.number}
-                  </span>
-                  <p className="text-muted-foreground mt-2">{stat.label}</p>
+                  <div className="relative z-10 text-center">
+                    <div className="flex items-start justify-center gap-1 leading-none">
+                      <span className="text-4xl md:text-6xl font-syne font-bold tracking-tighter">
+                        {stat.number}
+                      </span>
+                      <span className="text-2xl md:text-3xl font-syne font-medium text-accent group-hover:text-background transition-colors duration-500">
+                        {stat.suffix}
+                      </span>
+                    </div>
+                    <p className="text-xs font-mono uppercase tracking-widest mt-3 text-muted-foreground group-hover:text-background/70 transition-colors duration-500">
+                      {stat.label}
+                    </p>
+                  </div>
+                  
+                  {/* Ripple effect circle */}
+                  <div className="absolute inset-0 rounded-full border border-accent/0 group-hover:border-accent/50 group-hover:scale-110 transition-all duration-700" />
                 </motion.div>
               ))}
             </div>
@@ -469,9 +452,9 @@ const About = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 md:py-32 bg-foreground text-background relative overflow-hidden">
+        <section className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
           <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-background/10"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-foreground/10"
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           />
@@ -487,18 +470,18 @@ const About = () => {
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">
                 Want to join our team?
               </h2>
-              <p className="text-background/60 max-w-xl mx-auto mb-10">
+              <p className="text-muted-foreground max-w-xl mx-auto mb-10">
                 We're always looking for talented individuals who share our 
                 passion for exceptional design. Check out our open positions.
               </p>
               <MagneticButton>
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-accent-foreground font-semibold rounded-full"
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-semibold rounded-full"
                 >
                   Get in Touch
                   <motion.div
-                    className="w-6 h-6 rounded-full bg-accent-foreground/20 flex items-center justify-center"
+                    className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center"
                     whileHover={{ rotate: 45 }}
                   >
                     <ArrowRight className="w-4 h-4" />
@@ -511,7 +494,6 @@ const About = () => {
 
         <Footer />
       </div>
-    </PageTransition>
   );
 };
 

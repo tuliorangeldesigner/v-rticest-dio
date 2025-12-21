@@ -1,15 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useSpring, useInView } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { getProjectById, projects } from '@/data/projects';
 import CustomCursor from '@/components/CustomCursor';
-import SmoothScroll from '@/components/SmoothScroll';
-import MagneticButton from '@/components/MagneticButton';
-import { AnimatedLine } from '@/components/AnimatedText';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import PageTransition from '@/components/PageTransition';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,14 +17,12 @@ const CaseStudy = () => {
   const contentRef = useRef(null);
   const isContentInView = useInView(contentRef, { once: true, margin: '-100px' });
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
   });
-
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
-  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,13 +30,17 @@ const CaseStudy = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <h1 className="heading-xl mb-4">Project Not Found</h1>
-          <Link to="/" className="text-accent link-hover">
-            Return Home
-          </Link>
+      <div className="min-h-screen bg-background flex flex-col">
+        <Navigation />
+        <div className="flex-1 flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <h1 className="text-4xl font-syne font-bold mb-4">Project Not Found</h1>
+            <Link to="/" className="text-accent hover:underline flex items-center justify-center gap-2">
+              <ArrowLeft className="w-4 h-4" /> Return Home
+            </Link>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -50,7 +49,8 @@ const CaseStudy = () => {
   const prevProject = getProjectById(project.prevProject);
 
   return (
-    <PageTransition>
+      <div className="min-h-screen bg-background selection:bg-accent/20 flex flex-col">
+      <Navigation />
       <Helmet>
         <title>{project.title} | STUDIO Case Study</title>
         <meta name="description" content={project.description} />
@@ -58,286 +58,264 @@ const CaseStudy = () => {
 
       <CustomCursor />
 
-      <SmoothScroll>
-        <div className="noise-overlay" />
+      {/* Reading Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-50"
+        style={{ scaleX }}
+      />
 
-        {/* Back Button */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="fixed top-8 left-6 md:left-12 z-50"
-        >
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-foreground/60 hover:text-foreground transition-colors group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span className="label">Back</span>
-          </button>
-        </motion.div>
-
-        {/* Hero Section */}
-        <motion.section
-          ref={heroRef}
-          className="relative h-screen flex items-end overflow-hidden"
-        >
-          {/* Background Image */}
-          <motion.div
-            style={{ scale: heroScale, y: heroY }}
-            className="absolute inset-0"
-          >
-            <img
-              src={project.heroImage}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-          </motion.div>
-
-          {/* Hero Content */}
-          <motion.div
-            style={{ opacity: heroOpacity }}
-            className="container-wide relative z-10 pb-16 md:pb-24"
-          >
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="label text-accent mb-4 block"
-            >
-              {project.category} — {project.year}
-            </motion.span>
-
-            <div className="overflow-hidden">
-              <motion.h1
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.4, ease: [0.19, 1, 0.22, 1] }}
-                className="heading-display"
-              >
-                {project.title}
-              </motion.h1>
-            </div>
-          </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-px h-12 bg-gradient-to-b from-foreground/50 to-transparent"
-            />
-          </motion.div>
-        </motion.section>
-
-        {/* Project Info */}
-        <section ref={contentRef} className="section-padding">
-          <div className="container-wide">
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-24">
-              {/* Sidebar */}
-              <motion.aside
-                initial={{ opacity: 0, x: -30 }}
-                animate={isContentInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                className="lg:col-span-4 space-y-8"
-              >
-                <div>
-                  <span className="label text-muted-foreground mb-2 block">Client</span>
-                  <p className="body-lg">{project.client}</p>
+      <main className="flex-1 pt-24 md:pt-32">
+        {/* Swiss Grid Layout Wrapper (Similar to Blog, but adapted for Project) */}
+        <div className="container-wide max-w-[90rem] mx-auto px-4 sm:px-6 mb-20">
+          
+          {/* Grid Container */}
+          <div className="border border-foreground/10 bg-background relative z-10">
+            
+            {/* 1. Header Grid Row */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 border-b border-foreground/10">
+              {/* Breadcrumbs / Back */}
+              <div className="col-span-1 lg:col-span-3 p-6 border-b lg:border-b-0 lg:border-r border-foreground/10 flex items-center">
+                <Link to="/work" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground/60 hover:text-accent transition-colors">
+                  <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                  Back to Work
+                </Link>
+                <span className="mx-4 text-foreground/20">/</span>
+                <span className="text-sm text-foreground/40 uppercase tracking-wider">{project.category}</span>
+              </div>
+              
+              {/* Year Cell */}
+              <div className="col-span-1 p-6 flex items-center justify-between lg:justify-center text-sm font-medium text-foreground/80">
+                <span className="lg:hidden text-foreground/40 uppercase tracking-wider">Year</span>
+                <div className="flex items-center gap-2 font-mono">
+                   {project.year}
                 </div>
-                <div>
-                  <span className="label text-muted-foreground mb-2 block">Year</span>
-                  <p className="body-lg">{project.year}</p>
-                </div>
-                <div>
-                  <span className="label text-muted-foreground mb-2 block">Services</span>
-                  <ul className="space-y-1">
-                    {project.services.map((service) => (
-                      <li key={service} className="body-md">{service}</li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.aside>
-
-              {/* Main Content */}
-              <div className="lg:col-span-8 space-y-16">
-                {/* Description */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isContentInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
-                >
-                  <p className="heading-md text-balance">{project.description}</p>
-                </motion.div>
-
-                {/* Challenge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                >
-                  <AnimatedLine>
-                    <h2 className="heading-lg mb-6">The Challenge</h2>
-                  </AnimatedLine>
-                  <p className="body-lg text-muted-foreground">{project.challenge}</p>
-                </motion.div>
-
-                {/* Solution */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                >
-                  <AnimatedLine>
-                    <h2 className="heading-lg mb-6">The Solution</h2>
-                  </AnimatedLine>
-                  <p className="body-lg text-muted-foreground">{project.solution}</p>
-                </motion.div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Gallery */}
-        <section className="py-12 md:py-24">
-          <div className="container-wide">
-            <div className="grid md:grid-cols-2 gap-6">
-              {project.gallery.map((image, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.8, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                  className={`relative overflow-hidden ${index === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-[4/3]'}`}
-                >
-                  <img
-                    src={image}
-                    alt={`${project.title} gallery ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Results */}
-        <section className="section-padding bg-secondary/30">
-          <div className="container-wide">
-            <AnimatedLine>
-              <h2 className="heading-xl mb-16 text-center">The Results</h2>
-            </AnimatedLine>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {project.results.map((result, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                  className="text-center"
-                >
-                  <span className="heading-md text-accent block mb-2">
-                    {result.split(' ')[0]}
-                  </span>
-                  <span className="body-md text-muted-foreground">
-                    {result.split(' ').slice(1).join(' ')}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Next Project Navigation */}
-        <section className="py-24 md:py-32 border-t border-border">
-          <div className="container-wide">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-12">
-              {/* Previous */}
-              {prevProject && (
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+            {/* 2. Title Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-12">
+              <div className="lg:col-span-12 p-6 md:p-12 lg:p-16 border-b border-foreground/10">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="text-center md:text-left"
+                  className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-syne font-bold leading-[0.9] tracking-tight text-foreground uppercase"
                 >
-                  <span className="label text-muted-foreground mb-2 block">Previous</span>
-                  <Link
-                    to={`/work/${prevProject.id}`}
-                    className="heading-md link-hover inline-flex items-center gap-3 group"
-                  >
-                    <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-2" />
-                    {prevProject.title}
-                  </Link>
-                </motion.div>
-              )}
+                  {project.title}
+                </motion.h1>
+                
+                <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                   <p className="text-lg md:text-xl text-foreground/60 max-w-2xl leading-relaxed">
+                     {project.description}
+                   </p>
+                   <div className="flex items-center gap-3">
+                      <div className="px-4 py-2 rounded-full border border-foreground/10 text-xs font-bold uppercase tracking-widest bg-foreground/5">
+                        Case Study
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
 
-              {/* Divider */}
-              <motion.div
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="hidden md:block w-px h-16 bg-border"
-              />
+            {/* 3. Hero Image - Full Grid Width */}
+            <div className="w-full border-b border-foreground/10 overflow-hidden bg-foreground/5">
+               <motion.div
+                 initial={{ scale: 1.05, opacity: 0 }}
+                 animate={{ scale: 1, opacity: 1 }}
+                 transition={{ duration: 0.8 }}
+                 className="aspect-[16/9] md:aspect-[21/9] w-full relative"
+               >
+                 <img 
+                   src={project.heroImage} 
+                   alt={project.title}
+                   className="w-full h-full object-cover"
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+               </motion.div>
+            </div>
 
-              {/* Next */}
-              {nextProject && (
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+            {/* 4. Content Area Split */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[50vh]">
+              
+              {/* Left Sidebar - Project Metadata */}
+              <div className="lg:col-span-3 border-r border-foreground/10 bg-background">
+                <div className="sticky top-24">
+                  <div className="flex flex-col">
+                     {/* Client Block */}
+                     <div className="p-6 border-b border-foreground/10 relative group hover:bg-foreground/5 transition-colors">
+                        <span className="absolute top-6 right-6 text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">01</span>
+                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-3">Client</h4>
+                        <p className="text-lg font-syne font-bold leading-tight group-hover:translate-x-1 transition-transform duration-300">
+                           {project.client}
+                        </p>
+                     </div>
+
+                     {/* Services Block - Digital Tags */}
+                     <div className="p-6 relative group hover:bg-foreground/5 transition-colors">
+                        <span className="absolute top-6 right-6 text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">02</span>
+                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-4">Scope of Work</h4>
+                        <div className="flex flex-wrap gap-2">
+                           {project.services.map((service, idx) => (
+                              <span 
+                                 key={idx} 
+                                 className="inline-block px-3 py-1 border border-foreground/10 text-[11px] font-mono uppercase tracking-wide rounded-sm text-foreground/70 hover:border-accent hover:text-accent hover:bg-background transition-colors cursor-default"
+                              >
+                                 {service}
+                              </span>
+                           ))}
+                        </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Content */}
+              <div className="lg:col-span-9 p-6 md:p-12 lg:p-16">
+                <motion.article 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="text-center md:text-right"
+                  transition={{ duration: 0.5 }}
+                  className="prose prose-lg md:prose-xl max-w-none prose-headings:font-syne prose-headings:font-bold prose-p:text-foreground/80 prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-none prose-img:border prose-img:border-foreground/10"
                 >
-                  <span className="label text-muted-foreground mb-2 block">Next</span>
-                  <Link
-                    to={`/work/${nextProject.id}`}
-                    className="heading-md link-hover inline-flex items-center gap-3 group"
-                  >
-                    {nextProject.title}
-                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
-                  </Link>
-                </motion.div>
-              )}
+                  {/* Challenge Section */}
+                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">The Challenge</h3>
+                  <p className="mb-12 text-foreground/80 leading-relaxed">
+                    {project.challenge}
+                  </p>
+
+                  {/* Solution Section */}
+                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">The Solution</h3>
+                  <p className="mb-12 text-foreground/80 leading-relaxed">
+                    {project.solution}
+                  </p>
+                  
+                  {/* Impact / Results Highlight */}
+                  <div className="my-16 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
+                     <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">Key Results</h4>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
+                        {project.results.map((result, i) => (
+                           <div key={i}>
+                              <span className="block text-4xl md:text-5xl font-syne font-bold mb-2">{result.split(' ')[0]}</span>
+                              <span className="text-xs font-mono uppercase tracking-widest text-foreground/60">{result.split(' ').slice(1).join(' ')}</span>
+                           </div>
+                        ))}
+                     </div>
+                  </div>
+                </motion.article>
+
+                {/* Gallery - Visual Archive Layout */}
+                <div className="mt-12">
+                  <div className="flex items-end justify-between mb-16">
+                     <div>
+                        <span className="text-xs font-mono uppercase tracking-widest text-foreground/40 block mb-2">Visual Archive</span>
+                        <h3 className="text-3xl font-syne font-bold">Design Artifacts</h3>
+                     </div>
+                     <span className="hidden md:block text-xs font-mono uppercase tracking-widest text-foreground/40">
+                        {project.gallery.length} Assets Processed
+                     </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     {project.gallery.map((image, i) => (
+                        <div 
+                           key={i} 
+                           className={`group relative overflow-hidden bg-foreground/5 ${
+                              i === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'
+                           }`}
+                        >
+                           <img 
+                              src={image} 
+                              alt={`Gallery image ${i+1}`} 
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                           />
+                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <div className="px-4 py-2 bg-background text-foreground text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                 View Full
+                              </div>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+
+                  {/* Key Takeaways - Compact Accent Card (No Border) */}
+                  {project.keyTakeaways && (
+                     <div className="mt-24 relative overflow-hidden bg-accent text-accent-foreground p-8 md:p-12 selection:bg-white selection:text-accent rounded-sm">
+                        {/* Background Pattern */}
+                        <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+                        
+                        <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-12 md:items-start">
+                           <div className="md:w-1/4 pb-6 md:pb-0">
+                              <span className="text-5xl md:text-6xl font-syne font-black block leading-none mb-2">The Shift.</span>
+                              <span className="text-xs font-mono uppercase tracking-widest font-bold opacity-70">Retrospective</span>
+                           </div>
+                           <div className="md:w-3/4 md:pl-4">
+                              <p className="text-xl md:text-2xl font-syne font-bold leading-snug mb-4">
+                                 "{project.keyTakeaways}"
+                              </p>
+                              <div className="flex items-center gap-4">
+                                 <div className="h-px w-8 bg-accent-foreground"></div>
+                                 <span className="text-xs font-mono uppercase tracking-widest font-bold">Insights</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  )}
+                </div>
+              </div>
+
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Footer CTA */}
-        <section className="section-padding border-t border-border">
-          <div className="container-wide text-center">
-            <AnimatedLine>
-              <h2 className="heading-xl mb-8">Have a project in mind?</h2>
-            </AnimatedLine>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <MagneticButton
-                onClick={() => navigate('/#contact')}
-                className="px-12 py-6 bg-accent text-accent-foreground font-syne font-semibold text-lg"
-              >
-                Let's Talk
-              </MagneticButton>
-            </motion.div>
+        {/* Footer Navigation */}
+        <section className="border-t border-foreground/10 bg-foreground/5 py-20">
+          <div className="container-wide max-w-[90rem] mx-auto px-4 sm:px-6">
+            <div className="flex items-end justify-between mb-12">
+              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">Next Project</h2>
+              <Link to="/work" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-accent transition-colors">
+                View All Work <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            
+            {nextProject ? (
+               <Link 
+                  to={`/work/${nextProject.id}`} 
+                  className="group block border border-foreground/10 bg-background p-8 hover:border-accent transition-colors relative overflow-hidden"
+               >
+                  <div className="grid md:grid-cols-2 gap-8 items-center">
+                     <div className="aspect-[16/9] overflow-hidden bg-foreground/5">
+                        <img
+                          src={nextProject.heroImage}
+                          alt={nextProject.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                     </div>
+                     <div>
+                        <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-foreground/40 mb-4">
+                          <span className="text-accent">{nextProject.category}</span>
+                          <span>{nextProject.year}</span>
+                        </div>
+                        <h3 className="text-3xl md:text-5xl font-syne font-bold leading-tight group-hover:text-accent transition-colors mb-6">
+                          {nextProject.title}
+                        </h3>
+                        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                           View Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                        </div>
+                     </div>
+                  </div>
+               </Link>
+            ) : (
+               <div className="text-center py-12 text-foreground/40 italic">
+                  End of portfolio.
+               </div>
+            )}
           </div>
         </section>
-      </SmoothScroll>
-    </PageTransition>
+      </main>
+
+      <Footer />
+      </div>
   );
 };
 

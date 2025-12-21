@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
-import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { name: 'Work', href: '/work', number: '01' },
@@ -13,6 +12,7 @@ const navLinks = [
 ];
 
 export const Navigation = () => {
+  const navRef = useRef<HTMLElement | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -33,6 +33,27 @@ export const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+
+    const setOffset = () => {
+      const height = el.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-offset', `${height}px`);
+    };
+
+    setOffset();
+
+    const ro = new ResizeObserver(() => setOffset());
+    ro.observe(el);
+    window.addEventListener('resize', setOffset);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', setOffset);
+    };
+  }, [isScrolled]);
+
+  useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
@@ -48,6 +69,7 @@ export const Navigation = () => {
     <>
       {/* Floating nav container */}
       <motion.nav
+        ref={navRef}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
@@ -57,7 +79,7 @@ export const Navigation = () => {
           className={`mx-auto transition-all duration-700 ${
             isScrolled 
               ? 'mt-4 max-w-5xl rounded-2xl bg-background/60 backdrop-blur-2xl border border-border/40 shadow-2xl shadow-background/20' 
-              : 'mt-0 max-w-full bg-transparent'
+              : 'mt-0 max-w-full bg-transparent border-none shadow-none backdrop-blur-none'
           }`}
         >
           <div className={`flex items-center justify-between transition-all duration-500 ${
@@ -173,11 +195,9 @@ export const Navigation = () => {
               </div>
               
               {/* Separator */}
-              <div className="w-px h-6 bg-border/50 mx-4" />
+              <div className={`w-px h-6 mx-4 transition-colors duration-500 ${isScrolled ? 'bg-border/50' : 'bg-transparent'}`} />
               
               <div className="flex items-center gap-2">
-                <ThemeToggle />
-                
                 {/* CTA Button with unique design */}
                 <MagneticButton className="group relative ml-2">
                   <Link 
@@ -233,7 +253,6 @@ export const Navigation = () => {
 
             {/* Tablet Navigation */}
             <div className="hidden md:flex lg:hidden items-center gap-4">
-              <ThemeToggle />
               <Link 
                 to="/contact"
                 className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full"
@@ -264,12 +283,10 @@ export const Navigation = () => {
 
             {/* Mobile Controls */}
             <div className="md:hidden flex items-center gap-3">
-              <ThemeToggle />
-              
               {/* Unique hamburger menu */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="relative z-50 w-12 h-12 flex items-center justify-center"
+                className="relative w-10 h-10 flex flex-col items-center justify-center"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
                 <motion.div 

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
 
 interface SmoothScrollProps {
@@ -7,6 +8,7 @@ interface SmoothScrollProps {
 
 export const SmoothScroll = ({ children }: SmoothScrollProps) => {
   const lenisRef = useRef<Lenis | null>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     lenisRef.current = new Lenis({
@@ -22,11 +24,14 @@ export const SmoothScroll = ({ children }: SmoothScrollProps) => {
     }
 
     requestAnimationFrame(raf);
-
     return () => {
       lenisRef.current?.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
+  }, [pathname]);
 
   return <>{children}</>;
 };

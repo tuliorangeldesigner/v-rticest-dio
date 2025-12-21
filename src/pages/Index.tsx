@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import SmoothScroll from '@/components/SmoothScroll';
+import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import CustomCursor from '@/components/CustomCursor';
-import LoadingScreen from '@/components/LoadingScreen';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -16,10 +13,8 @@ import SEO from '@/components/SEO';
 import { OrganizationSchema, WebsiteSchema, ProfessionalServiceSchema } from '@/components/StructuredData';
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
-    <>
+    <div className="min-h-screen bg-background">
       <SEO 
         title="Award-Winning Digital Agency"
         description="We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team."
@@ -31,37 +26,29 @@ const Index = () => {
 
       <CustomCursor />
 
-      <AnimatePresence mode="wait">
-        {isLoading && (
-          <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
-        )}
-      </AnimatePresence>
-
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: isLoading ? 0 : 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
       >
-        <SmoothScroll>
-          {/* Noise overlay for texture */}
-          <div className="noise-overlay" />
-          
-          <Navigation />
-          
-          <main>
-            <HeroSection />
-            <AboutSection />
-            <ServicesSection />
-            <WorkSection />
-            <ProcessSection />
-            <TestimonialsSection />
-            <CTASection />
-          </main>
-          
-          <Footer />
-        </SmoothScroll>
+        {/* Noise overlay for texture */}
+        <div className="noise-overlay" />
+        
+        <Navigation />
+        
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <ServicesSection />
+          <WorkSection />
+          <ProcessSection />
+          <TestimonialsSection />
+          <CTASection />
+        </main>
+        
+        <Footer />
       </motion.div>
-    </>
+    </div>
   );
 };
 

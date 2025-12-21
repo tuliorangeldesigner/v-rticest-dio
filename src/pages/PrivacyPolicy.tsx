@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import PageTransition from '@/components/PageTransition';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Navigation from '@/components/Navigation';
 
 const PrivacyPolicy = () => {
   const breadcrumbItems = [
@@ -9,7 +9,8 @@ const PrivacyPolicy = () => {
   ];
 
   return (
-    <PageTransition>
+    <div className="min-h-screen bg-background">
+      <Navigation />
       <SEO 
         title="Privacy Policy"
         description="Read our privacy policy to understand how we collect, use, and protect your personal information."
@@ -114,7 +115,7 @@ const PrivacyPolicy = () => {
           </motion.div>
         </div>
       </main>
-    </PageTransition>
+    </div>
   );
 };
 
