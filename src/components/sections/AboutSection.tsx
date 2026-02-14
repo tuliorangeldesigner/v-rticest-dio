@@ -1,11 +1,12 @@
-import { motion, useInView } from 'framer-motion';
+﻿import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
+import imageHero from '@/assets/imagehero.webp';
 
 const stats = [
-  { number: '150+', label: 'Projects', description: 'Successfully delivered' },
-  { number: '12', label: 'Awards', description: 'Industry recognition' },
-  { number: '98%', label: 'Happy Clients', description: 'Satisfaction rate' },
+  { number: '01', label: 'Percepção premium', description: 'Posicionamento de autoridade' },
+  { number: '02', label: 'Conversão real', description: 'Decisões orientadas por dados' },
+  { number: '03', label: 'Presença forte', description: 'Marca que domina categoria' },
 ];
 
 export const AboutSection = () => {
@@ -76,29 +77,27 @@ export const AboutSection = () => {
             >
               <span className="text-sm font-mono text-accent">01</span>
               <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">ABOUT US</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">SOBRE</span>
             </motion.div>
 
             <AnimatedLine delay={0.2}>
-              <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]">
-                We are a team of creative minds & craftsmen.
-              </h2>
+              <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]">Construímos Percepção Que Vende.</h2>
             </AnimatedLine>
 
             <div className="space-y-6 mb-10">
               <AnimatedLine delay={0.4}>
                 <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-                  Founded in 2019, our studio has been at the forefront of digital innovation. 
-                  We blend strategy, creativity, and technology to build experiences that 
-                  resonate with audiences and drive meaningful results.
+                  A maioria das empresas não sofre por falta de tráfego.
+                  Sofre por parecer comum.
                 </p>
               </AnimatedLine>
 
               <AnimatedLine delay={0.5}>
                 <p className="text-muted-foreground leading-relaxed max-w-xl">
-                  Our approach is rooted in collaboration. We work closely with brands 
-                  to understand their vision, challenge conventions, and create work 
-                  that stands apart in today's crowded digital landscape.
+                  Nós reestruturamos identidade, ambiente digital e ativos de performance para que sua marca pareça premium e converta como tal.
+                  <br />
+                  <br />
+                  Da identidade ao criativo de tráfego, controlamos cada camada da sua presença digital.
                 </p>
               </AnimatedLine>
             </div>
@@ -150,7 +149,7 @@ export const AboutSection = () => {
             
             <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
               <img
-                src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80"
+                src={imageHero}
                 alt="Creative team at work"
                 className="w-full h-full object-cover"
               />
@@ -192,3 +191,5 @@ export const AboutSection = () => {
 };
 
 export default AboutSection;
+
+

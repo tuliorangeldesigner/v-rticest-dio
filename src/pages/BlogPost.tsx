@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+﻿import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
@@ -6,11 +6,42 @@ import SEO from '@/components/SEO';
 import { ArticleSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+const inlineImagesByPost: Record<string, { src: string; alt: string }[]> = {
+  'marcas-comuns-brigam-por-preco': [
+    { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'Reunião estratégica de posicionamento de marca' },
+    { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', alt: 'Análise de métricas e performance digital' },
+  ],
+  'site-nao-converte': [
+    { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', alt: 'Painel de métricas de conversão e tráfego' },
+    { src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80', alt: 'Análise de dados para otimização de funil' },
+  ],
+  'percepcao-define-preco': [
+    { src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80', alt: 'Ambiente premium reforçando percepção de valor' },
+    { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Reunião executiva sobre estratégia de precificação' },
+  ],
+  'criativo-engenharia-atencao': [
+    { src: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=900&q=80', alt: 'Planejamento criativo para anúncios de performance' },
+    { src: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92eee?auto=format&fit=crop&w=900&q=80', alt: 'Produção visual para campanhas digitais' },
+  ],
+  'autoridade-visual-feed': [
+    { src: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=900&q=80', alt: 'Curadoria visual de conteúdo para redes sociais' },
+    { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80', alt: 'Planejamento de identidade visual para presença digital' },
+  ],
+  'branding-sem-estrategia': [
+    { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Workshop de branding orientado por estratégia' },
+    { src: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&q=80', alt: 'Definição de identidade visual e posicionamento de marca' },
+  ],
+  'ia-amplifica-estrategia': [
+    { src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80', alt: 'Aplicação de IA em fluxos de marketing e conteúdo' },
+    { src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=900&q=80', alt: 'Tecnologia e análise para escalar estratégia digital' },
+  ],
+};
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
   const post = getBlogPostById(id || '');
   const relatedPosts = post ? getRelatedPosts(post.id, post.category) : [];
+  const inlineImages = post ? inlineImagesByPost[post.id] ?? [] : [];
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -25,9 +56,9 @@ const BlogPost = () => {
         <Navigation />
         <div className="flex-1 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-[60px] font-syne font-bold mb-4 leading-tight">Post not found</h1>
+            <h1 className="text-[60px] font-syne font-bold mb-4 leading-tight">Post não encontrado</h1>
             <Link to="/blog" className="text-accent hover:underline flex items-center justify-center gap-2 link-hover">
-              <ArrowLeft className="w-4 h-4" /> Back to blog
+              <ArrowLeft className="w-4 h-4" /> Voltar para o blog
             </Link>
           </div>
         </div>
@@ -58,7 +89,7 @@ const BlogPost = () => {
       />
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://studio.design' },
+          { name: 'Início', url: 'https://studio.design' },
           { name: 'Blog', url: 'https://studio.design/blog' },
           { name: post.title, url: `https://studio.design/blog/${post.id}` },
         ]}
@@ -81,7 +112,7 @@ const BlogPost = () => {
            <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-6 border-b border-foreground/10 mb-12">
               <Link to="/blog" className="group flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-foreground/60 hover:text-accent transition-colors">
                  <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                 <span>Back to Blog</span>
+                 <span>Voltar para o Blog</span>
               </Link>
               
               <div className="flex items-center gap-6 mt-4 md:mt-0 text-xs font-mono uppercase tracking-widest text-foreground/40">
@@ -131,7 +162,7 @@ const BlogPost = () => {
               
               {/* Floating Info Box on Image */}
               <div className="absolute bottom-0 right-0 bg-background p-6 md:p-8 max-w-xs border-t border-l border-foreground/10 hidden md:block">
-                 <p className="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-3">Author</p>
+                 <p className="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-3">Autor</p>
                  <div className="flex items-center gap-3">
                     <img 
                        src={post.author.image} 
@@ -167,30 +198,30 @@ const BlogPost = () => {
 
                     {/* TOC */}
                     <div>
-                       <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">Contents</p>
+                       <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">Conteúdo</p>
                        <ul className="space-y-4 text-sm font-medium text-foreground/60">
                           <li className="flex items-center gap-3 text-accent cursor-pointer">
                              <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
-                             Introduction
+                             Introdução
                           </li>
                           <li className="flex items-center gap-3 hover:text-accent cursor-pointer transition-colors group">
                              <span className="w-1.5 h-1.5 bg-foreground/20 group-hover:bg-accent rounded-full transition-colors"></span>
-                             Key Concepts
+                             Conceitos-chave
                           </li>
                           <li className="flex items-center gap-3 hover:text-accent cursor-pointer transition-colors group">
                              <span className="w-1.5 h-1.5 bg-foreground/20 group-hover:bg-accent rounded-full transition-colors"></span>
-                             Implementation
+                             Implementação
                           </li>
                           <li className="flex items-center gap-3 hover:text-accent cursor-pointer transition-colors group">
                              <span className="w-1.5 h-1.5 bg-foreground/20 group-hover:bg-accent rounded-full transition-colors"></span>
-                             Summary
+                             Resumo
                           </li>
                        </ul>
                     </div>
 
                     {/* Share */}
                     <div>
-                       <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">Share</p>
+                       <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">Compartilhar</p>
                        <div className="flex gap-4">
                           <button className="w-10 h-10 border border-foreground/10 rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-all">
                              <Twitter className="w-4 h-4" />
@@ -220,8 +251,16 @@ const BlogPost = () => {
                        )}
                        {index === 3 && (
                           <div className="my-12 grid grid-cols-2 gap-4 not-prose">
-                             <div className="aspect-square bg-foreground/5 rounded-sm flex items-center justify-center text-foreground/20 font-syne font-bold text-4xl">01</div>
-                             <div className="aspect-square bg-accent/10 rounded-sm flex items-center justify-center text-accent/20 font-syne font-bold text-4xl">02</div>
+                             {inlineImages.slice(0, 2).map((image) => (
+                               <div key={image.src} className="aspect-square rounded-sm overflow-hidden bg-foreground/5">
+                                  <img
+                                    src={image.src}
+                                    alt={image.alt}
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                  />
+                               </div>
+                             ))}
                           </div>
                        )}
                     </div>
@@ -234,9 +273,9 @@ const BlogPost = () => {
         {/* 4. Footer Navigation - Simple & Direct */}
         <section className="container-wide mt-32 border-t border-foreground/10 pt-16">
            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
-              <h3 className="font-syne font-bold text-3xl">Keep Reading</h3>
+              <h3 className="font-syne font-bold text-3xl">Continue Lendo</h3>
               <Link to="/blog" className="mt-4 md:mt-0 text-sm font-mono uppercase tracking-widest border-b border-accent pb-1 hover:text-accent transition-colors">
-                 View All Stories
+                 Ver Todos os Artigos
               </Link>
            </div>
 
@@ -277,3 +316,9 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
+
+
+
+
+
+

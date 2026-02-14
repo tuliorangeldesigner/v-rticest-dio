@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import CustomCursor from '@/components/CustomCursor';
 import HeroSection from '@/components/sections/HeroSection';
@@ -16,7 +16,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Award-Winning Digital Agency"
+        title="Vértice Studio™"
         description="We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team."
         url="https://studio.design"
       />
@@ -53,3 +53,4 @@ const Index = () => {
 };
 
 export default Index;
+

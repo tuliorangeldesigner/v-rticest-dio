@@ -1,14 +1,14 @@
-import { useRef, useState, useEffect } from 'react';
+﻿import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
 
 const navLinks = [
-  { name: 'Work', href: '/work', number: '01' },
-  { name: 'About', href: '/about', number: '02' },
-  { name: 'Services', href: '/services', number: '03' },
+  { name: 'Projetos', href: '/work', number: '01' },
+  { name: 'Sobre', href: '/about', number: '02' },
+  { name: 'Serviços', href: '/services', number: '03' },
   { name: 'Blog', href: '/blog', number: '04' },
-  { name: 'Contact', href: '/contact', number: '05' },
+  { name: 'Contato', href: '/contact', number: '05' },
 ];
 
 export const Navigation = () => {
@@ -96,15 +96,20 @@ export const Navigation = () => {
                 {/* Animated logo mark */}
                 <motion.div 
                   className="relative w-10 h-10 flex items-center justify-center"
-                  whileHover={{ rotate: 90 }}
+                  whileHover={{ rotate: 8 }}
                   transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                 >
-                  <motion.div 
-                    className="absolute inset-0 border-2 border-foreground rounded-lg"
-                    whileHover={{ borderRadius: "50%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <span className="font-syne font-black text-lg">S</span>
+                  <svg viewBox="0 0 64 64" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <g stroke="hsl(var(--accent))" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M23 20c-4 0-7 3-7 7 0 2 .8 3.8 2.2 5.2A7.4 7.4 0 0 0 22 45h9V20h-8z"/>
+                      <path d="M41 20c4 0 7 3 7 7 0 2-.8 3.8-2.2 5.2A7.4 7.4 0 0 1 42 45h-9V20h8z"/>
+                      <path d="M32 20v25"/>
+                      <path d="M22 27c2 0 3.5 1.6 3.5 3.5S24 34 22 34"/>
+                      <path d="M22 34c2 0 3.5 1.6 3.5 3.5S24 41 22 41"/>
+                      <path d="M42 27c-2 0-3.5 1.6-3.5 3.5S40 34 42 34"/>
+                      <path d="M42 34c-2 0-3.5 1.6-3.5 3.5S40 41 42 41"/>
+                    </g>
+                  </svg>
                 </motion.div>
                 
                 {/* Logo text - only on desktop */}
@@ -115,7 +120,7 @@ export const Navigation = () => {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
                   >
-                    STUDIO
+                    Vértice Studio<span className="text-accent">™</span>
                   </motion.span>
                 </div>
               </motion.div>
@@ -215,7 +220,7 @@ export const Navigation = () => {
                       transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                     />
                     
-                    <span className="relative z-10 text-sm font-semibold">Start a Project</span>
+                    <span className="relative z-10 text-sm font-semibold">Iniciar Projeto</span>
                     
                     {/* Animated arrow */}
                     <motion.div
@@ -257,7 +262,7 @@ export const Navigation = () => {
                 to="/contact"
                 className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full"
               >
-                Contact
+                Contato
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -451,7 +456,7 @@ export const Navigation = () => {
                 className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
               >
                 <div className="text-sm text-muted-foreground">
-                  <p>Ready to start a project?</p>
+                  <p>Pronto para iniciar um projeto?</p>
                   <a href="mailto:hello@studio.design" className="text-foreground hover:text-accent transition-colors">
                     hello@studio.design
                   </a>
@@ -462,7 +467,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="group inline-flex items-center gap-3 px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full"
                 >
-                  Start a Project
+                  Iniciar Projeto
                   <motion.div
                     className="w-6 h-6 rounded-full bg-accent-foreground/20 flex items-center justify-center"
                     whileHover={{ rotate: 45 }}
@@ -488,3 +493,6 @@ export const Navigation = () => {
 };
 
 export default Navigation;
+
+
+

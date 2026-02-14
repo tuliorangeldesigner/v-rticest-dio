@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 
 interface OrganizationSchemaProps {
   name?: string;
@@ -61,9 +61,9 @@ export const OrganizationSchema = ({
   },
   socialLinks = [
     'https://twitter.com/studiodesign',
-    'https://linkedin.com/company/studiodesign',
+    'https://www.linkedin.com/in/t%C3%BAlio-rangel-designer1/',
     'https://dribbble.com/studiodesign',
-    'https://instagram.com/studiodesign',
+    'https://www.instagram.com/tulio_rangel_designer/',
   ],
 }: OrganizationSchemaProps) => {
   const schema = {
@@ -255,3 +255,5 @@ export const ProfessionalServiceSchema = () => {
     </Helmet>
   );
 };
+
+

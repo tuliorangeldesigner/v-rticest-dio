@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+﻿import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -10,27 +10,27 @@ import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
-  email: z.string().trim().email('Please enter a valid email').max(255, 'Email must be less than 255 characters'),
-  company: z.string().trim().max(100, 'Company must be less than 100 characters').optional(),
+  name: z.string().trim().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
+  email: z.string().trim().email('Digite um e-mail válido').max(255, 'E-mail deve ter no máximo 255 caracteres'),
+  company: z.string().trim().max(100, 'Empresa deve ter no máximo 100 caracteres').optional(),
   budget: z.string().optional(),
-  message: z.string().trim().min(10, 'Message must be at least 10 characters').max(2000, 'Message must be less than 2000 characters'),
+  message: z.string().trim().min(10, 'Mensagem deve ter pelo menos 10 caracteres').max(2000, 'Mensagem deve ter no máximo 2000 caracteres'),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const budgetOptions = [
-  { value: '', label: 'Select a budget range' },
-  { value: '5k-10k', label: ',000 - 0,000' },
-  { value: '10k-25k', label: '0,000 - 5,000' },
-  { value: '25k-50k', label: '5,000 - 0,000' },
-  { value: '50k+', label: '0,000+' },
+  { value: '', label: 'Selecione uma faixa de investimento' },
+  { value: '5k-10k', label: '$5,000 - $10,000' },
+  { value: '10k-25k', label: '$10,000 - $25,000' },
+  { value: '25k-50k', label: '$25,000 - $50,000' },
+  { value: '50k+', label: '$50,000+' },
 ];
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@studio.design', href: 'mailto:hello@studio.design' },
-  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-  { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: null },
+  { icon: Mail, label: 'Email', value: 'tuliorangeldesigner@\ngmail.com', href: 'mailto:tuliorangeldesigner@gmail.com' },
+  { icon: Phone, label: 'WhatsApp', value: '(41) 98744-8273', href: 'https://wa.me/5541987448273' },
+  { icon: MapPin, label: 'Localização', value: 'Morretes / PR\nAtendimento nacional e projetos remotos.', href: null },
 ];
 
 const Contact = () => {
@@ -54,15 +54,44 @@ const Contact = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('Form submitted:', { ...data, email: '[REDACTED]' });
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24-48 hours.",
-    });
-    reset();
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/tuliorangeldesigner@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: 'Novo diagnóstico estratégico (site)',
+          _captcha: 'false',
+          _template: 'table',
+          Nome: data.name,
+          Email: data.email,
+          Empresa: data.company || 'Não informado',
+          Orcamento: data.budget || 'Não informado',
+          Mensagem: data.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha no envio');
+      }
+
+      setIsSubmitted(true);
+      toast({
+        title: 'Mensagem enviada!',
+        description: 'Recebemos sua solicitação e retornaremos em breve.',
+      });
+      reset();
+    } catch (error) {
+      toast({
+        title: 'Não foi possível enviar agora',
+        description: 'Tente novamente em instantes.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -128,18 +157,18 @@ const Contact = () => {
             >
               <span className="text-sm font-mono text-accent">01</span>
               <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">GET IN TOUCH</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">CONTATO</span>
             </motion.div>
 
             <div className="max-w-4xl">
-              {["Let's create", 'something', 'unique'].map((text, index) => (
+              {['Contato', 'Direto'].map((text, index) => (
                 <div key={text} className="overflow-hidden">
                   <motion.h1
                     initial={{ y: '100%' }}
                     animate={heroInView ? { y: 0 } : {}}
                     transition={{ duration: 1, delay: 0.2 + index * 0.1, ease: [0.19, 1, 0.22, 1] }}
                     className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] ${
-                      index === 2 ? 'text-accent' : 'text-foreground'
+                      index === 1 ? 'text-accent' : 'text-foreground'
                     }`}
                   >
                     {text}
@@ -154,8 +183,9 @@ const Contact = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl mt-8"
             >
-              Have a project in mind? We'd love to hear about it. 
-              Drop us a line and let's start the conversation.
+              Atendimento direto com o responsável pelo projeto.
+              <br />
+              Sem intermediários. Sem ruído.
             </motion.p>
           </div>
         </section>
@@ -173,7 +203,7 @@ const Contact = () => {
                 <div className="flex items-center gap-4 mb-12">
                   <span className="text-sm font-mono text-accent">02</span>
                   <div className="h-px w-12 bg-accent" />
-                  <span className="text-sm font-mono text-muted-foreground tracking-wider">CONTACT INFO</span>
+                  <span className="text-sm font-mono text-muted-foreground tracking-wider">CONTATO DIRETO</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
@@ -182,7 +212,7 @@ const Contact = () => {
                       key={item.label}
                       href={item.href || '#'}
                       className={`group relative p-8 border border-border bg-background hover:border-accent transition-all duration-500 flex flex-col justify-between min-h-[200px] ${
-                        item.label === 'Location' ? 'sm:col-span-2' : ''
+                        item.label === 'Localização' ? 'sm:col-span-2' : ''
                       }`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={formInView ? { opacity: 1, y: 0 } : {}}
@@ -196,7 +226,7 @@ const Contact = () => {
                       </div>
 
                       <div>
-                        <span className="text-xl md:text-2xl font-syne font-bold leading-tight group-hover:text-accent transition-colors break-words">
+                        <span className="text-xl md:text-2xl font-syne font-bold leading-tight group-hover:text-accent transition-colors break-words whitespace-pre-line">
                           {item.value}
                         </span>
                         {item.href && (
@@ -219,12 +249,12 @@ const Contact = () => {
                   transition={{ delay: 0.6 }}
                   className="pt-8 border-t border-border"
                 >
-                  <span className="text-xs font-mono text-muted-foreground block mb-6 uppercase tracking-wider">FOLLOW US</span>
+                  <span className="text-xs font-mono text-muted-foreground block mb-6 uppercase tracking-wider">REDES</span>
                   <div className="flex flex-wrap gap-4">
-                    {['Twitter', 'LinkedIn', 'Dribbble', 'Instagram'].map((social, index) => (
+                    {['Instagram', '@tulio_rangel_designer'].map((social, index) => (
                       <motion.a
                         key={social}
-                        href="#"
+                        href="https://www.instagram.com/tulio_rangel_designer/"
                         className="px-8 py-4 border border-border text-sm font-bold font-syne hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 min-w-[120px] text-center"
                         initial={{ opacity: 0, y: 10 }}
                         animate={formInView ? { opacity: 1, y: 0 } : {}}
@@ -247,7 +277,18 @@ const Contact = () => {
                 <div className="flex items-center gap-4 mb-12">
                   <span className="text-sm font-mono text-accent">03</span>
                   <div className="h-px w-12 bg-accent" />
-                  <span className="text-sm font-mono text-muted-foreground tracking-wider">SEND MESSAGE</span>
+                  <span className="text-sm font-mono text-muted-foreground tracking-wider">DIAGNSTICO</span>
+                </div>
+
+                <div className="mb-8 text-muted-foreground leading-relaxed">
+                  <p className="mb-3">Antes de enviar sua mensagem, entenda:</p>
+                  <p className="mb-3">
+                    Trabalhamos com projetos estratégicos de reposicionamento, arquitetura digital e performance.
+                  </p>
+                  <p className="mb-3">
+                    Se sua empresa está pronta para sair do comum e assumir postura premium, descreva seu momento atual e seus objetivos com clareza.
+                  </p>
+                  <p>Projetos são limitados por capacidade de execução.</p>
                 </div>
 
                 {isSubmitted ? (
@@ -264,15 +305,15 @@ const Contact = () => {
                     >
                       <CheckCircle className="w-10 h-10 text-accent" />
                     </motion.div>
-                    <h2 className="text-3xl font-syne font-bold mb-4">Thank you!</h2>
+                    <h2 className="text-3xl font-syne font-bold mb-4">Obrigado!</h2>
                     <p className="text-muted-foreground mb-8 max-w-sm">
-                      Your message has been sent successfully. We'll get back to you within 24-48 hours.
+                      Sua mensagem foi enviada com sucesso. Retornaremos em 24-48 horas.
                     </p>
                     <button
                       onClick={() => setIsSubmitted(false)}
                       className="text-accent hover:underline transition-colors"
                     >
-                      Send another message
+                      Enviar outra mensagem
                     </button>
                   </motion.div>
                 ) : (
@@ -284,7 +325,7 @@ const Contact = () => {
                     {/* Name Field */}
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Name <span className="text-accent">*</span>
+                        Nome <span className="text-accent">*</span>
                       </label>
                       <input
                         id="name"
@@ -295,7 +336,7 @@ const Contact = () => {
                             ? 'border-destructive focus:border-destructive' 
                             : 'border-border focus:border-accent'
                         }`}
-                        placeholder="Your name"
+                        placeholder="Seu nome"
                       />
                       {errors.name && (
                         <p className="mt-2 text-sm text-destructive">{errors.name.message}</p>
@@ -305,7 +346,7 @@ const Contact = () => {
                     {/* Email Field */}
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email <span className="text-accent">*</span>
+                        E-mail <span className="text-accent">*</span>
                       </label>
                       <input
                         id="email"
@@ -326,21 +367,21 @@ const Contact = () => {
                     {/* Company Field */}
                     <div>
                       <label htmlFor="company" className="block text-sm font-medium mb-2">
-                        Company
+                        Empresa
                       </label>
                       <input
                         id="company"
                         type="text"
                         {...register('company')}
                         className="w-full px-4 py-4 bg-background border-2 border-border focus:border-accent transition-colors focus:outline-none"
-                        placeholder="Your company (optional)"
+                        placeholder="Sua empresa (opcional)"
                       />
                     </div>
 
                     {/* Budget Field */}
                     <div>
                       <label htmlFor="budget" className="block text-sm font-medium mb-2">
-                        Budget Range
+                        Faixa de investimento
                       </label>
                       <select
                         id="budget"
@@ -358,7 +399,7 @@ const Contact = () => {
                     {/* Message Field */}
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium mb-2">
-                        Message <span className="text-accent">*</span>
+                        Mensagem <span className="text-accent">*</span>
                       </label>
                       <textarea
                         id="message"
@@ -369,7 +410,7 @@ const Contact = () => {
                             ? 'border-destructive focus:border-destructive' 
                             : 'border-border focus:border-accent'
                         }`}
-                        placeholder="Tell us about your project..."
+                        placeholder="Descreva seu projeto..."
                       />
                       {errors.message && (
                         <p className="mt-2 text-sm text-destructive">{errors.message.message}</p>
@@ -387,15 +428,21 @@ const Contact = () => {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="w-5 h-5 animate-spin" />
-                          Sending...
+                          Enviando...
                         </>
                       ) : (
                         <>
-                          Send Message
+                          Solicitar Diagnóstico Estratégico
                           <Send className="w-5 h-5" />
                         </>
                       )}
                     </motion.button>
+
+                    <p className="text-center text-sm text-muted-foreground mt-4">
+                      Percepção define valor.
+                      <br />
+                      Valor define crescimento.
+                    </p>
                   </form>
                 )}
               </motion.div>
@@ -409,3 +456,7 @@ const Contact = () => {
 };
 
 export default Contact;
+
+
+
+

@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+﻿import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
@@ -6,10 +6,10 @@ import { AnimatedLine } from '@/components/AnimatedText';
 import { Mail, ArrowUpRight } from 'lucide-react';
 
 const words = [
-  { text: "Let's", number: '01' },
-  { text: 'Create', number: '02' },
-  { text: 'Something', number: '03' },
-  { text: 'Great', number: '04', accent: true },
+  { text: 'Presença', number: '01' },
+  { text: 'Que', number: '02' },
+  { text: 'Impõe', number: '03' },
+  { text: 'Respeito', number: '04', accent: true },
 ];
 
 export const CTASection = () => {
@@ -105,10 +105,10 @@ export const CTASection = () => {
         >
           <span className="text-sm font-mono text-accent">06</span>
           <div className="h-px w-12 bg-accent" />
-          <span className="text-sm font-mono text-muted-foreground tracking-wider">START A PROJECT</span>
+          <span className="text-sm font-mono text-muted-foreground tracking-wider">DIAGNÓSTICO</span>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mr-auto ml-0 md:ml-8 lg:ml-12">
           {/* Main headline with numbers */}
           <div className="mb-12 md:mb-16">
             {words.map((word, index) => (
@@ -132,7 +132,7 @@ export const CTASection = () => {
                     {word.number}
                   </motion.span>
                   <span 
-                    className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] ${
+                    className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[124px] tracking-tight leading-[0.93] ${
                       word.accent ? 'text-accent' : 'text-foreground'
                     }`}
                   >
@@ -159,23 +159,24 @@ export const CTASection = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-lg md:text-xl text-muted-foreground max-w-md leading-relaxed"
             >
-              Ready to transform your digital presence? Let's discuss your next project 
-              and create something extraordinary together.
+              E percepção.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 md:ml-auto md:translate-x-16 lg:translate-x-24"
             >
               <MagneticButton>
-                <Link 
-                  to="/contact" 
-                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold rounded-full overflow-hidden"
+                <a
+                  href="https://wa.me/5541987448273"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold text-sm md:text-base rounded-full overflow-hidden"
                 >
                   <Mail className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">Get in Touch</span>
+                  <span className="relative z-10">Solicitar Diagnóstico</span>
                   <motion.div
                     className="relative z-10 w-6 h-6 rounded-full bg-background/20 flex items-center justify-center"
                     whileHover={{ rotate: 45 }}
@@ -188,21 +189,21 @@ export const CTASection = () => {
                     whileHover={{ y: 0 }}
                     transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
                   />
-                </Link>
+                </a>
               </MagneticButton>
 
               <MagneticButton>
-                <Link 
-                  to="/work" 
+                <Link
+                  to="/work"
                   className="group relative inline-flex items-center gap-3 px-8 py-4 border border-foreground/20 text-foreground font-semibold rounded-full overflow-hidden hover:border-accent/50 transition-colors duration-300"
                 >
-                  <span className="relative z-10">View Our Work</span>
-                  <motion.span 
+                  <span className="relative z-10">Ver Todos Projetos</span>
+                  <motion.span
                     className="relative z-10 text-accent"
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    →
+                    {'->'}
                   </motion.span>
                 </Link>
               </MagneticButton>
@@ -218,9 +219,9 @@ export const CTASection = () => {
           >
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               {[
-                { label: 'Email', value: 'hello@studio.design', href: 'mailto:hello@studio.design' },
-                { label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-                { label: 'Location', value: 'New York, NY', href: null },
+                { label: 'WhatsApp', value: '(41) 98744-8273', href: 'https://wa.me/5541987448273' },
+                { label: 'Localização', value: 'Morretes, PR', href: null },
+                { label: 'Email', value: 'tuliorangeldesigner@gmail.com', href: 'mailto:tuliorangeldesigner@gmail.com' },
               ].map((item, i) => (
                 <motion.div 
                   key={item.label}
@@ -252,3 +253,7 @@ export const CTASection = () => {
 };
 
 export default CTASection;
+
+
+
+

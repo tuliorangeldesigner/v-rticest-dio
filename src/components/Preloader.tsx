@@ -76,7 +76,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
                  className="flex items-center gap-3"
               >
                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                 <span className="font-syne font-bold text-white tracking-tight text-xl">STUDIO.</span>
+                 <span className="font-syne font-bold text-white tracking-tight text-xl">Vértice Studio™</span>
               </motion.div>
            </div>
         </div>

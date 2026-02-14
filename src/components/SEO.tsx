@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
   title?: string;
@@ -14,8 +14,8 @@ interface SEOProps {
 }
 
 const defaultMeta = {
-  siteName: 'STUDIO',
-  title: 'STUDIO | Digital Design Agency',
+  siteName: 'Vértice Studio™',
+  title: 'Vértice Studio™',
   description: 'We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team.',
   image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
   url: 'https://studio.design',
@@ -97,3 +97,4 @@ const SEO = ({
 };
 
 export default SEO;
+

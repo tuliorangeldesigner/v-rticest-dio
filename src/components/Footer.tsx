@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const footerLinks = {
   navigation: [
-    { name: 'Work', href: '/work' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
+    { name: 'Projetos', href: '/work' },
+    { name: 'Sobre', href: '/about' },
+    { name: 'Serviços', href: '/services' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Contato', href: '/contact' },
   ],
   services: [
     { name: 'Web Design', href: '/services#web-design' },
@@ -17,9 +17,9 @@ const footerLinks = {
     { name: 'Development', href: '/services#development' },
   ],
   social: [
-    { name: 'Instagram', href: '#' },
+    { name: 'Instagram', href: 'https://www.instagram.com/tulio_rangel_designer/' },
     { name: 'Twitter', href: '#' },
-    { name: 'LinkedIn', href: '#' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/t%C3%BAlio-rangel-designer1/' },
     { name: 'Dribbble', href: '#' },
   ],
   legal: [
@@ -30,6 +30,7 @@ const footerLinks = {
 
 export const Footer = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [activeLegalModal, setActiveLegalModal] = useState<'privacy' | 'terms' | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -46,11 +47,11 @@ export const Footer = () => {
             <div>
                <Link to="/" className="inline-block mb-12">
                  <span className="font-syne text-4xl font-bold tracking-tighter">
-                   STUDIO<span className="text-accent">.</span>
+                   Vértice Studio<span className="text-accent">™</span>
                  </span>
                </Link>
                <p className="text-muted-foreground font-mono text-sm leading-relaxed max-w-[200px]">
-                  Crafting digital experiences that defy the ordinary.
+                  Sistema de Reprogramação de Presença e Conversão
                </p>
             </div>
             
@@ -86,16 +87,16 @@ export const Footer = () => {
          {/* Column 3: Contact & Social */}
          <div className="lg:col-span-1 border-r border-border flex flex-col">
             <div className="flex-1 p-8 border-b border-border">
-               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 block">Contact</span>
-               <a href="mailto:hello@studio.com" className="block text-xl font-bold hover:text-accent transition-colors mb-2">hello@studio.com</a>
-               <a href="tel:+1234567890" className="block text-xl font-bold hover:text-accent transition-colors">+1 (555) 000-0000</a>
+               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 block">Contato</span>
+               <a href="mailto:tuliorangeldesigner@gmail.com" className="block text-xl font-bold hover:text-accent transition-colors mb-2">tuliorangeldesigner@gmail.com</a>
+               <a href="https://wa.me/5541987448273" className="block text-xl font-bold hover:text-accent transition-colors">(41) 98744-8273</a>
             </div>
             
             <div className="flex-1 p-8 border-b border-border">
-               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 block">Location</span>
+               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 block">Localização</span>
                <address className="not-italic text-lg text-muted-foreground">
-                  123 Innovation Dr.<br/>
-                  Tech City, NY 10012
+                  Morretes / PR<br/>
+                  Atendimento nacional e projetos remotos.
                </address>
             </div>
 
@@ -106,7 +107,7 @@ export const Footer = () => {
                      <a 
                         key={link.name}
                         href={link.href}
-                        onClick={(e) => e.preventDefault()}
+                        onClick={link.href === '#' ? (e) => e.preventDefault() : undefined}
                         className="text-sm hover:text-accent transition-colors flex items-center gap-1 cursor-pointer"
                      >
                         {link.name} <ArrowUpRight className="w-3 h-3" />
@@ -118,7 +119,7 @@ export const Footer = () => {
 
          {/* Column 4: Big CTA */}
          <div className="lg:col-span-1 p-8 lg:p-12 flex flex-col justify-center items-center text-center bg-foreground/5 hover:bg-accent transition-colors duration-500 group cursor-pointer relative overflow-hidden">
-            <Link to="/contact" className="absolute inset-0 z-20"></Link>
+            <a href="https://wa.me/5541987448273" target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label="Abrir WhatsApp"></a>
             
             {/* Animated Background Text */}
             <div className="absolute inset-0 flex flex-col justify-center opacity-10 pointer-events-none select-none overflow-hidden group-hover:opacity-20 transition-opacity">
@@ -131,11 +132,11 @@ export const Footer = () => {
                <div className="w-20 h-20 rounded-full bg-background flex items-center justify-center mx-auto mb-6 group-hover:scale-125 transition-transform duration-500">
                   <ArrowUpRight className="w-8 h-8 text-foreground group-hover:text-accent transition-colors" />
                </div>
-               <h3 className="text-4xl lg:text-5xl font-syne font-black uppercase leading-none mb-4 group-hover:text-accent-foreground transition-colors">
-                  Start a<br/>Project
+               <h3 className="text-3xl lg:text-4xl font-syne font-black uppercase leading-none mb-4 group-hover:text-accent-foreground transition-colors">
+                  Solicitar<br/>Diagnóstico
                </h3>
                <p className="font-mono text-sm text-muted-foreground group-hover:text-accent-foreground/80 transition-colors">
-                  Have an idea? We'd love to help.
+                  Se sua marca parece comum, este é o ponto de virada.
                </p>
             </div>
          </div>
@@ -144,22 +145,97 @@ export const Footer = () => {
       {/* Bottom Legal Bar */}
       <div className="border-t border-border p-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-background">
          <p className="text-xs font-mono text-muted-foreground uppercase">
-            © {new Date().getFullYear()} Studio Agency.
+            © 2024 Vértice Studio.
          </p>
          <div className="flex gap-8">
-            {footerLinks.legal.map((link) => (
-               <Link 
-                  key={link.name} 
-                  to={link.href}
-                  className="text-xs font-mono text-muted-foreground uppercase hover:text-accent transition-colors"
-               >
-                  {link.name}
-               </Link>
-            ))}
+            <button
+              onClick={() => setActiveLegalModal('privacy')}
+              className="text-xs font-mono text-muted-foreground uppercase hover:text-accent transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <button
+              onClick={() => setActiveLegalModal('terms')}
+              className="text-xs font-mono text-muted-foreground uppercase hover:text-accent transition-colors"
+            >
+              Terms of Service
+            </button>
          </div>
       </div>
+
+      {activeLegalModal && (
+        <div
+          className="fixed inset-0 z-[80] bg-background/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActiveLegalModal(null)}
+        >
+          <div
+            className="w-full max-w-2xl border border-border bg-card p-6 md:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <h3 className="font-syne text-2xl md:text-3xl font-bold">
+                {activeLegalModal === 'privacy' ? 'Privacy Policy' : 'Terms of Service'}
+              </h3>
+              <button
+                onClick={() => setActiveLegalModal(null)}
+                className="text-sm font-mono text-muted-foreground hover:text-foreground"
+              >
+                FECHAR
+              </button>
+            </div>
+
+            {activeLegalModal === 'privacy' ? (
+              <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p>
+                  Na Vértice Studio, coletamos apenas as informações necessárias para contato comercial,
+                  diagnóstico estratégico e continuidade de atendimento.
+                </p>
+                <p>
+                  Seus dados são usados para responder solicitações, organizar propostas e melhorar a
+                  experiência digital. Não vendemos dados e não compartilhamos informações pessoais com
+                  terceiros para fins indevidos.
+                </p>
+                <p>
+                  Se você quiser revisão, atualização ou remoção dos seus dados, basta solicitar pelos canais
+                  oficiais de contato.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p>
+                  Os serviços da Vértice Studio são prestados com escopo definido por proposta, com etapas,
+                  entregas e prazos acordados para cada projeto.
+                </p>
+                <p>
+                  Todo trabalho é estratégico e personalizado, por isso alterações de escopo, cronograma e
+                  prioridades precisam ser formalizadas entre as partes.
+                </p>
+                <p>
+                  Ao contratar, o cliente concorda com as condições comerciais, direitos de uso dos materiais
+                  entregues e responsabilidades de cada lado no processo.
+                </p>
+              </div>
+            )}
+
+            <div className="mt-6 pt-6 border-t border-border flex gap-4">
+              <Link
+                to={activeLegalModal === 'privacy' ? '/privacy-policy' : '/terms-of-service'}
+                className="text-sm font-mono uppercase text-accent hover:underline"
+              >
+                Ver Página Completa
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
 
 export default Footer;
+
+
+
+
+
+

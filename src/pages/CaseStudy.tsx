@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useInView } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -34,9 +34,9 @@ const CaseStudy = () => {
         <Navigation />
         <div className="flex-1 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-4xl font-syne font-bold mb-4">Project Not Found</h1>
+            <h1 className="text-4xl font-syne font-bold mb-4">Projeto não encontrado</h1>
             <Link to="/" className="text-accent hover:underline flex items-center justify-center gap-2">
-              <ArrowLeft className="w-4 h-4" /> Return Home
+              <ArrowLeft className="w-4 h-4" /> Voltar para a Home
             </Link>
           </div>
         </div>
@@ -77,7 +77,7 @@ const CaseStudy = () => {
               <div className="col-span-1 lg:col-span-3 p-6 border-b lg:border-b-0 lg:border-r border-foreground/10 flex items-center">
                 <Link to="/work" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground/60 hover:text-accent transition-colors">
                   <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                  Back to Work
+                  Voltar para Projetos
                 </Link>
                 <span className="mx-4 text-foreground/20">/</span>
                 <span className="text-sm text-foreground/40 uppercase tracking-wider">{project.category}</span>
@@ -85,7 +85,7 @@ const CaseStudy = () => {
               
               {/* Year Cell */}
               <div className="col-span-1 p-6 flex items-center justify-between lg:justify-center text-sm font-medium text-foreground/80">
-                <span className="lg:hidden text-foreground/40 uppercase tracking-wider">Year</span>
+                <span className="lg:hidden text-foreground/40 uppercase tracking-wider">Ano</span>
                 <div className="flex items-center gap-2 font-mono">
                    {project.year}
                 </div>
@@ -110,7 +110,7 @@ const CaseStudy = () => {
                    </p>
                    <div className="flex items-center gap-3">
                       <div className="px-4 py-2 rounded-full border border-foreground/10 text-xs font-bold uppercase tracking-widest bg-foreground/5">
-                        Case Study
+                        Estudo de Caso
                       </div>
                    </div>
                 </div>
@@ -144,7 +144,7 @@ const CaseStudy = () => {
                      {/* Client Block */}
                      <div className="p-6 border-b border-foreground/10 relative group hover:bg-foreground/5 transition-colors">
                         <span className="absolute top-6 right-6 text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">01</span>
-                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-3">Client</h4>
+                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-3">Cliente</h4>
                         <p className="text-lg font-syne font-bold leading-tight group-hover:translate-x-1 transition-transform duration-300">
                            {project.client}
                         </p>
@@ -153,7 +153,7 @@ const CaseStudy = () => {
                      {/* Services Block - Digital Tags */}
                      <div className="p-6 relative group hover:bg-foreground/5 transition-colors">
                         <span className="absolute top-6 right-6 text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">02</span>
-                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-4">Scope of Work</h4>
+                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-4">Escopo</h4>
                         <div className="flex flex-wrap gap-2">
                            {project.services.map((service, idx) => (
                               <span 
@@ -179,20 +179,20 @@ const CaseStudy = () => {
                   className="prose prose-lg md:prose-xl max-w-none prose-headings:font-syne prose-headings:font-bold prose-p:text-foreground/80 prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-none prose-img:border prose-img:border-foreground/10"
                 >
                   {/* Challenge Section */}
-                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">The Challenge</h3>
+                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">O Desafio</h3>
                   <p className="mb-12 text-foreground/80 leading-relaxed">
                     {project.challenge}
                   </p>
 
                   {/* Solution Section */}
-                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">The Solution</h3>
+                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">A Solução</h3>
                   <p className="mb-12 text-foreground/80 leading-relaxed">
                     {project.solution}
                   </p>
                   
                   {/* Impact / Results Highlight */}
                   <div className="my-16 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
-                     <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">Key Results</h4>
+                     <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">Principais Resultados</h4>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
                         {project.results.map((result, i) => (
                            <div key={i}>
@@ -208,11 +208,11 @@ const CaseStudy = () => {
                 <div className="mt-12">
                   <div className="flex items-end justify-between mb-16">
                      <div>
-                        <span className="text-xs font-mono uppercase tracking-widest text-foreground/40 block mb-2">Visual Archive</span>
-                        <h3 className="text-3xl font-syne font-bold">Design Artifacts</h3>
+                        <span className="text-xs font-mono uppercase tracking-widest text-foreground/40 block mb-2">Arquivo Visual</span>
+                        <h3 className="text-3xl font-syne font-bold">Artefatos do Projeto</h3>
                      </div>
                      <span className="hidden md:block text-xs font-mono uppercase tracking-widest text-foreground/40">
-                        {project.gallery.length} Assets Processed
+                        {project.gallery.length} Ativos Processados
                      </span>
                   </div>
 
@@ -231,7 +231,7 @@ const CaseStudy = () => {
                            />
                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                               <div className="px-4 py-2 bg-background text-foreground text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                 View Full
+                                 Ver Completo
                               </div>
                            </div>
                         </div>
@@ -245,11 +245,11 @@ const CaseStudy = () => {
                         <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
                         
                         <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-12 md:items-start">
-                           <div className="md:w-1/4 pb-6 md:pb-0">
-                              <span className="text-5xl md:text-6xl font-syne font-black block leading-none mb-2">The Shift.</span>
-                              <span className="text-xs font-mono uppercase tracking-widest font-bold opacity-70">Retrospective</span>
+                           <div className="md:w-[30%] pb-6 md:pb-0 md:pr-6">
+                              <span className="text-3xl md:text-4xl font-syne font-black block leading-none mb-2 whitespace-nowrap">Insight</span>
+                              <span className="text-xs font-mono uppercase tracking-widest font-bold opacity-70">Retrospectiva</span>
                            </div>
-                           <div className="md:w-3/4 md:pl-4">
+                           <div className="md:w-[70%] md:pl-4">
                               <p className="text-xl md:text-2xl font-syne font-bold leading-snug mb-4">
                                  "{project.keyTakeaways}"
                               </p>
@@ -272,9 +272,9 @@ const CaseStudy = () => {
         <section className="border-t border-foreground/10 bg-foreground/5 py-20">
           <div className="container-wide max-w-[90rem] mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-12">
-              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">Next Project</h2>
+              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">Próximo Projeto</h2>
               <Link to="/work" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-accent transition-colors">
-                View All Work <ArrowRight className="w-4 h-4" />
+                Ver Todos os Projetos <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             
@@ -300,14 +300,14 @@ const CaseStudy = () => {
                           {nextProject.title}
                         </h3>
                         <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
-                           View Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                           Ver Estudo de Caso <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                         </div>
                      </div>
                   </div>
                </Link>
             ) : (
                <div className="text-center py-12 text-foreground/40 italic">
-                  End of portfolio.
+                  Fim do portfólio.
                </div>
             )}
           </div>
@@ -320,3 +320,4 @@ const CaseStudy = () => {
 };
 
 export default CaseStudy;
+

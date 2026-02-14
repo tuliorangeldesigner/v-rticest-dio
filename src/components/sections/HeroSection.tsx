@@ -1,14 +1,14 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+﻿import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const words = [
-  { text: 'We', number: '01' },
-  { text: 'Create', number: '02' },
-  { text: 'Digital', number: '03' },
-  { text: 'Products', number: '04', accent: true },
+  { text: 'Nós', number: '01' },
+  { text: 'Criamos', number: '02' },
+  { text: 'Presença', number: '03' },
+  { text: 'Premium', number: '04', accent: true },
 ];
 
 export const HeroSection = () => {
@@ -184,7 +184,7 @@ export const HeroSection = () => {
       {/* Main content */}
       <motion.div style={{ y }} className="w-full container-wide relative z-10 pt-24 sm:pt-32 pb-20 sm:pb-32 md:pb-48">
         {/* Inner content wrapper - full width on mobile, constrained on desktop */}
-        <div className="md:max-w-5xl md:mx-auto">
+        <div className="w-full">
           
           {/* Top label */}
           <motion.div
@@ -200,7 +200,7 @@ export const HeroSection = () => {
               transition={{ duration: 1, delay: 0.7 }}
             />
             <span className="text-xs sm:text-sm font-mono text-muted-foreground tracking-wider">
-              DIGITAL AGENCY — SINCE 2018
+              VÉRTICE STÚDIO
             </span>
           </motion.div>
 
@@ -233,7 +233,7 @@ export const HeroSection = () => {
                     </motion.span>
                     
                     <span 
-                      className={`font-syne font-black text-[11vw] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[120px] tracking-tight leading-[1] ${
+                      className={`font-syne font-black text-[11.5vw] sm:text-7xl md:text-8xl lg:text-[140px] xl:text-[160px] tracking-tight leading-[1] ${
                         word.accent ? 'text-accent' : 'text-foreground'
                       }`}
                     >
@@ -261,8 +261,12 @@ export const HeroSection = () => {
               className="max-w-md"
             >
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
-                A creative studio crafting immersive digital products, brands, 
-                and experiences that captivate and inspire.
+                Branding estratégico, sites de alta conversão e criativos orientados a performance.
+                <br />
+                <br />
+                Não criamos "design bonito".
+                <br />
+                Criamos percepção premium e crescimento mensurvel.
               </p>
             </motion.div>
 
@@ -274,10 +278,10 @@ export const HeroSection = () => {
             >
               <MagneticButton>
                 <Link 
-                  to="/work" 
+                  to="/contact" 
                   className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-foreground text-background font-semibold rounded-full overflow-hidden text-sm sm:text-base w-full sm:w-auto"
                 >
-                  <span className="relative z-10">View Our Work</span>
+                  <span className="relative z-10">Iniciar Operação</span>
                   <motion.div
                     className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-background/20 flex items-center justify-center"
                     whileHover={{ rotate: 45 }}
@@ -304,16 +308,16 @@ export const HeroSection = () => {
               
               <MagneticButton>
                 <Link 
-                  to="/contact" 
+                  to="/work" 
                   className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 border border-foreground/20 text-foreground font-semibold rounded-full overflow-hidden hover:border-accent/50 transition-colors duration-300 text-sm sm:text-base w-full sm:w-auto"
                 >
-                  <span className="relative z-10">Start a Project</span>
+                  <span className="relative z-10">Ver Projetos</span>
                   <motion.span 
                     className="relative z-10 text-accent"
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    →
+                    {'->'}
                   </motion.span>
                 </Link>
               </MagneticButton>
@@ -329,10 +333,10 @@ export const HeroSection = () => {
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
               {[
-                { number: '150+', label: 'Projects Completed' },
-                { number: '50+', label: 'Happy Clients' },
-                { number: '12', label: 'Team Members' },
-                { number: '6+', label: 'Years Experience' },
+                { number: '01+', label: 'Marcas Reposicionadas' },
+                { number: '02+', label: 'Sites Estratégicos Estruturados' },
+                { number: '03+', label: 'Sistemas de Criativo Implantados' },
+                { number: '04', label: 'Decisões guiadas por dados' },
               ].map((stat, i) => (
                 <motion.div 
                   key={stat.label}
@@ -357,3 +361,7 @@ export const HeroSection = () => {
 };
 
 export default HeroSection;
+
+
+
+

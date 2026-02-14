@@ -1,113 +1,112 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Navigation from '@/components/Navigation';
 
 const PrivacyPolicy = () => {
   const breadcrumbItems = [
-    { label: 'Privacy Policy', href: '/privacy-policy' }
+    { label: 'Política de Privacidade', href: '/privacy-policy' }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <SEO 
-        title="Privacy Policy"
-        description="Read our privacy policy to understand how we collect, use, and protect your personal information."
+      <SEO
+        title="Política de Privacidade"
+        description="Entenda como coletamos, usamos e protegemos seus dados na Vértice Studio."
         url="https://studio.design/privacy-policy"
       />
-      
+
       <main className="min-h-screen bg-background pt-32 pb-20">
         <div className="container max-w-4xl mx-auto px-6">
           <Breadcrumbs items={breadcrumbItems} />
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-8">
-              Privacy Policy
+              Política de Privacidade
             </h1>
-            
+
             <p className="text-muted-foreground mb-8">
-              Last updated: December 18, 2025
+              Última atualização: 12 de fevereiro de 2026
             </p>
 
             <div className="prose prose-lg dark:prose-invert max-w-none space-y-8">
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  1. Information We Collect
+                  1. Informações que coletamos
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We collect information you provide directly to us, such as when you fill out a contact form, 
-                  subscribe to our newsletter, or communicate with us. This may include your name, email address, 
-                  phone number, and any other information you choose to provide.
+                  Coletamos os dados que você fornece diretamente em formulários de contato, solicitação de diagnóstico,
+                  newsletter e comunicação comercial. Isso pode incluir nome, e-mail, telefone, empresa e outras
+                  informações relevantes para o atendimento.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  2. How We Use Your Information
+                  2. Como usamos suas informações
                 </h2>
                 <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                  <li>To respond to your inquiries and provide customer support</li>
-                  <li>To send you updates, newsletters, and marketing communications</li>
-                  <li>To improve our website and services</li>
-                  <li>To comply with legal obligations</li>
+                  <li>Responder solicitações e prestar suporte comercial</li>
+                  <li>Enviar atualizações, conteúdos e comunicações da Vértice Studio</li>
+                  <li>Melhorar o site, os processos e a experiência digital</li>
+                  <li>Cumprir obrigações legais e contratuais</li>
                 </ul>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  3. Information Sharing
+                  3. Compartilhamento de dados
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We do not sell, trade, or otherwise transfer your personal information to third parties 
-                  without your consent, except as required by law or to protect our rights.
+                  Não vendemos seus dados. O compartilhamento com terceiros ocorre apenas quando necessário para a
+                  execução do serviço, por exigência legal ou para proteção de direitos da Vértice Studio.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  4. Cookies and Tracking
+                  4. Cookies e tecnologias de rastreamento
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We use cookies and similar tracking technologies to enhance your experience on our website. 
-                  You can control cookies through your browser settings. For more information, see our cookie 
-                  consent banner.
+                  Podemos utilizar cookies e tecnologias semelhantes para melhorar navegação, desempenho e análise do
+                  site. Você pode ajustar permissões de cookies diretamente no seu navegador.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  5. Data Security
+                  5. Segurança das informações
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We implement appropriate security measures to protect your personal information from 
-                  unauthorized access, alteration, disclosure, or destruction.
+                  Aplicamos medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado,
+                  alteração, divulgação ou destruição indevida.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  6. Your Rights
+                  6. Seus direitos
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  You have the right to access, correct, or delete your personal information. 
-                  You may also opt out of receiving marketing communications at any time.
+                  Você pode solicitar acesso, correção, atualização ou exclusão dos seus dados pessoais, além de
+                  interromper o recebimento de comunicações de marketing a qualquer momento.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  7. Contact Us
+                  7. Contato
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  If you have any questions about this Privacy Policy, please contact us at:
+                  Para dúvidas sobre esta Política de Privacidade, fale com:
                   <br />
-                  <a href="mailto:privacy@creativastudio.com" className="text-primary hover:underline">
-                    privacy@creativastudio.com
+                  <a href="mailto:tuliorangeldesigner@gmail.com" className="text-primary hover:underline">
+                    tuliorangeldesigner@gmail.com
                   </a>
                 </p>
               </section>
@@ -120,3 +119,4 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
+

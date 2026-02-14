@@ -1,134 +1,132 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Navigation from '@/components/Navigation';
 
 const TermsOfService = () => {
   const breadcrumbItems = [
-    { label: 'Terms of Service', href: '/terms-of-service' }
+    { label: 'Termos de Serviço', href: '/terms-of-service' }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <SEO 
-        title="Terms of Service"
-        description="Read our terms of service to understand the rules and guidelines for using our services."
+      <SEO
+        title="Termos de Serviço"
+        description="Conheça os termos e condições para contratação dos serviços da Vértice Studio."
         url="https://studio.design/terms-of-service"
       />
-      
+
       <main className="min-h-screen bg-background pt-32 pb-20">
         <div className="container max-w-4xl mx-auto px-6">
           <Breadcrumbs items={breadcrumbItems} />
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-8">
-              Terms of Service
+              Termos de Serviço
             </h1>
-            
+
             <p className="text-muted-foreground mb-8">
-              Last updated: December 18, 2025
+              Última atualização: 12 de fevereiro de 2026
             </p>
 
             <div className="prose prose-lg dark:prose-invert max-w-none space-y-8">
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  1. Acceptance of Terms
+                  1. Aceitação dos termos
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  By accessing and using our services, you accept and agree to be bound by these Terms of Service. 
-                  If you do not agree to these terms, please do not use our services.
+                  Ao contratar ou utilizar os serviços da Vértice Studio, você concorda com estes termos.
+                  Se não concordar com as condições, não prossiga com a contratação.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  2. Services Description
+                  2. Descrição dos serviços
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Creativa Studio provides digital design and development services including but not limited to 
-                  web design, branding, UI/UX design, and digital marketing. The specific scope of services 
-                  will be defined in individual project agreements.
+                  A Vértice Studio presta serviços estratégicos de branding, presença digital, arquitetura de site,
+                  criativos de performance e consultoria aplicada. O escopo final é definido em proposta formal.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  3. Intellectual Property
+                  3. Propriedade intelectual
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  All content, designs, and materials created by Creativa Studio remain our intellectual property 
-                  until full payment is received. Upon complete payment, ownership of deliverables transfers to the client 
-                  as specified in the project agreement.
+                  Materiais e entregas permanecem sob titularidade da Vértice Studio até a quitação integral do
+                  projeto. Após pagamento total, os direitos de uso são transferidos conforme definido em contrato.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  4. Payment Terms
+                  4. Condições de pagamento
                 </h2>
                 <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                  <li>Payment terms are specified in individual project proposals</li>
-                  <li>A deposit may be required before work begins</li>
-                  <li>Late payments may incur additional fees</li>
-                  <li>Work may be suspended for overdue payments</li>
+                  <li>Valores e prazos são definidos em proposta comercial</li>
+                  <li>Pode haver sinal para início da execução</li>
+                  <li>Atrasos podem gerar encargos adicionais</li>
+                  <li>O projeto pode ser pausado em caso de inadimplência</li>
                 </ul>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  5. Client Responsibilities
+                  5. Responsabilidades do cliente
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Clients are responsible for providing accurate information, timely feedback, and necessary 
-                  materials required for project completion. Delays caused by client may affect project timelines.
+                  O cliente deve fornecer informações corretas, aprovações dentro dos prazos e materiais necessários
+                  para execução. Atrasos de retorno podem impactar cronograma e entregas.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  6. Revisions and Changes
+                  6. Revisões e alterações de escopo
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  The number of included revisions will be specified in each project agreement. Additional 
-                  revisions beyond the agreed scope may incur extra charges.
+                  O número de revisões está incluído na proposta. Demandas fora do escopo contratado podem gerar
+                  reorçamento e reajuste de prazo.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  7. Limitation of Liability
+                  7. Limitação de responsabilidade
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Creativa Studio shall not be liable for any indirect, incidental, special, or consequential 
-                  damages arising from the use of our services. Our total liability shall not exceed the amount 
-                  paid for the specific service in question.
+                  A Vértice Studio não se responsabiliza por danos indiretos, lucros cessantes ou perdas decorrentes
+                  de fatores externos ao escopo contratado. A responsabilidade total limita-se ao valor pago pelo
+                  serviço em questão.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  8. Termination
+                  8. Encerramento
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Either party may terminate services with written notice. Upon termination, payment is due 
-                  for all work completed up to the termination date.
+                  Qualquer parte pode encerrar a prestação mediante aviso formal. Em caso de encerramento, os valores
+                  referentes ao trabalho já executado permanecem devidos.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  9. Contact Information
+                  9. Contato
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  For questions about these Terms of Service, please contact us at:
+                  Para dúvidas sobre estes Termos de Serviço, entre em contato:
                   <br />
-                  <a href="mailto:legal@creativastudio.com" className="text-primary hover:underline">
-                    legal@creativastudio.com
+                  <a href="mailto:tuliorangeldesigner@gmail.com" className="text-primary hover:underline">
+                    tuliorangeldesigner@gmail.com
                   </a>
                 </p>
               </section>
@@ -141,3 +139,4 @@ const TermsOfService = () => {
 };
 
 export default TermsOfService;
+

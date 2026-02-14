@@ -1,11 +1,10 @@
 import { useState, useMemo, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '@/data/projects';
-import SearchInput from '@/components/SearchInput';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
-import { ArrowUpRight, ArrowRight, Search } from 'lucide-react';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
@@ -47,7 +46,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
           {/* View Project Button - Centered */}
           <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <div className="w-24 h-24 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center">
-              <span className="text-sm font-mono uppercase tracking-widest text-foreground">View</span>
+              <span className="text-sm font-mono uppercase tracking-widest text-foreground">Ver</span>
             </div>
           </div>
         </div>
@@ -83,10 +82,10 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
   );
 };
 
-const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+const categories = ['Todos', ...Array.from(new Set(projects.map(p => p.category)))];
 
 const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('Todos');
   const [searchQuery, setSearchQuery] = useState('');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
@@ -102,7 +101,7 @@ const Projects = () => {
   const filteredProjects = useMemo(() => {
     let result = projects;
     
-    if (activeCategory !== 'All') {
+    if (activeCategory !== 'Todos') {
       result = result.filter(p => p.category === activeCategory);
     }
     
@@ -180,11 +179,11 @@ const Projects = () => {
           >
             <span className="text-sm font-mono text-accent">01</span>
             <div className="h-px w-12 bg-accent" />
-            <span className="text-sm font-mono text-muted-foreground tracking-wider">PORTFOLIO</span>
+            <span className="text-sm font-mono text-muted-foreground tracking-wider">PORTFÓLIO</span>
           </motion.div>
 
           <div className="max-w-4xl">
-            {['Selected', 'Works'].map((text, index) => (
+            {['Projetos Que', 'Elevam Marcas.'].map((text, index) => (
               <div key={text} className="overflow-hidden">
                 <motion.h1
                   initial={{ y: '100%' }}
@@ -204,11 +203,27 @@ const Projects = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-xl mt-8"
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mt-8"
           >
-            Explore a selection of our recent projects where design meets innovation.
-            We craft digital experiences that leave a lasting impression.
+            Cada projeto apresentado aqui passou por um processo estratégico de reprogramação de percepção, ambiente digital e conversão.
+            <br />
+            <br />
+            Não são peças isoladas.
+            <br />
+            São sistemas implantados.
           </motion.p>
+        </div>
+      </section>
+
+      <section className="pb-12">
+        <div className="container-wide">
+          <div className="max-w-4xl text-muted-foreground text-lg leading-relaxed space-y-4">
+            <p>Não trabalhamos com estética solta.</p>
+            <p>
+              Cada marca abaixo enfrentava um problema claro: baixa percepção de valor, ambiente digital fraco ou performance inconsistente.
+            </p>
+            <p>O que você verá aqui é o antes e depois estratégico.</p>
+          </div>
         </div>
       </section>
 
@@ -224,19 +239,19 @@ const Projects = () => {
             <div className="flex items-center gap-4 mb-8">
               <span className="text-sm font-mono text-accent">02</span>
               <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">ALL PROJECTS</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">TODOS OS PROJETOS</span>
             </div>
 
             <div className="border border-border bg-card">
               <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-border">
                 {/* Categories */}
-                <div className="flex-1 overflow-x-auto no-scrollbar">
-                  <div className="flex items-center h-full min-h-[4rem]">
+                <div className="flex-1">
+                  <div className="flex items-center h-full min-h-[4rem] flex-wrap md:flex-nowrap">
                     {categories.map((category) => (
                       <button
                         key={category}
                         onClick={() => setActiveCategory(category)}
-                        className={`group relative h-16 px-8 flex items-center justify-center text-sm font-mono uppercase tracking-wider transition-all hover:bg-accent hover:text-accent-foreground whitespace-nowrap border-r border-border last:border-r-0 ${
+                        className={`group relative h-16 px-4 md:px-6 lg:px-8 flex-1 flex items-center justify-center text-[11px] md:text-xs font-mono uppercase tracking-wider transition-all hover:bg-accent hover:text-accent-foreground whitespace-nowrap border-r border-border last:border-r-0 ${
                           activeCategory === category 
                             ? 'bg-accent text-accent-foreground' 
                             : 'text-muted-foreground bg-transparent'
@@ -248,19 +263,6 @@ const Projects = () => {
                   </div>
                 </div>
 
-                {/* Search */}
-                <div className="w-full md:w-[400px] relative group bg-background/50 hover:bg-background transition-colors">
-                  <div className="relative h-16 flex items-center px-6">
-                    <Search className="w-5 h-5 text-muted-foreground mr-4" />
-                    <input 
-                      type="text"
-                      placeholder="Search projects..."
-                      value={searchQuery}
-                      onChange={(e) => handleSearch(e.target.value)}
-                      className="flex-1 bg-transparent border-none outline-none text-sm font-mono text-foreground placeholder:text-muted-foreground/50 h-full"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           </motion.div>
@@ -288,7 +290,7 @@ const Projects = () => {
               animate={{ opacity: 1 }}
               className="text-center py-20 border border-border"
             >
-              <p className="text-muted-foreground text-lg">No projects found matching your criteria.</p>
+              <p className="text-muted-foreground text-lg">Nenhum projeto encontrado para este filtro.</p>
             </motion.div>
           )}
         </div>
@@ -309,20 +311,22 @@ const Projects = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sm font-mono text-accent mb-6 block">START A PROJECT</span>
+            <span className="text-sm font-mono text-accent mb-6 block">PRÓXIMO PASSO</span>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">
-              Have an idea in mind?
+              Sua Marca Pode Ser a Próxima Operação.
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto mb-10">
-              Let's collaborate to bring your vision to life. We're always looking for 
-              new challenges and innovative projects.
+            <p className="text-muted-foreground max-w-3xl mx-auto mb-10">
+              Se sua empresa está pronta para deixar de parecer comum e assumir posicionamento estratégico, o próximo passo é diagnóstico.
+              <br />
+              <br />
+              Projetos são selecionados com base em alinhamento e potencial de crescimento.
             </p>
             <MagneticButton>
               <Link 
                 to="/contact" 
                 className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-semibold rounded-full"
               >
-                Get in Touch
+                Agendar Diagnóstico Estratégico
                 <motion.div
                   className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center"
                   whileHover={{ rotate: 45 }}

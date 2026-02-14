@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+﻿import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
@@ -6,24 +6,24 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    quote: "Working with STUDIO was transformative. They didn't just deliver a website—they crafted an experience that perfectly captures our brand's essence.",
-    author: 'Sarah Chen',
-    role: 'CEO, Luminary Tech',
-    avatar: 'SC',
+    quote: 'Eles não apenas redesenharam nossa marca. Mudaram a forma como o mercado nos enxerga.',
+    author: 'Marina Duarte',
+    role: 'Diretora Comercial | Clínica Estética',
+    avatarUrl: 'https://randomuser.me/api/portraits/women/44.jpg',
   },
   {
     id: 2,
-    quote: "Their attention to detail and creative vision exceeded every expectation. The results speak for themselves—our engagement has never been higher.",
-    author: 'Michael Rivera',
-    role: 'Founder, Cascade Ventures',
-    avatar: 'MR',
+    quote: 'Nossa percepção de valor subiu e as conversões melhoraram em poucas semanas.',
+    author: 'Rafael Mendes',
+    role: 'Fundador | Consultoria Empresarial',
+    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
   },
   {
     id: 3,
-    quote: "A true partnership from day one. They challenged our thinking, pushed boundaries, and delivered work we're incredibly proud of.",
-    author: 'Emma Watson',
-    role: 'CMO, Ethereal Design',
-    avatar: 'EW',
+    quote: 'O trabalho conectou branding, site e criativos em uma única operação de crescimento.',
+    author: 'Bianca Alencar',
+    role: 'Head de Marketing | E-commerce de Moda',
+    avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80',
   },
 ];
 
@@ -85,12 +85,12 @@ export const TestimonialsSection = () => {
             >
               <span className="text-sm font-mono text-accent">05</span>
               <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">TESTIMONIALS</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">DEPOIMENTO</span>
             </motion.div>
 
             <AnimatedLine delay={0.3}>
               <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
-                Words from those we've worked with.
+                Autoridade se prova.
               </h2>
             </AnimatedLine>
           </div>
@@ -105,14 +105,14 @@ export const TestimonialsSection = () => {
             <button
               onClick={prevSlide}
               className="w-12 h-12 border border-foreground/20 flex items-center justify-center hover:border-accent hover:bg-accent/5 transition-all duration-300 group"
-              aria-label="Previous testimonial"
+              aria-label="Depoimento anterior"
             >
               <ChevronLeft className="w-5 h-5 group-hover:text-accent transition-colors" />
             </button>
             <button
               onClick={nextSlide}
               className="w-12 h-12 border border-foreground/20 flex items-center justify-center hover:border-accent hover:bg-accent/5 transition-all duration-300 group"
-              aria-label="Next testimonial"
+              aria-label="Próximo depoimento"
             >
               <ChevronRight className="w-5 h-5 group-hover:text-accent transition-colors" />
             </button>
@@ -146,8 +146,13 @@ export const TestimonialsSection = () => {
 
                   {/* Author */}
                   <div className="flex items-center gap-4 pt-6 border-t border-border/50">
-                    <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center font-syne font-bold text-accent">
-                      {testimonial.avatar}
+                    <div className="w-12 h-12 rounded-full overflow-hidden border border-border/60">
+                      <img
+                        src={testimonial.avatarUrl}
+                        alt={testimonial.author}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
                     </div>
                     <div>
                       <span className="font-syne font-semibold block">{testimonial.author}</span>
@@ -193,14 +198,14 @@ export const TestimonialsSection = () => {
           className="mt-20 md:mt-28 relative"
         >
           <div className="flex items-center justify-between mb-8">
-            <span className="text-sm font-mono text-muted-foreground">TRUSTED BY</span>
+            <span className="text-sm font-mono text-muted-foreground">MARCAS ATENDIDAS</span>
             <div className="flex-1 h-px bg-border/50 ml-8" />
           </div>
 
           <div className="relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-secondary/30 to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-secondary/30 to-transparent z-10" />
-            
+
             <motion.div
               animate={{ x: ['0%', '-50%'] }}
               transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
@@ -223,3 +228,8 @@ export const TestimonialsSection = () => {
 };
 
 export default TestimonialsSection;
+
+
+
+
+
