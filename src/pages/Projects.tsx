@@ -9,6 +9,7 @@ import MagneticButton from '@/components/MagneticButton';
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isInProgress = project.title === 'Nexus' || project.title === 'Apex';
 
   return (
     <motion.div
@@ -26,29 +27,37 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
         className="block"
       >
         {/* Image Container */}
-        <div className="relative overflow-hidden aspect-[4/3] mb-8 rounded-sm">
-          <motion.img
-            src={project.thumbnail}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            animate={{ scale: isHovered ? 1.05 : 1 }}
-            transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
-          />
-          
-          {/* Hover Overlay - Subtle Tint */}
-          <motion.div 
-            className="absolute inset-0 bg-black/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          />
-          
-          {/* View Project Button - Centered */}
-          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="w-24 h-24 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center">
-              <span className="text-sm font-mono uppercase tracking-widest text-foreground">Ver</span>
+        <div className="relative overflow-hidden aspect-[4/3] mb-8 rounded-sm border border-border bg-card/40">
+          {isInProgress ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-sm font-mono uppercase tracking-widest text-accent">Em andamento</span>
             </div>
-          </div>
+          ) : (
+            <>
+              <motion.img
+                src={project.thumbnail}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                animate={{ scale: isHovered ? 1.05 : 1 }}
+                transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+              />
+              
+              {/* Hover Overlay - Subtle Tint */}
+              <motion.div 
+                className="absolute inset-0 bg-black/10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isHovered ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* View Project Button - Centered */}
+              <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+                <div className="w-24 h-24 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center">
+                  <span className="text-sm font-mono uppercase tracking-widest text-foreground">Ver</span>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Content Below Image */}
@@ -73,9 +82,11 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
           </div>
 
           {/* Description */}
-          <p className="text-muted-foreground line-clamp-2 max-w-md text-lg leading-relaxed">
-            {project.description}
-          </p>
+          {!isInProgress && (
+            <p className="text-muted-foreground line-clamp-2 max-w-md text-lg leading-relaxed">
+              {project.description}
+            </p>
+          )}
         </div>
       </Link>
     </motion.div>
