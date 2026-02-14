@@ -12,6 +12,7 @@ const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const project = getProjectById(id || '');
+  const isInProgress = project?.id === 'nexus' || project?.id === 'apex';
 
   const heroRef = useRef(null);
   const contentRef = useRef(null);
@@ -106,11 +107,11 @@ const CaseStudy = () => {
                 
                 <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
                    <p className="text-lg md:text-xl text-foreground/60 max-w-2xl leading-relaxed">
-                     {project.description}
+                     {isInProgress ? 'Em breve novo projeto.' : project.description}
                    </p>
                    <div className="flex items-center gap-3">
                       <div className="px-4 py-2 rounded-full border border-foreground/10 text-xs font-bold uppercase tracking-widest bg-foreground/5">
-                        Estudo de Caso
+                        {isInProgress ? 'Em andamento' : 'Estudo de Caso'}
                       </div>
                    </div>
                 </div>
@@ -119,19 +120,25 @@ const CaseStudy = () => {
 
             {/* 3. Hero Image - Full Grid Width */}
             <div className="w-full border-b border-foreground/10 overflow-hidden bg-foreground/5">
-               <motion.div
-                 initial={{ scale: 1.05, opacity: 0 }}
-                 animate={{ scale: 1, opacity: 1 }}
-                 transition={{ duration: 0.8 }}
-                 className="aspect-[16/9] md:aspect-[21/9] w-full relative"
-               >
-                 <img 
-                   src={project.heroImage} 
-                   alt={project.title}
-                   className="w-full h-full object-cover"
-                 />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-               </motion.div>
+              {isInProgress ? (
+                <div className="aspect-[16/9] md:aspect-[21/9] w-full flex items-center justify-center">
+                  <span className="text-sm font-mono uppercase tracking-widest text-accent">Em andamento</span>
+                </div>
+              ) : (
+                <motion.div
+                  initial={{ scale: 1.05, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="aspect-[16/9] md:aspect-[21/9] w-full relative"
+                >
+                  <img 
+                    src={project.heroImage} 
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </motion.div>
+              )}
             </div>
 
             {/* 4. Content Area Split */}
@@ -178,34 +185,45 @@ const CaseStudy = () => {
                   transition={{ duration: 0.5 }}
                   className="prose prose-lg md:prose-xl max-w-none prose-headings:font-syne prose-headings:font-bold prose-p:text-foreground/80 prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-none prose-img:border prose-img:border-foreground/10"
                 >
-                  {/* Challenge Section */}
-                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">O Desafio</h3>
-                  <p className="mb-12 text-foreground/80 leading-relaxed">
-                    {project.challenge}
-                  </p>
+                  {isInProgress ? (
+                    <div className="my-8 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
+                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-4">Em breve novo projeto.</h3>
+                      <p className="text-foreground/80 leading-relaxed m-0">
+                        Este case está em produção e será publicado com todos os detalhes em breve.
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Challenge Section */}
+                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">O Desafio</h3>
+                      <p className="mb-12 text-foreground/80 leading-relaxed">
+                        {project.challenge}
+                      </p>
 
-                  {/* Solution Section */}
-                  <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">A Solução</h3>
-                  <p className="mb-12 text-foreground/80 leading-relaxed">
-                    {project.solution}
-                  </p>
-                  
-                  {/* Impact / Results Highlight */}
-                  <div className="my-16 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
-                     <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">Principais Resultados</h4>
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
-                        {project.results.map((result, i) => (
-                           <div key={i}>
+                      {/* Solution Section */}
+                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">A Solução</h3>
+                      <p className="mb-12 text-foreground/80 leading-relaxed">
+                        {project.solution}
+                      </p>
+                      
+                      {/* Impact / Results Highlight */}
+                      <div className="my-16 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">Principais Resultados</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
+                          {project.results.map((result, i) => (
+                            <div key={i}>
                               <span className="block text-4xl md:text-5xl font-syne font-bold mb-2">{result.split(' ')[0]}</span>
                               <span className="text-xs font-mono uppercase tracking-widest text-foreground/60">{result.split(' ').slice(1).join(' ')}</span>
-                           </div>
-                        ))}
-                     </div>
-                  </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </motion.article>
 
                 {/* Gallery - Visual Archive Layout */}
-                <div className="mt-12">
+                {!isInProgress && <div className="mt-12">
                   <div className="flex items-end justify-between mb-16">
                      <div>
                         <span className="text-xs font-mono uppercase tracking-widest text-foreground/40 block mb-2">Arquivo Visual</span>
@@ -261,7 +279,7 @@ const CaseStudy = () => {
                         </div>
                      </div>
                   )}
-                </div>
+                </div>}
               </div>
 
             </div>
