@@ -333,10 +333,10 @@ export const HeroSection = () => {
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
               {[
-                { number: '01+', label: 'Marcas Reposicionadas' },
-                { number: '02+', label: 'Sites Estratégicos Estruturados' },
-                { number: '03+', label: 'Sistemas de Criativo Implantados' },
-                { number: '04', label: 'Decisões guiadas por dados' },
+                { number: '15+', label: 'Marcas reposicionadas' },
+                { number: '20+', label: 'Estruturas digitais entregues' },
+                { number: '30+', label: 'Campanhas criativas implantadas' },
+                { number: '100%', label: 'Foco em posicionamento estratégico' },
               ].map((stat, i) => (
                 <motion.div 
                   key={stat.label}
