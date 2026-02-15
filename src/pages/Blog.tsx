@@ -106,7 +106,7 @@ const Blog = () => {
           </motion.div>
 
           <div>
-            {['Estrategia &', 'Autoridade.'].map((text, index) => (
+            {['Estratégia &', 'Autoridade.'].map((text, index) => (
               <div key={text} className="overflow-hidden">
                 <motion.h1
                   initial={{ y: '100%' }}

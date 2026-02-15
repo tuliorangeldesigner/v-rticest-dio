@@ -197,7 +197,7 @@ const Services = () => {
               transition={{ duration: 1, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
               className="font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95]"
             >
-              Servicos & Estrutura de <span className="text-accent">Planos</span>
+              Serviços & Estrutura de <span className="text-accent">Planos</span>
             </motion.h1>
           </div>
 
