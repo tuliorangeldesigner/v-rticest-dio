@@ -116,7 +116,7 @@ const About = () => {
           </motion.div>
 
           <div className="max-w-5xl">
-            {["Não Somos Uma Equipe.", 'Somos Um Operador Tático.'].map((text, index) => (
+            {["Nao Somos Uma Equipe.", 'Somos Um Operador Tatico.'].map((text, index) => (
               <div key={text} className="overflow-hidden">
                 <motion.h1
                   initial={{ y: '100%' }}

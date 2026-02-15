@@ -180,7 +180,7 @@ const ServiceDetail = () => {
               <span className="text-sm font-mono text-muted-foreground tracking-wider">SERVIÇO</span>
             </div>
 
-            <h1 className="font-epic font-black text-4xl sm:text-5xl md:text-7xl leading-[0.95] mb-6 max-w-5xl">
+            <h1 className="font-epic font-black text-4xl sm:text-5xl md:text-7xl leading-[0.95] mb-6 max-w-5xl uppercase">
               {service.title}
             </h1>
             <p className="text-xl text-accent mb-8 max-w-3xl">{service.subtitle}</p>

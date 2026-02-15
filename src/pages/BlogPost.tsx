@@ -132,7 +132,7 @@ const BlogPost = () => {
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.6 }}
-                   className="text-[40px] md:text-[50px] lg:text-[60px] font-epic font-bold leading-[1.05] tracking-tight text-foreground"
+                   className="text-[40px] md:text-[50px] lg:text-[60px] font-epic font-bold leading-[1.05] tracking-tight text-foreground uppercase"
                  >
                    {post.title}
                  </motion.h1>

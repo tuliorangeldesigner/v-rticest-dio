@@ -44,7 +44,6 @@
   font-weight: 400;
   font-display: swap;
   src: url('/fonts/GC-EPICPRO.otf') format('opentype');
-  unicode-range: U+0000-007F;
 }
 
 @tailwind base;
