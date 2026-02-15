@@ -123,26 +123,50 @@ const ClientPortal = () => {
           </div>
         </section>
 
+        {portal.coverImage ? (
+          <section className="container-wide mb-12">
+            <motion.figure
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="border border-border bg-card/20 overflow-hidden"
+            >
+              <img
+                src={portal.coverImage}
+                alt={`Identidade visual ${portal.clientName}`}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </motion.figure>
+          </section>
+        ) : null}
+
         {activeSection !== 'downloads' ? (
           <section className="container-wide">
-            <motion.div
+            <motion.article
               key={activeSection}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
-              className="border border-border bg-card/20 p-8 md:p-12"
+              className="mx-auto max-w-4xl"
             >
-              <h2 className="font-syne text-2xl md:text-4xl font-bold mb-8">
+              <div className="w-16 h-px bg-accent mb-8" />
+              <h2 className="font-syne text-3xl md:text-5xl font-bold mb-8">
                 {sectionLabels[activeSection]}
               </h2>
-              <div className="space-y-4">
-                {activeContent.map((item) => (
-                  <div key={item} className="border border-border/60 p-5 bg-background/70">
-                    <p className="text-muted-foreground leading-relaxed">{item}</p>
-                  </div>
+              <div className="space-y-7">
+                {activeContent.map((item, index) => (
+                  <p
+                    key={item}
+                    className={`leading-[1.9] text-lg ${
+                      index === 0 ? 'text-foreground' : 'text-muted-foreground'
+                    }`}
+                  >
+                    {item}
+                  </p>
                 ))}
               </div>
-            </motion.div>
+            </motion.article>
           </section>
         ) : (
           <section className="container-wide">

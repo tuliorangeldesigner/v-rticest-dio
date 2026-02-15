@@ -1,4 +1,6 @@
-﻿export type PortalSectionKey = 'visao-geral' | 'conceito' | 'manual' | 'aplicacoes' | 'mockups' | 'downloads';
+﻿import excellenceCover from '@/assets/excellence1.webp';
+
+export type PortalSectionKey = 'visao-geral' | 'conceito' | 'manual' | 'aplicacoes' | 'mockups' | 'downloads';
 
 export interface PortalDownload {
   label: string;
@@ -11,6 +13,7 @@ export interface ClientPortal {
   slug: string;
   clientName: string;
   projectName: string;
+  coverImage?: string;
   status: 'Em andamento' | 'Entregue';
   updatedAt: string;
   overview: string[];
@@ -27,45 +30,33 @@ export const clientPortals: ClientPortal[] = [
     slug: 'excellent-solucoes',
     clientName: 'Excellent Soluções',
     projectName: 'Reposicionamento de Marca e Sistema de Presença Premium',
+    coverImage: excellenceCover,
     status: 'Em andamento',
     updatedAt: '15 de fevereiro de 2026',
     overview: [
-      'Antes da forma, o diagnóstico mostrou uma dor real do mercado condominial: a insegurança causada por gestões amadoras, reativas e sem previsibilidade.',
-      'A estratégia da nova identidade foi construída para ser o oposto disso: estabilidade, senioridade e autoridade percebida desde o primeiro contato.',
-      'O objetivo central do reposicionamento é claro: elevar a Excellent Soluções para um novo patamar de confiança junto a conselhos, síndicos e moradores.',
-      'Este projeto não nasce para “parecer bonito”; ele nasce para sustentar percepção premium, reduzir objeção comercial e fortalecer valor percebido.',
-      'A conclusão estratégica é direta: consolidar o novo momento da marca com uma linguagem visual robusta, coerente e escalável.',
+      'Antes de desenhar qualquer forma, o diagnóstico focou na maturidade do negócio e no contexto real do mercado condominial. O principal problema identificado foi a insegurança causada por gestões amadoras, que operam de forma reativa, sem previsibilidade e sem transmitir confiança para conselhos e moradores.',
+      'O reposicionamento da Excellent Soluções foi estruturado para comunicar exatamente o oposto desse cenário: estabilidade, senioridade e controle. A nova identidade não busca apenas uma estética mais atual, ela estabelece uma presença de autoridade desde o primeiro contato e reforça a percepção de uma gestão profissional de alto nível.',
+      'Em termos estratégicos, o impacto esperado é claro: reduzir objeções comerciais, elevar a percepção de valor dos serviços e posicionar a marca em um novo patamar de confiança. Esta evolução visual consolida um novo momento da Excellent Soluções e transforma a comunicação da empresa em um ativo direto de crescimento.',
     ],
     conceito: [
-      'O símbolo foi desenhado como uma “joia geométrica”, afastando a marca dos clichês visuais de telhados e prédios literais do setor.',
-      'Enquanto concorrentes comunicam apenas operação, a Excellent passa a comunicar inteligência estratégica e postura consultiva.',
-      'O cubo fechado ataca a principal dor do mercado: insegurança. Sua forma transmite proteção, controle e estabilidade para gestão patrimonial.',
-      'No monograma, três letras “E” formam uma tríade em perspectiva: Excelência, Eficiência e Ética.',
-      'Excelência representa padrão elevado de atendimento e entrega.',
-      'Eficiência representa precisão, agilidade e resolução inteligente das demandas administrativas.',
-      'Ética representa transparência, confiança e compromisso com a gestão responsável sob o Código Civil 1348.',
+      'O símbolo da marca foi concebido como uma joia geométrica, com a intenção de afastar a Excellent Soluções dos códigos visuais óbvios do setor, como telhados e prédios literais. Em vez de comunicar apenas execução operacional, a marca passa a comunicar pensamento estratégico, visão consultiva e posicionamento de referência.',
+      'A estrutura central em forma de cubo fechado responde diretamente à maior dor do mercado: a insegurança. A geometria transmite solidez, proteção e estabilidade, atributos essenciais para quem administra patrimônios de médio porte e precisa tomar decisões com responsabilidade e clareza.',
+      'Dentro dessa construção, o monograma revela três letras E em perspectiva, formando a tríade que sustenta o posicionamento da marca: Excelência no padrão de atendimento e entrega, Eficiência na resolução das demandas com agilidade e precisão, e Ética como base permanente de transparência e confiança na gestão.',
     ],
     manual: [
-      'Paleta Gold & Black: contraste premium para reforçar autoridade, sofisticação e diferenciação competitiva.',
-      'Tipografia moderna, equilibrada e sem serifa para comunicar clareza, contemporaneidade e credibilidade.',
-      'Sistema de proporções e área de respiro para preservar leitura e impacto do símbolo em qualquer contexto.',
-      'Hierarquia tipográfica definida para títulos, subtítulos e textos de apoio, com consistência entre digital e impresso.',
-      'Diretrizes de aplicação da marca para fundo claro, fundo escuro e cenários de alta restrição visual.',
-      'Tom verbal institucional orientado a segurança, objetividade e domínio técnico.',
+      'O sistema visual foi definido para garantir consistência e valor percebido em todos os pontos de contato. A paleta Gold & Black foi escolhida para reforçar autoridade e sofisticação, criando um contraste premium que diferencia a Excellent Soluções da comunicação tradicional do segmento.',
+      'A tipografia institucional segue uma linha moderna, equilibrada e sem serifa, favorecendo clareza de leitura e presença profissional. A hierarquia entre títulos, subtítulos e textos de apoio foi organizada para manter ritmo visual e coerência, tanto em peças digitais quanto em materiais impressos.',
+      'No uso da marca, foram estabelecidas regras de proporção, área de respiro e aplicação em fundos claros e escuros para preservar legibilidade e impacto. O tom verbal acompanha esse padrão: objetivo, seguro e técnico, sempre orientado a transmitir confiança, competência e previsibilidade.',
     ],
     aplicacoes: [
-      'Performance no Instagram: o conjunto tipográfico garante leitura imediata em feed, stories e criativos de tráfego.',
-      'Reconhecimento em pequena escala: o ícone geométrico mantém legibilidade e presença forte em avatares e miniaturas.',
-      'Integridade visual em ambientes digitais: a marca preserva forma e contraste mesmo em espaços reduzidos.',
-      'Templates para apresentações e propostas comerciais com percepção premium e linguagem consistente.',
-      'Assinaturas visuais para materiais institucionais e comunicação recorrente com síndicos e conselhos.',
+      'A identidade foi pensada para performar com consistência no ambiente digital. Em redes sociais, especialmente no Instagram, a combinação entre símbolo e tipografia garante leitura rápida e reconhecimento imediato em feed, stories, anúncios e conteúdos de rotina.',
+      'Em escalas reduzidas, como avatares e miniaturas, a estrutura geométrica preserva integridade e evita perda de força visual. Isso permite que a marca mantenha presença premium mesmo quando aplicada em espaços limitados, sem comprometer clareza ou diferenciação.',
+      'Nas frentes comerciais e institucionais, o sistema se desdobra em templates de apresentação, proposta e materiais recorrentes de comunicação. O resultado é uma linguagem única, contínua e profissional, que sustenta a mesma percepção de valor em todos os canais.',
     ],
     mockups: [
-      'Mockups de avatar, capa e grid para Instagram, com foco em reconhecimento rápido da marca.',
-      'Mockups de proposta comercial e apresentação institucional com narrativa de autoridade.',
-      'Mockups de aplicação da identidade em materiais administrativos e comunicação com moradores.',
-      'Mockups de páginas estratégicas do site com uso consistente de cor, tipografia e hierarquia.',
-      'Mockups de cenários de baixa escala para validar legibilidade do símbolo e da assinatura.',
+      'Os mockups desta etapa demonstram a identidade aplicada em cenários reais de operação da Excellent Soluções, com foco em percepção, clareza e coerência. Foram simuladas situações de uso em social media, comunicação institucional e materiais comerciais para validar comportamento visual em diferentes contextos.',
+      'Também foram desenvolvidos exemplos para proposta comercial, apresentação corporativa e peças de relacionamento com síndicos e moradores. Em todos os casos, a construção visual reforça autoridade, organização e padrão premium, sem perder objetividade na mensagem.',
+      'Por fim, os testes em pequena escala confirmam a robustez técnica do sistema. Mesmo em formatos compactos, o símbolo mantém reconhecimento e a assinatura preserva legibilidade, garantindo consistência da marca do primeiro contato até os pontos mais operacionais da comunicação.',
     ],
     downloads: [
       {
