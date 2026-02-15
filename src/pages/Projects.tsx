@@ -190,7 +190,7 @@ const Projects = () => {
           >
             <span className="text-sm font-mono text-accent">01</span>
             <div className="h-px w-12 bg-accent" />
-            <span className="text-sm font-mono text-muted-foreground tracking-wider">PORTFÃ“LIO</span>
+            <span className="text-sm font-mono text-muted-foreground tracking-wider">PORTFÓLIO</span>
           </motion.div>
 
           <div className="max-w-4xl">
@@ -216,12 +216,12 @@ const Projects = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mt-8"
           >
-            Cada projeto apresentado aqui passou por um processo estratÃ©gico de reprogramaÃ§Ã£o de percepÃ§Ã£o, ambiente digital e conversÃ£o.
+            Cada projeto apresentado aqui passou por um processo estratégico de reprogramação de percepção, ambiente digital e conversão.
             <br />
             <br />
-            NÃ£o sÃ£o peÃ§as isoladas.
+            Não são peças isoladas.
             <br />
-            SÃ£o sistemas implantados.
+            São sistemas implantados.
           </motion.p>
         </div>
       </section>
@@ -229,11 +229,11 @@ const Projects = () => {
       <section className="pb-12">
         <div className="container-wide">
           <div className="max-w-4xl text-muted-foreground text-lg leading-relaxed space-y-4">
-            <p>NÃ£o trabalhamos com estÃ©tica solta.</p>
+            <p>Não trabalhamos com estética solta.</p>
             <p>
-              Cada marca abaixo enfrentava um problema claro: baixa percepÃ§Ã£o de valor, ambiente digital fraco ou performance inconsistente.
+              Cada marca abaixo enfrentava um problema claro: baixa percepção de valor, ambiente digital fraco ou performance inconsistente.
             </p>
-            <p>O que vocÃª verÃ¡ aqui Ã© o antes e depois estratÃ©gico.</p>
+            <p>O que você verá aqui é o antes e depois estratégico.</p>
           </div>
         </div>
       </section>
@@ -322,22 +322,22 @@ const Projects = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sm font-mono text-accent mb-6 block">PRÃ“XIMO PASSO</span>
+            <span className="text-sm font-mono text-accent mb-6 block">PRÓXIMO PASSO</span>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">
-              Sua Marca Pode Ser a PrÃ³xima OperaÃ§Ã£o.
+              Sua Marca Pode Ser a Próxima Operação.
             </h2>
             <p className="text-muted-foreground max-w-3xl mx-auto mb-10">
-              Se sua empresa estÃ¡ pronta para deixar de parecer comum e assumir posicionamento estratÃ©gico, o prÃ³ximo passo Ã© diagnÃ³stico.
+              Se sua empresa está pronta para deixar de parecer comum e assumir posicionamento estratégico, o próximo passo é diagnóstico.
               <br />
               <br />
-              Projetos sÃ£o selecionados com base em alinhamento e potencial de crescimento.
+              Projetos são selecionados com base em alinhamento e potencial de crescimento.
             </p>
             <MagneticButton>
               <Link 
                 to="/contact" 
                 className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-semibold rounded-full"
               >
-                Agendar DiagnÃ³stico EstratÃ©gico
+                Agendar Diagnóstico Estratégico
                 <motion.div
                   className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center"
                   whileHover={{ rotate: 45 }}
