@@ -6,6 +6,8 @@ import SEO from '@/components/SEO';
 import { ArticleSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
 const inlineImagesByPost: Record<string, { src: string; alt: string }[]> = {
   'marcas-comuns-brigam-por-preco': [
     { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'Reunião estratégica de posicionamento de marca' },
@@ -73,7 +75,7 @@ const BlogPost = () => {
         title={post.title}
         description={post.excerpt}
         image={post.image}
-        url={`https://studio.design/blog/${post.id}`}
+        url={`${SITE_URL}/blog/${post.id}`}
         type="article"
         author={post.author.name}
         publishedTime={post.date}
@@ -89,9 +91,9 @@ const BlogPost = () => {
       />
       <BreadcrumbSchema
         items={[
-          { name: 'Início', url: 'https://studio.design' },
-          { name: 'Blog', url: 'https://studio.design/blog' },
-          { name: post.title, url: `https://studio.design/blog/${post.id}` },
+          { name: 'Início', url: SITE_URL },
+          { name: 'Blog', url: `${SITE_URL}/blog` },
+          { name: post.title, url: `${SITE_URL}/blog/${post.id}` },
         ]}
       />
       
@@ -157,6 +159,9 @@ const BlogPost = () => {
               <img 
                 src={post.image} 
                 alt={post.title} 
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               
@@ -167,6 +172,8 @@ const BlogPost = () => {
                     <img 
                        src={post.author.image} 
                        alt={post.author.name} 
+                       loading="lazy"
+                       decoding="async"
                        className="w-10 h-10 rounded-full object-cover" 
                     />
                     <div>
@@ -188,7 +195,7 @@ const BlogPost = () => {
                     {/* Mobile-only Author (visible on small screens) */}
                     <div className="md:hidden mb-8 pb-8 border-b border-foreground/10">
                        <div className="flex items-center gap-3">
-                          <img src={post.author.image} alt={post.author.name} className="w-10 h-10 rounded-full object-cover" />
+                          <img src={post.author.image} alt={post.author.name} loading="lazy" decoding="async" className="w-10 h-10 rounded-full object-cover" />
                           <div>
                              <p className="font-bold">{post.author.name}</p>
                              <p className="text-xs text-foreground/60">{post.author.role}</p>
@@ -258,6 +265,7 @@ const BlogPost = () => {
                                     alt={image.alt}
                                     className="w-full h-full object-cover"
                                     loading="lazy"
+                                    decoding="async"
                                   />
                                </div>
                              ))}
@@ -286,6 +294,8 @@ const BlogPost = () => {
                        <img 
                           src={post.image} 
                           alt={post.title} 
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                        />
                     </div>

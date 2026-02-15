@@ -457,8 +457,8 @@ export const Navigation = () => {
               >
                 <div className="text-sm text-muted-foreground">
                   <p>Pronto para iniciar um projeto?</p>
-                  <a href="mailto:hello@studio.design" className="text-foreground hover:text-accent transition-colors">
-                    hello@studio.design
+                  <a href="mailto:tuliorangeldesigner@gmail.com" className="text-foreground hover:text-accent transition-colors">
+                    tuliorangeldesigner@gmail.com
                   </a>
                 </div>
                 

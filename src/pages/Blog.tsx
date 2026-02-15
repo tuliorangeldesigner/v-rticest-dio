@@ -166,6 +166,9 @@ const Blog = () => {
                     <motion.img
                       src={featuredPost.image}
                       alt={featuredPost.title}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   </div>
@@ -190,6 +193,8 @@ const Blog = () => {
                         <img
                           src={featuredPost.author.image}
                           alt={featuredPost.author.name}
+                          loading="lazy"
+                          decoding="async"
                           className="w-8 h-8 object-cover border border-border"
                         />
                         <div>
@@ -314,6 +319,8 @@ const Blog = () => {
                       <img
                         src={post.image}
                         alt={post.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-all duration-700 ease-out"
                       />
                       <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

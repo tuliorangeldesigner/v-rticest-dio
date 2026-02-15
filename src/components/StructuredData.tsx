@@ -1,5 +1,7 @@
 ﻿import { Helmet } from 'react-helmet-async';
 
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+
 interface OrganizationSchemaProps {
   name?: string;
   url?: string;
@@ -47,22 +49,20 @@ interface BreadcrumbItem {
 
 // Organization Schema - for the agency
 export const OrganizationSchema = ({
-  name = 'STUDIO',
-  url = 'https://studio.design',
-  logo = 'https://studio.design/logo.png',
-  description = 'Award-winning digital design agency specializing in brand identity, web design, and digital campaigns.',
-  email = 'hello@studio.design',
+  name = 'Vértice Studio™',
+  url = SITE_URL,
+  logo = `${SITE_URL}/favicon.svg`,
+  description = 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
+  email = 'tuliorangeldesigner@gmail.com',
   address = {
-    streetAddress: '123 Design Street',
-    addressLocality: 'San Francisco',
-    addressRegion: 'CA',
-    postalCode: '94102',
-    addressCountry: 'US',
+    streetAddress: 'Morretes',
+    addressLocality: 'Morretes',
+    addressRegion: 'PR',
+    postalCode: '83350-000',
+    addressCountry: 'BR',
   },
   socialLinks = [
-    'https://twitter.com/studiodesign',
     'https://www.linkedin.com/in/t%C3%BAlio-rangel-designer1/',
-    'https://dribbble.com/studiodesign',
     'https://www.instagram.com/tulio_rangel_designer/',
   ],
 }: OrganizationSchemaProps) => {
@@ -83,8 +83,8 @@ export const OrganizationSchema = ({
       '@type': 'ContactPoint',
       email,
       contactType: 'customer service',
-      areaServed: 'Worldwide',
-      availableLanguage: ['English'],
+      areaServed: 'BR',
+      availableLanguage: ['Portuguese'],
     },
   };
 
@@ -104,8 +104,8 @@ export const ArticleSchema = ({
   dateModified,
   author,
   publisher = {
-    name: 'STUDIO',
-    logo: 'https://studio.design/logo.png',
+    name: 'Vértice Studio™',
+    logo: `${SITE_URL}/favicon.svg`,
   },
 }: ArticleSchemaProps) => {
   const schema = {
@@ -131,7 +131,7 @@ export const ArticleSchema = ({
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': window.location.href,
+      '@id': typeof window !== 'undefined' ? window.location.href : SITE_URL,
     },
   };
 
@@ -146,9 +146,9 @@ export const ArticleSchema = ({
 export const ServiceSchema = ({
   name,
   description,
-  provider = 'STUDIO',
-  areaServed = 'Worldwide',
-  priceRange = '$$$$',
+  provider = 'Vértice Studio™',
+  areaServed = 'BR',
+  priceRange = '$$$',
 }: ServiceSchemaProps) => {
   const schema = {
     '@context': 'https://schema.org',
@@ -190,19 +190,15 @@ export const BreadcrumbSchema = ({ items }: { items: BreadcrumbItem[] }) => {
   );
 };
 
-// WebSite Schema with SearchAction
+// WebSite Schema
 export const WebsiteSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'STUDIO',
-    url: 'https://studio.design',
-    description: 'Award-winning digital design agency',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://studio.design/search?q={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
+    name: 'Vértice Studio™',
+    url: SITE_URL,
+    description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance.',
+    inLanguage: 'pt-BR',
   };
 
   return (
@@ -217,23 +213,19 @@ export const ProfessionalServiceSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'STUDIO',
-    image: 'https://studio.design/og-image.jpg',
-    '@id': 'https://studio.design',
-    url: 'https://studio.design',
-    telephone: '+1-555-123-4567',
+    name: 'Vértice Studio™',
+    image: `${SITE_URL}/og-vertice.webp`,
+    '@id': SITE_URL,
+    url: SITE_URL,
+    telephone: '+55-41-98744-8273',
+    email: 'tuliorangeldesigner@gmail.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '123 Design Street',
-      addressLocality: 'San Francisco',
-      addressRegion: 'CA',
-      postalCode: '94102',
-      addressCountry: 'US',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 37.7749,
-      longitude: -122.4194,
+      streetAddress: 'Morretes',
+      addressLocality: 'Morretes',
+      addressRegion: 'PR',
+      postalCode: '83350-000',
+      addressCountry: 'BR',
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -241,12 +233,8 @@ export const ProfessionalServiceSchema = () => {
       opens: '09:00',
       closes: '18:00',
     },
-    priceRange: '$$$$',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-    },
+    areaServed: 'BR',
+    priceRange: '$$$',
   };
 
   return (
@@ -255,5 +243,3 @@ export const ProfessionalServiceSchema = () => {
     </Helmet>
   );
 };
-
-

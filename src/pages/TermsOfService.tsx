@@ -3,6 +3,8 @@ import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Navigation from '@/components/Navigation';
 
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+
 const TermsOfService = () => {
   const breadcrumbItems = [
     { label: 'Termos de Serviço', href: '/terms-of-service' }
@@ -14,7 +16,7 @@ const TermsOfService = () => {
       <SEO
         title="Termos de Serviço"
         description="Conheça os termos e condições para contratação dos serviços da Vértice Studio."
-        url="https://studio.design/terms-of-service"
+        url={`${SITE_URL}/terms-of-service`}
       />
 
       <main className="min-h-screen bg-background pt-32 pb-20">

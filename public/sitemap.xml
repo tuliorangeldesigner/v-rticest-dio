@@ -1,101 +1,150 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://studio.design/</loc>
-    <lastmod>2024-12-18</lastmod>
+    <loc>https://verticestudio.vercel.app/</loc>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://studio.design/work</loc>
-    <lastmod>2024-12-18</lastmod>
+    <loc>https://verticestudio.vercel.app/work</loc>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://studio.design/about</loc>
-    <lastmod>2024-12-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studio.design/services</loc>
-    <lastmod>2024-12-18</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://verticestudio.vercel.app/services</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://studio.design/blog</loc>
-    <lastmod>2024-12-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studio.design/contact</loc>
-    <lastmod>2024-12-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <!-- Case Studies -->
-  <url>
-    <loc>https://studio.design/work/luminary</loc>
-    <lastmod>2024-12-18</lastmod>
+    <loc>https://verticestudio.vercel.app/about</loc>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://studio.design/work/ethereal</loc>
-    <lastmod>2024-12-18</lastmod>
+    <loc>https://verticestudio.vercel.app/blog</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/contact</loc>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://studio.design/work/zenith</loc>
-    <lastmod>2024-12-18</lastmod>
+    <loc>https://verticestudio.vercel.app/privacy-policy</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/terms-of-service</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://verticestudio.vercel.app/services/reprogramacao-de-marca</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/services/arquitetura-de-site-e-conversao</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/services/criativos-de-performance</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://verticestudio.vercel.app/work/luminary</loc>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://studio.design/work/cascade</loc>
-    <lastmod>2024-12-18</lastmod>
+    <loc>https://verticestudio.vercel.app/work/ethereal</loc>
+    <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Blog Posts -->
   <url>
-    <loc>https://studio.design/blog/future-of-brand-identity</loc>
-    <lastmod>2024-12-15</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://verticestudio.vercel.app/work/zenith</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/work/cascade</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/work/nexus</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://studio.design/blog/psychology-of-color</loc>
-    <lastmod>2024-12-10</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://verticestudio.vercel.app/work/apex</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://verticestudio.vercel.app/blog/marcas-comuns-brigam-por-preco</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://studio.design/blog/motion-design-principles</loc>
-    <lastmod>2024-12-05</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://verticestudio.vercel.app/blog/site-nao-converte</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://studio.design/blog/ai-design-future</loc>
-    <lastmod>2024-11-28</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://verticestudio.vercel.app/blog/percepcao-define-preco</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://studio.design/blog/minimalism-in-ux</loc>
-    <lastmod>2024-11-20</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://verticestudio.vercel.app/blog/criativo-engenharia-atencao</loc>
+    <lastmod>2026-02-02</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://studio.design/blog/building-design-systems</loc>
-    <lastmod>2024-11-12</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://verticestudio.vercel.app/blog/autoridade-visual-feed</loc>
+    <lastmod>2026-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/blog/branding-sem-estrategia</loc>
+    <lastmod>2026-01-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://verticestudio.vercel.app/blog/ia-amplifica-estrategia</loc>
+    <lastmod>2026-01-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>

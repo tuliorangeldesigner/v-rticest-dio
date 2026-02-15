@@ -68,6 +68,9 @@ export const HeroSection = () => {
         <img 
           src={heroBg} 
           alt="" 
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover opacity-40 scale-110"
         />
         <div className="absolute inset-x-0 top-0 bottom-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />

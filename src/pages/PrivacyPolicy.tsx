@@ -3,6 +3,8 @@ import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Navigation from '@/components/Navigation';
 
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+
 const PrivacyPolicy = () => {
   const breadcrumbItems = [
     { label: 'Política de Privacidade', href: '/privacy-policy' }
@@ -14,7 +16,7 @@ const PrivacyPolicy = () => {
       <SEO
         title="Política de Privacidade"
         description="Entenda como coletamos, usamos e protegemos seus dados na Vértice Studio."
-        url="https://studio.design/privacy-policy"
+        url={`${SITE_URL}/privacy-policy`}
       />
 
       <main className="min-h-screen bg-background pt-32 pb-20">

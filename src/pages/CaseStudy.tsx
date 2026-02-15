@@ -134,6 +134,9 @@ const CaseStudy = () => {
                   <img 
                     src={project.heroImage} 
                     alt={project.title}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -245,6 +248,8 @@ const CaseStudy = () => {
                            <img 
                               src={image} 
                               alt={`Gallery image ${i+1}`} 
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                            />
                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -306,6 +311,8 @@ const CaseStudy = () => {
                         <img
                           src={nextProject.heroImage}
                           alt={nextProject.title}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                      </div>

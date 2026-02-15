@@ -37,6 +37,8 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
               <motion.img
                 src={project.thumbnail}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 animate={{ scale: isHovered ? 1.05 : 1 }}
                 transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
