@@ -33,9 +33,9 @@
 @font-face {
   font-family: 'Syne';
   font-style: normal;
-  font-weight: 400 800;
+  font-weight: 400 900;
   font-display: swap;
-  src: url('/fonts/Syne-Variable.ttf') format('truetype');
+  src: url('/fonts/GC-EPICPRO.otf') format('opentype');
 }
 
 @tailwind base;
