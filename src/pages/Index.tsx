@@ -17,8 +17,9 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <SEO 
         title="Vértice Studio™"
-        description="We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team."
-        url="https://studio.design"
+        description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
+        image="https://verticestudio.vercel.app/og-vertice.webp"
+        url="https://verticestudio.vercel.app/"
       />
       <OrganizationSchema />
       <WebsiteSchema />
