@@ -233,7 +233,7 @@ export const HeroSection = () => {
                     </motion.span>
                     
                     <span 
-                      className={`font-epic font-black text-[11.5vw] sm:text-7xl md:text-8xl lg:text-[140px] xl:text-[160px] tracking-tight leading-[1] ${
+                      className={`font-epic font-black text-[11.5vw] sm:text-7xl md:text-8xl lg:text-[140px] xl:text-[160px] tracking-tight leading-[1.08] sm:leading-[1] ${
                         word.accent ? 'text-accent' : 'text-foreground'
                       }`}
                     >

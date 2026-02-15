@@ -190,7 +190,7 @@ const Services = () => {
             <span className="text-sm font-mono text-muted-foreground tracking-wider">SERVIÇOS</span>
           </motion.div>
 
-          <div className="max-w-5xl overflow-hidden">
+          <div className="max-w-5xl overflow-visible sm:overflow-hidden">
             <motion.h1
               initial={{ y: '100%' }}
               animate={heroInView ? { y: 0 } : {}}
