@@ -195,12 +195,12 @@ const Projects = () => {
 
           <div className="max-w-4xl">
             {['Projetos Que', 'Elevam Marcas.'].map((text, index) => (
-              <div key={text} className="overflow-visible sm:overflow-hidden">
+              <div key={text} className="overflow-visible">
                 <motion.h1
                   initial={{ y: '100%' }}
                   animate={heroInView ? { y: 0 } : {}}
                   transition={{ duration: 1, delay: 0.2 + index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                  className={`font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] ${
+                  className={`font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05] ${
                     index === 1 ? 'text-accent' : 'text-foreground'
                   }`}
                 >

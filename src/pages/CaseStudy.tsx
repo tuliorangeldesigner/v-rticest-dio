@@ -100,7 +100,7 @@ const CaseStudy = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-epic font-bold leading-[0.9] tracking-tight text-foreground uppercase"
+                  className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-epic font-bold leading-[1.05] tracking-tight text-foreground uppercase"
                 >
                   {project.title}
                 </motion.h1>
