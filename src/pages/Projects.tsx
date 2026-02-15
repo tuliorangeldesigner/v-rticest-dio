@@ -200,7 +200,7 @@ const Projects = () => {
                   initial={{ y: '100%' }}
                   animate={heroInView ? { y: 0 } : {}}
                   transition={{ duration: 1, delay: 0.2 + index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                  className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] ${
+                  className={`font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] ${
                     index === 1 ? 'text-accent' : 'text-foreground'
                   }`}
                 >

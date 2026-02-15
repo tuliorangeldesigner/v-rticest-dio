@@ -1,4 +1,4 @@
-ï»¿import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
@@ -8,32 +8,32 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 const inlineImagesByPost: Record<string, { src: string; alt: string }[]> = {
   'marcas-comuns-brigam-por-preco': [
-    { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'ReuniÃ£o estratÃ©gica de posicionamento de marca' },
-    { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', alt: 'AnÃ¡lise de mÃ©tricas e performance digital' },
+    { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'Reunião estratégica de posicionamento de marca' },
+    { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', alt: 'Análise de métricas e performance digital' },
   ],
   'site-nao-converte': [
-    { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', alt: 'Painel de mÃ©tricas de conversÃ£o e trÃ¡fego' },
-    { src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80', alt: 'AnÃ¡lise de dados para otimizaÃ§Ã£o de funil' },
+    { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', alt: 'Painel de métricas de conversão e tráfego' },
+    { src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80', alt: 'Análise de dados para otimização de funil' },
   ],
   'percepcao-define-preco': [
-    { src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80', alt: 'Ambiente premium reforÃ§ando percepÃ§Ã£o de valor' },
-    { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'ReuniÃ£o executiva sobre estratÃ©gia de precificaÃ§Ã£o' },
+    { src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80', alt: 'Ambiente premium reforçando percepção de valor' },
+    { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Reunião executiva sobre estratégia de precificação' },
   ],
   'criativo-engenharia-atencao': [
-    { src: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=900&q=80', alt: 'Planejamento criativo para anÃºncios de performance' },
-    { src: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92eee?auto=format&fit=crop&w=900&q=80', alt: 'ProduÃ§Ã£o visual para campanhas digitais' },
+    { src: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=900&q=80', alt: 'Planejamento criativo para anúncios de performance' },
+    { src: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92eee?auto=format&fit=crop&w=900&q=80', alt: 'Produção visual para campanhas digitais' },
   ],
   'autoridade-visual-feed': [
-    { src: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=900&q=80', alt: 'Curadoria visual de conteÃºdo para redes sociais' },
-    { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80', alt: 'Planejamento de identidade visual para presenÃ§a digital' },
+    { src: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=900&q=80', alt: 'Curadoria visual de conteúdo para redes sociais' },
+    { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80', alt: 'Planejamento de identidade visual para presença digital' },
   ],
   'branding-sem-estrategia': [
-    { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Workshop de branding orientado por estratÃ©gia' },
-    { src: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&q=80', alt: 'DefiniÃ§Ã£o de identidade visual e posicionamento de marca' },
+    { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Workshop de branding orientado por estratégia' },
+    { src: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&q=80', alt: 'Definição de identidade visual e posicionamento de marca' },
   ],
   'ia-amplifica-estrategia': [
-    { src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80', alt: 'AplicaÃ§Ã£o de IA em fluxos de marketing e conteÃºdo' },
-    { src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=900&q=80', alt: 'Tecnologia e anÃ¡lise para escalar estratÃ©gia digital' },
+    { src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80', alt: 'Aplicação de IA em fluxos de marketing e conteúdo' },
+    { src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=900&q=80', alt: 'Tecnologia e análise para escalar estratégia digital' },
   ],
 };
 
@@ -56,7 +56,7 @@ const BlogPost = () => {
         <Navigation />
         <div className="flex-1 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-[60px] font-syne font-bold mb-4 leading-tight">Post nÃ£o encontrado</h1>
+            <h1 className="text-[60px] font-syne font-bold mb-4 leading-tight">Post não encontrado</h1>
             <Link to="/blog" className="text-accent hover:underline flex items-center justify-center gap-2 link-hover">
               <ArrowLeft className="w-4 h-4" /> Voltar para o blog
             </Link>
@@ -89,7 +89,7 @@ const BlogPost = () => {
       />
       <BreadcrumbSchema
         items={[
-          { name: 'InÃ­cio', url: 'https://studio.design' },
+          { name: 'Início', url: 'https://studio.design' },
           { name: 'Blog', url: 'https://studio.design/blog' },
           { name: post.title, url: `https://studio.design/blog/${post.id}` },
         ]}
@@ -132,7 +132,7 @@ const BlogPost = () => {
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.6 }}
-                   className="text-[40px] md:text-[50px] lg:text-[60px] font-syne font-bold leading-[1.05] tracking-tight text-foreground"
+                   className="text-[40px] md:text-[50px] lg:text-[60px] font-epic font-bold leading-[1.05] tracking-tight text-foreground"
                  >
                    {post.title}
                  </motion.h1>
@@ -198,11 +198,11 @@ const BlogPost = () => {
 
                     {/* TOC */}
                     <div>
-                       <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">ConteÃºdo</p>
+                       <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">Conteúdo</p>
                        <ul className="space-y-4 text-sm font-medium text-foreground/60">
                           <li className="flex items-center gap-3 text-accent cursor-pointer">
                              <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
-                             IntroduÃ§Ã£o
+                             Introdução
                           </li>
                           <li className="flex items-center gap-3 hover:text-accent cursor-pointer transition-colors group">
                              <span className="w-1.5 h-1.5 bg-foreground/20 group-hover:bg-accent rounded-full transition-colors"></span>
@@ -210,7 +210,7 @@ const BlogPost = () => {
                           </li>
                           <li className="flex items-center gap-3 hover:text-accent cursor-pointer transition-colors group">
                              <span className="w-1.5 h-1.5 bg-foreground/20 group-hover:bg-accent rounded-full transition-colors"></span>
-                             ImplementaÃ§Ã£o
+                             Implementação
                           </li>
                           <li className="flex items-center gap-3 hover:text-accent cursor-pointer transition-colors group">
                              <span className="w-1.5 h-1.5 bg-foreground/20 group-hover:bg-accent rounded-full transition-colors"></span>

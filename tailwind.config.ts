@@ -16,6 +16,7 @@ export default {
     extend: {
       fontFamily: {
         syne: ['Syne', 'sans-serif'],
+        epic: ['GCEpicPro', 'Syne', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
       },
       colors: {

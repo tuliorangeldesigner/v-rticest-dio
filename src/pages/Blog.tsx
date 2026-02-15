@@ -1,4 +1,4 @@
-ï»¿import { useState, useMemo, useCallback, useRef } from 'react';
+import { useState, useMemo, useCallback, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search } from 'lucide-react';
@@ -6,7 +6,7 @@ import { blogPosts } from '@/data/blog';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 
-const categories = ['TODOS', 'POSICIONAMENTO', 'PRESENÃ‡A DIGITAL', 'CONVERSÃƒO', 'PERFORMANCE'];
+const categories = ['TODOS', 'POSICIONAMENTO', 'PRESENÇA DIGITAL', 'CONVERSÃO', 'PERFORMANCE'];
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState('TODOS');
@@ -106,13 +106,13 @@ const Blog = () => {
           </motion.div>
 
           <div>
-            {['EstratÃ©gia &', 'Autoridade.'].map((text, index) => (
+            {['Estratégia &', 'Autoridade.'].map((text, index) => (
               <div key={text} className="overflow-hidden">
                 <motion.h1
                   initial={{ y: '100%' }}
                   animate={heroInView ? { y: 0 } : {}}
                   transition={{ duration: 1, delay: 0.2 + index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                  className={`font-syne font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.95] ${
+                  className={`font-epic font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.95] ${
                     index === 1 ? 'text-accent' : 'text-foreground'
                   }`}
                 >
@@ -128,12 +128,12 @@ const Blog = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mt-8"
           >
-            ReflexÃµes estratÃ©gicas sobre branding, percepÃ§Ã£o de valor, conversÃ£o e presenÃ§a digital.
+            Reflexões estratégicas sobre branding, percepção de valor, conversão e presença digital.
             <br />
             <br />
-            Nada aqui Ã© tendÃªncia passageira.
+            Nada aqui é tendência passageira.
             <br />
-            Ã‰ fundamento para quem quer crescer com autoridade.
+            É fundamento para quem quer crescer com autoridade.
           </motion.p>
         </div>
       </section>
@@ -160,7 +160,7 @@ const Blog = () => {
                   <div className="w-full md:w-2/5 relative overflow-hidden h-[250px] md:h-full border-b md:border-b-0 md:border-r border-border">
                     <div className="absolute top-4 left-4 z-10">
                       <span className="px-3 py-1 bg-background/90 backdrop-blur text-xs font-mono font-bold uppercase tracking-wider border border-border">
-                        ESTRATÃ‰GIA
+                        ESTRATÉGIA
                       </span>
                     </div>
                     <motion.img
@@ -195,7 +195,7 @@ const Blog = () => {
                         <div>
                           <p className="text-sm font-bold text-foreground">{featuredPost.author.name}</p>
                           <p className="text-xs text-muted-foreground font-mono">
-                            {featuredPost.date} â€¢ {featuredPost.readTime}
+                            {featuredPost.date} • {featuredPost.readTime}
                           </p>
                         </div>
                       </div>
@@ -354,18 +354,18 @@ const Blog = () => {
             transition={{ duration: 0.6 }}
             className="max-w-2xl mx-auto"
           >
-            <span className="text-sm font-mono text-accent mb-6 block">PRÃ“XIMO PASSO</span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">Transforme ConteÃºdo Em Posicionamento.</h2>
+            <span className="text-sm font-mono text-accent mb-6 block">PRÓXIMO PASSO</span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">Transforme Conteúdo Em Posicionamento.</h2>
             <p className="text-muted-foreground mb-10 text-lg">
               Se os artigos fizeram sentido para o momento da sua marca,
               <br />
-              o prÃ³ximo passo Ã© estruturar isso na prÃ¡tica.
+              o próximo passo é estruturar isso na prática.
             </p>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full"
             >
-              Agendar DiagnÃ³stico EstratÃ©gico
+              Agendar Diagnóstico Estratégico
               <ArrowUpRight className="w-5 h-5" />
             </Link>
           </motion.div>

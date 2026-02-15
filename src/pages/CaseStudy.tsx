@@ -1,4 +1,4 @@
-Ôªøimport { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useInView } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -35,7 +35,7 @@ const CaseStudy = () => {
         <Navigation />
         <div className="flex-1 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-4xl font-syne font-bold mb-4">Projeto n√£o encontrado</h1>
+            <h1 className="text-4xl font-syne font-bold mb-4">Projeto n„o encontrado</h1>
             <Link to="/" className="text-accent hover:underline flex items-center justify-center gap-2">
               <ArrowLeft className="w-4 h-4" /> Voltar para a Home
             </Link>
@@ -100,7 +100,7 @@ const CaseStudy = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-syne font-bold leading-[0.9] tracking-tight text-foreground uppercase"
+                  className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-epic font-bold leading-[0.9] tracking-tight text-foreground uppercase"
                 >
                   {project.title}
                 </motion.h1>
@@ -189,7 +189,7 @@ const CaseStudy = () => {
                     <div className="my-8 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
                       <h3 className="text-2xl md:text-3xl font-syne font-bold mb-4">Em breve novo projeto.</h3>
                       <p className="text-foreground/80 leading-relaxed m-0">
-                        Este case est√° em produ√ß√£o e ser√° publicado com todos os detalhes em breve.
+                        Este case est· em produÁ„o e ser· publicado com todos os detalhes em breve.
                       </p>
                     </div>
                   ) : (
@@ -201,7 +201,7 @@ const CaseStudy = () => {
                       </p>
 
                       {/* Solution Section */}
-                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">A Solu√ß√£o</h3>
+                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">A SoluÁ„o</h3>
                       <p className="mb-12 text-foreground/80 leading-relaxed">
                         {project.solution}
                       </p>
@@ -290,7 +290,7 @@ const CaseStudy = () => {
         <section className="border-t border-foreground/10 bg-foreground/5 py-20">
           <div className="container-wide max-w-[90rem] mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-12">
-              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">Pr√≥ximo Projeto</h2>
+              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">PrÛximo Projeto</h2>
               <Link to="/work" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-accent transition-colors">
                 Ver Todos os Projetos <ArrowRight className="w-4 h-4" />
               </Link>
@@ -325,7 +325,7 @@ const CaseStudy = () => {
                </Link>
             ) : (
                <div className="text-center py-12 text-foreground/40 italic">
-                  Fim do portf√≥lio.
+                  Fim do portfÛlio.
                </div>
             )}
           </div>

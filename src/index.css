@@ -33,7 +33,15 @@
 @font-face {
   font-family: 'Syne';
   font-style: normal;
-  font-weight: 400 900;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Syne-Variable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GCEpicPro';
+  font-style: normal;
+  font-weight: 400;
   font-display: swap;
   src: url('/fonts/GC-EPICPRO.otf') format('opentype');
 }

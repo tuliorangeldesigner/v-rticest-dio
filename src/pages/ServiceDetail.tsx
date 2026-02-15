@@ -1,4 +1,4 @@
-ï»¿import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
@@ -22,112 +22,112 @@ const serviceDetails: ServiceDetail[] = [
   {
     slug: 'reprogramacao-de-marca',
     number: '01',
-    title: 'ReprogramaÃ§Ã£o de Marca',
-    subtitle: 'Reposicionamento estratÃ©gico para aumentar percepÃ§Ã£o de valor.',
+    title: 'Reprogramação de Marca',
+    subtitle: 'Reposicionamento estratégico para aumentar percepção de valor.',
     summary:
-      'ReprogramaÃ§Ã£o de Marca organiza como sua empresa Ã© percebida no mercado. O objetivo Ã© sair da lÃ³gica de marca comum e construir autoridade visual e narrativa para vender com mais margem.',
+      'Reprogramação de Marca organiza como sua empresa é percebida no mercado. O objetivo é sair da lógica de marca comum e construir autoridade visual e narrativa para vender com mais margem.',
     objective:
-      'Fazer sua marca comunicar valor antes da proposta comercial, reduzindo objeÃ§Ã£o por preÃ§o e elevando confianÃ§a na decisÃ£o de compra.',
+      'Fazer sua marca comunicar valor antes da proposta comercial, reduzindo objeção por preço e elevando confiança na decisão de compra.',
     forWho: [
-      'Empresas que jÃ¡ entregam bem, mas nÃ£o parecem premium.',
-      'NegÃ³cios que estÃ£o presos em comparaÃ§Ã£o por preÃ§o.',
-      'Marcas com comunicaÃ§Ã£o inconsistente entre canais.',
+      'Empresas que já entregam bem, mas não parecem premium.',
+      'Negócios que estão presos em comparação por preço.',
+      'Marcas com comunicação inconsistente entre canais.',
     ],
     includes: [
-      'DiagnÃ³stico de posicionamento e percepÃ§Ã£o atual.',
-      'Estrutura estratÃ©gica de diferenciaÃ§Ã£o.',
-      'DireÃ§Ã£o estÃ©tica e identidade visual coerente.',
-      'Guia de aplicaÃ§Ã£o para manter consistÃªncia no digital.',
+      'Diagnóstico de posicionamento e percepção atual.',
+      'Estrutura estratégica de diferenciação.',
+      'Direção estética e identidade visual coerente.',
+      'Guia de aplicação para manter consistência no digital.',
     ],
     process: [
-      'AnÃ¡lise do cenÃ¡rio, concorrÃªncia e gaps de percepÃ§Ã£o.',
-      'DefiniÃ§Ã£o de territÃ³rio, narrativa e promessa central.',
-      'Desenvolvimento do sistema visual e validaÃ§Ãµes.',
+      'Análise do cenário, concorrência e gaps de percepção.',
+      'Definição de território, narrativa e promessa central.',
+      'Desenvolvimento do sistema visual e validações.',
       'Entrega de ativos com direcionamento de uso.',
     ],
     deliverables: [
       'Sistema de identidade visual completo.',
       'Diretrizes de posicionamento e mensagem.',
-      'Estrutura prÃ¡tica para aplicaÃ§Ã£o em site e social.',
+      'Estrutura prática para aplicação em site e social.',
     ],
     results: [
       'Maior autoridade percebida no primeiro contato.',
-      'Melhor qualidade de lead e negociaÃ§Ã£o.',
-      'ReduÃ§Ã£o de pressÃ£o por desconto.',
+      'Melhor qualidade de lead e negociação.',
+      'Redução de pressão por desconto.',
     ],
   },
   {
     slug: 'arquitetura-de-site-e-conversao',
     number: '02',
-    title: 'Arquitetura de Site & ConversÃ£o',
-    subtitle: 'Seu site deixa de ser vitrine e vira sistema de decisÃ£o.',
+    title: 'Arquitetura de Site & Conversão',
+    subtitle: 'Seu site deixa de ser vitrine e vira sistema de decisão.',
     summary:
-      'Arquitetura de Site & ConversÃ£o estrutura pÃ¡ginas para conduzir o visitante da atenÃ§Ã£o atÃ© a aÃ§Ã£o. NÃ£o Ã© sÃ³ design: Ã© estratÃ©gia de conteÃºdo, hierarquia de informaÃ§Ã£o e copy orientada a conversÃ£o.',
+      'Arquitetura de Site & Conversão estrutura páginas para conduzir o visitante da atenção até a ação. Não é só design: é estratégia de conteúdo, hierarquia de informação e copy orientada a conversão.',
     objective:
-      'Aumentar contatos qualificados com pÃ¡ginas que deixam claro o que vocÃª faz, para quem faz e por que sua empresa Ã© a escolha certa.',
+      'Aumentar contatos qualificados com páginas que deixam claro o que você faz, para quem faz e por que sua empresa é a escolha certa.',
     forWho: [
-      'Empresas com trÃ¡fego e baixa geraÃ§Ã£o de contatos.',
+      'Empresas com tráfego e baixa geração de contatos.',
       'Sites bonitos, mas sem narrativa comercial clara.',
-      'NegÃ³cios que precisam transformar visitas em oportunidade real.',
+      'Negócios que precisam transformar visitas em oportunidade real.',
     ],
     includes: [
-      'Arquitetura estratÃ©gica das pÃ¡ginas principais.',
-      'Copy orientada Ã  autoridade e reduÃ§Ã£o de objeÃ§Ã£o.',
-      'UX focada em clareza, prova e aÃ§Ã£o.',
-      'Landing pages especÃ­ficas para campanhas.',
+      'Arquitetura estratégica das páginas principais.',
+      'Copy orientada à autoridade e redução de objeção.',
+      'UX focada em clareza, prova e ação.',
+      'Landing pages específicas para campanhas.',
     ],
     process: [
-      'Mapeamento da jornada e pontos de fricÃ§Ã£o.',
-      'Planejamento da narrativa por seÃ§Ã£o e prioridade.',
-      'ConstruÃ§Ã£o de layout e mensagens com foco em decisÃ£o.',
-      'Ajustes para performance, velocidade e conversÃ£o.',
+      'Mapeamento da jornada e pontos de fricção.',
+      'Planejamento da narrativa por seção e prioridade.',
+      'Construção de layout e mensagens com foco em decisão.',
+      'Ajustes para performance, velocidade e conversão.',
     ],
     deliverables: [
-      'Estrutura completa do site orientada a conversÃ£o.',
-      'PÃ¡ginas-chave com copy e CTA estratÃ©gicos.',
-      'Base pronta para trÃ¡fego e escala comercial.',
+      'Estrutura completa do site orientada a conversão.',
+      'Páginas-chave com copy e CTA estratégicos.',
+      'Base pronta para tráfego e escala comercial.',
     ],
     results: [
-      'Mais contatos com intenÃ§Ã£o real de compra.',
-      'Menos dÃºvidas no processo comercial.',
-      'Maior taxa de conversÃ£o do trÃ¡fego existente.',
+      'Mais contatos com intenção real de compra.',
+      'Menos dúvidas no processo comercial.',
+      'Maior taxa de conversão do tráfego existente.',
     ],
   },
   {
     slug: 'criativos-de-performance',
     number: '03',
     title: 'Criativos de Performance',
-    subtitle: 'Criativos orientados por mÃ©trica para escalar resultado.',
+    subtitle: 'Criativos orientados por métrica para escalar resultado.',
     summary:
-      'Criativos de Performance conecta estratÃ©gia de oferta com execuÃ§Ã£o visual para anÃºncios. A proposta Ã© testar, aprender e iterar rapidamente para reduzir custo e aumentar retorno.',
+      'Criativos de Performance conecta estratégia de oferta com execução visual para anúncios. A proposta é testar, aprender e iterar rapidamente para reduzir custo e aumentar retorno.',
     objective:
-      'Produzir criativos que capturam atenÃ§Ã£o, sustentam interesse e geram aÃ§Ã£o com previsibilidade de performance.',
+      'Produzir criativos que capturam atenção, sustentam interesse e geram ação com previsibilidade de performance.',
     forWho: [
-      'Empresas que investem em trÃ¡fego e nÃ£o escalam com consistÃªncia.',
-      'OperaÃ§Ãµes com criativos sem teste estruturado.',
-      'NegÃ³cios que precisam melhorar CTR, CPL e ROAS.',
+      'Empresas que investem em tráfego e não escalam com consistência.',
+      'Operações com criativos sem teste estruturado.',
+      'Negócios que precisam melhorar CTR, CPL e ROAS.',
     ],
     includes: [
-      'Planejamento de Ã¢ngulos criativos por campanha.',
-      'ProduÃ§Ã£o de variaÃ§Ãµes para testes A/B reais.',
-      'DireÃ§Ã£o de hooks visuais e mensagens de alto impacto.',
-      'OtimizaÃ§Ã£o contÃ­nua baseada em dados.',
+      'Planejamento de ângulos criativos por campanha.',
+      'Produção de variações para testes A/B reais.',
+      'Direção de hooks visuais e mensagens de alto impacto.',
+      'Otimização contínua baseada em dados.',
     ],
     process: [
-      'Leitura de contexto, oferta e pÃºblico.',
-      'Desenho de hipÃ³teses criativas e roteiro de teste.',
-      'ProduÃ§Ã£o e publicaÃ§Ã£o com rastreio de performance.',
-      'AnÃ¡lise de resultado e iteraÃ§Ã£o em ciclos curtos.',
+      'Leitura de contexto, oferta e público.',
+      'Desenho de hipóteses criativas e roteiro de teste.',
+      'Produção e publicação com rastreio de performance.',
+      'Análise de resultado e iteração em ciclos curtos.',
     ],
     deliverables: [
       'Lotes de criativos por objetivo de campanha.',
-      'Matriz de testes com hipÃ³teses e aprendizados.',
-      'DireÃ§Ã£o de otimizaÃ§Ã£o para prÃ³ximas rodadas.',
+      'Matriz de testes com hipóteses e aprendizados.',
+      'Direção de otimização para próximas rodadas.',
     ],
     results: [
-      'Melhora de CTR e retenÃ§Ã£o nos anÃºncios.',
-      'ReduÃ§Ã£o de desperdÃ­cio em mÃ­dia paga.',
-      'Escala mais previsÃ­vel de aquisiÃ§Ã£o.',
+      'Melhora de CTR e retenção nos anúncios.',
+      'Redução de desperdício em mídia paga.',
+      'Escala mais previsível de aquisição.',
     ],
   },
 ];
@@ -157,9 +157,9 @@ const ServiceDetail = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <Navigation />
         <main className="container-wide pt-32 pb-24 flex-1">
-          <h1 className="font-syne text-4xl md:text-6xl font-bold mb-6">ServiÃ§o nÃ£o encontrado</h1>
+          <h1 className="font-syne text-4xl md:text-6xl font-bold mb-6">Serviço não encontrado</h1>
           <Link to="/services" className="inline-flex items-center gap-2 text-accent">
-            Voltar para ServiÃ§os <ArrowRight className="w-4 h-4" />
+            Voltar para Serviços <ArrowRight className="w-4 h-4" />
           </Link>
         </main>
         <Footer />
@@ -177,10 +177,10 @@ const ServiceDetail = () => {
             <div className="flex items-center gap-4 mb-8">
               <span className="text-sm font-mono text-accent">{service.number}</span>
               <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">SERVIÃ‡O</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">SERVIÇO</span>
             </div>
 
-            <h1 className="font-syne font-black text-4xl sm:text-5xl md:text-7xl leading-[0.95] mb-6 max-w-5xl">
+            <h1 className="font-epic font-black text-4xl sm:text-5xl md:text-7xl leading-[0.95] mb-6 max-w-5xl">
               {service.title}
             </h1>
             <p className="text-xl text-accent mb-8 max-w-3xl">{service.subtitle}</p>
@@ -196,30 +196,30 @@ const ServiceDetail = () => {
         </section>
 
         <section className="container-wide mb-16 md:mb-20">
-          <SectionBlock title="Para Quem Ã‰" items={service.forWho} />
+          <SectionBlock title="Para Quem É" items={service.forWho} />
         </section>
 
         <section className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16 md:mb-20">
-          <SectionBlock title="O Que EstÃ¡ IncluÃ­do" items={service.includes} />
+          <SectionBlock title="O Que Está Incluído" items={service.includes} />
           <SectionBlock title="Como Funciona" items={service.process} />
         </section>
 
         <section className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16 md:mb-20">
-          <SectionBlock title="EntregÃ¡veis" items={service.deliverables} />
+          <SectionBlock title="Entregáveis" items={service.deliverables} />
           <SectionBlock title="Resultados Esperados" items={service.results} />
         </section>
 
         <section className="container-wide">
           <div className="border border-border/60 p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <p className="text-sm font-mono tracking-wider text-accent mb-2">PRÃ“XIMO PASSO</p>
-              <h2 className="font-syne text-2xl md:text-4xl font-bold">DiagnÃ³stico estratÃ©gico do seu cenÃ¡rio atual.</h2>
+              <p className="text-sm font-mono tracking-wider text-accent mb-2">PRÓXIMO PASSO</p>
+              <h2 className="font-syne text-2xl md:text-4xl font-bold">Diagnóstico estratégico do seu cenário atual.</h2>
             </div>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 px-7 py-4 bg-white text-black font-semibold rounded-full"
             >
-              Agendar DiagnÃ³stico
+              Agendar Diagnóstico
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
