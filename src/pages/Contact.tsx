@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+Ôªøimport { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -10,11 +10,11 @@ import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, 'Nome È obrigatÛrio').max(100, 'Nome deve ter no m·ximo 100 caracteres'),
-  email: z.string().trim().email('Digite um e-mail v·lido').max(255, 'E-mail deve ter no m·ximo 255 caracteres'),
-  company: z.string().trim().max(100, 'Empresa deve ter no m·ximo 100 caracteres').optional(),
+  name: z.string().trim().min(1, 'Nome √© obrigat√≥rio').max(100, 'Nome deve ter no m√°ximo 100 caracteres'),
+  email: z.string().trim().email('Digite um e-mail v√°lido').max(255, 'E-mail deve ter no m√°ximo 255 caracteres'),
+  company: z.string().trim().max(100, 'Empresa deve ter no m√°ximo 100 caracteres').optional(),
   budget: z.string().optional(),
-  message: z.string().trim().min(10, 'Mensagem deve ter pelo menos 10 caracteres').max(2000, 'Mensagem deve ter no m·ximo 2000 caracteres'),
+  message: z.string().trim().min(10, 'Mensagem deve ter pelo menos 10 caracteres').max(2000, 'Mensagem deve ter no m√°ximo 2000 caracteres'),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -30,7 +30,7 @@ const budgetOptions = [
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'tuliorangeldesigner@\ngmail.com', href: 'mailto:tuliorangeldesigner@gmail.com' },
   { icon: Phone, label: 'WhatsApp', value: '(41) 98744-8273', href: 'https://wa.me/5541987448273' },
-  { icon: MapPin, label: 'LocalizaÁ„o', value: 'Morretes / PR\nAtendimento nacional e projetos remotos.', href: null },
+  { icon: MapPin, label: 'Localiza√ß√£o', value: 'Morretes / PR\nAtendimento nacional e projetos remotos.', href: null },
 ];
 
 const Contact = () => {
@@ -62,13 +62,13 @@ const Contact = () => {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          _subject: 'Novo diagnÛstico estratÈgico (site)',
+          _subject: 'Novo diagn√≥stico estrat√©gico (site)',
           _captcha: 'false',
           _template: 'table',
           Nome: data.name,
           Email: data.email,
-          Empresa: data.company || 'N„o informado',
-          Orcamento: data.budget || 'N„o informado',
+          Empresa: data.company || 'N√£o informado',
+          Orcamento: data.budget || 'N√£o informado',
           Mensagem: data.message,
         }),
       });
@@ -80,12 +80,12 @@ const Contact = () => {
       setIsSubmitted(true);
       toast({
         title: 'Mensagem enviada!',
-        description: 'Recebemos sua solicitaÁ„o e retornaremos em breve.',
+        description: 'Recebemos sua solicita√ß√£o e retornaremos em breve.',
       });
       reset();
     } catch (error) {
       toast({
-        title: 'N„o foi possÌvel enviar agora',
+        title: 'N√£o foi poss√≠vel enviar agora',
         description: 'Tente novamente em instantes.',
         variant: 'destructive',
       });
@@ -183,9 +183,9 @@ const Contact = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl mt-8"
             >
-              Atendimento direto com o respons·vel pelo projeto.
+              Atendimento direto com o respons√°vel pelo projeto.
               <br />
-              Sem intermedi·rios. Sem ruÌdo.
+              Sem intermedi√°rios. Sem ru√≠do.
             </motion.p>
           </div>
         </section>
@@ -212,7 +212,7 @@ const Contact = () => {
                       key={item.label}
                       href={item.href || '#'}
                       className={`group relative p-8 border border-border bg-background hover:border-accent transition-all duration-500 flex flex-col justify-between min-h-[200px] ${
-                        item.label === 'LocalizaÁ„o' ? 'sm:col-span-2' : ''
+                        item.label === 'Localiza√ß√£o' ? 'sm:col-span-2' : ''
                       }`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={formInView ? { opacity: 1, y: 0 } : {}}
@@ -283,12 +283,12 @@ const Contact = () => {
                 <div className="mb-8 text-muted-foreground leading-relaxed">
                   <p className="mb-3">Antes de enviar sua mensagem, entenda:</p>
                   <p className="mb-3">
-                    Trabalhamos com projetos estratÈgicos de reposicionamento, arquitetura digital e performance.
+                    Trabalhamos com projetos estrat√©gicos de reposicionamento, arquitetura digital e performance.
                   </p>
                   <p className="mb-3">
-                    Se sua empresa est· pronta para sair do comum e assumir postura premium, descreva seu momento atual e seus objetivos com clareza.
+                    Se sua empresa est√° pronta para sair do comum e assumir postura premium, descreva seu momento atual e seus objetivos com clareza.
                   </p>
-                  <p>Projetos s„o limitados por capacidade de execuÁ„o.</p>
+                  <p>Projetos s√£o limitados por capacidade de execu√ß√£o.</p>
                 </div>
 
                 {isSubmitted ? (
@@ -432,14 +432,14 @@ const Contact = () => {
                         </>
                       ) : (
                         <>
-                          Solicitar DiagnÛstico EstratÈgico
+                          Solicitar Diagn√≥stico Estrat√©gico
                           <Send className="w-5 h-5" />
                         </>
                       )}
                     </motion.button>
 
                     <p className="text-center text-sm text-muted-foreground mt-4">
-                      PercepÁ„o define valor.
+                      Percep√ß√£o define valor.
                       <br />
                       Valor define crescimento.
                     </p>

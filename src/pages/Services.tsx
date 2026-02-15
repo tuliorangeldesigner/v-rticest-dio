@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+Ôªøimport { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
@@ -9,56 +9,56 @@ import Navigation from '@/components/Navigation';
 const services = [
   {
     id: 'brand-reprogramming',
-    title: 'ReprogramaÁ„o de Marca',
-    tagline: 'Reposicionamento estratÈgico para elevar percepÁ„o de valor',
+    title: 'Reprograma√ß√£o de Marca',
+    tagline: 'Reposicionamento estrat√©gico para elevar percep√ß√£o de valor',
     description:
-      'Reposicionamento estratÈgico para empresas que precisam elevar percepÁ„o de valor.',
+      'Reposicionamento estrat√©gico para empresas que precisam elevar percep√ß√£o de valor.',
     includes: [
-      'DiagnÛstico de posicionamento',
+      'Diagn√≥stico de posicionamento',
       'Identidade visual premium',
-      'DireÁ„o estÈtica estruturada',
+      'Dire√ß√£o est√©tica estruturada',
       'Sistema visual coerente',
     ],
-    outcome: 'Indicado para empresas que querem parar de competir por preÁo.',
+    outcome: 'Indicado para empresas que querem parar de competir por pre√ßo.',
     number: '01',
   },
   {
     id: 'conversion-architecture',
-    title: 'Arquitetura de Site & Convers„o',
-    tagline: 'Estruturamos ambientes digitais que conduzem decis„o',
-    description: 'Estruturamos ambientes digitais que conduzem decis„o.',
+    title: 'Arquitetura de Site & Convers√£o',
+    tagline: 'Estruturamos ambientes digitais que conduzem decis√£o',
+    description: 'Estruturamos ambientes digitais que conduzem decis√£o.',
     includes: [
-      'Estrutura estratÈgica de p·ginas',
+      'Estrutura estrat√©gica de p√°ginas',
       'Copy com autoridade',
       'UX focado em ao',
       'Landing pages de alta performance',
     ],
-    outcome: 'Seu site deixa de ser vitrine e passa a ser m·quina de convers„o.',
+    outcome: 'Seu site deixa de ser vitrine e passa a ser m√°quina de convers√£o.',
     number: '02',
   },
   {
     id: 'performance-creatives',
     title: 'Criativos de Performance',
-    tagline: 'Ativos para dominar atenÁ„o e reduzir custo por aquisiÁ„o',
+    tagline: 'Ativos para dominar aten√ß√£o e reduzir custo por aquisi√ß√£o',
     description:
-      'Ativos digitais desenvolvidos para dominar atenÁ„o e reduzir custo por aquisiÁ„o.',
-    includes: ['Criativos para tr·fego pago', 'VÌdeos estratÈgicos', 'Testes A/B', 'OtimizaÁ„o contÌnua'],
-    outcome: 'Performance n„o È estÈtica. … mÈtrica.',
+      'Ativos digitais desenvolvidos para dominar aten√ß√£o e reduzir custo por aquisi√ß√£o.',
+    includes: ['Criativos para tr√°fego pago', 'V√≠deos estrat√©gicos', 'Testes A/B', 'Otimiza√ß√£o cont√≠nua'],
+    outcome: 'Performance n√£o √© est√©tica. √â m√©trica.',
     number: '03',
   },
   {
     id: 'neural-system',
-    title: 'Sistema Completo VÈrtice Studioô',
-    tagline: 'IntegraÁ„o total entre marca, ambiente digital e performance',
+    title: 'Sistema Completo V√©rtice Studio‚Ñ¢',
+    tagline: 'Integra√ß√£o total entre marca, ambiente digital e performance',
     description:
-      'IntegraÁ„o total entre marca, ambiente digital e performance. Para empresas que querem controle estratÈgico da prÛpria presenÁa.',
+      'Integra√ß√£o total entre marca, ambiente digital e performance. Para empresas que querem controle estrat√©gico da pr√≥pria presen√ßa.',
     includes: [
-      'DiagnÛstico estratÈgico',
+      'Diagn√≥stico estrat√©gico',
       'Branding, ambiente digital e performance',
-      'ExecuÁ„o integrada por fases',
+      'Execu√ß√£o integrada por fases',
       'Acompanhamento orientado por dados',
     ],
-    outcome: 'Projeto estruturado do diagnÛstico ‡ escala.',
+    outcome: 'Projeto estruturado do diagn√≥stico √† escala.',
     number: '04',
   },
 ];
@@ -66,26 +66,26 @@ const services = [
 const investmentStructure = [
   {
     name: 'Sprint de Reposicionamento',
-    summary: 'ReprogramaÁ„o de marca + ajustes estratÈgicos de presenÁa digital.',
+    summary: 'Reprograma√ß√£o de marca + ajustes estrat√©gicos de presen√ßa digital.',
     model: 'Projeto fechado.',
     number: '01',
   },
   {
-    name: 'Arquitetura de Convers„o',
-    summary: 'CriaÁ„o ou reestruturaÁ„o completa de site com foco em autoridade e convers„o.',
+    name: 'Arquitetura de Convers√£o',
+    summary: 'Cria√ß√£o ou reestrutura√ß√£o completa de site com foco em autoridade e convers√£o.',
     model: 'Projeto fechado.',
     number: '02',
   },
   {
     name: 'Performance Mensal',
-    summary: 'CriaÁ„o e otimizaÁ„o contÌnua de criativos para tr·fego pago.',
+    summary: 'Cria√ß√£o e otimiza√ß√£o cont√≠nua de criativos para tr√°fego pago.',
     model: 'Modelo recorrente.',
     number: '03',
   },
   {
-    name: 'VÈrtice Studioô Completa',
-    summary: 'IntegraÁ„o total entre branding, site e performance.',
-    model: 'Projeto estratÈgico de mÈdio prazo.',
+    name: 'V√©rtice Studio‚Ñ¢ Completa',
+    summary: 'Integra√ß√£o total entre branding, site e performance.',
+    model: 'Projeto estrat√©gico de m√©dio prazo.',
     number: '04',
   },
 ];
@@ -93,20 +93,20 @@ const investmentStructure = [
 const processSteps = [
   {
     step: '01',
-    title: 'Auditoria de PercepÁ„o',
+    title: 'Auditoria de Percep√ß√£o',
     desc: 'Mapeamento de posicionamento, autoridade visual e gargalos.',
     icon: '?',
   },
   {
     step: '02',
-    title: 'EstratÈgia',
-    desc: 'DefiniÁ„o clara de direÁ„o estÈtica, estrutura e narrativa.',
+    title: 'Estrat√©gia',
+    desc: 'Defini√ß√£o clara de dire√ß√£o est√©tica, estrutura e narrativa.',
     icon: '?',
   },
   {
     step: '03',
-    title: 'ImplantaÁ„o',
-    desc: 'ExecuÁ„o de branding, site ou criativos conforme escopo.',
+    title: 'Implanta√ß√£o',
+    desc: 'Execu√ß√£o de branding, site ou criativos conforme escopo.',
     icon: '?',
   },
   {
@@ -187,7 +187,7 @@ const Services = () => {
           >
             <span className="text-sm font-mono text-accent">01</span>
             <div className="h-px w-12 bg-accent" />
-            <span className="text-sm font-mono text-muted-foreground tracking-wider">SERVI«OS</span>
+            <span className="text-sm font-mono text-muted-foreground tracking-wider">SERVI√áOS</span>
           </motion.div>
 
           <div className="max-w-5xl overflow-hidden">
@@ -197,7 +197,7 @@ const Services = () => {
               transition={{ duration: 1, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
               className="font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95]"
             >
-              ServiÁos & Estrutura de <span className="text-accent">Planos</span>
+              Servi√ßos & Estrutura de <span className="text-accent">Planos</span>
             </motion.h1>
           </div>
 
@@ -207,12 +207,12 @@ const Services = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mt-8"
           >
-            A VÈrtice Studioô n„o vende peÁas isoladas.
+            A V√©rtice Studio‚Ñ¢ n√£o vende pe√ßas isoladas.
             <br />
-            Estruturamos identidade, presenÁa digital e performance como um sistema integrado de crescimento.
+            Estruturamos identidade, presen√ßa digital e performance como um sistema integrado de crescimento.
             <br />
             <br />
-            Cada projeto È desenhado para gerar percepÁ„o premium e convers„o real.
+            Cada projeto √© desenhado para gerar percep√ß√£o premium e convers√£o real.
           </motion.p>
         </div>
       </section>
@@ -228,19 +228,19 @@ const Services = () => {
             <div className="flex items-center gap-4 mb-6">
               <span className="text-sm font-mono text-accent">02</span>
               <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">INTRODU«√O</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">INTRODU√á√ÉO</span>
             </div>
             <h2 className="text-4xl md:text-6xl font-syne font-bold leading-tight max-w-4xl">
-              SoluÁıes EstratÈgicas Para Marcas Que Querem Crescer Com Autoridade.
+              Solu√ß√µes Estrat√©gicas Para Marcas Que Querem Crescer Com Autoridade.
             </h2>
             <p className="text-lg text-muted-foreground max-w-4xl mt-8 leading-relaxed">
-              N„o trabalhamos com entregas genÈricas.
+              N√£o trabalhamos com entregas gen√©ricas.
               <br />
               <br />
-              Cada projeto comeÁa com uma an·lise profunda de posicionamento e termina com um sistema estruturado de presenÁa e convers„o.
+              Cada projeto come√ßa com uma an√°lise profunda de posicionamento e termina com um sistema estruturado de presen√ßa e convers√£o.
               <br />
               <br />
-              Se sua marca quer apenas "design bonito", talvez este n„o seja o lugar certo.
+              Se sua marca quer apenas "design bonito", talvez este n√£o seja o lugar certo.
             </p>
           </motion.div>
 
@@ -300,7 +300,7 @@ const Services = () => {
             </div>
             <h2 className="text-3xl md:text-5xl font-syne font-bold max-w-3xl mx-auto">Estrutura de Investimento</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mt-6">
-              Estrutura definida por escopo, profundidade e objetivo estratÈgico. Valores s„o apresentados apÛs diagnÛstico.
+              Estrutura definida por escopo, profundidade e objetivo estrat√©gico. Valores s√£o apresentados ap√≥s diagn√≥stico.
             </p>
           </motion.div>
 
@@ -395,17 +395,17 @@ const Services = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-sm font-mono text-accent mb-6 block">PR”XIMO PASSO</span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">Pronto Para Elevar Sua PresenÁa Digital?</h2>
+            <span className="text-sm font-mono text-accent mb-6 block">PR√ìXIMO PASSO</span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-syne font-bold mb-6">Pronto Para Elevar Sua Presen√ßa Digital?</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto mb-10 text-lg">
-              Se sua empresa est· pronta para sair do comum e assumir posiÁ„o estratÈgica no mercado, o prÛximo passo È diagnÛstico.
+              Se sua empresa est√° pronta para sair do comum e assumir posi√ß√£o estrat√©gica no mercado, o pr√≥ximo passo √© diagn√≥stico.
               <br />
               <br />
-              Projetos s„o limitados por capacidade de execuÁ„o.
+              Projetos s√£o limitados por capacidade de execu√ß√£o.
             </p>
             <MagneticButton>
               <Link to="/contact" className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-semibold rounded-full">
-                Agendar DiagnÛstico EstratÈgico
+                Agendar Diagn√≥stico Estrat√©gico
                 <motion.div className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center" whileHover={{ rotate: 45 }}>
                   <ArrowRight className="w-4 h-4" />
                 </motion.div>
