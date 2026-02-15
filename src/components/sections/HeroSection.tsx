@@ -1,13 +1,13 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+ï»¿import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const words = [
-  { text: 'Nós', number: '01' },
+  { text: 'NÃ³s', number: '01' },
   { text: 'Criamos', number: '02' },
-  { text: 'Presença', number: '03' },
+  { text: 'PresenÃ§a', number: '03' },
   { text: 'Premium', number: '04', accent: true },
 ];
 
@@ -200,7 +200,7 @@ export const HeroSection = () => {
               transition={{ duration: 1, delay: 0.7 }}
             />
             <span className="text-xs sm:text-sm font-mono text-muted-foreground tracking-wider">
-              VÉRTICE STÚDIO
+              VÃ‰RTICE STÃšDIO
             </span>
           </motion.div>
 
@@ -261,12 +261,12 @@ export const HeroSection = () => {
               className="max-w-md"
             >
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
-                Branding estratégico, sites de alta conversão e criativos orientados a performance.
+                Branding estratÃ©gico, sites de alta conversÃ£o e criativos orientados a performance.
                 <br />
                 <br />
-                Não criamos "design bonito".
+                NÃ£o criamos "design bonito".
                 <br />
-                Criamos percepção premium e crescimento mensurável.
+                Criamos percepÃ§Ã£o premium e crescimento mensurÃ¡vel.
               </p>
             </motion.div>
 
@@ -281,7 +281,7 @@ export const HeroSection = () => {
                   to="/contact" 
                   className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-foreground text-background font-semibold rounded-full overflow-hidden text-sm sm:text-base w-full sm:w-auto"
                 >
-                  <span className="relative z-10">Iniciar Operação</span>
+                  <span className="relative z-10">Iniciar OperaÃ§Ã£o</span>
                   <motion.div
                     className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-background/20 flex items-center justify-center"
                     whileHover={{ rotate: 45 }}
@@ -336,7 +336,7 @@ export const HeroSection = () => {
                 { number: '15+', label: 'Marcas reposicionadas' },
                 { number: '20+', label: 'Estruturas digitais entregues' },
                 { number: '30+', label: 'Campanhas criativas implantadas' },
-                { number: '100%', label: 'Foco em posicionamento estratégico' },
+                { number: '100%', label: 'Foco em posicionamento estratÃ©gico' },
               ].map((stat, i) => (
                 <motion.div 
                   key={stat.label}
