@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
-import heroBg from '@/assets/hero-bg.jpg';
+import excellentVideo from '@/assets/excellent.mp4';
 
 const words = [
   { text: 'Nós', number: '01' },
@@ -12,7 +12,7 @@ const words = [
 ];
 
 export const HeroSection = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentTime, setCurrentTime] = useState('');
   
@@ -65,14 +65,16 @@ export const HeroSection = () => {
     >
       {/* Background */}
       <motion.div className="absolute inset-0" style={{ y: bgY }}>
-        <img 
-          src={heroBg} 
-          alt="" 
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
           className="w-full h-full object-cover opacity-40 scale-110"
-        />
+        >
+          <source src={excellentVideo} type="video/mp4" />
+        </video>
         <div className="absolute inset-x-0 top-0 bottom-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </motion.div>
 
