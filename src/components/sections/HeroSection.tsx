@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
-import excellentVideo from '@/assets/excellent.mp4';
+import excellentVideo from '@/assets/excellent1.mp4';
 
 const words = [
   { text: 'Nós', number: '01' },
