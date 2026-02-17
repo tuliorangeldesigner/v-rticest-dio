@@ -1,7 +1,7 @@
-﻿import { useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Lock } from 'lucide-react';
+import { ArrowRight, Download, Lock, X, ZoomIn } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
@@ -13,6 +13,7 @@ const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', 
   import: 'default',
 }) as Record<string, string>;
 const excellentMockupImages = Object.entries(excellentMockupModules)
+  .filter(([path]) => !path.toLowerCase().includes('excellence12 copiar.webp'))
   .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
   .map(([, src]) => src);
 
@@ -29,7 +30,23 @@ const ClientPortal = () => {
   const { slug } = useParams<{ slug: string }>();
   const portal = getClientPortalBySlug(slug || '');
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
+  const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
   const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
+
+  useEffect(() => {
+    if (!selectedMockup) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedMockup(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedMockup]);
 
   const activeContent = useMemo(() => {
     if (!portal) return [];
@@ -178,14 +195,24 @@ const ClientPortal = () => {
               {activeSection === 'mockups' && mockupImages.length > 0 ? (
                 <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {mockupImages.map((imageSrc, index) => (
-                    <figure key={imageSrc} className="border border-border bg-card/20 overflow-hidden">
+                    <button
+                      key={imageSrc}
+                      type="button"
+                      onClick={() => setSelectedMockup(imageSrc)}
+                      className="group relative border border-border bg-card/20 overflow-hidden aspect-square cursor-zoom-in"
+                      aria-label={`Ampliar mockup ${index + 1}`}
+                    >
                       <img
                         src={imageSrc}
                         alt={`Mockup ${index + 1} - ${portal.clientName}`}
-                        className="w-full h-auto object-cover"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
-                    </figure>
+                      <div className="absolute inset-0 bg-background/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                        <ZoomIn className="w-5 h-5 text-foreground" />
+                        <span className="text-sm font-mono text-foreground uppercase tracking-wider">Clique para zoom</span>
+                      </div>
+                    </button>
                   ))}
                 </div>
               ) : null}
@@ -236,9 +263,38 @@ const ClientPortal = () => {
         )}
       </main>
 
+      {selectedMockup ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSelectedMockup(null)}
+          className="fixed inset-0 z-[120] bg-background/90 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center"
+        >
+          <div className="relative max-w-[95vw] max-h-[90vh]" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => setSelectedMockup(null)}
+              className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center"
+              aria-label="Fechar imagem"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <img
+              src={selectedMockup}
+              alt={`Mockup ampliado - ${portal.clientName}`}
+              className="max-w-[95vw] max-h-[90vh] object-contain border border-border bg-card"
+            />
+          </div>
+        </motion.div>
+      ) : null}
+
       <Footer />
     </div>
   );
 };
 
 export default ClientPortal;
+
+
+
