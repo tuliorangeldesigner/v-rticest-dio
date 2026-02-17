@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronUp, Download, Lock, X, ZoomIn } from 'lucide-react';
@@ -54,29 +54,35 @@ const ClientPortal = () => {
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
   const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
-  const sectionStartRef = useRef<HTMLDivElement | null>(null);
-  const shouldScrollToSectionStartRef = useRef(false);
 
-  const scrollToSectionStart = () => {
-    const target = sectionStartRef.current;
-    if (!target) return;
-    const headerOffset = 120;
-    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+  const smoothScrollToTop = () => {
+    const startY = window.scrollY;
+    if (startY <= 0) return;
+    const durationMs = 650;
+    const startTime = performance.now();
+
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      window.scrollTo(0, Math.round(startY * (1 - eased)));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
   };
 
   const handleSectionChange = (section: PortalSectionKey, shouldScrollToSectionStart = false) => {
-    if (shouldScrollToSectionStart && section === activeSection) {
-      requestAnimationFrame(() => scrollToSectionStart());
-      return;
-    }
-
-    shouldScrollToSectionStartRef.current = shouldScrollToSectionStart;
     setActiveSection(section);
+    if (shouldScrollToSectionStart) {
+      requestAnimationFrame(() => smoothScrollToTop());
+    }
   };
 
   const scrollToPageTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    smoothScrollToTop();
   };
 
   const renderSectionMenu = (spacingClassName: string, shouldScrollToSectionStart = false) => (
@@ -115,12 +121,6 @@ const ClientPortal = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedMockup]);
-
-  useEffect(() => {
-    if (!shouldScrollToSectionStartRef.current) return;
-    requestAnimationFrame(scrollToSectionStart);
-    shouldScrollToSectionStartRef.current = false;
-  }, [activeSection]);
 
   const activeContent = useMemo(() => {
     if (!portal) return [];
@@ -201,8 +201,6 @@ const ClientPortal = () => {
             </div>
           </motion.div>
         </section>
-
-        <div ref={sectionStartRef} className="scroll-mt-32" />
 
         {renderSectionMenu('mb-8', true)}
 

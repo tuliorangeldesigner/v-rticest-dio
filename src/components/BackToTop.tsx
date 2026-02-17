@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { pathname } = useLocation();
+  const isPortalRoute = pathname.startsWith('/portal');
 
   useEffect(() => {
+    if (isPortalRoute) {
+      setIsVisible(false);
+      return;
+    }
+
     const toggleVisibility = () => {
       if (window.scrollY > 500) {
         setIsVisible(true);
@@ -16,7 +24,7 @@ const BackToTop = () => {
 
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  }, [isPortalRoute]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -27,7 +35,7 @@ const BackToTop = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isVisible && !isPortalRoute && (
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
