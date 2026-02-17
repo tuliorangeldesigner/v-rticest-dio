@@ -86,9 +86,14 @@ export const clientPortals: ClientPortal[] = [
       'Nas frentes comerciais e institucionais, o sistema se desdobra em templates de apresentação, proposta e materiais recorrentes de comunicação. O resultado é uma linguagem única, contínua e profissional, que sustenta a mesma percepção de valor em todos os canais.',
     ],
     mockups: [
-      'Os mockups desta etapa demonstram a identidade aplicada em cenários reais de operação da Excellent Soluções, com foco em percepção, clareza e coerência. Foram simuladas situações de uso em social media, comunicação institucional e materiais comerciais para validar comportamento visual em diferentes contextos.',
-      'Também foram desenvolvidos exemplos para proposta comercial, apresentação corporativa e peças de relacionamento com síndicos e moradores. Em todos os casos, a construção visual reforça autoridade, organização e padrão premium, sem perder objetividade na mensagem.',
-      'Por fim, os testes em pequena escala confirmam a robustez técnica do sistema. Mesmo em formatos compactos, o símbolo mantém reconhecimento e a assinatura preserva legibilidade, garantindo consistência da marca do primeiro contato até os pontos mais operacionais da comunicação.',
+      'Tangibilizando a Excelência: A Presença da Marca em Todos os Pontos de Contato',
+      'Uma identidade visual só é plena quando se manifesta no mundo real. Através desses mockups, apresentamos como a Excellent Soluções se posiciona diante de seus clientes e parceiros: com clareza, solidez e um profissionalismo que não deixa margem para dúvidas.',
+      'A Consistência como Estratégia de Confiança',
+      'O design da marca foi desenvolvido para ser resiliente e adaptável. Seja no toque de um cartão de visita premium ou na agilidade de uma interface digital, a experiência visual permanece íntegra.',
+      'Unidade Visual: do papel timbrado às assinaturas digitais, cada elemento reforça a autoridade da empresa no setor de soluções integradas.',
+      'Minimalismo Funcional: a estética limpa não é apenas uma escolha visual, mas um reflexo da eficiência e da transparência que a Excellent entrega em seus serviços.',
+      'Projeção de Valor: o uso estratégico do azul profundo comunica estabilidade, enquanto a tipografia moderna garante que a marca esteja pronta para os desafios do mercado contemporâneo.',
+      'Não é apenas sobre estética; é sobre criar uma percepção de valor que precede o primeiro aperto de mão.',
     ],
     downloads: [
       {
