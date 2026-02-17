@@ -46,6 +46,7 @@ const sectionLabels: Record<PortalSectionKey, string> = {
   mockups: 'Mockups',
   downloads: 'Downloads',
 };
+const sectionKeys = Object.keys(sectionLabels) as PortalSectionKey[];
 
 const ClientPortal = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -53,6 +54,28 @@ const ClientPortal = () => {
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
   const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
+
+  const renderSectionMenu = (spacingClassName: string) => (
+    <section className={`container-wide ${spacingClassName}`}>
+      <div className="border border-border bg-background">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
+          {sectionKeys.map((key) => (
+            <button
+              key={key}
+              onClick={() => setActiveSection(key)}
+              className={`h-14 px-4 text-xs sm:text-sm font-mono uppercase tracking-wider transition-colors ${
+                activeSection === key
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-card'
+              }`}
+            >
+              {sectionLabels[key]}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 
   useEffect(() => {
     if (!selectedMockup) return;
@@ -149,25 +172,7 @@ const ClientPortal = () => {
           </motion.div>
         </section>
 
-        <section className="container-wide mb-8">
-          <div className="border border-border bg-background">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
-              {(Object.keys(sectionLabels) as PortalSectionKey[]).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveSection(key)}
-                  className={`h-14 px-4 text-xs sm:text-sm font-mono uppercase tracking-wider transition-colors ${
-                    activeSection === key
-                      ? 'bg-accent text-accent-foreground'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-card'
-                  }`}
-                >
-                  {sectionLabels[key]}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+        {renderSectionMenu('mb-8')}
 
         {portal.coverImage ? (
           <section className="container-wide mb-12">
@@ -293,6 +298,8 @@ const ClientPortal = () => {
             </motion.div>
           </section>
         )}
+
+        {renderSectionMenu('mt-12')}
       </main>
 
       {selectedMockup ? (
