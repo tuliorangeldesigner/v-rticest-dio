@@ -1,4 +1,4 @@
-﻿import excellenceCover from '@/assets/excellent/excellence12 copiar.webp';
+﻿import excellenceCover from '@/assets/excellent/imagemcapa.webp';
 
 export type PortalSectionKey = 'visao-geral' | 'conceito' | 'manual' | 'aplicacoes' | 'mockups' | 'downloads';
 
@@ -121,5 +121,6 @@ export const clientPortals: ClientPortal[] = [
 export const getClientPortalBySlug = (slug: string): ClientPortal | undefined => {
   return clientPortals.find((portal) => portal.slug === slug);
 };
+
 
 

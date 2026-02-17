@@ -161,7 +161,7 @@ const ClientPortal = () => {
           </div>
         </section>
 
-        {portal.coverImage ? (
+        {portal.coverImage && activeSection === 'visao-geral' ? (
           <section className="container-wide mb-12">
             <motion.figure
               initial={{ opacity: 0, y: 14 }}
