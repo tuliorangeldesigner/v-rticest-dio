@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPortal';
+import excellentBrandImage from '@/assets/excellent/brand.webp';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
 const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', {
@@ -207,6 +208,17 @@ const ClientPortal = () => {
                   </p>
                 ))}
               </div>
+
+              {activeSection === 'manual' && portal.slug === 'excellent-solucoes' ? (
+                <figure className="mt-12 border border-border bg-card/20 overflow-hidden">
+                  <img
+                    src={excellentBrandImage}
+                    alt={`Brand board - ${portal.clientName}`}
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                </figure>
+              ) : null}
 
               {activeSection === 'mockups' && mockupImages.length > 0 ? (
                 <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
