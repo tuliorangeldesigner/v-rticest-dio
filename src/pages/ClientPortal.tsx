@@ -39,10 +39,10 @@ swapMockupPosition(excellentMockupEntries, '1 copiar 21.webp', '13 copiar.webp')
 const excellentMockupImages = excellentMockupEntries.map(([, src]) => src);
 
 const sectionLabels: Record<PortalSectionKey, string> = {
-  'visao-geral': 'Vis„o Geral',
+  'visao-geral': 'Vis√£o Geral',
   conceito: 'Conceito',
   manual: 'Manual',
-  aplicacoes: 'AplicaÁıes',
+  aplicacoes: 'Aplica√ß√µes',
   mockups: 'Mockups',
   downloads: 'Downloads',
 };
@@ -126,16 +126,16 @@ const ClientPortal = () => {
         <Navigation />
         <SEO
           title="Portal do Cliente"
-          description="¡rea privada de acompanhamento e entrega de projeto."
+          description="√Årea privada de acompanhamento e entrega de projeto."
           url={`${SITE_URL}/portal`}
           robots="noindex, nofollow"
         />
         <main className="flex-1 flex items-center justify-center pt-28">
           <div className="container-wide text-center border border-border bg-card/30 p-10 md:p-14 max-w-2xl">
             <p className="text-xs font-mono tracking-widest text-accent mb-4">PORTAL PRIVADO</p>
-            <h1 className="font-epic text-4xl md:text-6xl leading-[1.05] mb-4 uppercase">Link Inv·lido</h1>
+            <h1 className="font-epic text-4xl md:text-6xl leading-[1.05] mb-4 uppercase">Link Inv√°lido</h1>
             <p className="text-muted-foreground mb-8">
-              Este portal n„o foi encontrado. Verifique o link enviado ou solicite um novo acesso.
+              Este portal n√£o foi encontrado. Verifique o link enviado ou solicite um novo acesso.
             </p>
             <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-full">
               Voltar ao Site
@@ -176,13 +176,13 @@ const ClientPortal = () => {
               </div>
               <div className="flex flex-col gap-2 text-sm font-mono">
                 <span className="text-foreground/70">Status: <strong className="text-foreground">{portal.status}</strong></span>
-                <span className="text-foreground/70">AtualizaÁ„o: <strong className="text-foreground">{portal.updatedAt}</strong></span>
+                <span className="text-foreground/70">Atualiza√ß√£o: <strong className="text-foreground">{portal.updatedAt}</strong></span>
               </div>
             </div>
           </motion.div>
         </section>
 
-        {renderSectionMenu('mb-8')}
+        {renderSectionMenu('mb-8', true)}
 
         {portal.coverImage ? (
           <section className="container-wide mb-12">
@@ -300,7 +300,7 @@ const ClientPortal = () => {
                         disabled
                         className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-border text-muted-foreground rounded-full text-sm font-semibold"
                       >
-                        DisponÌvel apÛs pagamento final
+                        Dispon√≠vel ap√≥s pagamento final
                         <Lock className="w-4 h-4" />
                       </button>
                     )}
