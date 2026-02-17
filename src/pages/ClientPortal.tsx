@@ -12,10 +12,23 @@ const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', 
   eager: true,
   import: 'default',
 }) as Record<string, string>;
-const excellentMockupImages = Object.entries(excellentMockupModules)
+const swapMockupPosition = (
+  entries: Array<[string, string]>,
+  fileA: string,
+  fileB: string,
+) => {
+  const indexA = entries.findIndex(([path]) => path.endsWith(fileA));
+  const indexB = entries.findIndex(([path]) => path.endsWith(fileB));
+  if (indexA === -1 || indexB === -1) return;
+  [entries[indexA], entries[indexB]] = [entries[indexB], entries[indexA]];
+};
+
+const excellentMockupEntries = Object.entries(excellentMockupModules)
   .filter(([path]) => !path.toLowerCase().includes('excellence12 copiar.webp'))
-  .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
-  .map(([, src]) => src);
+  .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }));
+swapMockupPosition(excellentMockupEntries, '1 copiar.webp', '1 copiar 2.webp');
+swapMockupPosition(excellentMockupEntries, '1 copiar 21.webp', '13 copiar.webp');
+const excellentMockupImages = excellentMockupEntries.map(([, src]) => src);
 
 const sectionLabels: Record<PortalSectionKey, string> = {
   'visao-geral': 'Visão Geral',
