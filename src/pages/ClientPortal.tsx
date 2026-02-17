@@ -8,6 +8,13 @@ import SEO from '@/components/SEO';
 import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPortal';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+const excellentMockupImages = Object.entries(excellentMockupModules)
+  .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
+  .map(([, src]) => src);
 
 const sectionLabels: Record<PortalSectionKey, string> = {
   'visao-geral': 'Visão Geral',
@@ -22,6 +29,7 @@ const ClientPortal = () => {
   const { slug } = useParams<{ slug: string }>();
   const portal = getClientPortalBySlug(slug || '');
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
+  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
 
   const activeContent = useMemo(() => {
     if (!portal) return [];
@@ -166,6 +174,21 @@ const ClientPortal = () => {
                   </p>
                 ))}
               </div>
+
+              {activeSection === 'mockups' && mockupImages.length > 0 ? (
+                <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {mockupImages.map((imageSrc, index) => (
+                    <figure key={imageSrc} className="border border-border bg-card/20 overflow-hidden">
+                      <img
+                        src={imageSrc}
+                        alt={`Mockup ${index + 1} - ${portal.clientName}`}
+                        className="w-full h-auto object-cover"
+                        loading="lazy"
+                      />
+                    </figure>
+                  ))}
+                </div>
+              ) : null}
             </motion.article>
           </section>
         ) : (
