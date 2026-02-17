@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Lock, X, ZoomIn } from 'lucide-react';
@@ -65,31 +65,24 @@ const ClientPortal = () => {
     window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
   };
 
-  const scheduleSectionStartScroll = () => {
-    requestAnimationFrame(() => {
-      scrollToSectionStart();
-      window.setTimeout(scrollToSectionStart, 320);
-    });
-  };
-
-  const handleSectionChange = (section: PortalSectionKey, scrollToSectionStart = false) => {
-    if (scrollToSectionStart && section === activeSection) {
-      scheduleSectionStartScroll();
+  const handleSectionChange = (section: PortalSectionKey, shouldScrollToSectionStart = false) => {
+    if (shouldScrollToSectionStart && section === activeSection) {
+      requestAnimationFrame(() => scrollToSectionStart());
       return;
     }
 
+    shouldScrollToSectionStartRef.current = shouldScrollToSectionStart;
     setActiveSection(section);
-    shouldScrollToSectionStartRef.current = scrollToSectionStart;
   };
 
-  const renderSectionMenu = (spacingClassName: string, scrollToSectionStart = false) => (
+  const renderSectionMenu = (spacingClassName: string, shouldScrollToSectionStart = false) => (
     <section className={`container-wide ${spacingClassName}`}>
       <div className="border border-border bg-background">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
           {sectionKeys.map((key) => (
             <button
               key={key}
-              onClick={() => handleSectionChange(key, scrollToSectionStart)}
+              onClick={() => handleSectionChange(key, shouldScrollToSectionStart)}
               className={`h-14 px-4 text-xs sm:text-sm font-mono uppercase tracking-wider transition-colors ${
                 activeSection === key
                   ? 'bg-accent text-accent-foreground'
@@ -119,9 +112,9 @@ const ClientPortal = () => {
     };
   }, [selectedMockup]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!shouldScrollToSectionStartRef.current) return;
-    scheduleSectionStartScroll();
+    requestAnimationFrame(scrollToSectionStart);
     shouldScrollToSectionStartRef.current = false;
   }, [activeSection]);
 
@@ -205,6 +198,8 @@ const ClientPortal = () => {
           </motion.div>
         </section>
 
+        <div ref={sectionStartRef} className="scroll-mt-32" />
+
         {renderSectionMenu('mb-8', true)}
 
         {portal.coverImage ? (
@@ -224,8 +219,6 @@ const ClientPortal = () => {
             </motion.figure>
           </section>
         ) : null}
-
-        <div ref={sectionStartRef} className="scroll-mt-32" />
 
         {activeSection !== 'downloads' ? (
           <section className="container-wide">
