@@ -27,7 +27,11 @@ const swapMockupPosition = (
 const excellentMockupEntries = Object.entries(excellentMockupModules)
   .filter(([path]) => {
     const filePath = path.toLowerCase();
-    return !filePath.includes('excellence12 copiar.webp') && !filePath.includes('imagemcapa.webp');
+    return (
+      !filePath.includes('excellence12 copiar.webp') &&
+      !filePath.includes('imagemcapa.webp') &&
+      !filePath.includes('brand.webp')
+    );
   })
   .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }));
 swapMockupPosition(excellentMockupEntries, '1 copiar.webp', '1 copiar 2.webp');
