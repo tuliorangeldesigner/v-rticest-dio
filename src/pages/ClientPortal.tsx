@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Lock, X, ZoomIn } from 'lucide-react';
@@ -57,7 +57,27 @@ const ClientPortal = () => {
   const sectionStartRef = useRef<HTMLDivElement | null>(null);
   const shouldScrollToSectionStartRef = useRef(false);
 
+  const scrollToSectionStart = () => {
+    const target = sectionStartRef.current;
+    if (!target) return;
+    const headerOffset = 120;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+  };
+
+  const scheduleSectionStartScroll = () => {
+    requestAnimationFrame(() => {
+      scrollToSectionStart();
+      window.setTimeout(scrollToSectionStart, 320);
+    });
+  };
+
   const handleSectionChange = (section: PortalSectionKey, scrollToSectionStart = false) => {
+    if (scrollToSectionStart && section === activeSection) {
+      scheduleSectionStartScroll();
+      return;
+    }
+
     setActiveSection(section);
     shouldScrollToSectionStartRef.current = scrollToSectionStart;
   };
@@ -99,23 +119,10 @@ const ClientPortal = () => {
     };
   }, [selectedMockup]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!shouldScrollToSectionStartRef.current) return;
-
-    let frameTwo = 0;
-    const frameOne = window.requestAnimationFrame(() => {
-      frameTwo = window.requestAnimationFrame(() => {
-        sectionStartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        shouldScrollToSectionStartRef.current = false;
-      });
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frameOne);
-      if (frameTwo) {
-        window.cancelAnimationFrame(frameTwo);
-      }
-    };
+    scheduleSectionStartScroll();
+    shouldScrollToSectionStartRef.current = false;
   }, [activeSection]);
 
   const activeContent = useMemo(() => {
