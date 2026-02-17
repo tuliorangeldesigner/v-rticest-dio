@@ -55,14 +55,11 @@ const ClientPortal = () => {
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
   const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
   const sectionStartRef = useRef<HTMLDivElement | null>(null);
+  const shouldScrollToSectionStartRef = useRef(false);
 
   const handleSectionChange = (section: PortalSectionKey, scrollToSectionStart = false) => {
     setActiveSection(section);
-    if (!scrollToSectionStart) return;
-
-    requestAnimationFrame(() => {
-      sectionStartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    shouldScrollToSectionStartRef.current = scrollToSectionStart;
   };
 
   const renderSectionMenu = (spacingClassName: string, scrollToSectionStart = false) => (
@@ -101,6 +98,25 @@ const ClientPortal = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedMockup]);
+
+  useEffect(() => {
+    if (!shouldScrollToSectionStartRef.current) return;
+
+    let frameTwo = 0;
+    const frameOne = window.requestAnimationFrame(() => {
+      frameTwo = window.requestAnimationFrame(() => {
+        sectionStartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        shouldScrollToSectionStartRef.current = false;
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameOne);
+      if (frameTwo) {
+        window.cancelAnimationFrame(frameTwo);
+      }
+    };
+  }, [activeSection]);
 
   const activeContent = useMemo(() => {
     if (!portal) return [];
