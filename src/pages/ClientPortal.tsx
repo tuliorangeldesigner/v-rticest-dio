@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Lock, X, ZoomIn } from 'lucide-react';
+import { ArrowRight, ChevronUp, Download, Lock, X, ZoomIn } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
@@ -73,6 +73,10 @@ const ClientPortal = () => {
 
     shouldScrollToSectionStartRef.current = shouldScrollToSectionStart;
     setActiveSection(section);
+  };
+
+  const scrollToPageTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderSectionMenu = (spacingClassName: string, shouldScrollToSectionStart = false) => (
@@ -327,8 +331,16 @@ const ClientPortal = () => {
           </section>
         )}
 
-        {renderSectionMenu('mt-12', true)}
       </main>
+
+      <button
+        type="button"
+        onClick={scrollToPageTop}
+        aria-label="Voltar ao início"
+        className="fixed bottom-6 right-6 z-[90] w-12 h-12 rounded-full border border-border bg-background/90 text-foreground backdrop-blur-sm shadow-lg transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        <ChevronUp className="w-5 h-5 mx-auto" />
+      </button>
 
       {selectedMockup ? (
         <motion.div
