@@ -1,4 +1,5 @@
-﻿import excellenceCover from '@/assets/excellent/imagemcapa.webp';
+﻿import excellenceCover from '@/assets/excellent/excellence12 copiar.webp';
+import overviewCover from '@/assets/excellent/imagemcapa.webp';
 
 export type PortalSectionKey = 'visao-geral' | 'conceito' | 'manual' | 'aplicacoes' | 'mockups' | 'downloads';
 
@@ -14,6 +15,7 @@ export interface ClientPortal {
   clientName: string;
   projectName: string;
   coverImage?: string;
+  overviewCoverImage?: string;
   status: 'Em andamento' | 'Entregue';
   updatedAt: string;
   overview: string[];
@@ -31,6 +33,7 @@ export const clientPortals: ClientPortal[] = [
     clientName: 'Excellent Soluções',
     projectName: 'Reposicionamento de Marca e Sistema de Presença Premium',
     coverImage: excellenceCover,
+    overviewCoverImage: overviewCover,
     status: 'Em andamento',
     updatedAt: '15 de fevereiro de 2026',
     overview: [
@@ -121,6 +124,7 @@ export const clientPortals: ClientPortal[] = [
 export const getClientPortalBySlug = (slug: string): ClientPortal | undefined => {
   return clientPortals.find((portal) => portal.slug === slug);
 };
+
 
 
 

@@ -24,7 +24,10 @@ const swapMockupPosition = (
 };
 
 const excellentMockupEntries = Object.entries(excellentMockupModules)
-  .filter(([path]) => !path.toLowerCase().includes('excellence12 copiar.webp'))
+  .filter(([path]) => {
+    const filePath = path.toLowerCase();
+    return !filePath.includes('excellence12 copiar.webp') && !filePath.includes('imagemcapa.webp');
+  })
   .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }));
 swapMockupPosition(excellentMockupEntries, '1 copiar.webp', '1 copiar 2.webp');
 swapMockupPosition(excellentMockupEntries, '1 copiar 21.webp', '13 copiar.webp');
@@ -161,7 +164,7 @@ const ClientPortal = () => {
           </div>
         </section>
 
-        {portal.coverImage && activeSection === 'visao-geral' ? (
+        {portal.coverImage ? (
           <section className="container-wide mb-12">
             <motion.figure
               initial={{ opacity: 0, y: 14 }}
@@ -170,7 +173,7 @@ const ClientPortal = () => {
               className="border border-border bg-card/20 overflow-hidden"
             >
               <img
-                src={portal.coverImage}
+                src={activeSection === 'visao-geral' && portal.overviewCoverImage ? portal.overviewCoverImage : portal.coverImage}
                 alt={`Identidade visual ${portal.clientName}`}
                 className="w-full h-auto object-cover"
                 loading="lazy"
