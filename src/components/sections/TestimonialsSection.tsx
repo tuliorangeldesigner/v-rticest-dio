@@ -29,6 +29,7 @@ const testimonials = [
 
 const clients = [
   'GWAPO', 'CAR WEB', 'BEACH TENNIS', 'ROCHA OBRAS',
+  'AURORA', 'NEXUS', 'VERTEX', 'PRISM', 'ORBIT', 'STELLAR',
 ];
 
 export const TestimonialsSection = () => {
