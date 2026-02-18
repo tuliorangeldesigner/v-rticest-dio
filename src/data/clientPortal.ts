@@ -35,7 +35,7 @@ export const clientPortals: ClientPortal[] = [
     coverImage: excellenceCover,
     overviewCoverImage: overviewCover,
     status: 'Em andamento',
-    updatedAt: '15 de fevereiro de 2026',
+    updatedAt: '18 de fevereiro de 2026',
     overview: [
       'O Cenário e o Desafio',
       'Antes de desenhar qualquer forma, o diagnóstico focou na maturidade do negócio e no contexto real do mercado condominial. O principal problema identificado foi a insegurança causada por gestões amadoras, que operam de forma reativa, sem previsibilidade e sem transmitir confiança para conselhos e moradores.',

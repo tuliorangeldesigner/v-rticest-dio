@@ -31,7 +31,8 @@ const excellentMockupEntries = Object.entries(excellentMockupModules)
     return (
       !filePath.includes('excellence12 copiar.webp') &&
       !filePath.includes('imagemcapa.webp') &&
-      !filePath.includes('brand.webp')
+      !filePath.includes('brand.webp') &&
+      !filePath.includes('brandmanual.webp')
     );
   })
   .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }));
@@ -54,7 +55,7 @@ const ClientPortal = () => {
   const portal = getClientPortalBySlug(slug || '');
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
-  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages.slice(0, -1) : [];
+  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
 
   const smoothScrollToTop = () => {
     const startY = window.scrollY;
