@@ -6,7 +6,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPortal';
-import excellentBrandImage from '@/assets/excellent/brand.webp';
+import excellentBrandImage from '@/assets/excellent/brandmanual.webp';
 import excellentMobileCover from '@/assets/excellent/mobilecliente.webp';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
@@ -54,7 +54,7 @@ const ClientPortal = () => {
   const portal = getClientPortalBySlug(slug || '');
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
-  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
+  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages.slice(0, -1) : [];
 
   const smoothScrollToTop = () => {
     const startY = window.scrollY;
