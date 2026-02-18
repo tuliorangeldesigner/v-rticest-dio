@@ -4,11 +4,12 @@ import { Link, useLocation } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
 
 const navLinks = [
-  { name: 'Projetos', href: '/work', number: '01' },
-  { name: 'Sobre', href: '/about', number: '02' },
-  { name: 'Serviços', href: '/services', number: '03' },
-  { name: 'Blog', href: '/blog', number: '04' },
-  { name: 'Contato', href: '/contact', number: '05' },
+  { name: 'Home', href: '/', number: '01' },
+  { name: 'Projetos', href: '/work', number: '02' },
+  { name: 'Sobre', href: '/about', number: '03' },
+  { name: 'Serviços', href: '/services', number: '04' },
+  { name: 'Blog', href: '/blog', number: '05' },
+  { name: 'Contato', href: '/contact', number: '06' },
 ];
 
 export const Navigation = () => {
