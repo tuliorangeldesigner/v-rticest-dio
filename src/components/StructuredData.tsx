@@ -49,7 +49,7 @@ interface BreadcrumbItem {
 
 // Organization Schema - for the agency
 export const OrganizationSchema = ({
-  name = 'Vértice Studio™',
+  name = 'TR Designer',
   url = SITE_URL,
   logo = `${SITE_URL}/favicon.svg`,
   description = 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
@@ -104,7 +104,7 @@ export const ArticleSchema = ({
   dateModified,
   author,
   publisher = {
-    name: 'Vértice Studio™',
+    name: 'TR Designer',
     logo: `${SITE_URL}/favicon.svg`,
   },
 }: ArticleSchemaProps) => {
@@ -146,7 +146,7 @@ export const ArticleSchema = ({
 export const ServiceSchema = ({
   name,
   description,
-  provider = 'Vértice Studio™',
+  provider = 'TR Designer',
   areaServed = 'BR',
   priceRange = '$$$',
 }: ServiceSchemaProps) => {
@@ -195,7 +195,7 @@ export const WebsiteSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Vértice Studio™',
+    name: 'TR Designer',
     url: SITE_URL,
     description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance.',
     inLanguage: 'pt-BR',
@@ -213,7 +213,7 @@ export const ProfessionalServiceSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Vértice Studio™',
+    name: 'TR Designer',
     image: `${SITE_URL}/og-vertice.jpg`,
     '@id': SITE_URL,
     url: SITE_URL,
@@ -243,3 +243,4 @@ export const ProfessionalServiceSchema = () => {
     </Helmet>
   );
 };
+

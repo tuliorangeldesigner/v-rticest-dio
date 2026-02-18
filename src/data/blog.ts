@@ -16,7 +16,7 @@
 }
 
 const author = {
-  name: 'Vértice Studio',
+  name: 'TR Designer',
   role: 'Estratégia & Posicionamento',
   image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=200&q=80',
 };
@@ -173,6 +173,7 @@ export const getRelatedPosts = (currentId: string, category: string): BlogPost[]
     .filter((post) => post.id !== currentId && post.category === category)
     .slice(0, 2);
 };
+
 
 
 

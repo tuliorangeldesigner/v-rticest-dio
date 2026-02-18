@@ -121,7 +121,7 @@ export const Navigation = () => {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
                   >
-                    Vértice Studio<span className="text-accent">™</span>
+                    TR Designer<span className="text-accent">™</span>
                   </motion.span>
                 </div>
               </motion.div>
@@ -494,6 +494,7 @@ export const Navigation = () => {
 };
 
 export default Navigation;
+
 
 
 

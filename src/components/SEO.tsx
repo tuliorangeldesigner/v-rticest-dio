@@ -17,8 +17,8 @@ interface SEOProps {
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
 
 const defaultMeta = {
-  siteName: 'Vértice Studio™',
-  title: 'Vértice Studio™',
+  siteName: 'TR Designer',
+  title: 'TR Designer',
   description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
   image: `${SITE_URL}/og-vertice.jpg`,
   url: SITE_URL,
@@ -110,4 +110,5 @@ const SEO = ({
 };
 
 export default SEO;
+
 

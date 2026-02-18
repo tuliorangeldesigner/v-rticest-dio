@@ -13,7 +13,7 @@ const values = [
     icon: '?',
     number: '01',
     details: [
-      'Na Vértice, toda decisão visual começa no diagnóstico: posicionamento, contexto de mercado e objetivo comercial.',
+      'Na TR Designer, toda decisão visual começa no diagnóstico: posicionamento, contexto de mercado e objetivo comercial.',
       'A estética entra para sustentar a estratégia, não para mascarar falta de clareza.',
       'Resultado: uma marca que comunica valor com consistência, em vez de parecer apenas bonita.',
     ],
@@ -58,7 +58,7 @@ const milestones = [
   { year: '2018', event: 'Especialização em branding e identidade visual' },
   { year: '2019', event: 'Expansão para desenvolvimento web estratégico' },
   { year: '2021', event: 'Integração com criativos para performance' },
-  { year: '2023', event: 'Estruturação do método Vértice Studio™' },
+  { year: '2023', event: 'Estruturação do método TR Designer' },
   { year: '2024', event: 'Consolidação como sistema integrado de presença e conversão' },
 ];
 
@@ -178,7 +178,7 @@ const About = () => {
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mt-8 space-y-4"
           >
             <p>
-              Há mais de 8 anos atuando em branding, web e performance digital, a Vértice Studio™ nasceu para uma única missão:
+              Há mais de 8 anos atuando em branding, web e performance digital, a TR Designer nasceu para uma única missão:
             </p>
             <p>Reprogramar a percepção de marcas que querem crescer com autoridade.</p>
             <p>Sem barulho.<br />Sem modismo.<br />Sem promessa vazia.</p>
@@ -226,7 +226,7 @@ const About = () => {
                 Crescem quando são percebidas como referência.
               </p>
               <p>
-                Foi dessa constatação que nasceu a Vértice Studio™ - um sistema estruturado para unir identidade, ambiente digital e performance em um único processo estratégico.
+                Foi dessa constatação que nasceu a TR Designer - um sistema estruturado para unir identidade, ambiente digital e performance em um único processo estratégico.
               </p>
               <p>
                 Não é sobre estética.
@@ -336,7 +336,7 @@ const About = () => {
             <h2 className="text-4xl md:text-6xl font-syne font-bold leading-tight mb-8">Estrutura Enxuta. Foco Total.</h2>
 
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              A Vértice Studio™ funciona com estrutura enxuta e execução direta.
+              A TR Designer funciona com estrutura enxuta e execução direta.
               <br />
               <br />
               Sem camadas desnecessárias.
@@ -508,3 +508,4 @@ const About = () => {
 };
 
 export default About;
+

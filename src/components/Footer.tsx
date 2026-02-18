@@ -50,7 +50,7 @@ export const Footer = () => {
             <div>
                <Link to="/" className="inline-block mb-12">
                  <span className="font-syne text-4xl font-bold tracking-tighter">
-                   Vértice Studio<span className="text-accent">™</span>
+                   TR Designer<span className="text-accent">™</span>
                  </span>
                </Link>
                <p className="text-muted-foreground font-mono text-sm leading-relaxed max-w-[200px]">
@@ -148,7 +148,7 @@ export const Footer = () => {
       {/* Bottom Legal Bar */}
       <div className="border-t border-border p-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-background">
          <p className="text-xs font-mono text-muted-foreground uppercase">
-            © 2024 Vértice Studio.
+            © 2024 TR Designer.
          </p>
          <div className="flex gap-8">
             <button
@@ -190,7 +190,7 @@ export const Footer = () => {
             {activeLegalModal === 'privacy' ? (
               <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
                 <p>
-                  Na Vértice Studio, coletamos apenas as informações necessárias para contato comercial,
+                  Na TR Designer, coletamos apenas as informações necessárias para contato comercial,
                   diagnóstico estratégico e continuidade de atendimento.
                 </p>
                 <p>
@@ -206,7 +206,7 @@ export const Footer = () => {
             ) : (
               <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
                 <p>
-                  Os serviços da Vértice Studio são prestados com escopo definido por proposta, com etapas,
+                  Os serviços da TR Designer são prestados com escopo definido por proposta, com etapas,
                   entregas e prazos acordados para cada projeto.
                 </p>
                 <p>
@@ -218,7 +218,7 @@ export const Footer = () => {
                   entregues e responsabilidades de cada lado no processo.
                 </p>
                 <p>
-                  Salvo acordo de confidencialidade formal, a Vértice Studio pode exibir artes, designs e
+                  Salvo acordo de confidencialidade formal, a TR Designer pode exibir artes, designs e
                   logotipos desenvolvidos no projeto em seu portfólio e canais institucionais.
                 </p>
               </div>
@@ -240,6 +240,7 @@ export const Footer = () => {
 };
 
 export default Footer;
+
 
 
 

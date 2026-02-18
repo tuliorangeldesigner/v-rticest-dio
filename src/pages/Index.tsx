@@ -16,7 +16,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Vértice Studio™"
+        title="TR Designer"
         description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
         image="https://verticestudio.vercel.app/og-vertice.jpg"
         url="https://verticestudio.vercel.app/"
@@ -54,4 +54,5 @@ const Index = () => {
 };
 
 export default Index;
+
 

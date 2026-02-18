@@ -15,7 +15,7 @@ const TermsOfService = () => {
       <Navigation />
       <SEO
         title="Termos de Serviço"
-        description="Conheça os termos e condições para contratação dos serviços da Vértice Studio."
+        description="Conheça os termos e condições para contratação dos serviços da TR Designer."
         url={`${SITE_URL}/terms-of-service`}
       />
 
@@ -42,7 +42,7 @@ const TermsOfService = () => {
                   1. Aceitação dos termos
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Ao contratar ou utilizar os serviços da Vértice Studio, você concorda com estes termos.
+                  Ao contratar ou utilizar os serviços da TR Designer, você concorda com estes termos.
                   Se não concordar com as condições, não prossiga com a contratação.
                 </p>
               </section>
@@ -52,7 +52,7 @@ const TermsOfService = () => {
                   2. Descrição dos serviços
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  A Vértice Studio presta serviços estratégicos de branding, presença digital, arquitetura de site,
+                  A TR Designer presta serviços estratégicos de branding, presença digital, arquitetura de site,
                   criativos de performance e consultoria aplicada. O escopo final é definido em proposta formal.
                 </p>
               </section>
@@ -62,11 +62,11 @@ const TermsOfService = () => {
                   3. Propriedade intelectual e portfólio
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Materiais e entregas permanecem sob titularidade da Vértice Studio até a quitação integral do
+                  Materiais e entregas permanecem sob titularidade da TR Designer até a quitação integral do
                   projeto. Após pagamento total, os direitos de uso são transferidos conforme definido em contrato.
                 </p>
                 <p className="text-muted-foreground leading-relaxed mt-4">
-                  Salvo acordo de confidencialidade formal entre as partes, a Vértice Studio (Túlio Rangel Designer)
+                  Salvo acordo de confidencialidade formal entre as partes, a TR Designer (Túlio Rangel Designer)
                   poderá utilizar artes, designs, logotipos e demais materiais desenvolvidos no projeto para exibição
                   em portfólio, redes sociais e materiais institucionais, exclusivamente para demonstração de trabalho.
                 </p>
@@ -109,7 +109,7 @@ const TermsOfService = () => {
                   7. Limitação de responsabilidade
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  A Vértice Studio não se responsabiliza por danos indiretos, lucros cessantes ou perdas decorrentes
+                  A TR Designer não se responsabiliza por danos indiretos, lucros cessantes ou perdas decorrentes
                   de fatores externos ao escopo contratado. A responsabilidade total limita-se ao valor pago pelo
                   serviço em questão.
                 </p>
@@ -146,4 +146,5 @@ const TermsOfService = () => {
 };
 
 export default TermsOfService;
+
 

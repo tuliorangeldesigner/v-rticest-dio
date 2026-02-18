@@ -48,7 +48,7 @@ const services = [
   },
   {
     id: 'neural-system',
-    title: 'Sistema Completo Vértice Studio™',
+    title: 'Sistema Completo TR Designer',
     tagline: 'Integração total entre marca, ambiente digital e performance',
     description:
       'Integração total entre marca, ambiente digital e performance. Para empresas que querem controle estratégico da própria presença.',
@@ -83,7 +83,7 @@ const investmentStructure = [
     number: '03',
   },
   {
-    name: 'Vértice Studio™ Completa',
+    name: 'TR Designer Completa',
     summary: 'Integração total entre branding, site e performance.',
     model: 'Projeto estratégico de médio prazo.',
     number: '04',
@@ -207,7 +207,7 @@ const Services = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mt-8"
           >
-            A Vértice Studio™ não vende peças isoladas.
+            A TR Designer não vende peças isoladas.
             <br />
             Estruturamos identidade, presença digital e performance como um sistema integrado de crescimento.
             <br />
@@ -421,6 +421,7 @@ const Services = () => {
 };
 
 export default Services;
+
 
 
 

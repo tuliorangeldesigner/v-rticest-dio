@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
       <Navigation />
       <SEO
         title="Política de Privacidade"
-        description="Entenda como coletamos, usamos e protegemos seus dados na Vértice Studio."
+        description="Entenda como coletamos, usamos e protegemos seus dados na TR Designer."
         url={`${SITE_URL}/privacy-policy`}
       />
 
@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
                 </h2>
                 <ul className="list-disc list-inside text-muted-foreground space-y-2">
                   <li>Responder solicitações e prestar suporte comercial</li>
-                  <li>Enviar atualizações, conteúdos e comunicações da Vértice Studio</li>
+                  <li>Enviar atualizações, conteúdos e comunicações da TR Designer</li>
                   <li>Melhorar o site, os processos e a experiência digital</li>
                   <li>Cumprir obrigações legais e contratuais</li>
                 </ul>
@@ -66,7 +66,7 @@ const PrivacyPolicy = () => {
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Não vendemos seus dados. O compartilhamento com terceiros ocorre apenas quando necessário para a
-                  execução do serviço, por exigência legal ou para proteção de direitos da Vértice Studio.
+                  execução do serviço, por exigência legal ou para proteção de direitos da TR Designer.
                 </p>
               </section>
 
@@ -121,4 +121,5 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
+
 
