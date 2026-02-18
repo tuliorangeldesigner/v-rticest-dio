@@ -5,6 +5,7 @@ import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const footerLinks = {
   navigation: [
+    { name: 'Home', href: '/' },
     { name: 'Projetos', href: '/work' },
     { name: 'Sobre', href: '/about' },
     { name: 'Serviços', href: '/services' },
