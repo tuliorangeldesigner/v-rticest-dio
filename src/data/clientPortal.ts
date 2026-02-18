@@ -31,7 +31,7 @@ export const clientPortals: ClientPortal[] = [
   {
     slug: 'excellent-solucoes',
     clientName: 'Excellent Soluções',
-    projectName: 'Reposicionamento de Marca e Sistema de Presença Premium',
+    projectName: 'Proposta de Identidade Visual • Reposicionamento de Marca e Sistema de Presença Premium',
     coverImage: excellenceCover,
     overviewCoverImage: overviewCover,
     status: 'Em andamento',

@@ -42,7 +42,7 @@ const excellentMockupImages = excellentMockupEntries.map(([, src]) => src);
 const sectionLabels: Record<PortalSectionKey, string> = {
   'visao-geral': 'Visão Geral',
   conceito: 'Conceito',
-  manual: 'Manual',
+  manual: 'Direção Visual',
   aplicacoes: 'Aplicações',
   mockups: 'Mockups',
   downloads: 'Downloads',
