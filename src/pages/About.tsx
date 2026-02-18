@@ -1,7 +1,7 @@
-﻿import { motion, useInView } from 'framer-motion';
+﻿import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useRef, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, X } from 'lucide-react';
 import Footer from '@/components/Footer';
 import MagneticButton from '@/components/MagneticButton';
 import Navigation from '@/components/Navigation';
@@ -12,24 +12,44 @@ const values = [
     description: 'Design sem direção • apenas decoração.',
     icon: '?',
     number: '01',
+    details: [
+      'Na Vértice, toda decisão visual começa no diagnóstico: posicionamento, contexto de mercado e objetivo comercial.',
+      'A estética entra para sustentar a estratégia, não para mascarar falta de clareza.',
+      'Resultado: uma marca que comunica valor com consistência, em vez de parecer apenas bonita.',
+    ],
   },
   {
     title: 'Percepção Define Preço',
     description: 'Se o mercado te vê como comum, ele negocia.',
     icon: '?',
     number: '02',
+    details: [
+      'Preço é consequência de percepção. Quando a marca transmite autoridade, a negociação muda de nível.',
+      'Construímos linguagem, narrativa e presença para afastar comparação por preço e aumentar valor percebido.',
+      'Resultado: mais margem, menos objeção e conversas comerciais mais qualificadas.',
+    ],
   },
   {
     title: 'Clareza Gera Autoridade',
     description: 'Comunicação confusa nunca escala.',
     icon: '?',
     number: '03',
+    details: [
+      'Mensagem clara reduz atrito e acelera decisão. Sem clareza, todo tráfego vira desperdício.',
+      'Organizamos proposta, diferenciais e hierarquia de informação para tornar a oferta inquestionável.',
+      'Resultado: presença mais forte, compreensão imediata e crescimento com base sólida.',
+    ],
   },
   {
     title: 'Performance • Métrica, Não Opinião',
     description: 'Resultado se mede. Não se imagina.',
     icon: '?',
     number: '04',
+    details: [
+      'Criativo e posicionamento só se sustentam quando conectados a indicadores reais de performance.',
+      'Acompanhamos sinais de qualidade de lead, conversão e comportamento para ajustar com precisão.',
+      'Resultado: decisões orientadas por dado, não por achismo.',
+    ],
   },
 ];
 
@@ -48,11 +68,30 @@ const About = () => {
   const valuesRef = useRef(null);
   const structureRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeValue, setActiveValue] = useState<(typeof values)[number] | null>(null);
 
   const heroInView = useInView(heroRef, { once: true });
   const storyInView = useInView(storyRef, { once: true, margin: '-100px' });
   const valuesInView = useInView(valuesRef, { once: true, margin: '-100px' });
   const structureInView = useInView(structureRef, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveValue(null);
+      }
+    };
+
+    if (activeValue) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [activeValue]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePosition({
@@ -248,7 +287,16 @@ const About = () => {
             {values.map((value) => (
               <div
                 key={value.title}
-                className="group relative flex-1 p-8 lg:p-12 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[3] bg-background hover:bg-accent/5 overflow-hidden flex flex-col justify-between min-h-[300px] lg:min-h-0"
+                onClick={() => setActiveValue(value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setActiveValue(value);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                className="group relative flex-1 p-8 lg:p-12 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[3] bg-background hover:bg-accent/5 overflow-hidden flex flex-col justify-between min-h-[300px] lg:min-h-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
               >
                 <div className="flex justify-between items-start">
                   <span className="text-sm font-mono text-accent">{value.number}</span>
@@ -374,6 +422,75 @@ const About = () => {
           </motion.div>
         </div>
       </section>
+
+
+      <AnimatePresence>
+        {activeValue ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setActiveValue(null)}
+            className="fixed inset-0 z-[120] bg-background/80 backdrop-blur-md p-4 md:p-8 flex items-center justify-center"
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 14, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.19, 1, 0.22, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="w-full max-w-4xl border border-border bg-background relative overflow-hidden"
+            >
+              <div className="absolute inset-0 pointer-events-none opacity-40">
+                <div className="absolute left-0 right-0 top-24 h-px bg-border" />
+                <div className="absolute left-0 right-0 bottom-24 h-px bg-border" />
+                <div className="absolute top-0 bottom-0 left-24 w-px bg-border" />
+                <div className="absolute top-0 bottom-0 right-24 w-px bg-border" />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveValue(null)}
+                className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full border border-border bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent transition-colors"
+                aria-label="Fechar princípio"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="relative z-10 p-8 md:p-12 lg:p-14">
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="text-sm font-mono text-accent">{activeValue.number}</span>
+                  <div className="h-px w-12 bg-accent" />
+                  <span className="text-sm font-mono text-muted-foreground tracking-wider">PRINCÍPIO</span>
+                </div>
+
+                <h3 className="font-epic font-black text-3xl md:text-5xl leading-[1.05] mb-5">
+                  {activeValue.title}
+                </h3>
+
+                <p className="text-lg md:text-xl text-muted-foreground mb-10">
+                  {activeValue.description}
+                </p>
+
+                <div className="space-y-4">
+                  {activeValue.details.map((detail, index) => (
+                    <motion.p
+                      key={detail}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: 0.05 * index }}
+                      className="pl-4 border-l border-accent/50 text-foreground/90 leading-relaxed"
+                    >
+                      {detail}
+                    </motion.p>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <Footer />
     </div>

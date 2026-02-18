@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPortal';
 import excellentBrandImage from '@/assets/excellent/brand.webp';
+import excellentMobileCover from '@/assets/excellent/mobilecliente.webp';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
 const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', {
@@ -212,12 +213,17 @@ const ClientPortal = () => {
               transition={{ duration: 0.45 }}
               className="border border-border bg-card/20 overflow-hidden"
             >
-              <img
-                src={portal.coverImage}
-                alt={`Identidade visual ${portal.clientName}`}
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
+              <picture>
+                {portal.slug === 'excellent-solucoes' ? (
+                  <source media="(max-width: 767px)" srcSet={excellentMobileCover} />
+                ) : null}
+                <img
+                  src={portal.coverImage}
+                  alt={`Identidade visual ${portal.clientName}`}
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </picture>
             </motion.figure>
           </section>
         ) : null}
