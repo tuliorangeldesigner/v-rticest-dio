@@ -1,6 +1,7 @@
 ﻿import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const footerLinks = {
   navigation: [
@@ -31,6 +32,7 @@ const footerLinks = {
 export const Footer = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeLegalModal, setActiveLegalModal] = useState<'privacy' | 'terms' | null>(null);
+  const whatsappHref = getWhatsAppLink();
 
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -89,7 +91,7 @@ export const Footer = () => {
             <div className="flex-1 p-8 border-b border-border">
                <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 block">Contato</span>
                <a href="mailto:tuliorangeldesigner@gmail.com" className="block text-xl font-bold hover:text-accent transition-colors mb-2">tuliorangeldesigner@gmail.com</a>
-               <a href="https://wa.me/5541987448273" className="block text-xl font-bold hover:text-accent transition-colors">(41) 98744-8273</a>
+               <a href={whatsappHref} className="block text-xl font-bold hover:text-accent transition-colors">(41) 98744-8273</a>
             </div>
             
             <div className="flex-1 p-8 border-b border-border">
@@ -119,7 +121,7 @@ export const Footer = () => {
 
          {/* Column 4: Big CTA */}
          <div className="lg:col-span-1 p-8 lg:p-12 flex flex-col justify-center items-center text-center bg-foreground/5 hover:bg-accent transition-colors duration-500 group cursor-pointer relative overflow-hidden">
-            <a href="https://wa.me/5541987448273" target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label="Abrir WhatsApp"></a>
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label="Abrir WhatsApp"></a>
             
             {/* Animated Background Text */}
             <div className="absolute inset-0 flex flex-col justify-center opacity-10 pointer-events-none select-none overflow-hidden group-hover:opacity-20 transition-opacity">

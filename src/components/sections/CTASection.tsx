@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import { AnimatedLine } from '@/components/AnimatedText';
 import { Mail, ArrowUpRight } from 'lucide-react';
+import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const words = [
   { text: 'Presença', number: '01' },
@@ -16,6 +17,7 @@ export const CTASection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const whatsappHref = getWhatsAppLink();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -170,7 +172,7 @@ export const CTASection = () => {
             >
               <MagneticButton>
                 <a
-                  href="https://wa.me/5541987448273"
+                  href={whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold text-sm md:text-base rounded-full overflow-hidden"
@@ -219,7 +221,7 @@ export const CTASection = () => {
           >
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               {[
-                { label: 'WhatsApp', value: '(41) 98744-8273', href: 'https://wa.me/5541987448273' },
+                { label: 'WhatsApp', value: '(41) 98744-8273', href: whatsappHref },
                 { label: 'Localização', value: 'Morretes, PR', href: null },
                 { label: 'Email', value: 'tuliorangeldesigner@gmail.com', href: 'mailto:tuliorangeldesigner@gmail.com' },
               ].map((item, i) => (

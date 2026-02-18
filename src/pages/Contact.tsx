@@ -8,6 +8,7 @@ import { Send, CheckCircle, Loader2, MapPin, Mail, Phone, ArrowUpRight } from 'l
 import { toast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
@@ -29,7 +30,7 @@ const budgetOptions = [
 
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'tuliorangeldesigner@\ngmail.com', href: 'mailto:tuliorangeldesigner@gmail.com' },
-  { icon: Phone, label: 'WhatsApp', value: '(41) 98744-8273', href: 'https://wa.me/5541987448273' },
+  { icon: Phone, label: 'WhatsApp', value: '(41) 98744-8273', href: getWhatsAppLink() },
   { icon: MapPin, label: 'Localização', value: 'Morretes / PR\nAtendimento nacional e projetos remotos.', href: null },
 ];
 
