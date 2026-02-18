@@ -217,6 +217,10 @@ export const Footer = () => {
                   Ao contratar, o cliente concorda com as condições comerciais, direitos de uso dos materiais
                   entregues e responsabilidades de cada lado no processo.
                 </p>
+                <p>
+                  Salvo acordo de confidencialidade formal, a Vértice Studio pode exibir artes, designs e
+                  logotipos desenvolvidos no projeto em seu portfólio e canais institucionais.
+                </p>
               </div>
             )}
 

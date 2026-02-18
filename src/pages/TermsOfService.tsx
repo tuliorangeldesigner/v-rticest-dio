@@ -33,7 +33,7 @@ const TermsOfService = () => {
             </h1>
 
             <p className="text-muted-foreground mb-8">
-              Última atualização: 12 de fevereiro de 2026
+              Última atualização: 18 de fevereiro de 2026
             </p>
 
             <div className="prose prose-lg dark:prose-invert max-w-none space-y-8">
@@ -59,11 +59,16 @@ const TermsOfService = () => {
 
               <section>
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-4">
-                  3. Propriedade intelectual
+                  3. Propriedade intelectual e portfólio
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Materiais e entregas permanecem sob titularidade da Vértice Studio até a quitação integral do
                   projeto. Após pagamento total, os direitos de uso são transferidos conforme definido em contrato.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Salvo acordo de confidencialidade formal entre as partes, a Vértice Studio (Túlio Rangel Designer)
+                  poderá utilizar artes, designs, logotipos e demais materiais desenvolvidos no projeto para exibição
+                  em portfólio, redes sociais e materiais institucionais, exclusivamente para demonstração de trabalho.
                 </p>
               </section>
 
