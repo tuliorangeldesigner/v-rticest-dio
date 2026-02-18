@@ -134,7 +134,7 @@ export const CTASection = () => {
                     {word.number}
                   </motion.span>
                   <span 
-                    className={`font-syne font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[124px] tracking-tight leading-[0.93] ${
+                    className={`font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[124px] tracking-tight leading-[0.93] ${
                       word.accent ? 'text-accent' : 'text-foreground'
                     }`}
                   >
