@@ -18,7 +18,7 @@ const Index = () => {
       <SEO 
         title="Vértice Studio™"
         description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
-        image="https://verticestudio.vercel.app/og-vertice.webp"
+        image="https://verticestudio.vercel.app/og-vertice.jpg"
         url="https://verticestudio.vercel.app/"
       />
       <OrganizationSchema />

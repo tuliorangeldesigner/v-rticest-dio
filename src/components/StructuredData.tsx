@@ -214,7 +214,7 @@ export const ProfessionalServiceSchema = () => {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'Vértice Studio™',
-    image: `${SITE_URL}/og-vertice.webp`,
+    image: `${SITE_URL}/og-vertice.jpg`,
     '@id': SITE_URL,
     url: SITE_URL,
     telephone: '+55-41-98744-8273',

@@ -20,7 +20,7 @@ const defaultMeta = {
   siteName: 'Vértice Studio™',
   title: 'Vértice Studio™',
   description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
-  image: `${SITE_URL}/og-vertice.webp`,
+  image: `${SITE_URL}/og-vertice.jpg`,
   url: SITE_URL,
   twitterHandle: '@verticestudio',
   locale: 'pt_BR',
