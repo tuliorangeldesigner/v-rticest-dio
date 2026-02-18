@@ -1,9 +1,9 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Navigation from '@/components/Navigation';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 
 const PrivacyPolicy = () => {
   const breadcrumbItems = [
@@ -121,5 +121,6 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
+
 
 

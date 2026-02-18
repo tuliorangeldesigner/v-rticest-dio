@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import CustomCursor from '@/components/CustomCursor';
 import HeroSection from '@/components/sections/HeroSection';
@@ -18,8 +18,8 @@ const Index = () => {
       <SEO 
         title="TR Designer"
         description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
-        image="https://verticestudio.vercel.app/og-vertice.jpg"
-        url="https://verticestudio.vercel.app/"
+        image="https://trdesigner.vercel.app/vertice-social.jpg"
+        url="https://trdesigner.vercel.app/"
       />
       <OrganizationSchema />
       <WebsiteSchema />
@@ -54,5 +54,7 @@ const Index = () => {
 };
 
 export default Index;
+
+
 
 

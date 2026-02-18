@@ -1,4 +1,4 @@
-﻿import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
   title?: string;
@@ -14,13 +14,13 @@ interface SEOProps {
   tags?: string[];
 }
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 
 const defaultMeta = {
   siteName: 'TR Designer',
   title: 'TR Designer',
   description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
-  image: `${SITE_URL}/og-vertice.jpg`,
+  image: `${SITE_URL}/vertice-social.jpg`,
   url: SITE_URL,
   twitterHandle: '@verticestudio',
   locale: 'pt_BR',
@@ -110,5 +110,7 @@ const SEO = ({
 };
 
 export default SEO;
+
+
 
 

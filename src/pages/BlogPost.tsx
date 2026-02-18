@@ -1,4 +1,4 @@
-﻿import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
@@ -7,7 +7,7 @@ import { ArticleSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 const inlineImagesByPost: Record<string, { src: string; alt: string }[]> = {
   'marcas-comuns-brigam-por-preco': [
     { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'Reunião estratégica de posicionamento de marca' },
@@ -326,6 +326,7 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
+
 
 
 

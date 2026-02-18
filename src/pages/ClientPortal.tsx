@@ -9,7 +9,7 @@ import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPorta
 import excellentBrandImage from '@/assets/excellent/brandmanual.webp';
 import excellentMobileCover from '@/assets/excellent/mobilecliente.webp';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', {
   eager: true,
   import: 'default',
@@ -379,6 +379,7 @@ const ClientPortal = () => {
 };
 
 export default ClientPortal;
+
 
 
 

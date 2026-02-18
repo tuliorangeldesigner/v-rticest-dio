@@ -1,6 +1,6 @@
-﻿import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://verticestudio.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 
 interface OrganizationSchemaProps {
   name?: string;
@@ -214,7 +214,7 @@ export const ProfessionalServiceSchema = () => {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'TR Designer',
-    image: `${SITE_URL}/og-vertice.jpg`,
+    image: `${SITE_URL}/vertice-social.jpg`,
     '@id': SITE_URL,
     url: SITE_URL,
     telephone: '+55-41-98744-8273',
@@ -243,4 +243,6 @@ export const ProfessionalServiceSchema = () => {
     </Helmet>
   );
 };
+
+
 
