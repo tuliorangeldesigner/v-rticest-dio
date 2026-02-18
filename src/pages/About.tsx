@@ -452,7 +452,7 @@ const About = () => {
               <button
                 type="button"
                 onClick={() => setActiveValue(null)}
-                className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full border border-border bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent transition-colors"
+                className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full border border-border bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent transition-colors"
                 aria-label="Fechar princípio"
               >
                 <X className="w-5 h-5" />
