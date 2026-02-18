@@ -486,6 +486,16 @@ const About = () => {
                     </motion.p>
                   ))}
                 </div>
+
+                <div className="mt-10 md:hidden">
+                  <button
+                    type="button"
+                    onClick={() => setActiveValue(null)}
+                    className="w-full h-12 rounded-full bg-accent text-black font-semibold tracking-wide transition-opacity hover:opacity-90"
+                  >
+                    Fechar
+                  </button>
+                </div>
               </div>
             </motion.article>
           </motion.div>
