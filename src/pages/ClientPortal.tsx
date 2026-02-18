@@ -55,7 +55,7 @@ const ClientPortal = () => {
   const portal = getClientPortalBySlug(slug || '');
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
-  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages : [];
+  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages.slice(0, 12) : [];
 
   const smoothScrollToTop = () => {
     const startY = window.scrollY;
