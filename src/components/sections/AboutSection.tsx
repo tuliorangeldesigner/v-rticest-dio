@@ -1,5 +1,5 @@
-﻿import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, useInView, useMotionValue, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
 import imageHero from '@/assets/vertice.webp';
 
@@ -12,14 +12,17 @@ const stats = [
 export const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const orbX = useTransform(mouseX, (value) => value * 2);
+  const orbY = useTransform(mouseY, (value) => value * 2);
+  const imageX = useTransform(mouseX, (value) => value * -1);
+  const imageY = useTransform(mouseY, (value) => value * -1);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: (e.clientX - rect.left - rect.width / 2) / 30,
-      y: (e.clientY - rect.top - rect.height / 2) / 30,
-    });
+    mouseX.set((e.clientX - rect.left - rect.width / 2) / 30);
+    mouseY.set((e.clientY - rect.top - rect.height / 2) / 30);
   };
 
   return (
@@ -57,8 +60,8 @@ export const AboutSection = () => {
       <motion.div
         className="absolute w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none"
         style={{
-          x: mousePosition.x * 2,
-          y: mousePosition.y * 2,
+          x: orbX,
+          y: orbY,
           top: '20%',
           right: '10%',
         }}
@@ -135,8 +138,8 @@ export const AboutSection = () => {
             transition={{ duration: 1, delay: 0.3 }}
             className="order-1 lg:order-2 relative"
             style={{
-              x: mousePosition.x * -1,
-              y: mousePosition.y * -1,
+              x: imageX,
+              y: imageY,
             }}
           >
             {/* Decorative frame */}

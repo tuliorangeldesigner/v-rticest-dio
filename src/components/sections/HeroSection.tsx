@@ -1,4 +1,4 @@
-﻿import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
@@ -13,7 +13,6 @@ const words = [
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentTime, setCurrentTime] = useState('');
   
   const { scrollYProgress } = useScroll({
@@ -31,6 +30,16 @@ export const HeroSection = () => {
   const cursorY = useMotionValue(0);
   const springX = useSpring(cursorX, { stiffness: 100, damping: 20 });
   const springY = useSpring(cursorY, { stiffness: 100, damping: 20 });
+  const mouseParallaxX = useMotionValue(0);
+  const mouseParallaxY = useMotionValue(0);
+  const shapeOneX = useTransform(mouseParallaxX, (value) => value * 2);
+  const shapeOneY = useTransform(mouseParallaxY, (value) => value * 2);
+  const shapeTwoX = useTransform(mouseParallaxX, (value) => value * -3);
+  const shapeTwoY = useTransform(mouseParallaxY, (value) => value * -3);
+  const shapeThreeX = useTransform(mouseParallaxX, (value) => value * 4);
+  const shapeThreeY = useTransform(mouseParallaxY, (value) => value * 4);
+  const shapeFourX = useTransform(mouseParallaxX, (value) => value * -2);
+  const shapeFourY = useTransform(mouseParallaxY, (value) => value * -2);
 
   useEffect(() => {
     const updateTime = () => {
@@ -42,7 +51,7 @@ export const HeroSection = () => {
       }));
     };
     updateTime();
-    const interval = setInterval(updateTime, 1000);
+    const interval = setInterval(updateTime, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -50,10 +59,8 @@ export const HeroSection = () => {
     const rect = e.currentTarget.getBoundingClientRect();
     cursorX.set(e.clientX - rect.left);
     cursorY.set(e.clientY - rect.top);
-    setMousePosition({
-      x: (e.clientX - rect.left - rect.width / 2) / 50,
-      y: (e.clientY - rect.top - rect.height / 2) / 50,
-    });
+    mouseParallaxX.set((e.clientX - rect.left - rect.width / 2) / 50);
+    mouseParallaxY.set((e.clientY - rect.top - rect.height / 2) / 50);
   };
 
   return (
@@ -123,8 +130,8 @@ export const HeroSection = () => {
         transition={{ duration: 2, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
         className="absolute top-1/4 left-[10%] w-12 h-12 md:w-20 md:h-20 border border-foreground/10 hidden sm:block"
         style={{
-          x: mousePosition.x * 2,
-          y: mousePosition.y * 2,
+          x: shapeOneX,
+          y: shapeOneY,
         }}
       />
       <motion.div
@@ -133,8 +140,8 @@ export const HeroSection = () => {
         transition={{ duration: 2, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
         className="absolute bottom-1/4 right-[15%] w-20 h-20 md:w-32 md:h-32 rounded-none border border-accent/20 hidden sm:block"
         style={{
-          x: mousePosition.x * -3,
-          y: mousePosition.y * -3,
+          x: shapeTwoX,
+          y: shapeTwoY,
         }}
       />
       <motion.div
@@ -143,8 +150,8 @@ export const HeroSection = () => {
         transition={{ duration: 2, delay: 1 }}
         className="absolute top-[60%] left-[20%] w-2 h-2 bg-accent rounded-none hidden md:block"
         style={{
-          x: mousePosition.x * 4,
-          y: mousePosition.y * 4,
+          x: shapeThreeX,
+          y: shapeThreeY,
         }}
       />
       <motion.div
@@ -153,8 +160,8 @@ export const HeroSection = () => {
         transition={{ duration: 2, delay: 1.2 }}
         className="absolute top-[30%] right-[25%] w-3 h-3 bg-foreground/20 rounded-none hidden md:block"
         style={{
-          x: mousePosition.x * -2,
-          y: mousePosition.y * -2,
+          x: shapeFourX,
+          y: shapeFourY,
         }}
       />
 

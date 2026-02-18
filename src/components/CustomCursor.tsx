@@ -25,9 +25,10 @@ export const CustomCursor = () => {
   const onMouseLeave = useCallback(() => setIsHidden(true), []);
 
   useEffect(() => {
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseenter', onMouseEnter);
-    document.addEventListener('mouseleave', onMouseLeave);
+    const eventOptions = { passive: true };
+    document.addEventListener('mousemove', onMouseMove, eventOptions);
+    document.addEventListener('mouseenter', onMouseEnter, eventOptions);
+    document.addEventListener('mouseleave', onMouseLeave, eventOptions);
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
@@ -37,46 +38,42 @@ export const CustomCursor = () => {
   }, [onMouseMove, onMouseEnter, onMouseLeave]);
 
   useEffect(() => {
-    const interactiveElements = document.querySelectorAll(
-      'a, button, [role="button"], input, textarea, select, [data-cursor="pointer"]'
-    );
-
-    const viewElements = document.querySelectorAll('[data-cursor="view"]');
-
-    const handleMouseEnter = () => {
-      setIsHovering(true);
-      setCursorText('');
-    };
-
-    const handleMouseLeave = () => {
+    const interactiveSelector = 'a, button, [role="button"], input, textarea, select, [data-cursor="pointer"]';
+    const viewSelector = '[data-cursor="view"]';
+    const combinedSelector = `${viewSelector}, ${interactiveSelector}`;
+    const resetCursor = () => {
       setIsHovering(false);
       setCursorText('');
     };
 
-    const handleViewEnter = () => {
-      setIsHovering(true);
-      setCursorText('View');
+    const handleMouseOver = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+      if (!target) return;
+      if (target.closest(viewSelector)) {
+        setIsHovering(true);
+        setCursorText('View');
+        return;
+      }
+      if (target.closest(interactiveSelector)) {
+        setIsHovering(true);
+        setCursorText('');
+      }
     };
 
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
+    const handleMouseOut = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+      if (!target || !target.closest(combinedSelector)) return;
+      const relatedTarget = event.relatedTarget as Element | null;
+      if (relatedTarget?.closest(combinedSelector)) return;
+      resetCursor();
+    };
 
-    viewElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleViewEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
+    document.addEventListener('mouseout', handleMouseOut, { passive: true });
 
     return () => {
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
-      viewElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleViewEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
     };
   }, []);
 

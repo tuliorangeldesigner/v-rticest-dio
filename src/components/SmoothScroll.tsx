@@ -8,6 +8,7 @@ interface SmoothScrollProps {
 
 export const SmoothScroll = ({ children }: SmoothScrollProps) => {
   const lenisRef = useRef<Lenis | null>(null);
+  const rafIdRef = useRef<number | null>(null);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -20,12 +21,17 @@ export const SmoothScroll = ({ children }: SmoothScrollProps) => {
 
     function raf(time: number) {
       lenisRef.current?.raf(time);
-      requestAnimationFrame(raf);
+      rafIdRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafIdRef.current = requestAnimationFrame(raf);
     return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
       lenisRef.current?.destroy();
+      lenisRef.current = null;
     };
   }, []);
 

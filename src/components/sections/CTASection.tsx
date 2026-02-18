@@ -1,5 +1,5 @@
-﻿import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, useInView, useMotionValue, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import { AnimatedLine } from '@/components/AnimatedText';
@@ -16,15 +16,24 @@ const words = [
 export const CTASection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const circleOneX = useTransform(mouseX, (value) => value * -2);
+  const circleOneY = useTransform(mouseY, (value) => value * -2);
+  const circleTwoX = useTransform(mouseX, (value) => value * 2);
+  const circleTwoY = useTransform(mouseY, (value) => value * 2);
+  const orbX = useTransform(mouseX, (value) => value * 3);
+  const orbY = useTransform(mouseY, (value) => value * 3);
+  const squareX = useTransform(mouseX, (value) => value * 2);
+  const squareY = useTransform(mouseY, (value) => value * 2);
+  const dotX = useTransform(mouseX, (value) => value * -3);
+  const dotY = useTransform(mouseY, (value) => value * -3);
   const whatsappHref = getWhatsAppLink();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: (e.clientX - rect.left - rect.width / 2) / 20,
-      y: (e.clientY - rect.top - rect.height / 2) / 20,
-    });
+    mouseX.set((e.clientX - rect.left - rect.width / 2) / 20);
+    mouseY.set((e.clientY - rect.top - rect.height / 2) / 20);
   };
 
   return (
@@ -64,22 +73,22 @@ export const CTASection = () => {
         animate={isInView ? { scale: 1 } : {}}
         transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-accent/10"
-        style={{ x: mousePosition.x * -2, y: mousePosition.y * -2 }}
+        style={{ x: circleOneX, y: circleOneY }}
       />
       <motion.div
         initial={{ scale: 0 }}
         animate={isInView ? { scale: 1 } : {}}
         transition={{ duration: 1.5, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-accent/20"
-        style={{ x: mousePosition.x * 2, y: mousePosition.y * 2 }}
+        style={{ x: circleTwoX, y: circleTwoY }}
       />
 
       {/* Floating accent orb */}
       <motion.div
         className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
         style={{
-          x: mousePosition.x * 3,
-          y: mousePosition.y * 3,
+          x: orbX,
+          y: orbY,
           top: '30%',
           left: '20%',
         }}
@@ -88,13 +97,13 @@ export const CTASection = () => {
       {/* Geometric shapes */}
       <motion.div
         className="absolute top-20 right-[15%] w-16 h-16 border border-accent/20"
-        style={{ transform: 'rotate(45deg)', x: mousePosition.x * 2, y: mousePosition.y * 2 }}
+        style={{ transform: 'rotate(45deg)', x: squareX, y: squareY }}
         animate={{ rotate: [45, 90, 45] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute bottom-32 left-[10%] w-4 h-4 bg-accent/30 rounded-full"
-        style={{ x: mousePosition.x * -3, y: mousePosition.y * -3 }}
+        style={{ x: dotX, y: dotY }}
       />
 
       <div className="container-wide relative z-10">
