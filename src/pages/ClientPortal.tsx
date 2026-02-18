@@ -213,7 +213,7 @@ const ClientPortal = () => {
               className="border border-border bg-card/20 overflow-hidden"
             >
               <img
-                src={activeSection === 'visao-geral' && portal.overviewCoverImage ? portal.overviewCoverImage : portal.coverImage}
+                src={portal.coverImage}
                 alt={`Identidade visual ${portal.clientName}`}
                 className="w-full h-auto object-cover"
                 loading="lazy"
