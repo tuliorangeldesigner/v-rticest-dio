@@ -114,7 +114,7 @@ export const CTASection = () => {
           {/* Main headline with numbers */}
           <div className="mb-12 md:mb-16">
             {words.map((word, index) => (
-              <div key={word.text} className="overflow-hidden pt-2 -mt-2">
+              <div key={word.text} className="overflow-hidden pt-4 -mt-4">
                 <motion.div
                   initial={{ y: '100%' }}
                   animate={isInView ? { y: 0 } : {}}
@@ -134,7 +134,7 @@ export const CTASection = () => {
                     {word.number}
                   </motion.span>
                   <span 
-                    className={`font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[124px] tracking-tight leading-[1.05] ${
+                    className={`font-epic font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[124px] tracking-tight leading-[1.12] ${
                       word.accent ? 'text-accent' : 'text-foreground'
                     }`}
                   >
