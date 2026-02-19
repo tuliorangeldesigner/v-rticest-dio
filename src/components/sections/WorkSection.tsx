@@ -8,9 +8,10 @@ import { ArrowUpRight } from 'lucide-react';
 interface ProjectCardProps {
   project: typeof projects[0];
   index: number;
+  displayNumber?: number;
 }
 
-const ProjectCard = ({ project, index }: ProjectCardProps) => {
+const ProjectCard = ({ project, index, displayNumber }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -55,7 +56,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           {/* Meta Data */}
           <div className="flex items-center gap-4 text-sm font-mono">
             <span className="text-accent">
-              {String(index + 1).padStart(2, '0')}
+              {String(displayNumber ?? index + 1).padStart(2, '0')}
             </span>
             <div className="h-px w-8 bg-border" />
             <span className="text-muted-foreground uppercase tracking-wider">
@@ -79,6 +80,10 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 export const WorkSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const featuredProjectIds = ['luminary', 'edicao-de-video', 'zenith', 'cascade'];
+  const featuredProjects = featuredProjectIds
+    .map((id) => projects.find((project) => project.id === id))
+    .filter((project): project is typeof projects[0] => Boolean(project));
 
   return (
     <section id="work" ref={ref} className="section-padding bg-secondary/30 relative overflow-hidden">
@@ -125,8 +130,13 @@ export const WorkSection = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
-          {projects.slice(0, 4).map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+          {featuredProjects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              displayNumber={projects.findIndex((item) => item.id === project.id) + 1}
+            />
           ))}
         </div>
       </div>
