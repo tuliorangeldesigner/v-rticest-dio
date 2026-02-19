@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 
@@ -52,7 +52,7 @@ export const OrganizationSchema = ({
   name = 'TR Designer',
   url = SITE_URL,
   logo = `${SITE_URL}/favicon.svg`,
-  description = 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
+  description = 'Branding estratÃ©gico, sites de alta conversÃ£o e criativos orientados por performance para marcas que querem crescer com percepÃ§Ã£o premium.',
   email = 'tuliorangeldesigner@gmail.com',
   address = {
     streetAddress: 'Morretes',
@@ -197,7 +197,7 @@ export const WebsiteSchema = () => {
     '@type': 'WebSite',
     name: 'TR Designer',
     url: SITE_URL,
-    description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance.',
+    description: 'Branding estratÃ©gico, sites de alta conversÃ£o e criativos orientados por performance.',
     inLanguage: 'pt-BR',
   };
 
@@ -214,7 +214,7 @@ export const ProfessionalServiceSchema = () => {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'TR Designer',
-    image: `${SITE_URL}/dc.webp`,
+    image: `${SITE_URL}/dc2.webp`,
     '@id': SITE_URL,
     url: SITE_URL,
     telephone: '+55-41-98744-8273',
@@ -243,6 +243,7 @@ export const ProfessionalServiceSchema = () => {
     </Helmet>
   );
 };
+
 
 
 
