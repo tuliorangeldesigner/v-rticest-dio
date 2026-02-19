@@ -8,11 +8,11 @@ import Navigation from '@/components/Navigation';
 
 const services = [
   {
-    id: 'brand-reprogramming',
+    id: 'reprogramacao-de-marca',
     title: 'Reprogramação de Marca',
     tagline: 'Reposicionamento estratégico para elevar percepção de valor',
     description:
-      'Reposicionamento estratégico para empresas que precisam elevar percepção de valor.',
+      'Sua empresa entrega bem, mas ainda parece comum. Reprogramamos posicionamento, estética e narrativa para sua marca ser percebida como autoridade.',
     includes: [
       'Diagnóstico de posicionamento',
       'Identidade visual premium',
@@ -23,35 +23,35 @@ const services = [
     number: '01',
   },
   {
-    id: 'conversion-architecture',
+    id: 'arquitetura-de-site-e-conversao',
     title: 'Arquitetura de Site & Conversão',
     tagline: 'Estruturamos ambientes digitais que conduzem decisão',
-    description: 'Estruturamos ambientes digitais que conduzem decisão.',
+    description: 'Seu site para de ser vitrine bonita e passa a conduzir decisão. Estruturamos cada seção para gerar clareza, confiança e contato qualificado.',
     includes: [
       'Estrutura estratégica de páginas',
       'Copy com autoridade',
-      'UX focado em ao',
+      'UX focado em conversão',
       'Landing pages de alta performance',
     ],
     outcome: 'Seu site deixa de ser vitrine e passa a ser máquina de conversão.',
     number: '02',
   },
   {
-    id: 'performance-creatives',
+    id: 'criativos-de-performance',
     title: 'Criativos de Performance',
     tagline: 'Ativos para dominar atenção e reduzir custo por aquisição',
     description:
-      'Ativos digitais desenvolvidos para dominar atenção e reduzir custo por aquisição.',
+      'Criativos desenvolvidos para interromper o scroll, prender atenção e transformar mídia em resultado. Menos desperdício. Mais previsibilidade de venda.',
     includes: ['Criativos para tráfego pago', 'Vídeos estratégicos', 'Testes A/B', 'Otimização contínua'],
     outcome: 'Performance não é estética. É métrica.',
     number: '03',
   },
   {
-    id: 'neural-system',
+    id: 'sistema-completo-tr-designer',
     title: 'Sistema Completo TR Designer',
     tagline: 'Integração total entre marca, ambiente digital e performance',
     description:
-      'Integração total entre marca, ambiente digital e performance. Para empresas que querem controle estratégico da própria presença.',
+      'Para empresas que cansaram de ações soltas. Integramos marca, site e performance em um único sistema para crescimento com direção estratégica.',
     includes: [
       'Diagnóstico estratégico',
       'Branding, ambiente digital e performance',
@@ -251,34 +251,39 @@ const Services = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={servicesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative border-r border-b border-border min-h-[520px] overflow-hidden bg-background p-8 md:p-12 flex flex-col"
+                className="relative border-r border-b border-border min-h-[520px] overflow-hidden bg-background"
               >
-                <div className="flex justify-between items-start mb-8">
-                  <span className="text-6xl md:text-8xl font-syne font-bold text-foreground/10">{service.number}</span>
-                  <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center">
-                    <ArrowRight className="w-5 h-5 -rotate-45 text-accent" />
+                <Link
+                  to={`/services/${service.id}`}
+                  className="group block h-full p-8 md:p-12 hover:bg-foreground/5 transition-colors"
+                >
+                  <div className="flex justify-between items-start mb-8">
+                    <span className="text-6xl md:text-8xl font-syne font-bold text-foreground/10">{service.number}</span>
+                    <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-accent transition-colors">
+                      <ArrowRight className="w-5 h-5 -rotate-45 text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
                   </div>
-                </div>
 
-                <h3 className="text-3xl md:text-4xl font-syne font-bold leading-tight mb-3">{service.title}</h3>
-                <p className="text-sm font-mono tracking-wider text-muted-foreground uppercase mb-5">{service.tagline}</p>
-                <p className="text-muted-foreground leading-relaxed mb-6">{service.description}</p>
+                  <h3 className="text-3xl md:text-4xl font-syne font-bold leading-tight mb-3 group-hover:text-accent transition-colors">{service.title}</h3>
+                  <p className="text-sm font-mono tracking-wider text-muted-foreground uppercase mb-5">{service.tagline}</p>
+                  <p className="text-muted-foreground leading-relaxed mb-6">{service.description}</p>
 
-                <div className="mb-6">
-                  <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase">Inclui</p>
-                  <div className="space-y-2">
-                    {service.includes.map((item) => (
-                      <div key={item} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                        <span className="text-sm font-medium">{item}</span>
-                      </div>
-                    ))}
+                  <div className="mb-6">
+                    <p className="text-xs font-mono text-accent mb-3 tracking-widest uppercase">Inclui</p>
+                    <div className="space-y-2">
+                      {service.includes.map((item) => (
+                        <div key={item} className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                          <span className="text-sm font-medium">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <p className="mt-auto pt-6 border-t border-border/50 text-sm md:text-base font-medium text-foreground/90">
-                  {service.outcome}
-                </p>
+                  <p className="mt-auto pt-6 border-t border-border/50 text-sm md:text-base font-medium text-foreground/90">
+                    {service.outcome}
+                  </p>
+                </Link>
               </motion.div>
             ))}
           </div>
