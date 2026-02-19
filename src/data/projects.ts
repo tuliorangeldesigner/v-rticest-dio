@@ -130,13 +130,13 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Reestruturação Visual', 'Identidade Visual', 'Direção de Arte', 'Aplicações Digitais'],
     gallery: [rocha2, rocha3, rocha4],
-    nextProject: 'nexus',
+    nextProject: 'edicao-de-video',
     prevProject: 'zenith',
     keyTakeaways: 'Quando a identidade visual comunica valor antes da proposta, a negociação muda de preço para confiança e decisão.',
     focus: 'Reposicionamento',
   },
   {
-    id: 'nexus',
+    id: 'edicao-de-video',
     title: 'Edição de Vídeo e Motion',
     category: 'Motion Design e Edição Estratégica',
     year: '2022-2026',
@@ -229,14 +229,15 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
     ],
     nextProject: 'luminary',
-    prevProject: 'nexus',
+    prevProject: 'edicao-de-video',
     keyTakeaways: 'Em cenários de alta complexidade, performance nasce da priorização visual: mostrar o essencial no momento certo.',
     focus: 'Performance',
   },
 ];
 
 export const getProjectById = (id: string): Project | undefined => {
-  return projects.find((p) => p.id === id);
+  const normalizedId = id === 'nexus' ? 'edicao-de-video' : id;
+  return projects.find((p) => p.id === normalizedId);
 };
 
 export const getProjectIndex = (id: string): number => {
