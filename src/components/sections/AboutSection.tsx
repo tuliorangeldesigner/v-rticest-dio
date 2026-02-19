@@ -1,7 +1,7 @@
 import { motion, useInView, useMotionValue, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
-import imageHero from '@/assets/vertice.webp';
+import imageHero from '@/assets/trdesigner.jpg';
 
 const stats = [
   { number: '01', label: 'Percepção premium', description: 'Posicionamento de autoridade' },
