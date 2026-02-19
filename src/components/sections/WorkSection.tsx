@@ -13,6 +13,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ project, index, displayNumber }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const cardCover = project.id === 'edicao-de-video' ? '/coveredicao.webp' : project.thumbnail;
 
   return (
     <motion.div
@@ -28,8 +29,10 @@ const ProjectCard = ({ project, index, displayNumber }: ProjectCardProps) => {
         {/* Image Container */}
         <div className="relative overflow-hidden aspect-[4/3] mb-8 rounded-none">
           <motion.img
-            src={project.thumbnail}
+            src={cardCover}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
             animate={{ scale: isHovered ? 1.05 : 1 }}
             transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
