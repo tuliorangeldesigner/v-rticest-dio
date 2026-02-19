@@ -1,22 +1,21 @@
-﻿import { useEffect, useRef } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+﻿import { useEffect, useRef, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring, useInView } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { getProjectById, projects } from '@/data/projects';
+import { ArrowLeft, ArrowRight, Play, X } from 'lucide-react';
+import { getProjectById } from '@/data/projects';
 import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const project = getProjectById(id || '');
-  const isInProgress = project?.id === 'nexus' || project?.id === 'apex';
+  const isInProgress = project?.id === 'apex';
+  const [activeVimeoId, setActiveVimeoId] = useState<string | null>(null);
 
-  const heroRef = useRef(null);
   const contentRef = useRef(null);
-  const isContentInView = useInView(contentRef, { once: true, margin: '-100px' });
+  useInView(contentRef, { once: true, margin: '-100px' });
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -28,6 +27,25 @@ const CaseStudy = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  useEffect(() => {
+    if (!activeVimeoId) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveVimeoId(null);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [activeVimeoId]);
 
   if (!project) {
     return (
@@ -47,7 +65,7 @@ const CaseStudy = () => {
   }
 
   const nextProject = getProjectById(project.nextProject);
-  const prevProject = getProjectById(project.prevProject);
+  const hasVideoGallery = Boolean(project.videos?.length);
 
   return (
       <div className="min-h-screen bg-background selection:bg-accent/20 flex flex-col">
@@ -233,33 +251,68 @@ const CaseStudy = () => {
                         <h3 className="text-3xl font-syne font-bold">Artefatos do Projeto</h3>
                      </div>
                      <span className="hidden md:block text-xs font-mono uppercase tracking-widest text-foreground/40">
-                        {project.gallery.length} Ativos Processados
+                        {hasVideoGallery ? `${project.videos?.length} VIDEOS PUBLICADOS` : `${project.gallery.length} Ativos Processados`}
                      </span>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     {project.gallery.map((image, i) => (
-                        <div 
-                           key={i} 
-                           className={`group relative overflow-hidden bg-foreground/5 ${
-                              i === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'
-                           }`}
+                  {hasVideoGallery ? (
+                    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                      {project.videos?.map((videoId, i) => (
+                        <button
+                          key={videoId}
+                          type="button"
+                          onClick={() => setActiveVimeoId(videoId)}
+                          className="group relative overflow-hidden border border-foreground/10 bg-foreground/5 text-left"
                         >
-                           <img 
-                              src={image} 
-                              alt={`Gallery image ${i+1}`} 
+                          <div className="relative aspect-[9/16] w-full">
+                            <img
+                              src={`https://vumbnail.com/${videoId}.jpg`}
+                              alt={`Video ${i + 1}`}
                               loading="lazy"
                               decoding="async"
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                           />
-                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                              <div className="px-4 py-2 bg-background text-foreground text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                 Ver Completo
-                              </div>
-                           </div>
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-black/45 group-hover:bg-black/30 transition-colors duration-300" />
+                            <div className="absolute left-3 top-3 px-2 py-1 text-[10px] font-mono uppercase tracking-widest bg-background/90 text-foreground border border-foreground/10">
+                              VIDEO {String(i + 1).padStart(2, '0')}
+                            </div>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="w-14 h-14 rounded-full border border-white/60 bg-black/40 backdrop-blur-sm flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                                <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                              </span>
+                            </div>
+                            <div className="absolute bottom-3 left-3 right-3 text-[10px] font-mono uppercase tracking-widest text-white/80">
+                              Assistir no player
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {project.gallery.map((image, i) => (
+                        <div
+                          key={i}
+                          className={`group relative overflow-hidden bg-foreground/5 ${
+                            i === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'
+                          }`}
+                        >
+                          <img
+                            src={image}
+                            alt={`Gallery image ${i + 1}`}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div className="px-4 py-2 bg-background text-foreground text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                              Ver Completo
+                            </div>
+                          </div>
                         </div>
-                     ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Key Takeaways - Compact Accent Card (No Border) */}
                   {project.keyTakeaways && (
@@ -339,10 +392,55 @@ const CaseStudy = () => {
         </section>
       </main>
 
+      {activeVimeoId && (
+        <div
+          className="fixed inset-0 z-[90] bg-black/85 backdrop-blur-sm px-4 py-8 md:p-10 flex items-center justify-center"
+          onClick={() => setActiveVimeoId(null)}
+        >
+          <div
+            className="w-full max-w-[420px] md:max-w-[520px]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-xs font-mono uppercase tracking-widest text-foreground/70">
+                Vimeo Player
+              </span>
+              <button
+                type="button"
+                onClick={() => setActiveVimeoId(null)}
+                className="h-9 w-9 border border-foreground/20 bg-background/70 flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
+                aria-label="Fechar video"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="relative aspect-[9/16] w-full overflow-hidden border border-foreground/15 bg-black">
+              <iframe
+                src={`https://player.vimeo.com/video/${activeVimeoId}?autoplay=1&title=0&byline=0&portrait=0`}
+                title={`Vimeo video ${activeVimeoId}`}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                loading="eager"
+                className="h-full w-full"
+              />
+            </div>
+
+            <a
+              href={`https://vimeo.com/${activeVimeoId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center justify-center border border-foreground/20 px-4 py-2 text-xs font-mono uppercase tracking-widest text-foreground/80 hover:border-accent hover:text-accent transition-colors"
+            >
+              Abrir no Vimeo
+            </a>
+          </div>
+        </div>
+      )}
+
       <Footer />
       </div>
   );
 };
 
 export default CaseStudy;
-
