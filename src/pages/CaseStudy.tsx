@@ -1,6 +1,6 @@
-﻿import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, useScroll, useSpring, useInView } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, ArrowRight, Play, X } from 'lucide-react';
 import { getProjectById } from '@/data/projects';
@@ -8,15 +8,15 @@ import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
+const VIDEO_BATCH_SIZE = 12;
+
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
   const project = getProjectById(id || '');
   const isInProgress = project?.id === 'apex';
   const [activeVimeoId, setActiveVimeoId] = useState<string | null>(null);
   const [isHeroVideoLoaded, setIsHeroVideoLoaded] = useState(false);
-
-  const contentRef = useRef(null);
-  useInView(contentRef, { once: true, margin: '-100px' });
+  const [visibleVideoCount, setVisibleVideoCount] = useState(VIDEO_BATCH_SIZE);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -27,6 +27,9 @@ const CaseStudy = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setVisibleVideoCount(VIDEO_BATCH_SIZE);
+    setActiveVimeoId(null);
+    setIsHeroVideoLoaded(false);
   }, [id]);
 
   useEffect(() => {
@@ -67,6 +70,9 @@ const CaseStudy = () => {
 
   const nextProject = getProjectById(project.nextProject);
   const hasVideoGallery = Boolean(project.videos?.length);
+  const totalVideos = project.videos?.length ?? 0;
+  const visibleVideos = hasVideoGallery ? (project.videos ?? []).slice(0, visibleVideoCount) : [];
+  const hasMoreVideos = hasVideoGallery && visibleVideoCount < totalVideos;
 
   return (
       <div className="min-h-screen bg-background selection:bg-accent/20 flex flex-col">
@@ -74,6 +80,14 @@ const CaseStudy = () => {
       <Helmet>
         <title>{project.title} | STUDIO Case Study</title>
         <meta name="description" content={project.description} />
+        {hasVideoGallery && (
+          <>
+            <link rel="preconnect" href="https://vumbnail.com" crossOrigin="" />
+            <link rel="dns-prefetch" href="//vumbnail.com" />
+            <link rel="preconnect" href="https://player.vimeo.com" crossOrigin="" />
+            <link rel="dns-prefetch" href="//player.vimeo.com" />
+          </>
+        )}
       </Helmet>
 
       <CustomCursor />
@@ -276,24 +290,26 @@ const CaseStudy = () => {
                         <h3 className="text-3xl font-syne font-bold">Artefatos do Projeto</h3>
                      </div>
                      <span className="hidden md:block text-xs font-mono uppercase tracking-widest text-foreground/40">
-                        {hasVideoGallery ? `${project.videos?.length} VIDEOS PUBLICADOS` : `${project.gallery.length} Ativos Processados`}
+                        {hasVideoGallery ? `${totalVideos} VIDEOS PUBLICADOS` : `${project.gallery.length} Ativos Processados`}
                      </span>
                   </div>
 
                   {hasVideoGallery ? (
+                    <>
                     <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                      {project.videos?.map((videoId, i) => (
+                      {visibleVideos.map((videoId, i) => (
                         <button
                           key={videoId}
                           type="button"
                           onClick={() => setActiveVimeoId(videoId)}
-                          className="group relative overflow-hidden border border-foreground/10 bg-foreground/5 text-left"
+                          className="group relative overflow-hidden border border-foreground/10 bg-foreground/5 text-left [content-visibility:auto] [contain-intrinsic-size:360px_640px]"
                         >
                           <div className="relative aspect-[9/16] w-full">
                             <img
                               src={`https://vumbnail.com/${videoId}.jpg`}
                               alt={`Video ${i + 1}`}
                               loading="lazy"
+                              fetchPriority="low"
                               decoding="async"
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
@@ -313,6 +329,18 @@ const CaseStudy = () => {
                         </button>
                       ))}
                     </div>
+                    {hasMoreVideos && (
+                      <div className="mt-8 flex justify-center">
+                        <button
+                          type="button"
+                          onClick={() => setVisibleVideoCount((count) => Math.min(count + VIDEO_BATCH_SIZE, totalVideos))}
+                          className="px-6 py-3 border border-foreground/20 text-xs font-mono uppercase tracking-widest text-foreground/80 hover:border-accent hover:text-accent transition-colors"
+                        >
+                          Carregar mais videos
+                        </button>
+                      </div>
+                    )}
+                    </>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {project.gallery.map((image, i) => (
@@ -469,3 +497,4 @@ const CaseStudy = () => {
 };
 
 export default CaseStudy;
+
