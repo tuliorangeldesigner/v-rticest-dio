@@ -5,7 +5,9 @@
   year: string;
   client: string;
   heroImage: string;
+  heroVideo?: string;
   thumbnail: string;
+  thumbnailVideo?: string;
   description: string;
   challenge: string;
   solution: string;
@@ -137,20 +139,22 @@ export const projects: Project[] = [
     id: 'nexus',
     title: 'Edição de Vídeo e Motion',
     category: 'Motion Design e Edição Estratégica',
-    year: '2022',
-    client: 'Nexus Health',
+    year: '2022-2026',
+    client: 'Clientes Diversos',
     heroImage: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=2000&q=80',
+    heroVideo: '/projeto-_41_.mp4',
     thumbnail: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=1200&q=80',
-    description: 'Integração entre identidade, ambiente web e narrativa estratégica. Coerência visual e aumento de autoridade percebida.',
-    challenge: 'A comunicação estava fragmentada entre canais, gerando ruído de posicionamento e queda de confiança na jornada digital do usuário.',
-    solution: 'Unificamos identidade, linguagem e experiência em um ecossistema coeso. A operação digital passou a comunicar a mesma promessa em todos os pontos de contato.',
+    thumbnailVideo: '/projeto-_41_.mp4',
+    description: 'Esta seção reúne projetos de motion design e edição de vídeo para clientes de diferentes nichos. Cada criativo foi construído para prender atenção nos primeiros segundos, elevar percepção de valor e transformar visualização em ação.',
+    challenge: 'No feed, criativos comuns são ignorados em segundos. O desafio é comunicar autoridade, proposta e oferta com clareza visual, ritmo certo e narrativa estratégica para gerar resposta comercial.',
+    solution: 'Estruturamos roteiros curtos, direção de motion, cortes orientados à retenção e finalizações com CTA. O resultado é um sistema de criativos animados profissionais, com consistência de marca e foco real em conversão.',
     results: [
-      '30% redução em faltas de agendamento',
-      '92% índice de satisfação dos pacientes',
-      '15K usuários ativos mensais em 6 meses',
-      'Prêmio de melhor design em health app',
+      '3x mais retenção nos primeiros 3 segundos',
+      '67% aumento de respostas em campanhas com vídeo',
+      '52% crescimento de cliques em chamadas para ação',
+      'Mais percepção de autoridade e valor da marca',
     ],
-    services: ['Design de App', 'Pesquisa', 'Design de Interação', 'Identidade Visual', 'Testes de Usabilidade'],
+    services: ['Motion Design', 'Edição de Vídeo', 'Roteiro de Conversão', 'Direção Criativa', 'Finalização para Social'],
     gallery: [
       'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1576091160550-2187d80a0003?auto=format&fit=crop&w=1200&q=80',
@@ -198,8 +202,8 @@ export const projects: Project[] = [
     ],
     nextProject: 'apex',
     prevProject: 'cascade',
-    keyTakeaways: 'Autoridade digital depende de consistência. Quando marca, UX e mensagem falam a mesma língua, a confiança cresce.',
-    focus: 'Autoridade',
+    keyTakeaways: 'Vídeo bom não é só bonito: é estratégia em movimento. Quando animação, mensagem e CTA trabalham juntos, a conversão acontece.',
+    focus: 'Conversão',
   },
   {
     id: 'apex',

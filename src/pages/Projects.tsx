@@ -9,7 +9,7 @@ import MagneticButton from '@/components/MagneticButton';
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const isInProgress = project.id === 'nexus' || project.id === 'apex';
+  const isInProgress = project.id === 'apex';
 
   return (
     <motion.div
@@ -34,15 +34,30 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
             </div>
           ) : (
             <>
-              <motion.img
-                src={project.thumbnail}
-                alt={project.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-                animate={{ scale: isHovered ? 1.05 : 1 }}
-                transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
-              />
+              {project.thumbnailVideo ? (
+                <motion.video
+                  src={project.thumbnailVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster={project.thumbnail}
+                  className="w-full h-full object-cover"
+                  animate={{ scale: isHovered ? 1.05 : 1 }}
+                  transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+                />
+              ) : (
+                <motion.img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                  animate={{ scale: isHovered ? 1.05 : 1 }}
+                  transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+                />
+              )}
               
               {/* Hover Overlay - Subtle Tint */}
               <motion.div 

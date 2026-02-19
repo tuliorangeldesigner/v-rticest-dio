@@ -136,7 +136,7 @@ const CaseStudy = () => {
               </div>
             </div>
 
-            {/* 3. Hero Image - Full Grid Width */}
+            {/* 3. Hero Media - Full Grid Width */}
             <div className="w-full border-b border-foreground/10 overflow-hidden bg-foreground/5">
               {isInProgress ? (
                 <div className="aspect-[16/9] md:aspect-[21/9] w-full flex items-center justify-center">
@@ -149,14 +149,27 @@ const CaseStudy = () => {
                   transition={{ duration: 0.8 }}
                   className="aspect-[16/9] md:aspect-[21/9] w-full relative"
                 >
-                  <img 
-                    src={project.heroImage} 
-                    alt={project.title}
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
+                  {project.heroVideo ? (
+                    <video
+                      src={project.heroVideo}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      poster={project.heroImage}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={project.heroImage}
+                      alt={project.title}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </motion.div>
               )}
