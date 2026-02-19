@@ -20,7 +20,7 @@ const footerLinks = {
   ],
   social: [
     { name: 'Instagram', href: 'https://www.instagram.com/tulio_rangel_designer/' },
-    { name: 'Twitter', href: '#' },
+    { name: 'Behance', href: 'https://www.behance.net/tuliorangeldesigner' },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/t%C3%BAlio-rangel-designer1/' },
     { name: 'Dribbble', href: '#' },
   ],
