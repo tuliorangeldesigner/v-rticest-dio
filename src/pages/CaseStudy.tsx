@@ -13,6 +13,7 @@ const CaseStudy = () => {
   const project = getProjectById(id || '');
   const isInProgress = project?.id === 'apex';
   const [activeVimeoId, setActiveVimeoId] = useState<string | null>(null);
+  const [isHeroVideoLoaded, setIsHeroVideoLoaded] = useState(false);
 
   const contentRef = useRef(null);
   useInView(contentRef, { once: true, margin: '-100px' });
@@ -26,6 +27,7 @@ const CaseStudy = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setIsHeroVideoLoaded(false);
   }, [id]);
 
   useEffect(() => {
@@ -150,16 +152,21 @@ const CaseStudy = () => {
                   className="aspect-[16/9] md:aspect-[21/9] w-full relative"
                 >
                   {project.heroVideo ? (
-                    <video
-                      src={project.heroVideo}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      poster={project.heroImage}
-                      className="w-full h-full object-cover"
-                    />
+                    <>
+                      <div className="absolute inset-0 bg-black" />
+                      <video
+                        src={project.heroVideo}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        onLoadedData={() => setIsHeroVideoLoaded(true)}
+                        className={`w-full h-full object-cover transition-opacity duration-500 ${
+                          isHeroVideoLoaded ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    </>
                   ) : (
                     <img
                       src={project.heroImage}
