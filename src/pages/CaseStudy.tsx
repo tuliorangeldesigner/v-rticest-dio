@@ -27,7 +27,6 @@ const CaseStudy = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setIsHeroVideoLoaded(false);
   }, [id]);
 
   useEffect(() => {
@@ -153,15 +152,21 @@ const CaseStudy = () => {
                 >
                   {project.heroVideo ? (
                     <>
-                      <div className="absolute inset-0 bg-black" />
+                      <div
+                        className={`absolute inset-0 bg-black transition-opacity duration-500 ${
+                          isHeroVideoLoaded ? 'opacity-0' : 'opacity-100'
+                        }`}
+                      />
                       <video
                         src={project.heroVideo}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        preload="auto"
+                        preload="metadata"
                         onLoadedData={() => setIsHeroVideoLoaded(true)}
+                        onCanPlay={() => setIsHeroVideoLoaded(true)}
+                        onPlaying={() => setIsHeroVideoLoaded(true)}
                         className={`w-full h-full object-cover transition-opacity duration-500 ${
                           isHeroVideoLoaded ? 'opacity-100' : 'opacity-0'
                         }`}
