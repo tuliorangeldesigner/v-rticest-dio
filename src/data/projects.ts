@@ -134,8 +134,8 @@ export const projects: Project[] = [
   },
   {
     id: 'nexus',
-    title: 'Nexus',
-    category: 'Presença Digital Integrada',
+    title: 'Edição de Vídeo e Motion',
+    category: 'Motion Design e Edição Estratégica',
     year: '2022',
     client: 'Nexus Health',
     heroImage: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=2000&q=80',

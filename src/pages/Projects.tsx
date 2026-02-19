@@ -9,7 +9,7 @@ import MagneticButton from '@/components/MagneticButton';
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const isInProgress = project.title === 'Nexus' || project.title === 'Apex';
+  const isInProgress = project.id === 'nexus' || project.id === 'apex';
 
   return (
     <motion.div
