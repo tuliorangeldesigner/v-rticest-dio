@@ -18,7 +18,7 @@ const Index = () => {
       <SEO 
         title="TR Designer"
         description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
-        image="https://trdesigner.vercel.app/vertice-social.jpg"
+        image="https://trdesigner.vercel.app/dc.webp"
         url="https://trdesigner.vercel.app/"
       />
       <OrganizationSchema />

@@ -214,7 +214,7 @@ export const ProfessionalServiceSchema = () => {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'TR Designer',
-    image: `${SITE_URL}/vertice-social.jpg`,
+    image: `${SITE_URL}/dc.webp`,
     '@id': SITE_URL,
     url: SITE_URL,
     telephone: '+55-41-98744-8273',

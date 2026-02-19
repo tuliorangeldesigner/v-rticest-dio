@@ -20,7 +20,7 @@ const defaultMeta = {
   siteName: 'TR Designer',
   title: 'TR Designer',
   description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
-  image: `${SITE_URL}/vertice-social.jpg`,
+  image: `${SITE_URL}/dc.webp`,
   url: SITE_URL,
   twitterHandle: '@verticestudio',
   locale: 'pt_BR',
