@@ -37,6 +37,10 @@ import sumitomo1 from '@/assets/sumitomo1.webp';
 import sumitomo2 from '@/assets/sumitomo2.webp';
 import sumitomo3 from '@/assets/sumitomo3.webp';
 import sumitomo4 from '@/assets/sumitomo4.webp';
+import excellentCover from '@/assets/excellent/excellence12 copiar.webp';
+import excellentOverview from '@/assets/excellent/imagemcapa.webp';
+import excellentMockupOne from '@/assets/excellent/1 copiar.webp';
+import excellentMockupTwo from '@/assets/excellent/13 copiar.webp';
 
 export const projects: Project[] = [
   {
@@ -59,7 +63,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Marca', 'Identidade Visual', 'Design de Logotipo', 'Guia de Marca', 'Materiais Institucionais'],
     gallery: [gwapo2, gwapo3, gwapo4],
     nextProject: 'ethereal',
-    prevProject: 'apex',
+    prevProject: 'excellent-solucoes',
     keyTakeaways: 'Quando a marca traduz inovação com clareza e estética coerente, o mercado percebe valor antes da proposta comercial.',
     focus: 'Reposicionamento',
   },
@@ -198,43 +202,44 @@ export const projects: Project[] = [
       '1166201394',
       '1166201484',
     ],
-    nextProject: 'apex',
+    nextProject: 'excellent-solucoes',
     prevProject: 'cascade',
     keyTakeaways: 'Vídeo bom não é só bonito: é estratégia em movimento. Quando animação, mensagem e CTA trabalham juntos, a conversão acontece.',
     focus: 'Conversão',
   },
   {
-    id: 'apex',
-    title: 'Apex',
-    category: 'Interface de Alta Performance',
-    year: '2023',
-    client: 'Apex Capital',
-    heroImage: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=2000&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1200&q=80',
-    description: 'Desenvolvimento de dashboard com foco em clareza visual, leitura de dados e impacto estratégico. Estética funcional aliada à performance.',
-    challenge: 'A equipe operava sob alta pressão com excesso de dados na tela. O layout antigo comprometia leitura, aumentava erro operacional e atrasava tomada de decisão.',
-    solution: 'Reestruturamos hierarquia visual, blocos de informação e alertas críticos para reduzir carga cognitiva. O painel ganhou velocidade de leitura e suporte a decisões em tempo real.',
+    id: 'excellent-solucoes',
+    title: 'Excellent Soluções',
+    category: 'Reposicionamento de Marca Premium',
+    year: '2026',
+    client: 'Excellent Soluções',
+    heroImage: excellentCover,
+    thumbnail: excellentOverview,
+    description: 'Proposta de identidade visual criada para reposicionar a marca com autoridade, solidez e modernidade no mercado condominial, elevando a percepção de valor desde o primeiro contato.',
+    challenge: 'O diagnóstico revelou uma dor central do segmento: insegurança gerada por gestões amadoras, reativas e sem previsibilidade. Mesmo com operação madura, a marca ainda não comunicava senioridade, controle e confiabilidade na intensidade necessária para reduzir objeções comerciais.',
+    solution: 'Desenvolvemos uma arquitetura visual estratégica baseada em geometria, narrativa e contraste premium. O símbolo foi construído para traduzir estabilidade e liderança, enquanto o sistema tipográfico e cromático reforça clareza, rigor e presença institucional em todos os pontos de contato.',
     results: [
-      '15% ganho de velocidade de execução',
-      '40% redução de erros operacionais',
-      'Adoção por 3 fundos de investimento',
-      'Plataforma bem avaliada em UX institucional',
+      'Autoridade percebida desde o primeiro contato',
+      'Redução de objeções por insegurança na proposta',
+      'Posicionamento premium mais consistente no mercado',
+      'Maior clareza de valor para síndicos e conselhos',
     ],
-    services: ['Design de Dashboard', 'Visualização de Dados', 'UX/UI', 'Arquitetura Front-end', 'Otimização de Performance'],
-    gallery: [
-      'https://images.unsplash.com/photo-1611974765270-ca12586343bb?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
-    ],
+    services: ['Estratégia de Marca', 'Reposicionamento', 'Identidade Visual', 'Direção Criativa', 'Aplicações de Marca'],
+    gallery: [excellentMockupOne, excellentMockupTwo, excellentCover],
     nextProject: 'luminary',
     prevProject: 'edicao-de-video',
-    keyTakeaways: 'Em cenários de alta complexidade, performance nasce da priorização visual: mostrar o essencial no momento certo.',
-    focus: 'Performance',
+    keyTakeaways: 'Quando a identidade visual comunica estabilidade e liderança com precisão, a marca deixa de disputar preço e passa a disputar confiança.',
+    focus: 'Reposicionamento',
   },
 ];
 
 export const getProjectById = (id: string): Project | undefined => {
-  const normalizedId = id === 'nexus' ? 'edicao-de-video' : id;
+  const normalizedId =
+    id === 'nexus'
+      ? 'edicao-de-video'
+      : id === 'apex'
+        ? 'excellent-solucoes'
+        : id;
   return projects.find((p) => p.id === normalizedId);
 };
 
