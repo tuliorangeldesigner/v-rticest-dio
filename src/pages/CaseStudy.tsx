@@ -15,6 +15,7 @@ const CaseStudy = () => {
   const project = getProjectById(id || '');
   const isInProgress = project?.id === 'apex';
   const [activeVimeoId, setActiveVimeoId] = useState<string | null>(null);
+  const [activeGalleryImage, setActiveGalleryImage] = useState<string | null>(null);
   const [isHeroVideoLoaded, setIsHeroVideoLoaded] = useState(false);
   const [visibleVideoCount, setVisibleVideoCount] = useState(VIDEO_BATCH_SIZE);
 
@@ -29,15 +30,17 @@ const CaseStudy = () => {
     window.scrollTo(0, 0);
     setVisibleVideoCount(VIDEO_BATCH_SIZE);
     setActiveVimeoId(null);
+    setActiveGalleryImage(null);
     setIsHeroVideoLoaded(false);
   }, [id]);
 
   useEffect(() => {
-    if (!activeVimeoId) return;
+    if (!activeVimeoId && !activeGalleryImage) return;
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setActiveVimeoId(null);
+        setActiveGalleryImage(null);
       }
     };
 
@@ -49,7 +52,7 @@ const CaseStudy = () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [activeVimeoId]);
+  }, [activeGalleryImage, activeVimeoId]);
 
   if (!project) {
     return (
@@ -344,8 +347,11 @@ const CaseStudy = () => {
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {project.gallery.map((image, i) => (
-                        <div
+                        <button
                           key={i}
+                          type="button"
+                          onClick={() => setActiveGalleryImage(image)}
+                          aria-label={`Ver imagem ${i + 1} em tamanho completo`}
                           className={`group relative overflow-hidden bg-foreground/5 ${
                             i === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'
                           }`}
@@ -362,7 +368,7 @@ const CaseStudy = () => {
                               Ver Completo
                             </div>
                           </div>
-                        </div>
+                        </button>
                       ))}
                     </div>
                   )}
@@ -487,6 +493,39 @@ const CaseStudy = () => {
             >
               Abrir no Vimeo
             </a>
+          </div>
+        </div>
+      )}
+      {activeGalleryImage && (
+        <div
+          className="fixed inset-0 z-[90] bg-black/90 backdrop-blur-sm px-4 py-8 md:p-10 flex items-center justify-center"
+          onClick={() => setActiveGalleryImage(null)}
+        >
+          <div
+            className="w-full max-w-[1200px]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-xs font-mono uppercase tracking-widest text-foreground/70">
+                Visualização completa
+              </span>
+              <button
+                type="button"
+                onClick={() => setActiveGalleryImage(null)}
+                className="h-9 w-9 border border-foreground/20 bg-background/70 flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
+                aria-label="Fechar imagem"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="w-full border border-foreground/15 bg-black flex items-center justify-center p-2 md:p-3">
+              <img
+                src={activeGalleryImage}
+                alt="Imagem em tamanho completo"
+                className="max-h-[82vh] w-auto max-w-full object-contain"
+              />
+            </div>
           </div>
         </div>
       )}

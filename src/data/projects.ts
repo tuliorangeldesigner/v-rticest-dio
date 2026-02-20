@@ -38,9 +38,10 @@ import sumitomo2 from '@/assets/sumitomo2.webp';
 import sumitomo3 from '@/assets/sumitomo3.webp';
 import sumitomo4 from '@/assets/sumitomo4.webp';
 import excellentCover from '@/assets/excellent/excellence12 copiar.webp';
-import excellentOverview from '@/assets/excellent/imagemcapa.webp';
 import excellentMockupOne from '@/assets/excellent/1 copiar.webp';
 import excellentMockupTwo from '@/assets/excellent/13 copiar.webp';
+import excellentCardCover from '@/assets/excellent/1 copiar 23.webp';
+import excellentThirdGallery from '@/assets/excellent/1 copiar 2.webp';
 
 export const projects: Project[] = [
   {
@@ -214,7 +215,7 @@ export const projects: Project[] = [
     year: '2026',
     client: 'Excellent Soluções',
     heroImage: excellentCover,
-    thumbnail: excellentOverview,
+    thumbnail: excellentCardCover,
     description: 'Proposta de identidade visual criada para reposicionar a marca com autoridade, solidez e modernidade no mercado condominial, elevando a percepção de valor desde o primeiro contato.',
     challenge: 'O diagnóstico revelou uma dor central do segmento: insegurança gerada por gestões amadoras, reativas e sem previsibilidade. Mesmo com operação madura, a marca ainda não comunicava senioridade, controle e confiabilidade na intensidade necessária para reduzir objeções comerciais.',
     solution: 'Desenvolvemos uma arquitetura visual estratégica baseada em geometria, narrativa e contraste premium. O símbolo foi construído para traduzir estabilidade e liderança, enquanto o sistema tipográfico e cromático reforça clareza, rigor e presença institucional em todos os pontos de contato.',
@@ -225,7 +226,7 @@ export const projects: Project[] = [
       'Maior clareza de valor para síndicos e conselhos',
     ],
     services: ['Estratégia de Marca', 'Reposicionamento', 'Identidade Visual', 'Direção Criativa', 'Aplicações de Marca'],
-    gallery: [excellentMockupOne, excellentMockupTwo, excellentCover],
+    gallery: [excellentMockupOne, excellentMockupTwo, excellentThirdGallery],
     nextProject: 'luminary',
     prevProject: 'edicao-de-video',
     keyTakeaways: 'Quando a identidade visual comunica estabilidade e liderança com precisão, a marca deixa de disputar preço e passa a disputar confiança.',
