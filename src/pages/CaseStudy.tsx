@@ -7,6 +7,7 @@ import { getProjectById } from '@/data/projects';
 import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import excellentBrandManual from '@/assets/excellent/brandmanual.webp';
 
 const VIDEO_BATCH_SIZE = 12;
 
@@ -76,6 +77,7 @@ const CaseStudy = () => {
   const totalVideos = project.videos?.length ?? 0;
   const visibleVideos = hasVideoGallery ? (project.videos ?? []).slice(0, visibleVideoCount) : [];
   const hasMoreVideos = hasVideoGallery && visibleVideoCount < totalVideos;
+  const isExcellentProject = project.id === 'excellent-solucoes';
 
   return (
       <div className="min-h-screen bg-background selection:bg-accent/20 flex flex-col">
@@ -371,6 +373,27 @@ const CaseStudy = () => {
                         </button>
                       ))}
                     </div>
+                  )}
+                  {isExcellentProject && (
+                    <button
+                      type="button"
+                      onClick={() => setActiveGalleryImage(excellentBrandManual)}
+                      aria-label="Ver brand manual em tamanho completo"
+                      className="group relative mt-6 overflow-hidden bg-foreground/5 w-full aspect-[16/10]"
+                    >
+                      <img
+                        src={excellentBrandManual}
+                        alt="Brand manual Excellent Soluções"
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="px-4 py-2 bg-background text-foreground text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          Ver Completo
+                        </div>
+                      </div>
+                    </button>
                   )}
 
                   {/* Key Takeaways - Compact Accent Card (No Border) */}
