@@ -265,6 +265,7 @@ export const projects: Project[] = [
     prevProject: 'excellent-solucoes',
     keyTakeaways: 'Quando o site de um game combina atmosfera com clareza de proposta, a marca cria conexão mais rápida e converte interesse em comunidade.',
     focus: 'Experiência',
+    projectUrl: 'https://orbitsone.netlify.app/',
   },
   {
     id: 'elektra',
