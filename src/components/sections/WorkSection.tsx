@@ -123,7 +123,7 @@ export const WorkSection = () => {
               to="/work"
               className="group inline-flex flex-col items-end gap-2"
             >
-              <span className="text-sm font-bold uppercase tracking-widest border-b border-foreground/20 pb-1 group-hover:border-accent transition-colors">Ver Operações</span>
+              <span className="text-sm font-bold uppercase tracking-widest border-b border-foreground/20 pb-1 group-hover:border-accent transition-colors">Ver Projetos</span>
             </Link>
           </div>
         </div>
