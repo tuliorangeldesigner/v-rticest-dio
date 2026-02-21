@@ -271,26 +271,20 @@ const Projects = () => {
             </div>
 
             <div className="border border-border bg-card">
-              <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-border">
-                {/* Categories */}
-                <div className="flex-1">
-                  <div className="flex items-center h-full min-h-[4rem] flex-wrap md:flex-nowrap">
-                    {categories.map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => setActiveCategory(category)}
-                        className={`group relative h-16 px-4 md:px-6 lg:px-8 flex-1 flex items-center justify-center text-[11px] md:text-xs font-mono uppercase tracking-wider transition-all hover:bg-accent hover:text-accent-foreground whitespace-nowrap border-r border-border last:border-r-0 ${
-                          activeCategory === category 
-                            ? 'bg-accent text-accent-foreground' 
-                            : 'text-muted-foreground bg-transparent'
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`group relative h-16 px-3 md:px-4 lg:px-6 flex items-center justify-center text-[10px] md:text-xs font-mono uppercase tracking-wider transition-all hover:bg-accent hover:text-accent-foreground whitespace-nowrap ${
+                      activeCategory === category
+                        ? 'bg-accent text-accent-foreground'
+                        : 'text-muted-foreground bg-card'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
               </div>
             </div>
           </motion.div>
