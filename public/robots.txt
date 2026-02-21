@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /portal/
 
-Sitemap: https://verticestudio.vercel.app/sitemap.xml
+Sitemap: https://trdesigner.vercel.app/sitemap.xml

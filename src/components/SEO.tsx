@@ -19,10 +19,10 @@ const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.ap
 const defaultMeta = {
   siteName: 'TR Designer',
   title: 'TR Designer',
-  description: 'Branding estratÃ©gico, sites de alta conversÃ£o e criativos orientados por performance para marcas que querem crescer com percepÃ§Ã£o premium.',
+  description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
   image: `${SITE_URL}/dc2.webp`,
   url: SITE_URL,
-  twitterHandle: '@verticestudio',
+  twitterHandle: '@trdesigner',
   locale: 'pt_BR',
   language: 'pt-BR',
 };

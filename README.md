@@ -1,15 +1,15 @@
-# STUDIO - Digital Agency Template
+# TR Designer - Agency Website
 
-A modern, premium digital agency template built with React, TypeScript, Tailwind CSS, and Framer Motion.
+A modern, premium digital agency website built with React, TypeScript, Tailwind CSS, and Framer Motion.
 
 ## Features
 
-- Modern, responsive design
+- Responsive premium interface
 - Smooth animations with Framer Motion
-- Dark/Light mode support
-- SEO optimized
+- SEO optimization with metadata and structured data
+- Portfolio, services, blog, and client portal pages
 - TypeScript for type safety
-- Tailwind CSS for styling
+- Tailwind CSS and shadcn/ui components
 
 ## Tech Stack
 
@@ -19,24 +19,18 @@ A modern, premium digital agency template built with React, TypeScript, Tailwind
 - Tailwind CSS
 - Framer Motion
 - React Router
-- Shadcn/UI Components
+- shadcn/ui
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-
-# Navigate to project directory
-cd lumina-creative-hub
-
 # Install dependencies
 npm install
 
@@ -58,19 +52,19 @@ npm run preview
 
 ## Project Structure
 
-```
+```text
 src/
-├── assets/          # Static assets (images, fonts)
-├── components/      # Reusable UI components
-│   ├── sections/    # Page sections (Hero, About, etc.)
-│   └── ui/          # Base UI components
-├── data/            # Static data (projects, etc.)
-├── hooks/           # Custom React hooks
-├── lib/             # Utility functions
-├── pages/           # Page components
-└── App.tsx          # Main app component
+|-- assets/          # Static assets (images, fonts, videos)
+|-- components/      # Reusable UI components
+|   |-- sections/    # Homepage sections
+|   `-- ui/          # Base shadcn/ui primitives
+|-- data/            # Static content (projects, blog, portal)
+|-- hooks/           # Custom hooks
+|-- lib/             # Utilities
+|-- pages/           # Route pages
+`-- App.tsx          # App router and providers
 ```
 
 ## License
 
-See LICENSE.md for license details.
+See `LICENSE.md` for license details.

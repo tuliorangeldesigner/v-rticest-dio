@@ -296,7 +296,7 @@ const About = () => {
                 }}
                 role="button"
                 tabIndex={0}
-                className="group relative flex-1 p-8 lg:p-12 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[3] bg-background hover:bg-accent/5 overflow-hidden flex flex-col justify-between min-h-[300px] lg:min-h-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                className="group relative flex-1 p-8 lg:p-12 transition-all duration-700 ease-smooth hover:flex-[3] bg-background hover:bg-accent/5 overflow-hidden flex flex-col justify-between min-h-[300px] lg:min-h-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
               >
                 <div className="flex justify-between items-start">
                   <span className="text-sm font-mono text-accent">{value.number}</span>

@@ -13,7 +13,7 @@ const VIDEO_BATCH_SIZE = 12;
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
   const project = getProjectById(id || '');
-  const isInProgress = project?.id === 'apex';
+  const isInProgress = false;
   const [activeVimeoId, setActiveVimeoId] = useState<string | null>(null);
   const [activeGalleryImage, setActiveGalleryImage] = useState<string | null>(null);
   const [isHeroVideoLoaded, setIsHeroVideoLoaded] = useState(false);

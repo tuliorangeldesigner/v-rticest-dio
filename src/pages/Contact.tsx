@@ -9,6 +9,7 @@ import { toast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import SEO from '@/components/SEO';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
@@ -104,6 +105,11 @@ const Contact = () => {
 
   return (
       <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
+        <SEO
+          title="Contato"
+          description="Fale com a TR Designer e solicite um diagnóstico estratégico para posicionamento de marca, site e performance."
+          url="/contact"
+        />
         <Navigation />
 
         {/* Hero Section */}
@@ -278,7 +284,7 @@ const Contact = () => {
                 <div className="flex items-center gap-4 mb-12">
                   <span className="text-sm font-mono text-accent">03</span>
                   <div className="h-px w-12 bg-accent" />
-                  <span className="text-sm font-mono text-muted-foreground tracking-wider">DIAGNSTICO</span>
+                  <span className="text-sm font-mono text-muted-foreground tracking-wider">DIAGNÓSTICO</span>
                 </div>
 
                 <div className="mb-8 text-muted-foreground leading-relaxed">

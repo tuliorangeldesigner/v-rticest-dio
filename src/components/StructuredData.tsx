@@ -52,7 +52,7 @@ export const OrganizationSchema = ({
   name = 'TR Designer',
   url = SITE_URL,
   logo = `${SITE_URL}/favicon.svg`,
-  description = 'Branding estratÃ©gico, sites de alta conversÃ£o e criativos orientados por performance para marcas que querem crescer com percepÃ§Ã£o premium.',
+  description = 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
   email = 'tuliorangeldesigner@gmail.com',
   address = {
     streetAddress: 'Morretes',
@@ -197,7 +197,7 @@ export const WebsiteSchema = () => {
     '@type': 'WebSite',
     name: 'TR Designer',
     url: SITE_URL,
-    description: 'Branding estratÃ©gico, sites de alta conversÃ£o e criativos orientados por performance.',
+    description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance.',
     inLanguage: 'pt-BR',
   };
 

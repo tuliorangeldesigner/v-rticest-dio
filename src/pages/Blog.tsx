@@ -5,6 +5,7 @@ import { ArrowUpRight, Search } from 'lucide-react';
 import { blogPosts } from '@/data/blog';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import SEO from '@/components/SEO';
 
 const categories = ['TODOS', 'POSICIONAMENTO', 'PRESENÇA DIGITAL', 'CONVERSÃO', 'PERFORMANCE'];
 
@@ -53,6 +54,11 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
+      <SEO
+        title="Blog"
+        description="Artigos da TR Designer sobre posicionamento, presença digital, conversão e performance para marcas que querem crescer com autoridade."
+        url="/blog"
+      />
       <Navigation />
 
       <section ref={heroRef} className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
@@ -167,7 +173,6 @@ const Blog = () => {
                       src={featuredPost.image}
                       alt={featuredPost.title}
                       loading="eager"
-                      fetchPriority="high"
                       decoding="async"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />

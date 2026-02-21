@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { projects } from '@/data/projects';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import SEO from '@/components/SEO';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const isInProgress = project.id === 'apex';
+  const isInProgress = false;
 
   return (
     <motion.div
@@ -153,6 +154,11 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen bg-background" onMouseMove={handleMouseMove}>
+      <SEO
+        title="Projetos"
+        description="Portfólio estratégico da TR Designer com cases de branding, presença digital e performance orientados para autoridade e conversão."
+        url="/work"
+      />
       <Navigation />
 
       {/* Hero Section */}
@@ -298,7 +304,7 @@ const Projects = () => {
             layout
             className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-20"
           >
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence>
               {filteredProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} />
               ))}
