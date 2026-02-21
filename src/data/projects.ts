@@ -19,6 +19,7 @@
   prevProject: string;
   keyTakeaways?: string;
   focus?: string;
+  projectUrl?: string;
 }
 
 import gwapo1 from '@/assets/gwapo1.webp';
@@ -42,6 +43,11 @@ import excellentMockupOne from '@/assets/excellent/1 copiar.webp';
 import excellentMockupTwo from '@/assets/excellent/13 copiar.webp';
 import excellentCardCover from '@/assets/excellent/1 copiar 23.webp';
 import excellentThirdGallery from '@/assets/excellent/1 copiar 2.webp';
+import webCapa from '@/assets/webcapa.webp';
+import webImage from '@/assets/web.webp';
+import webImage2 from '@/assets/web2.webp';
+import webImage3 from '@/assets/web3.webp';
+import webImage4 from '@/assets/web4.webp';
 
 export const projects: Project[] = [
   {
@@ -64,7 +70,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Marca', 'Identidade Visual', 'Design de Logotipo', 'Guia de Marca', 'Materiais Institucionais'],
     gallery: [gwapo2, gwapo3, gwapo4],
     nextProject: 'ethereal',
-    prevProject: 'excellent-solucoes',
+    prevProject: 'elektra',
     keyTakeaways: 'Quando a marca traduz inovação com clareza e estética coerente, o mercado percebe valor antes da proposta comercial.',
     focus: 'Reposicionamento',
   },
@@ -227,10 +233,35 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Reposicionamento', 'Identidade Visual', 'Direção Criativa', 'Aplicações de Marca'],
     gallery: [excellentMockupOne, excellentMockupTwo, excellentThirdGallery],
-    nextProject: 'luminary',
+    nextProject: 'elektra',
     prevProject: 'edicao-de-video',
     keyTakeaways: 'Quando a identidade visual comunica estabilidade e liderança com precisão, a marca deixa de disputar preço e passa a disputar confiança.',
     focus: 'Reposicionamento',
+  },
+  {
+    id: 'elektra',
+    title: 'Elektra',
+    category: 'Landing Page • Site',
+    year: '2026',
+    client: 'K30 E-Bike',
+    heroImage: webCapa,
+    thumbnail: webCapa,
+    description: 'Landing page/site da Elektra para a bike elétrica K30, construída para valorizar produto, destacar diferenciais e conduzir o visitante para ação.',
+    challenge: 'A marca precisava comunicar tecnologia, design e performance da K30 com clareza, sem cair em apresentação genérica e sem perder foco em conversão.',
+    solution: 'Desenvolvemos uma estrutura com narrativa objetiva, seções de prova, hierarquia visual forte e fluxo orientado para transformar interesse em clique e contato.',
+    results: [
+      'Percepção de produto premium reforçada',
+      'Mensagem da K30 mais clara para novos visitantes',
+      'Base pronta para campanhas de tráfego e vendas',
+      'Experiência mais fluida da descoberta à decisão',
+    ],
+    services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Estratégica', 'Otimização de Conversão'],
+    gallery: [webImage, webImage2, webImage3, webImage4],
+    nextProject: 'luminary',
+    prevProject: 'excellent-solucoes',
+    keyTakeaways: 'Uma landing page forte organiza narrativa, prova e CTA para acelerar decisão de compra sem depender só de desconto.',
+    focus: 'Conversão',
+    projectUrl: 'https://elektraebike.netlify.app/',
   },
 ];
 

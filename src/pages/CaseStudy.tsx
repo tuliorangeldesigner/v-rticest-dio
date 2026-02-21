@@ -145,10 +145,20 @@ const CaseStudy = () => {
                    <p className="text-lg md:text-xl text-foreground/60 max-w-2xl leading-relaxed">
                      {isInProgress ? 'Em breve novo projeto.' : project.description}
                    </p>
-                   <div className="flex items-center gap-3">
+                   <div className="flex items-center gap-3 flex-wrap">
                       <div className="px-4 py-2 rounded-full border border-foreground/10 text-xs font-bold uppercase tracking-widest bg-foreground/5">
                         {isInProgress ? 'Em andamento' : 'Estudo de Caso'}
                       </div>
+                      {project.projectUrl && (
+                        <a
+                          href={project.projectUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-4 py-2 rounded-full border border-accent/40 text-xs font-bold uppercase tracking-widest text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                        >
+                          Ver Site
+                        </a>
+                      )}
                    </div>
                 </div>
               </div>
