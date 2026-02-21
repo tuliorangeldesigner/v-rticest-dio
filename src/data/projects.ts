@@ -43,7 +43,7 @@ import excellentMockupOne from '@/assets/excellent/1 copiar.webp';
 import excellentMockupTwo from '@/assets/excellent/13 copiar.webp';
 import excellentCardCover from '@/assets/excellent/1 copiar 23.webp';
 import excellentThirdGallery from '@/assets/excellent/1 copiar 2.webp';
-import webCapa from '@/assets/webcapa.webp';
+import webCapa1 from '@/assets/webcapa1.webp';
 import webImage from '@/assets/web.webp';
 import webImage2 from '@/assets/web2.webp';
 import webImage3 from '@/assets/web3.webp';
@@ -244,8 +244,8 @@ export const projects: Project[] = [
     category: 'Landing Page • Site',
     year: '2026',
     client: 'K30 E-Bike',
-    heroImage: webCapa,
-    thumbnail: webCapa,
+    heroImage: webCapa1,
+    thumbnail: webCapa1,
     description: 'Landing page/site da Elektra para a bike elétrica K30, construída para valorizar produto, destacar diferenciais e conduzir o visitante para ação.',
     challenge: 'A marca precisava comunicar tecnologia, design e performance da K30 com clareza, sem cair em apresentação genérica e sem perder foco em conversão.',
     solution: 'Desenvolvemos uma estrutura com narrativa objetiva, seções de prova, hierarquia visual forte e fluxo orientado para transformar interesse em clique e contato.',
