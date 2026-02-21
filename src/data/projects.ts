@@ -48,6 +48,10 @@ import webImage from '@/assets/web.webp';
 import webImage2 from '@/assets/web2.webp';
 import webImage3 from '@/assets/web3.webp';
 import webImage4 from '@/assets/web4.webp';
+import orbitsCover from '@/assets/orbits.webp';
+import orbitsGalleryOne from '@/assets/orbits1.webp';
+import orbitsGalleryTwo from '@/assets/orbits2.webp';
+import orbitsGalleryThree from '@/assets/orbits3.webp';
 
 export const projects: Project[] = [
   {
@@ -233,10 +237,34 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Reposicionamento', 'Identidade Visual', 'Direção Criativa', 'Aplicações de Marca'],
     gallery: [excellentMockupOne, excellentMockupTwo, excellentThirdGallery],
-    nextProject: 'elektra',
+    nextProject: 'orbits',
     prevProject: 'edicao-de-video',
     keyTakeaways: 'Quando a identidade visual comunica estabilidade e liderança com precisão, a marca deixa de disputar preço e passa a disputar confiança.',
     focus: 'Reposicionamento',
+  },
+  {
+    id: 'orbits',
+    title: 'Orbits',
+    category: 'Site de Game',
+    year: '2026',
+    client: 'Orbits Game',
+    heroImage: orbitsCover,
+    thumbnail: orbitsCover,
+    description: 'Site do game Orbits desenvolvido para apresentar o universo do jogo com impacto visual, narrativa clara e fluxo pensado para transformar curiosidade em comunidade ativa.',
+    challenge: 'O projeto precisava comunicar atmosfera, diferencial e proposta do game logo no primeiro contato, sem criar uma página pesada ou confusa para quem chega por campanhas e redes sociais.',
+    solution: 'Construímos uma landing page com hierarquia visual forte, blocos de conteúdo objetivos e direção criativa alinhada ao universo do jogo, equilibrando estética, performance e clareza de mensagem.',
+    results: [
+      'Apresentação do game com identidade própria e memorável',
+      'Mensagem principal mais clara para novos visitantes',
+      'Estrutura pronta para lançamentos, atualizações e campanhas',
+      'Experiência de navegação mais envolvente e orientada para ação',
+    ],
+    services: ['Web Design', 'Landing Page', 'Direção Criativa', 'UX/UI', 'Copy Estratégica'],
+    gallery: [orbitsGalleryOne, orbitsGalleryTwo, orbitsGalleryThree],
+    nextProject: 'elektra',
+    prevProject: 'excellent-solucoes',
+    keyTakeaways: 'Quando o site de um game combina atmosfera com clareza de proposta, a marca cria conexão mais rápida e converte interesse em comunidade.',
+    focus: 'Experiência',
   },
   {
     id: 'elektra',
@@ -258,7 +286,7 @@ export const projects: Project[] = [
     services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Estratégica', 'Otimização de Conversão'],
     gallery: [webImage, webImage2, webImage3, webImage4],
     nextProject: 'luminary',
-    prevProject: 'excellent-solucoes',
+    prevProject: 'orbits',
     keyTakeaways: 'Uma landing page forte organiza narrativa, prova e CTA para acelerar decisão de compra sem depender só de desconto.',
     focus: 'Conversão',
     projectUrl: 'https://elektraebike.netlify.app/',
