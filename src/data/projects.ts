@@ -52,6 +52,10 @@ import orbitsCover from '@/assets/orbits.webp';
 import orbitsGalleryOne from '@/assets/orbits1.webp';
 import orbitsGalleryTwo from '@/assets/orbits2.webp';
 import orbitsGalleryThree from '@/assets/orbits3.webp';
+import naturisCover from '@/assets/naturiscapa.webp';
+import naturisGalleryOne from '@/assets/naturis1.webp';
+import naturisGalleryTwo from '@/assets/naturis2.webp';
+import naturisGalleryThree from '@/assets/naturis3.webp';
 
 export const projects: Project[] = [
   {
@@ -237,10 +241,35 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Reposicionamento', 'Identidade Visual', 'Direção Criativa', 'Aplicações de Marca'],
     gallery: [excellentMockupOne, excellentMockupTwo, excellentThirdGallery],
-    nextProject: 'orbits',
+    nextProject: 'naturis',
     prevProject: 'edicao-de-video',
     keyTakeaways: 'Quando a identidade visual comunica estabilidade e liderança com precisão, a marca deixa de disputar preço e passa a disputar confiança.',
     focus: 'Reposicionamento',
+  },
+  {
+    id: 'naturis',
+    title: 'Naturis',
+    category: 'Site de Nutrição',
+    year: '2026',
+    client: 'Naturis',
+    heroImage: naturisCover,
+    thumbnail: naturisCover,
+    description: 'Site de nutrição criado para transformar visitantes em pacientes, com narrativa persuasiva, prova de autoridade e fluxo pensado para converter interesse em agendamento.',
+    challenge: 'A Naturis precisava parar de perder potenciais pacientes por falta de clareza no digital. O posicionamento não transmitia confiança imediata, diferenciais do atendimento e método de acompanhamento com a força necessária para gerar ação.',
+    solution: 'Desenvolvemos uma página com estrutura de conversão: promessa clara, benefícios tangíveis, provas de resultado e chamadas estratégicas para contato. A comunicação foi construída para reduzir objeções, aumentar percepção de valor e incentivar decisões rápidas.',
+    results: [
+      'Posicionamento profissional percebido em segundos',
+      'Mensagem de valor mais clara para novos visitantes',
+      'Estrutura otimizada para gerar mais agendamentos',
+      'Experiência mais fluida do primeiro acesso ao clique',
+    ],
+    services: ['Web Design', 'Landing Page', 'UX/UI', 'Copy Persuasiva', 'Otimização de Conversão'],
+    gallery: [naturisGalleryOne, naturisGalleryTwo, naturisGalleryThree],
+    nextProject: 'orbits',
+    prevProject: 'excellent-solucoes',
+    keyTakeaways: 'Quando o site comunica autoridade, método e transformação de forma direta, o paciente decide com mais confiança e menos resistência.',
+    focus: 'Conversão',
+    projectUrl: 'https://naturisbr.netlify.app/',
   },
   {
     id: 'orbits',
@@ -262,7 +291,7 @@ export const projects: Project[] = [
     services: ['Web Design', 'Landing Page', 'Direção Criativa', 'UX/UI', 'Copy Estratégica'],
     gallery: [orbitsGalleryOne, orbitsGalleryTwo, orbitsGalleryThree],
     nextProject: 'elektra',
-    prevProject: 'excellent-solucoes',
+    prevProject: 'naturis',
     keyTakeaways: 'Quando o site de um game combina atmosfera com clareza de proposta, a marca cria conexão mais rápida e converte interesse em comunidade.',
     focus: 'Experiência',
     projectUrl: 'https://orbitsone.netlify.app/',
