@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import { AnimatedLine } from '@/components/AnimatedText';
-import { MessageCircle, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const words = [
@@ -12,6 +12,12 @@ const words = [
   { text: 'Impõe', number: '03' },
   { text: 'Respeito', number: '04', accent: true },
 ];
+
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+    <path d="M19.1 4.9A9.8 9.8 0 0 0 3.37 16.3L2 21.99l5.82-1.53a9.79 9.79 0 0 0 14.97-8.3c0-2.63-1.03-5.1-2.9-6.96ZM12 20.1c-1.6 0-3.16-.42-4.54-1.22l-.33-.2-3.46.9.92-3.37-.22-.35a8.05 8.05 0 1 1 7.63 4.24Zm4.42-6.06c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.37-1.94-1.17-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.01-.37.1-.49.1-.1.24-.26.36-.4.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.42-.54-.43h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.12.16 1.54.1.47-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
+  </svg>
+);
 
 export const CTASection = () => {
   const ref = useRef(null);
@@ -186,7 +192,7 @@ export const CTASection = () => {
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold text-sm md:text-base rounded-full overflow-hidden"
                 >
-                  <MessageCircle className="w-5 h-5 relative z-10" />
+                  <WhatsAppIcon className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">Solicitar Diagnóstico</span>
                   <motion.div
                     className="relative z-10 w-6 h-6 rounded-full bg-background/20 flex items-center justify-center"
