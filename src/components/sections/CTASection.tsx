@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import { AnimatedLine } from '@/components/AnimatedText';
-import { Mail, ArrowUpRight } from 'lucide-react';
+import { MessageCircle, ArrowUpRight } from 'lucide-react';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const words = [
@@ -186,7 +186,7 @@ export const CTASection = () => {
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold text-sm md:text-base rounded-full overflow-hidden"
                 >
-                  <Mail className="w-5 h-5 relative z-10" />
+                  <MessageCircle className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">Solicitar Diagnóstico</span>
                   <motion.div
                     className="relative z-10 w-6 h-6 rounded-full bg-background/20 flex items-center justify-center"
