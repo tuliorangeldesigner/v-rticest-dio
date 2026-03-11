@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronUp, Download, Lock, X, ZoomIn } from 'lucide-react';
@@ -71,20 +71,22 @@ const getVisibleSectionKeys = (hasDownloads: boolean): PortalSectionKey[] => {
 const ClientPortal = () => {
   const { slug } = useParams<{ slug: string }>();
   const portal = getClientPortalBySlug(slug || '');
+  const portalSlug = portal?.slug;
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
   const mockupImages = useMemo(() => {
-    if (!portal) return [];
-    if (portal.slug === 'excellent-solucoes') return excellentMockupImages.slice(0, 12);
-    if (portal.slug === 'lexs-company') return lexsMockupImages;
+    if (!portalSlug) return [];
+    if (portalSlug === 'excellent-solucoes') return excellentMockupImages.slice(0, 12);
+    if (portalSlug === 'lexs-company') return lexsMockupImages;
     return [];
-  }, [portal]);
+  }, [portalSlug]);
+  const hasDownloads = (portal?.downloads.length || 0) > 0;
   const visibleSectionKeys = useMemo(
-    () => getVisibleSectionKeys(Boolean(portal?.downloads.length)),
-    [portal?.downloads.length],
+    () => getVisibleSectionKeys(hasDownloads),
+    [hasDownloads],
   );
 
-  const smoothScrollToTop = () => {
+  const smoothScrollToTop = useCallback(() => {
     const startY = window.scrollY;
     if (startY <= 0) return;
     const durationMs = 650;
@@ -101,18 +103,14 @@ const ClientPortal = () => {
     };
 
     requestAnimationFrame(step);
-  };
+  }, []);
 
-  const handleSectionChange = (section: PortalSectionKey, shouldScrollToSectionStart = false) => {
+  const handleSectionChange = useCallback((section: PortalSectionKey, shouldScrollToSectionStart = false) => {
     setActiveSection(section);
     if (shouldScrollToSectionStart) {
       requestAnimationFrame(() => smoothScrollToTop());
     }
-  };
-
-  const scrollToPageTop = () => {
-    smoothScrollToTop();
-  };
+  }, [smoothScrollToTop]);
 
   const renderSectionMenu = (spacingClassName: string, shouldScrollToSectionStart = false) => (
     <section className={`container-wide ${spacingClassName}`}>
@@ -161,23 +159,27 @@ const ClientPortal = () => {
     }
   }, [activeSection, visibleSectionKeys]);
 
-  const activeContent = useMemo(() => {
-    if (!portal) return [];
-    switch (activeSection) {
-      case 'visao-geral':
-        return portal.overview;
-      case 'conceito':
-        return portal.conceito;
-      case 'manual':
-        return portal.manual;
-      case 'aplicacoes':
-        return portal.aplicacoes;
-      case 'mockups':
-        return portal.mockups;
-      default:
-        return [];
+  const sectionContentMap = useMemo(() => {
+    if (!portal) {
+      return {
+        'visao-geral': [],
+        conceito: [],
+        manual: [],
+        aplicacoes: [],
+        mockups: [],
+        downloads: [],
+      } as Record<PortalSectionKey, string[]>;
     }
-  }, [activeSection, portal]);
+    return {
+      'visao-geral': portal.overview,
+      conceito: portal.conceito,
+      manual: portal.manual,
+      aplicacoes: portal.aplicacoes,
+      mockups: portal.mockups,
+      downloads: [],
+    } as Record<PortalSectionKey, string[]>;
+  }, [portal]);
+  const activeContent = sectionContentMap[activeSection] || [];
 
   if (!portal) {
     return (
@@ -282,7 +284,7 @@ const ClientPortal = () => {
               <div className="space-y-7">
                 {activeContent.map((item, index) => (
                   <p
-                    key={item}
+                    key={`${index}-${item}`}
                     className={`leading-[1.9] text-lg ${
                       index === 0 ? 'text-foreground' : 'text-muted-foreground'
                     }`}
@@ -399,7 +401,7 @@ const ClientPortal = () => {
 
       <button
         type="button"
-        onClick={scrollToPageTop}
+        onClick={smoothScrollToTop}
         aria-label="Voltar ao início"
         className="fixed bottom-6 right-6 z-[90] w-12 h-12 rounded-full border border-border bg-background/90 text-foreground backdrop-blur-sm shadow-lg transition-colors hover:bg-accent hover:text-accent-foreground"
       >
