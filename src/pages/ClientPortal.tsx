@@ -39,6 +39,16 @@ const excellentMockupEntries = Object.entries(excellentMockupModules)
 swapMockupPosition(excellentMockupEntries, '1 copiar.webp', '1 copiar 2.webp');
 swapMockupPosition(excellentMockupEntries, '1 copiar 21.webp', '13 copiar.webp');
 const excellentMockupImages = excellentMockupEntries.map(([, src]) => src);
+const lexsMockupModules = import.meta.glob(
+  ['/src/assets/lexs/*.webp', '/src/assets/lexs/*.png', '/src/assets/lexs/*.jpg', '/src/assets/lexs/*.jpeg'],
+  {
+    eager: true,
+    import: 'default',
+  },
+) as Record<string, string>;
+const lexsMockupImages = Object.entries(lexsMockupModules)
+  .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
+  .map(([, src]) => src);
 
 const sectionLabels: Record<PortalSectionKey, string> = {
   'visao-geral': 'Visão Geral',
@@ -61,7 +71,12 @@ const ClientPortal = () => {
   const portal = getClientPortalBySlug(slug || '');
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
-  const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages.slice(0, 12) : [];
+  const mockupImages = useMemo(() => {
+    if (!portal) return [];
+    if (portal.slug === 'excellent-solucoes') return excellentMockupImages.slice(0, 12);
+    if (portal.slug === 'lexs-company') return lexsMockupImages;
+    return [];
+  }, [portal]);
   const visibleSectionKeys = useMemo(
     () => getVisibleSectionKeys(Boolean(portal?.downloads.length)),
     [portal?.downloads.length],
