@@ -204,7 +204,26 @@ export const clientPortals: ClientPortal[] = [
       'E o sistema de variações garante consistência, flexibilidade e escalabilidade.',
       'O resultado é uma marca com força institucional, apelo comercial e densidade estratégica — preparada para elevar a percepção da empresa e consolidar sua presença no mercado.',
     ],
-    downloads: [],
+    downloads: [
+      {
+        label: 'Pacote de Marca (.zip)',
+        description: 'Arquivos editáveis de identidade visual e variações.',
+        href: '#',
+        unlocked: false,
+      },
+      {
+        label: 'Manual da Marca (.pdf)',
+        description: 'Documento consolidado de diretrizes e aplicações.',
+        href: '#',
+        unlocked: false,
+      },
+      {
+        label: 'Apresentação Estratégica (.pdf)',
+        description: 'Conceito, narrativa e lógica de posicionamento.',
+        href: '#',
+        unlocked: false,
+      },
+    ],
   },
 ];
 
