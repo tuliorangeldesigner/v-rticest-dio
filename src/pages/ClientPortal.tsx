@@ -49,6 +49,7 @@ const lexsMockupModules = import.meta.glob(
   },
 ) as Record<string, string>;
 const lexsMockupImages = Object.entries(lexsMockupModules)
+  .filter(([path]) => !path.toLowerCase().includes('projeto-_6_.png'))
   .sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true, sensitivity: 'base' }))
   .map(([, src]) => src);
 
