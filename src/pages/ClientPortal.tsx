@@ -48,7 +48,13 @@ const sectionLabels: Record<PortalSectionKey, string> = {
   mockups: 'Mockups',
   downloads: 'Downloads',
 };
-const sectionKeys = Object.keys(sectionLabels) as PortalSectionKey[];
+const getVisibleSectionKeys = (hasDownloads: boolean): PortalSectionKey[] => {
+  const keys: PortalSectionKey[] = ['visao-geral', 'conceito', 'manual', 'aplicacoes', 'mockups'];
+  if (hasDownloads) {
+    keys.push('downloads');
+  }
+  return keys;
+};
 
 const ClientPortal = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -56,6 +62,10 @@ const ClientPortal = () => {
   const [activeSection, setActiveSection] = useState<PortalSectionKey>('visao-geral');
   const [selectedMockup, setSelectedMockup] = useState<string | null>(null);
   const mockupImages = portal?.slug === 'excellent-solucoes' ? excellentMockupImages.slice(0, 12) : [];
+  const visibleSectionKeys = useMemo(
+    () => getVisibleSectionKeys(Boolean(portal?.downloads.length)),
+    [portal?.downloads.length],
+  );
 
   const smoothScrollToTop = () => {
     const startY = window.scrollY;
@@ -90,8 +100,12 @@ const ClientPortal = () => {
   const renderSectionMenu = (spacingClassName: string, shouldScrollToSectionStart = false) => (
     <section className={`container-wide ${spacingClassName}`}>
       <div className="border border-border bg-background">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
-          {sectionKeys.map((key) => (
+        <div
+          className={`grid grid-cols-2 md:grid-cols-3 ${
+            visibleSectionKeys.length === 6 ? 'lg:grid-cols-6' : 'lg:grid-cols-5'
+          } divide-x divide-y md:divide-y-0 divide-border`}
+        >
+          {visibleSectionKeys.map((key) => (
             <button
               key={key}
               onClick={() => handleSectionChange(key, shouldScrollToSectionStart)}
@@ -123,6 +137,12 @@ const ClientPortal = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedMockup]);
+
+  useEffect(() => {
+    if (!visibleSectionKeys.includes(activeSection)) {
+      setActiveSection(visibleSectionKeys[0] || 'visao-geral');
+    }
+  }, [activeSection, visibleSectionKeys]);
 
   const activeContent = useMemo(() => {
     if (!portal) return [];
