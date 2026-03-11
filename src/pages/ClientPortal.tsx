@@ -8,6 +8,8 @@ import SEO from '@/components/SEO';
 import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPortal';
 import excellentBrandImage from '@/assets/excellent/brandmanual.webp';
 import excellentMobileCover from '@/assets/excellent/mobilecliente.webp';
+import lexsConceptImage from '@/assets/lexs/projeto-_3_.jpg';
+import lexsVisualDirectionImage from '@/assets/lexs/projeto-_7_.png';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', {
@@ -295,6 +297,28 @@ const ClientPortal = () => {
                   <img
                     src={excellentBrandImage}
                     alt={`Brand board - ${portal.clientName}`}
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                </figure>
+              ) : null}
+
+              {activeSection === 'manual' && portal.slug === 'lexs-company' ? (
+                <figure className="mt-12 border border-border bg-card/20 overflow-hidden">
+                  <img
+                    src={lexsVisualDirectionImage}
+                    alt={`Direção visual - ${portal.clientName}`}
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                </figure>
+              ) : null}
+
+              {activeSection === 'conceito' && portal.slug === 'lexs-company' ? (
+                <figure className="mt-12 border border-border bg-card/20 overflow-hidden">
+                  <img
+                    src={lexsConceptImage}
+                    alt={`Conceito da marca - ${portal.clientName}`}
                     className="w-full h-auto object-cover"
                     loading="lazy"
                   />
