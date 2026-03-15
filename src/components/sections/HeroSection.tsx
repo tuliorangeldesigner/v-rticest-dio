@@ -2,7 +2,8 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
-import backHeroVideo from '@/assets/backhero1.mp4';
+import backHeroVideo from '@/assets/backhero1-web.mp4';
+import backHeroPoster from '@/assets/backhero1-poster.jpg';
 
 const words = [
   { text: 'Nós', number: '01' },
@@ -55,6 +56,18 @@ export const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'video';
+    preloadLink.href = backHeroVideo;
+    document.head.appendChild(preloadLink);
+
+    return () => {
+      document.head.removeChild(preloadLink);
+    };
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
     cursorX.set(e.clientX - rect.left);
@@ -78,6 +91,8 @@ export const HeroSection = () => {
           muted
           playsInline
           preload="auto"
+          poster={backHeroPoster}
+          aria-hidden="true"
           className="w-full h-full object-cover scale-110"
         >
           <source src={backHeroVideo} type="video/mp4" />
