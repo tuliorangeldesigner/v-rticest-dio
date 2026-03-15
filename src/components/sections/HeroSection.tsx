@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import backHeroVideo from '@/assets/backhero1-web.mp4';
-import backHeroPoster from '@/assets/backhero1-poster.jpg';
+import backHeroPoster from '@/assets/frame hero.png';
 
 const words = [
   { text: 'Nós', number: '01' },
@@ -54,18 +54,6 @@ export const HeroSection = () => {
     updateTime();
     const interval = setInterval(updateTime, 30000);
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.as = 'video';
-    preloadLink.href = backHeroVideo;
-    document.head.appendChild(preloadLink);
-
-    return () => {
-      document.head.removeChild(preloadLink);
-    };
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
