@@ -8,7 +8,7 @@ import SEO from '@/components/SEO';
 import { getClientPortalBySlug, type PortalSectionKey } from '@/data/clientPortal';
 import excellentBrandImage from '@/assets/excellent/brandmanual.webp';
 import excellentMobileCover from '@/assets/excellent/mobilecliente.webp';
-import lexsConceptImage from '@/assets/lexs/projeto-_3_.jpg';
+import lexsConceptImage from '@/assets/lexs/projeto-_3_.webp';
 import lexsVisualDirectionImage from '@/assets/lexs/projeto-_7_.png';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
@@ -42,7 +42,7 @@ swapMockupPosition(excellentMockupEntries, '1 copiar.webp', '1 copiar 2.webp');
 swapMockupPosition(excellentMockupEntries, '1 copiar 21.webp', '13 copiar.webp');
 const excellentMockupImages = excellentMockupEntries.map(([, src]) => src);
 const lexsMockupModules = import.meta.glob(
-  ['/src/assets/lexs/*.webp', '/src/assets/lexs/*.png', '/src/assets/lexs/*.jpg', '/src/assets/lexs/*.jpeg'],
+  ['/src/assets/lexs/*.webp', '/src/assets/lexs/*.png'],
   {
     eager: true,
     import: 'default',

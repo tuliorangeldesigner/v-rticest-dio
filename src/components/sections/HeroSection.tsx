@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
-import excellentVideo from '@/assets/excellent1.mp4';
+import backHeroVideo from '@/assets/BACKHERO.mp4';
 
 const words = [
   { text: 'Nós', number: '01' },
@@ -80,7 +80,7 @@ export const HeroSection = () => {
           preload="metadata"
           className="w-full h-full object-cover opacity-40 scale-110"
         >
-          <source src={excellentVideo} type="video/mp4" />
+          <source src={backHeroVideo} type="video/mp4" />
         </video>
         <div className="absolute inset-x-0 top-0 bottom-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </motion.div>
