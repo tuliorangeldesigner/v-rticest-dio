@@ -3,7 +3,6 @@ import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
 import backHeroVideo from '@/assets/backhero1-web.mp4';
-import backHeroPoster from '@/assets/frame hero.png';
 
 const words = [
   { text: 'Nós', number: '01' },
@@ -79,7 +78,6 @@ export const HeroSection = () => {
           muted
           playsInline
           preload="auto"
-          poster={backHeroPoster}
           aria-hidden="true"
           className="w-full h-full object-cover scale-110"
         >
