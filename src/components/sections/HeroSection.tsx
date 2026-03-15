@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '@/components/MagneticButton';
-import backHeroVideo from '@/assets/backhero1.mp4';
+import backHeroVideo from '@/assets/backhero1-optimized.mp4';
 
 const words = [
   { text: 'Nós', number: '01' },
@@ -77,7 +77,7 @@ export const HeroSection = () => {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           className="w-full h-full object-cover scale-110"
         >
           <source src={backHeroVideo} type="video/mp4" />
