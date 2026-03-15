@@ -1,21 +1,40 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
-import CustomCursor from '@/components/CustomCursor';
 import HeroSection from '@/components/sections/HeroSection';
-import AboutSection from '@/components/sections/AboutSection';
-import ServicesSection from '@/components/sections/ServicesSection';
-import WorkSection from '@/components/sections/WorkSection';
-import ProcessSection from '@/components/sections/ProcessSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
-import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { OrganizationSchema, WebsiteSchema, ProfessionalServiceSchema } from '@/components/StructuredData';
+import DeferredSection from '@/components/DeferredSection';
+
+const CustomCursor = lazy(() => import('@/components/CustomCursor'));
+const AboutSection = lazy(() => import('@/components/sections/AboutSection'));
+const ServicesSection = lazy(() => import('@/components/sections/ServicesSection'));
+const WorkSection = lazy(() => import('@/components/sections/WorkSection'));
+const ProcessSection = lazy(() => import('@/components/sections/ProcessSection'));
+const TestimonialsSection = lazy(() => import('@/components/sections/TestimonialsSection'));
+const CTASection = lazy(() => import('@/components/sections/CTASection'));
+
+const SectionFallback = ({ className, minHeight }: { className?: string; minHeight: string }) => (
+  <div className={className} style={{ minHeight }} aria-hidden="true" />
+);
 
 const Index = () => {
+  const [showCustomCursor, setShowCustomCursor] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const updateCursor = () => setShowCustomCursor(mediaQuery.matches);
+
+    updateCursor();
+    mediaQuery.addEventListener('change', updateCursor);
+
+    return () => mediaQuery.removeEventListener('change', updateCursor);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
-      <SEO 
+      <SEO
         title="TR Designer"
         description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
         image="https://trdesigner.vercel.app/dc2.webp"
@@ -25,28 +44,55 @@ const Index = () => {
       <WebsiteSchema />
       <ProfessionalServiceSchema />
 
-      <CustomCursor />
+      {showCustomCursor ? (
+        <Suspense fallback={null}>
+          <CustomCursor />
+        </Suspense>
+      ) : null}
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        {/* Noise overlay for texture */}
         <div className="noise-overlay" />
-        
+
         <Navigation />
-        
+
         <main>
           <HeroSection />
-          <AboutSection />
-          <ServicesSection />
-          <WorkSection />
-          <ProcessSection />
-          <TestimonialsSection />
-          <CTASection />
+          <DeferredSection className="bg-secondary/30" minHeight="980px">
+            <Suspense fallback={<SectionFallback className="bg-secondary/30" minHeight="980px" />}>
+              <AboutSection />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection className="bg-background" minHeight="1100px">
+            <Suspense fallback={<SectionFallback className="bg-background" minHeight="1100px" />}>
+              <ServicesSection />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection className="bg-secondary/30" minHeight="1180px">
+            <Suspense fallback={<SectionFallback className="bg-secondary/30" minHeight="1180px" />}>
+              <WorkSection />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection className="bg-background" minHeight="980px">
+            <Suspense fallback={<SectionFallback className="bg-background" minHeight="980px" />}>
+              <ProcessSection />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection className="bg-secondary/30" minHeight="980px">
+            <Suspense fallback={<SectionFallback className="bg-secondary/30" minHeight="980px" />}>
+              <TestimonialsSection />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection className="bg-background" minHeight="720px">
+            <Suspense fallback={<SectionFallback className="bg-background" minHeight="720px" />}>
+              <CTASection />
+            </Suspense>
+          </DeferredSection>
         </main>
-        
+
         <Footer />
       </motion.div>
     </div>
@@ -54,8 +100,3 @@ const Index = () => {
 };
 
 export default Index;
-
-
-
-
-

@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import BackToTop from "./components/BackToTop";
 import SmoothScroll from "./components/SmoothScroll";
@@ -26,8 +26,52 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
+const getInitialLoadingState = () => {
+  try {
+    return sessionStorage.getItem("preloader-seen") !== "true";
+  } catch {
+    return true;
+  }
+};
+
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(getInitialLoadingState);
+  const router = useMemo(
+    () => (
+      <BrowserRouter>
+        <SmoothScroll>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/work" element={<Projects />} />
+              <Route path="/work/:id" element={<CaseStudy />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/services/:slug" element={<ServiceDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/portal/:slug" element={<ClientPortal />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <BackToTop />
+          </Suspense>
+        </SmoothScroll>
+      </BrowserRouter>
+    ),
+    []
+  );
+
+  const handlePreloaderComplete = () => {
+    try {
+      sessionStorage.setItem("preloader-seen", "true");
+    } catch {
+      // ignore
+    }
+    setIsLoading(false);
+  };
 
   return (
     <HelmetProvider>
@@ -37,34 +81,10 @@ const App = () => {
           <Sonner />
           
           <AnimatePresence mode="wait">
-            {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+            {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
           </AnimatePresence>
 
-          {!isLoading && (
-            <BrowserRouter>
-              <SmoothScroll>
-              <Suspense fallback={null}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/work" element={<Projects />} />
-                  <Route path="/work/:id" element={<CaseStudy />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/services/:slug" element={<ServiceDetail />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:id" element={<BlogPost />} />
-                  <Route path="/portal/:slug" element={<ClientPortal />} />
-                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="/terms-of-service" element={<TermsOfService />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <BackToTop />
-              </Suspense>
-              </SmoothScroll>
-            </BrowserRouter>
-          )}
+          {router}
         </TooltipProvider>
       </QueryClientProvider>
     </HelmetProvider>

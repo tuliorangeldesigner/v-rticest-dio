@@ -154,6 +154,8 @@ export const AboutSection = () => {
               <img
                 src={imageHero}
                 alt="Creative team at work"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />

@@ -38,11 +38,13 @@ export const TestimonialsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    if (!isInView) return;
+
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isInView]);
 
   const nextSlide = () => setActiveIndex((prev) => (prev + 1) % testimonials.length);
   const prevSlide = () => setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
@@ -152,6 +154,7 @@ export const TestimonialsSection = () => {
                         alt={testimonial.author}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div>
