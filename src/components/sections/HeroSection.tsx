@@ -78,11 +78,10 @@ export const HeroSection = () => {
           muted
           playsInline
           preload="metadata"
-          className="w-full h-full object-cover opacity-40 scale-110"
+          className="w-full h-full object-cover scale-110"
         >
           <source src={backHeroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-x-0 top-0 bottom-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </motion.div>
 
       {/* Grid overlay */}
