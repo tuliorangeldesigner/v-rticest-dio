@@ -282,7 +282,7 @@ const Projects = () => {
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
-                    className={`group relative h-16 px-3 md:px-4 lg:px-6 flex items-center justify-center text-[10px] md:text-xs font-mono uppercase tracking-wider transition-all hover:bg-accent hover:text-accent-foreground whitespace-nowrap ${
+                    className={`group relative min-w-0 min-h-16 px-2 py-3 md:min-h-16 md:px-4 lg:px-6 flex items-center justify-center text-center text-[9px] leading-tight md:text-xs font-mono uppercase tracking-[0.18em] transition-all hover:bg-accent hover:text-accent-foreground whitespace-normal break-words ${
                       activeCategory === category
                         ? 'bg-accent text-accent-foreground'
                         : 'text-muted-foreground bg-card'
