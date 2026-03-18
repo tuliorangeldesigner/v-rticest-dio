@@ -351,7 +351,7 @@ const ClariceNejarBriefing = () => {
               className="border border-border bg-card/30"
             >
               <div className="grid gap-8 p-8 md:p-10">
-                <div className="grid gap-8 xl:grid-cols-[1fr_auto] xl:items-end">
+                <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-end">
                   <div>
                     <div className="mb-6 flex items-center gap-4">
                       <span className="label text-accent">Portal do briefing</span>
@@ -363,21 +363,26 @@ const ClariceNejarBriefing = () => {
                       initial={{ opacity: 0, y: 24 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.05, duration: 0.8 }}
-                      className="font-epic text-5xl font-black uppercase leading-[0.92] tracking-[-0.04em] text-foreground sm:text-6xl md:text-7xl lg:text-[5.5rem]"
+                      className="font-epic text-5xl font-black uppercase leading-[0.92] tracking-[-0.05em] text-foreground sm:text-6xl md:text-7xl lg:text-[4.8rem] xl:text-[5.6rem] 2xl:text-[6.2rem]"
                     >
-                      Briefing Clarice
-                      <br />
-                      <span className="text-accent">Nejar</span>
+                      <span className="block xl:hidden">
+                        Briefing Clarice
+                        <br />
+                        <span className="text-accent">Nejar</span>
+                      </span>
+                      <span className="hidden xl:block">
+                        Briefing <span className="text-accent">Clarice Nejar</span>
+                      </span>
                     </motion.h1>
 
                     <motion.p
                       initial={{ opacity: 0, y: 24 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1, duration: 0.8 }}
-                      className="body-lg mt-8 max-w-4xl text-muted-foreground"
+                      className="body-lg mt-8 max-w-5xl text-muted-foreground"
                     >
-                      Estruture o projeto em quatro blocos, com salvamento automático local e resumo consolidado dentro da
-                      própria página. Tudo o que for preenchido permanece gravado neste briefing no mesmo navegador.
+                      Diagnóstico estratégico para objetivo, estrutura, direção visual e conversão do novo site de Clarice
+                      Nejar, com salvamento automático local e resumo consolidado na própria página.
                     </motion.p>
                   </div>
 
@@ -417,7 +422,7 @@ const ClariceNejarBriefing = () => {
                     <img
                       src={clariceCover}
                       alt="Clarice Nejar"
-                      className="h-[360px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02] md:h-[560px] xl:h-[680px]"
+                      className="h-[320px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02] md:h-[480px] xl:h-[560px]"
                     />
                     <div className="absolute inset-x-0 bottom-0 z-20 p-10 md:p-12">
                       <p className="label text-accent">Capa do briefing</p>
