@@ -20,6 +20,8 @@ const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const ClientPortal = lazy(() => import("./pages/ClientPortal"));
+const AlgorithmPortal = lazy(() => import("./pages/AlgorithmPortal"));
+const ClariceNejarBriefing = lazy(() => import("./pages/ClariceNejarBriefing"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -51,6 +53,8 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/briefing/clarice-nejar" element={<ClariceNejarBriefing />} />
+              <Route path="/portal/algoritmo" element={<AlgorithmPortal />} />
               <Route path="/portal/:slug" element={<ClientPortal />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
