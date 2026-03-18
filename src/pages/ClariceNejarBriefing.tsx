@@ -348,10 +348,10 @@ const ClariceNejarBriefing = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="border border-border bg-card/30"
+              className="space-y-8"
             >
-              <div className="grid gap-8 p-8 md:p-10">
-                <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-end">
+              <div className="border border-border bg-card/30 p-8 md:p-10">
+                <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-end">
                   <div>
                     <div className="mb-6 flex items-center gap-4">
                       <span className="label text-accent">Portal do briefing</span>
@@ -363,16 +363,9 @@ const ClariceNejarBriefing = () => {
                       initial={{ opacity: 0, y: 24 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.05, duration: 0.8 }}
-                      className="font-epic text-5xl font-black uppercase leading-[0.92] tracking-[-0.05em] text-foreground sm:text-6xl md:text-7xl lg:text-[4.8rem] xl:text-[5.6rem] 2xl:text-[6.2rem]"
+                      className="font-epic text-5xl font-black uppercase leading-[0.88] tracking-[-0.055em] text-foreground sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[6.2rem] 2xl:text-[7rem]"
                     >
-                      <span className="block xl:hidden">
-                        Briefing Clarice
-                        <br />
-                        <span className="text-accent">Nejar</span>
-                      </span>
-                      <span className="hidden xl:block">
-                        Briefing <span className="text-accent">Clarice Nejar</span>
-                      </span>
+                      Briefing <span className="text-accent">Clarice Nejar</span>
                     </motion.h1>
 
                     <motion.p
@@ -410,59 +403,59 @@ const ClariceNejarBriefing = () => {
                     </div>
                   </motion.div>
                 </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                  className="border-t border-border pt-8"
-                >
-                  <div className="group relative overflow-hidden border border-border bg-card/20 p-4 md:p-5">
-                    <div className="absolute inset-4 md:inset-5 z-10 bg-gradient-to-t from-background via-background/10 to-transparent" />
-                    <img
-                      src={clariceCover}
-                      alt="Clarice Nejar"
-                      className="h-[320px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02] md:h-[480px] xl:h-[560px]"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 z-20 p-10 md:p-12">
-                      <p className="label text-accent">Capa do briefing</p>
-                      <p className="mt-3 max-w-xl font-syne text-2xl font-bold leading-tight text-foreground md:text-3xl">
-                        Presença, sensibilidade e direção para o novo site.
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.8 }}
-                  className="grid gap-px border border-border bg-border sm:grid-cols-3"
-                >
-                  <div className="bg-card/60 p-5 backdrop-blur-sm">
-                    <span className="label text-muted-foreground">Progresso</span>
-                    <p className="mt-3 font-syne text-4xl font-bold text-foreground">{completion}%</p>
-                    <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-secondary">
-                      <div className="h-full rounded-full bg-accent transition-all duration-500" style={{ width: `${completion}%` }} />
-                    </div>
-                  </div>
-
-                  <div className="bg-card/60 p-5 backdrop-blur-sm">
-                    <span className="label text-muted-foreground">Respondidas</span>
-                    <p className="mt-3 font-syne text-4xl font-bold text-foreground">{answeredCount}/16</p>
-                    <p className="mt-3 text-sm text-muted-foreground">Cada resposta aparece em tempo real no resumo final.</p>
-                  </div>
-
-                  <div className="bg-card/60 p-5 backdrop-blur-sm">
-                    <span className="label text-muted-foreground">Status</span>
-                    <p className="mt-3 flex items-center gap-2 text-sm text-foreground">
-                      <Save className="h-4 w-4 text-accent" />
-                      {isDirty ? "Salvando..." : "Salvo localmente"}
-                    </p>
-                    <p className="mt-3 text-sm text-muted-foreground">{formatDateTime(lastSavedAt)}</p>
-                  </div>
-                </motion.div>
               </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="border border-border bg-card/20 p-4 md:p-5"
+              >
+                <div className="group relative overflow-hidden">
+                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/10 to-transparent" />
+                  <img
+                    src={clariceCover}
+                    alt="Clarice Nejar"
+                    className="h-[320px] w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02] md:h-[460px] xl:h-[560px]"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 z-20 p-8 md:p-10">
+                    <p className="label text-accent">Capa do briefing</p>
+                    <p className="mt-3 max-w-xl font-syne text-2xl font-bold leading-tight text-foreground md:text-3xl">
+                      Presença, sensibilidade e direção para o novo site.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.8 }}
+                className="grid gap-px border border-border bg-border sm:grid-cols-3"
+              >
+                <div className="bg-card/60 p-5 backdrop-blur-sm">
+                  <span className="label text-muted-foreground">Progresso</span>
+                  <p className="mt-3 font-syne text-4xl font-bold text-foreground">{completion}%</p>
+                  <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-secondary">
+                    <div className="h-full rounded-full bg-accent transition-all duration-500" style={{ width: `${completion}%` }} />
+                  </div>
+                </div>
+
+                <div className="bg-card/60 p-5 backdrop-blur-sm">
+                  <span className="label text-muted-foreground">Respondidas</span>
+                  <p className="mt-3 font-syne text-4xl font-bold text-foreground">{answeredCount}/16</p>
+                  <p className="mt-3 text-sm text-muted-foreground">Cada resposta aparece em tempo real no resumo final.</p>
+                </div>
+
+                <div className="bg-card/60 p-5 backdrop-blur-sm">
+                  <span className="label text-muted-foreground">Status</span>
+                  <p className="mt-3 flex items-center gap-2 text-sm text-foreground">
+                    <Save className="h-4 w-4 text-accent" />
+                    {isDirty ? "Salvando..." : "Salvo localmente"}
+                  </p>
+                  <p className="mt-3 text-sm text-muted-foreground">{formatDateTime(lastSavedAt)}</p>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </section>
