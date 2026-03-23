@@ -8,6 +8,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SOCIAL_IMAGE_URL = `${SITE_URL}/dc2-social.jpg`;
 const inlineImagesByPost: Record<string, { src: string; alt: string }[]> = {
   'marcas-comuns-brigam-por-preco': [
     { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'Reunião estratégica de posicionamento de marca' },
@@ -74,7 +75,7 @@ const BlogPost = () => {
       <SEO
         title={post.title}
         description={post.excerpt}
-        image={post.image}
+        image={SOCIAL_IMAGE_URL}
         url={`${SITE_URL}/blog/${post.id}`}
         type="article"
         author={post.author.name}

@@ -212,7 +212,7 @@ export const HeroSection = () => {
               transition={{ duration: 1, delay: 0.7 }}
             />
             <span className="text-xs sm:text-sm font-mono text-muted-foreground tracking-wider">
-              VÉRTICE STÚDIO
+              TÚLIO RANGEL DESIGNER
             </span>
           </motion.div>
 

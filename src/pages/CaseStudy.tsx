@@ -7,8 +7,11 @@ import { getProjectById } from '@/data/projects';
 import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const VIDEO_BATCH_SIZE = 12;
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SOCIAL_IMAGE_URL = `${SITE_URL}/dc2-social.jpg`;
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
@@ -80,6 +83,12 @@ const CaseStudy = () => {
   return (
       <div className="min-h-screen bg-background selection:bg-accent/20 flex flex-col">
       <Navigation />
+      <SEO
+        title={project.title}
+        description={project.description}
+        image={SOCIAL_IMAGE_URL}
+        url={`${SITE_URL}/work/${project.id}`}
+      />
       <Helmet>
         <title>{project.title} | STUDIO Case Study</title>
         <meta name="description" content={project.description} />

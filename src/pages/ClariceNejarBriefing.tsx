@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import {
@@ -9,6 +9,7 @@ import {
   FileText,
   Save,
   Sparkles,
+  Upload,
 } from "lucide-react";
 
 import Navigation from "@/components/Navigation";
@@ -22,6 +23,8 @@ import { toast } from "@/hooks/use-toast";
 import clariceCover from "@/assets/clarice.webp";
 
 const STORAGE_KEY = "briefing-clarice-nejar-v1";
+const STORAGE_TIMESTAMP_KEY = `${STORAGE_KEY}-timestamp`;
+const REMOTE_BRIEFING_ENDPOINT = "/api/briefing/clarice-nejar";
 
 type BriefingFormData = {
   principalObjetivo: string;
@@ -55,6 +58,13 @@ type Section = {
   title: string;
   subtitle: string;
   questions: Question[];
+};
+
+type BriefingBackupPayload = {
+  version: number;
+  client: "clarice-nejar";
+  savedAt: string;
+  values: BriefingFormData;
 };
 
 const defaultValues: BriefingFormData = {
@@ -209,6 +219,37 @@ const readStoredValues = (): BriefingFormData => {
   }
 };
 
+const readStoredTimestamp = (): Date | null => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const raw = window.localStorage.getItem(STORAGE_TIMESTAMP_KEY);
+  if (!raw) {
+    return null;
+  }
+
+  const parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+};
+
+const isBriefingFormData = (value: unknown): value is BriefingFormData => {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  return Object.keys(defaultValues).every((key) => typeof (value as Record<string, unknown>)[key] === "string");
+};
+
+const buildBackupPayload = (values: BriefingFormData): BriefingBackupPayload => ({
+  version: 1,
+  client: "clarice-nejar",
+  savedAt: new Date().toISOString(),
+  values,
+});
+
+const serializeValues = (values: BriefingFormData) => JSON.stringify(values);
+
 const formatDateTime = (value: Date | null) => {
   if (!value) {
     return "Nenhum salvamento ainda";
@@ -254,9 +295,16 @@ const countAnswered = (values: BriefingFormData) =>
   Object.values(values).filter((value) => value.trim().length > 0).length;
 
 const ClariceNejarBriefing = () => {
-  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(() => readStoredTimestamp());
+  const [lastRemoteSavedAt, setLastRemoteSavedAt] = useState<Date | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
+  const [isRemoteSaving, setIsRemoteSaving] = useState(false);
+  const [isRemoteReady, setIsRemoteReady] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const remoteSaveTimeoutRef = useRef<number | null>(null);
+  const lastRemoteSignatureRef = useRef<string>("");
+  const hasHydratedRef = useRef(false);
 
   const form = useForm<BriefingFormData>({
     defaultValues: readStoredValues(),
@@ -266,13 +314,120 @@ const ClariceNejarBriefing = () => {
   const answeredCount = countAnswered(values);
   const completion = Math.round((answeredCount / 16) * 100);
   const summary = useMemo(() => buildSummary(values), [values]);
+  const currentSignature = useMemo(() => serializeValues(values), [values]);
+
+  const syncRemoteBriefing = async (nextValues: BriefingFormData, silent = true) => {
+    if (countAnswered(nextValues) === 0) {
+      return;
+    }
+
+    const signature = serializeValues(nextValues);
+    if (signature === lastRemoteSignatureRef.current) {
+      return;
+    }
+
+    setIsRemoteSaving(true);
+
+    try {
+      const payload = buildBackupPayload(nextValues);
+      const response = await fetch(REMOTE_BRIEFING_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao salvar briefing no site.");
+      }
+
+      const savedPayload = (await response.json()) as BriefingBackupPayload;
+      const savedAt = new Date(savedPayload.savedAt);
+
+      lastRemoteSignatureRef.current = signature;
+      setLastRemoteSavedAt(savedAt);
+      setIsRemoteReady(true);
+
+      if (!silent) {
+        toast({
+          title: "Briefing salvo no site",
+          description: "O rascunho remoto foi atualizado e já pode ser aberto em outro navegador.",
+        });
+      }
+    } catch {
+      if (!silent) {
+        toast({
+          title: "Falha ao salvar no site",
+          description: "O briefing continua salvo localmente nesta máquina.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsRemoteSaving(false);
+    }
+  };
 
   useEffect(() => {
+    const loadRemoteBriefing = async () => {
+      try {
+        const response = await fetch(REMOTE_BRIEFING_ENDPOINT, {
+          cache: "no-store",
+        });
+
+        if (response.status === 404) {
+          setIsRemoteReady(true);
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error("Falha ao carregar briefing remoto.");
+        }
+
+        const payload = (await response.json()) as BriefingBackupPayload;
+        const remoteSavedAt = new Date(payload.savedAt);
+        const localSavedAt = readStoredTimestamp();
+        const localValues = readStoredValues();
+        const localHasAnswers = countAnswered(localValues) > 0;
+        const shouldApplyRemote = !localHasAnswers || !localSavedAt || remoteSavedAt > localSavedAt;
+
+        setLastRemoteSavedAt(remoteSavedAt);
+        lastRemoteSignatureRef.current = serializeValues(payload.values);
+        setIsRemoteReady(true);
+
+        if (shouldApplyRemote) {
+          form.reset(payload.values);
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload.values));
+          window.localStorage.setItem(STORAGE_TIMESTAMP_KEY, remoteSavedAt.toISOString());
+          setLastSavedAt(remoteSavedAt);
+          setIsDirty(false);
+          toast({
+            title: "Briefing restaurado do site",
+            description: "A versão mais recente foi carregada automaticamente.",
+          });
+        }
+      } catch {
+        setIsRemoteReady(true);
+      } finally {
+        hasHydratedRef.current = true;
+      }
+    };
+
+    void loadRemoteBriefing();
+  }, [form]);
+
+  useEffect(() => {
+    if (!hasHydratedRef.current) {
+      return;
+    }
+
     setIsDirty(true);
     const timer = window.setTimeout(() => {
       try {
+        const now = new Date();
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
-        setLastSavedAt(new Date());
+        window.localStorage.setItem(STORAGE_TIMESTAMP_KEY, now.toISOString());
+        setLastSavedAt(now);
         setIsDirty(false);
       } catch {
         toast({
@@ -286,19 +441,82 @@ const ClariceNejarBriefing = () => {
     return () => window.clearTimeout(timer);
   }, [values]);
 
-  const handleReset = () => {
+  useEffect(() => {
+    if (!isRemoteReady) {
+      return;
+    }
+
+    if (remoteSaveTimeoutRef.current) {
+      window.clearTimeout(remoteSaveTimeoutRef.current);
+    }
+
+    remoteSaveTimeoutRef.current = window.setTimeout(() => {
+      void syncRemoteBriefing(values);
+    }, 1500);
+
+    return () => {
+      if (remoteSaveTimeoutRef.current) {
+        window.clearTimeout(remoteSaveTimeoutRef.current);
+      }
+    };
+  }, [isRemoteReady, values, currentSignature]);
+
+  useEffect(() => {
+    if (!isRemoteReady) {
+      return;
+    }
+
+    const flushRemoteSave = () => {
+      void syncRemoteBriefing(values);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        flushRemoteSave();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pagehide", flushRemoteSave);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pagehide", flushRemoteSave);
+    };
+  }, [isRemoteReady, values, currentSignature]);
+
+  const handleReset = async () => {
     form.reset(defaultValues);
     try {
       window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(STORAGE_TIMESTAMP_KEY);
     } catch {
       // ignore
     }
     setLastSavedAt(null);
+    setLastRemoteSavedAt(null);
     setIsDirty(false);
-    toast({
-      title: "Briefing limpo",
-      description: "Todas as respostas locais foram removidas desta máquina.",
-    });
+    lastRemoteSignatureRef.current = "";
+    try {
+      const response = await fetch(REMOTE_BRIEFING_ENDPOINT, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao limpar briefing remoto.");
+      }
+
+      toast({
+        title: "Briefing limpo",
+        description: "As respostas locais e remotas foram removidas.",
+      });
+    } catch {
+      toast({
+        title: "Limpeza parcial",
+        description: "As respostas locais foram removidas, mas o briefing remoto não pôde ser apagado agora.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleCopy = async () => {
@@ -327,6 +545,58 @@ const ClariceNejarBriefing = () => {
     anchor.download = "briefing-clarice-nejar.txt";
     anchor.click();
     window.URL.revokeObjectURL(url);
+  };
+
+  const handleBackupDownload = () => {
+    const file = new Blob([JSON.stringify(buildBackupPayload(values), null, 2)], {
+      type: "application/json;charset=utf-8",
+    });
+    const url = window.URL.createObjectURL(file);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "briefing-clarice-nejar-backup.json";
+    anchor.click();
+    window.URL.revokeObjectURL(url);
+    toast({
+      title: "Backup gerado",
+      description: "Use esse arquivo para continuar o briefing em outro navegador.",
+    });
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImportBackup = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    try {
+      const raw = await file.text();
+      const parsed = JSON.parse(raw) as { values?: unknown };
+
+      if (!isBriefingFormData(parsed.values)) {
+        throw new Error("invalid");
+      }
+
+      form.reset(parsed.values);
+      setLastSavedAt(new Date());
+      setIsDirty(false);
+      toast({
+        title: "Backup importado",
+        description: "As respostas foram restauradas neste navegador.",
+      });
+    } catch {
+      toast({
+        title: "Arquivo inválido",
+        description: "Não foi possível restaurar o briefing a partir desse backup.",
+        variant: "destructive",
+      });
+    } finally {
+      event.target.value = "";
+    }
   };
 
   return (
@@ -375,7 +645,7 @@ const ClariceNejarBriefing = () => {
                       className="body-lg mt-8 max-w-5xl text-muted-foreground"
                     >
                       Diagnóstico estratégico para objetivo, estrutura, direção visual e conversão do novo site de Clarice
-                      Nejar, com salvamento automático local e resumo consolidado na própria página.
+                      Nejar, com salvamento automático local, sincronização no próprio site e resumo consolidado na página.
                     </motion.p>
                   </div>
 
@@ -399,7 +669,11 @@ const ClariceNejarBriefing = () => {
                     </div>
                     <div className="flex items-center justify-between gap-6">
                       <span className="font-mono uppercase tracking-[0.18em]">Salvamento</span>
-                      <span className="font-mono text-foreground">{isDirty ? "Salvando..." : "Local"}</span>
+                      <span className="font-mono text-foreground">{isDirty ? "Salvando..." : isRemoteSaving ? "Sincronizando site..." : "Site + local"}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-6">
+                      <span className="font-mono uppercase tracking-[0.18em]">Site</span>
+                      <span className="font-mono text-foreground">{lastRemoteSavedAt ? formatDateTime(lastRemoteSavedAt) : "Aguardando primeiro sync"}</span>
                     </div>
                   </motion.div>
                 </div>
@@ -467,11 +741,11 @@ const ClariceNejarBriefing = () => {
                 <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                   <div>
                     <p className="label text-accent">Modo de uso</p>
-                    <h2 className="heading-sm mt-3">Preenchimento contínuo, sem envio externo</h2>
+                    <h2 className="heading-sm mt-3">Preenchimento contínuo com salvamento no site</h2>
                   </div>
                   <div className="inline-flex items-center gap-2 border border-accent/30 bg-accent/10 px-4 py-2 text-sm text-accent">
                     <Sparkles className="h-4 w-4" />
-                    Respostas salvas no próprio briefing
+                    Respostas sincronizadas entre navegadores
                   </div>
                 </div>
 
@@ -482,7 +756,7 @@ const ClariceNejarBriefing = () => {
                   </div>
                   <div className="border border-border bg-background/60 p-4">
                     <p className="label text-muted-foreground">2. Continue depois</p>
-                    <p className="mt-2 text-sm text-muted-foreground">O navegador mantém as respostas desta página salvas.</p>
+                    <p className="mt-2 text-sm text-muted-foreground">Ao abrir o mesmo briefing em outro browser, o rascunho mais recente pode ser restaurado.</p>
                   </div>
                   <div className="border border-border bg-background/60 p-4">
                     <p className="label text-muted-foreground">3. Exporte</p>
@@ -573,7 +847,14 @@ const ClariceNejarBriefing = () => {
                   Este painel mostra exatamente o que já foi registrado no briefing e serve como base final para o projeto.
                 </p>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="application/json,.json"
+                    className="hidden"
+                    onChange={handleImportBackup}
+                  />
                   <Button
                     type="button"
                     onClick={handleCopy}
@@ -591,6 +872,24 @@ const ClariceNejarBriefing = () => {
                   >
                     <Download className="h-4 w-4" />
                     Baixar .txt
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleBackupDownload}
+                    variant="outline"
+                    className="justify-start rounded-none border-border bg-background/40 text-foreground hover:border-accent"
+                  >
+                    <Download className="h-4 w-4" />
+                    Backup .json
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleImportClick}
+                    variant="outline"
+                    className="justify-start rounded-none border-border bg-background/40 text-foreground hover:border-accent"
+                  >
+                    <Upload className="h-4 w-4" />
+                    Importar backup
                   </Button>
                   <Button
                     type="button"

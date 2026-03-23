@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://trdesigner.vercel.app/:path*",
+      "permanent": true
+    }
+  ]
+}

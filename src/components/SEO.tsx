@@ -18,9 +18,9 @@ const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.ap
 
 const defaultMeta = {
   siteName: 'TR Designer',
-  title: 'TR Designer',
-  description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
-  image: `${SITE_URL}/dc2.webp`,
+  title: 'TR Designer | Portfolio, Branding e Sites de Alta Conversão',
+  description: 'Portfolio da TR Designer com branding estratégico, websites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
+  image: `${SITE_URL}/dc2-social.jpg`,
   url: SITE_URL,
   twitterHandle: '@trdesigner',
   locale: 'pt_BR',
@@ -68,6 +68,9 @@ const SEO = ({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={resolvedImage} />
+      <meta property="og:image:url" content={resolvedImage} />
+      <meta property="og:image:secure_url" content={resolvedImage} />
+      <meta property="og:image:type" content="image/jpeg" />
       <meta property="og:image:alt" content={fullTitle} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -97,6 +100,7 @@ const SEO = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={resolvedImage} />
+      <meta name="twitter:image:src" content={resolvedImage} />
       <meta name="twitter:image:alt" content={fullTitle} />
       <meta name="twitter:site" content={defaultMeta.twitterHandle} />
       <meta name="twitter:creator" content={defaultMeta.twitterHandle} />

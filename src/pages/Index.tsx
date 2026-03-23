@@ -35,9 +35,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="TR Designer"
-        description="Estúdio criativo focado em branding, websites e performance para marcas que querem crescer com percepção premium."
-        image="https://trdesigner.vercel.app/dc2.webp"
+        title="Portfolio, Branding e Sites de Alta Conversão"
+        description="Portfolio da TR Designer com branding estratégico, websites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium."
+        image="https://trdesigner.vercel.app/dc2-social.jpg"
         url="https://trdesigner.vercel.app/"
       />
       <OrganizationSchema />
