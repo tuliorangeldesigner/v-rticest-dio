@@ -78,7 +78,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Marca', 'Identidade Visual', 'Design de Logotipo', 'Guia de Marca', 'Materiais Institucionais'],
     gallery: [gwapo2, gwapo3, gwapo4],
     nextProject: 'ethereal',
-    prevProject: 'elektra',
+    prevProject: 'amanda-felisbino',
     keyTakeaways: 'Quando a marca traduz inovação com clareza e estética coerente, o mercado percebe valor antes da proposta comercial.',
     focus: 'Reposicionamento',
   },
@@ -315,11 +315,36 @@ export const projects: Project[] = [
     ],
     services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Estratégica', 'Otimização de Conversão'],
     gallery: [webImage, webImage2, webImage3, webImage4],
-    nextProject: 'luminary',
+    nextProject: 'amanda-felisbino',
     prevProject: 'orbits',
     keyTakeaways: 'Uma landing page forte organiza narrativa, prova e CTA para acelerar decisão de compra sem depender só de desconto.',
     focus: 'Conversão',
     projectUrl: 'https://elektraebike.netlify.app/',
+  },
+  {
+    id: 'amanda-felisbino',
+    title: 'Amanda Felisbino',
+    category: 'Portfólio Profissional • Social Media',
+    year: '2026',
+    client: 'Amanda Felisbino',
+    heroImage: '/amanda-felisbino-home.webp',
+    thumbnail: '/amanda-felisbino-home.webp',
+    description: 'Portfólio criado para posicionar Amanda Felisbino como social media, designer e criadora de conteúdo, com uma presença digital estratégica, clara e visualmente consistente.',
+    challenge: 'Amanda precisava apresentar serviços de gestão de redes sociais, produção de vídeos, design para redes e identidade visual sem parecer apenas mais um portfólio criativo. A página precisava comunicar estratégia, estética, clareza e disponibilidade para novos projetos logo no primeiro contato.',
+    solution: 'Construímos um site editorial e direto, com hero de presença forte, manifesto de posicionamento, serviços organizados por necessidade do cliente, área de trabalhos em destaque e chamada final para conversa. A copy reforça que conteúdo bom une planejamento, design e consistência para fazer uma marca ser lembrada.',
+    results: [
+      'Presença profissional percebida no primeiro acesso',
+      'Serviços organizados com clareza comercial',
+      'Portfólio alinhado à estética e estratégia da marca pessoal',
+      'Fluxo de navegação orientado para projetos e contato',
+    ],
+    services: ['Web Design', 'Portfólio Profissional', 'UX/UI', 'Copy Estratégica', 'Direção Criativa'],
+    gallery: ['/amanda-felisbino-services.webp', '/amanda-felisbino-work.webp', '/amanda-felisbino-home.webp'],
+    nextProject: 'luminary',
+    prevProject: 'elektra',
+    keyTakeaways: 'Quando estratégia, estética e clareza trabalham juntas, o portfólio deixa de ser vitrine e passa a ser uma ferramenta real de posicionamento.',
+    focus: 'Posicionamento',
+    projectUrl: 'https://amandafelisbino.vercel.app/',
   },
 ];
 
@@ -329,7 +354,9 @@ export const getProjectById = (id: string): Project | undefined => {
       ? 'edicao-de-video'
       : id === 'apex'
         ? 'excellent-solucoes'
-        : id;
+        : id === 'joao-mendes-rio'
+          ? 'amanda-felisbino'
+          : id;
   return projects.find((p) => p.id === normalizedId);
 };
 
