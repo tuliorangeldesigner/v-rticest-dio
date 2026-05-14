@@ -5,15 +5,17 @@ import { AnimatedLine } from '@/components/AnimatedText';
 import { projects } from '@/data/projects';
 import { ArrowUpRight } from 'lucide-react';
 
-interface ProjectCardProps {
-  project: typeof projects[0];
+interface CategoryCardProps {
+  title: string;
+  eyebrow: string;
+  description: string;
+  href: string;
+  image: string;
   index: number;
-  displayNumber?: number;
 }
 
-const ProjectCard = ({ project, index, displayNumber }: ProjectCardProps) => {
+const CategoryCard = ({ title, eyebrow, description, href, image, index }: CategoryCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cardCover = project.id === 'edicao-de-video' ? '/coveredicao.webp' : project.thumbnail;
 
   return (
     <motion.div
@@ -25,54 +27,45 @@ const ProjectCard = ({ project, index, displayNumber }: ProjectCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
       className={`group ${index % 2 === 1 ? 'md:mt-32' : ''}`}
     >
-      <Link to={`/work/${project.id}`} className="block h-full">
-        {/* Image Container */}
-        <div className="relative overflow-hidden aspect-[4/3] mb-8 rounded-none">
+      <Link to={href} className="block h-full">
+        <div className="relative overflow-hidden aspect-[4/3] mb-8 rounded-none border border-foreground/10">
           <motion.img
-            src={cardCover}
-            alt={project.title}
+            src={image}
+            alt={title}
             loading="lazy"
             decoding="async"
             className="w-full h-full object-cover"
             animate={{ scale: isHovered ? 1.05 : 1 }}
             transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
           />
-          
-          {/* Hover Overlay - Subtle Tint */}
-          <motion.div 
-            className="absolute inset-0 bg-black/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          />
-          
-          {/* View Project Button - Centered */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <div className="w-24 h-24 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center">
               <span className="text-sm font-mono uppercase tracking-widest text-foreground">Ver</span>
             </div>
           </div>
+          <div className="absolute left-5 top-5 px-3 py-2 text-[10px] font-mono uppercase tracking-widest bg-background/90 text-foreground border border-foreground/10">
+            {String(index + 1).padStart(2, '0')}
+          </div>
         </div>
 
-        {/* Content Below Image */}
         <div className="space-y-4">
-          {/* Meta Data */}
           <div className="flex items-center gap-4 text-sm font-mono">
-            <span className="text-accent">
-              {String(displayNumber ?? index + 1).padStart(2, '0')}
-            </span>
+            <span className="text-accent">{String(index + 1).padStart(2, '0')}</span>
             <div className="h-px w-8 bg-border" />
-            <span className="text-muted-foreground uppercase tracking-wider">
-              {project.category}
-            </span>
+            <span className="text-muted-foreground uppercase tracking-wider">{eyebrow}</span>
           </div>
 
-          {/* Title & Arrow */}
-          <div className="flex items-end justify-between gap-4 border-b border-border pb-6 group-hover:border-accent/50 transition-colors duration-500">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-syne font-bold leading-tight group-hover:text-accent transition-colors duration-300">
-              {project.title}
-            </h3>
-            <ArrowUpRight className="w-8 h-8 text-muted-foreground group-hover:text-accent group-hover:-translate-y-2 group-hover:translate-x-2 transition-all duration-300 mb-1" />
+          <div className="border-b border-border pb-6 group-hover:border-accent/50 transition-colors duration-500">
+            <div className="flex items-end justify-between gap-4">
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-syne font-bold leading-tight group-hover:text-accent transition-colors duration-300">
+                {title}
+              </h3>
+              <ArrowUpRight className="w-8 h-8 shrink-0 text-muted-foreground group-hover:text-accent group-hover:-translate-y-2 group-hover:translate-x-2 transition-all duration-300 mb-1" />
+            </div>
+            <p className="mt-4 text-muted-foreground leading-relaxed max-w-xl">
+              {description}
+            </p>
           </div>
         </div>
       </Link>
@@ -83,10 +76,37 @@ const ProjectCard = ({ project, index, displayNumber }: ProjectCardProps) => {
 export const WorkSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const featuredProjectIds = ['luminary', 'edicao-de-video', 'zenith', 'cascade'];
-  const featuredProjects = featuredProjectIds
-    .map((id) => projects.find((project) => project.id === id))
-    .filter((project): project is typeof projects[0] => Boolean(project));
+  const getProject = (id: string) => projects.find((project) => project.id === id);
+  const categoryCards = [
+    {
+      title: 'Logos e Identidade Visual',
+      eyebrow: 'Branding',
+      description: 'Projetos de marca, símbolo e identidade visual para empresas que precisam parecer mais fortes no primeiro contato.',
+      href: '/work',
+      image: getProject('luminary')?.thumbnail,
+    },
+    {
+      title: 'Sites e Landing Pages',
+      eyebrow: 'Web Design',
+      description: 'Páginas criadas para apresentar oferta, elevar percepção de valor e conduzir o visitante para a próxima ação.',
+      href: '/work',
+      image: getProject('naturis')?.thumbnail,
+    },
+    {
+      title: 'Social Media',
+      eyebrow: 'Conteúdo',
+      description: 'Criativos, posts e direção visual para marcas que precisam chamar atenção e comunicar com mais clareza.',
+      href: '/work',
+      image: getProject('burger-zone')?.thumbnail ?? getProject('zenith')?.thumbnail,
+    },
+    {
+      title: 'Edição de Vídeo e Motion',
+      eyebrow: 'Vídeo',
+      description: 'Edição, ritmo e motion design para vídeos com mais retenção, acabamento e resposta do público.',
+      href: '/work/edicao-de-video',
+      image: getProject('edicao-de-video')?.id ? '/coveredicao.webp' : getProject('edicao-de-video')?.thumbnail,
+    },
+  ].filter((category): category is Omit<typeof category, 'image'> & { image: string } => Boolean(category.image));
 
   return (
     <section id="work" ref={ref} className="section-padding bg-secondary/30 relative overflow-hidden">
@@ -128,17 +148,20 @@ export const WorkSection = () => {
           </div>
         </div>
         <p className="text-muted-foreground mb-14 -mt-10">
-          Algumas marcas que passaram pelo processo de reprogramação.
+          Escolha rapidamente o tipo de projeto que você procura.
         </p>
 
-        {/* Projects Grid */}
+        {/* Category Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
-          {featuredProjects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
+          {categoryCards.map((category, index) => (
+            <CategoryCard
+              key={category.title}
+              title={category.title}
+              eyebrow={category.eyebrow}
+              description={category.description}
+              href={category.href}
+              image={category.image}
               index={index}
-              displayNumber={projects.findIndex((item) => item.id === project.id) + 1}
             />
           ))}
         </div>
