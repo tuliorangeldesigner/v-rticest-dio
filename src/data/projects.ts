@@ -104,6 +104,20 @@ const burgerZoneGallery = Object.entries(burgerZoneGalleryModules)
   .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
   .map(([, src]) => src);
 
+const acainiImageModules = import.meta.glob('/imagens/Açaí/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const acainiEntries = Object.entries(acainiImageModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }));
+const acainiImages = acainiEntries.map(([, src]) => src);
+const acainiCover = acainiEntries.find(([path]) => path.includes('acai (3)'))?.[1] ?? acainiImages[0];
+const acainiGallery = acainiEntries
+  .filter(([path]) => !path.includes('acai (3)'))
+  .map(([, src]) => src);
+
 export const projects: Project[] = [
   {
     id: 'luminary',
@@ -268,10 +282,34 @@ export const projects: Project[] = [
     ],
     services: ['Social Media', 'Direção de Arte', 'Criativo para Instagram', 'Design de Oferta', 'Campanha Local'],
     gallery: burgerZoneGallery,
-    nextProject: 'cascade',
+    nextProject: 'acaini',
     prevProject: 'zenith',
     keyTakeaways: 'Social media para food precisa vender antes da legenda: imagem, hierarquia e desejo precisam trabalhar juntos no primeiro segundo.',
     focus: 'Desejo e Conversão',
+  },
+  {
+    id: 'acaini',
+    title: 'Açaini',
+    category: 'Social Media Para Açaí',
+    year: '2026',
+    client: 'Açaini',
+    heroImage: acainiCover,
+    thumbnail: acainiCover,
+    description: 'Projeto de social media criado para uma marca de açaí que precisava transformar sabor, frescor e desejo em comunicação visual de resposta rápida para feed e campanhas.',
+    challenge: 'A marca precisava apresentar o produto com mais apelo visual, leitura rápida e percepção de valor, sem perder a sensação artesanal, tropical e desejável que faz o público parar no primeiro olhar.',
+    solution: 'Criamos uma direção visual com foco em cor, textura, contraste e hierarquia de oferta. As peças valorizam o produto, organizam a mensagem e deixam a comunicação pronta para Instagram, anúncio e ação comercial.',
+    results: [
+      'Produto com mais apelo no primeiro contato',
+      'Criativos prontos para feed e campanhas',
+      'Comunicação visual mais clara e desejável',
+      'Mais força para oferta e chamada comercial',
+    ],
+    services: ['Social Media', 'Direção de Arte', 'Criativo para Instagram', 'Design de Oferta', 'Campanha Local'],
+    gallery: acainiGallery,
+    nextProject: 'cascade',
+    prevProject: 'burger-zone',
+    keyTakeaways: 'Social media para produto precisa abrir apetite visual antes da legenda: imagem, promessa e hierarquia precisam trabalhar juntas.',
+    focus: 'Desejo e Oferta',
   },
   {
     id: 'cascade',
@@ -293,7 +331,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Marca', 'Reestruturação Visual', 'Identidade Visual', 'Direção de Arte', 'Aplicações Digitais'],
     gallery: [rocha2, rocha3, rocha4],
     nextProject: 'edicao-de-video',
-    prevProject: 'burger-zone',
+    prevProject: 'acaini',
     keyTakeaways: 'Quando a identidade visual comunica valor antes da proposta, a negociação muda de preço para confiança e decisão.',
     focus: 'Reposicionamento',
   },
