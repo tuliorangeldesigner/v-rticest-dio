@@ -87,6 +87,23 @@ const lxCompanyImages = Object.entries(lxCompanyImageModules)
   .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
   .map(([, src]) => src);
 
+const burgerZoneImageModules = import.meta.glob('/imagens/SocialMedia.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const burgerZoneGalleryModules = import.meta.glob('/imagens/burger-zone/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const burgerZoneCover = Object.values(burgerZoneImageModules)[0];
+const burgerZoneGallery = Object.entries(burgerZoneGalleryModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
+  .map(([, src]) => src);
+
 export const projects: Project[] = [
   {
     id: 'luminary',
@@ -227,10 +244,34 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Conteúdo', 'Direção Criativa', 'Criativos para Instagram', 'Copy Persuasiva', 'Planejamento de Conversão'],
     gallery: [beach1, beach2, beach3],
-    nextProject: 'cascade',
+    nextProject: 'burger-zone',
     prevProject: 'ethereal',
     keyTakeaways: 'No Instagram, quem domina atenção com clareza e posicionamento forte vende mais sem depender de promoção o tempo todo.',
     focus: 'Performance',
+  },
+  {
+    id: 'burger-zone',
+    title: 'Burger Zone',
+    category: 'Social Media Para Hamburgueria',
+    year: '2026',
+    client: 'Burger Zone',
+    heroImage: burgerZoneCover,
+    thumbnail: burgerZoneCover,
+    description: 'Projeto de social media criado para uma hamburgueria que precisava transformar apetite visual em desejo imediato. A peça organiza produto, oferta e identidade em uma comunicação forte para feed, anúncio e campanha local.',
+    challenge: 'A Burger Zone precisava de uma comunicação que chamasse atenção no primeiro olhar e criasse vontade de comprar sem depender de texto longo. O desafio era unir produto, preço percebido e personalidade visual em uma peça memorável.',
+    solution: 'Criamos uma direção visual com foco em impacto, contraste e leitura rápida. A composição destaca o lanche, valoriza textura e organiza os elementos para conduzir o olhar até a chamada principal, funcionando tanto no orgânico quanto em tráfego pago.',
+    results: [
+      'Criativo com alto impacto visual',
+      'Produto mais desejável no primeiro contato',
+      'Comunicação pronta para feed e anúncios',
+      'Mais clareza para oferta e chamada comercial',
+    ],
+    services: ['Social Media', 'Direção de Arte', 'Criativo para Instagram', 'Design de Oferta', 'Campanha Local'],
+    gallery: burgerZoneGallery,
+    nextProject: 'cascade',
+    prevProject: 'zenith',
+    keyTakeaways: 'Social media para food precisa vender antes da legenda: imagem, hierarquia e desejo precisam trabalhar juntos no primeiro segundo.',
+    focus: 'Desejo e Conversão',
   },
   {
     id: 'cascade',
@@ -252,7 +293,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Marca', 'Reestruturação Visual', 'Identidade Visual', 'Direção de Arte', 'Aplicações Digitais'],
     gallery: [rocha2, rocha3, rocha4],
     nextProject: 'edicao-de-video',
-    prevProject: 'zenith',
+    prevProject: 'burger-zone',
     keyTakeaways: 'Quando a identidade visual comunica valor antes da proposta, a negociação muda de preço para confiança e decisão.',
     focus: 'Reposicionamento',
   },

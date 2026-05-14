@@ -14,7 +14,7 @@ const logoProjects = projects.filter((project) =>
   ['luminary', 'funk', 'voix', 'lx-company', 'cascade', 'excellent-solucoes'].includes(project.id)
 );
 const socialMediaProjects = projects.filter((project) =>
-  ['ethereal', 'zenith'].includes(project.id)
+  ['ethereal', 'zenith', 'burger-zone'].includes(project.id)
 );
 const siteProjects = projects.filter((project) =>
   ['naturis', 'orbits', 'elektra', 'amanda-felisbino'].includes(project.id)
