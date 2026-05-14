@@ -67,6 +67,16 @@ const funkImages = Object.entries(funkImageModules)
   .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
   .map(([, src]) => src);
 
+const voixImageModules = import.meta.glob('/imagens/voix/*.{webp,avif}', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const voixImages = Object.entries(voixImageModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
+  .map(([, src]) => src);
+
 export const projects: Project[] = [
   {
     id: 'luminary',
@@ -111,10 +121,34 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Design de Logotipo', 'Identidade Visual', 'Direção de Arte', 'Aplicações de Marca'],
     gallery: funkImages.slice(1),
-    nextProject: 'ethereal',
+    nextProject: 'voix',
     prevProject: 'luminary',
     keyTakeaways: 'Quando uma marca cultural une atitude, leitura rápida e consistência visual, ela ganha presença antes mesmo da primeira interação comercial.',
     focus: 'Identidade',
+  },
+  {
+    id: 'voix',
+    title: 'Voix',
+    category: 'Identidade Visual Para Marca Premium',
+    year: '2026',
+    client: 'Voix',
+    heroImage: voixImages[0],
+    thumbnail: voixImages[0],
+    description: 'Identidade visual criada para uma marca que precisava comunicar presença, sofisticação e clareza desde o primeiro contato. O projeto constrói uma imagem mais memorável, autoral e preparada para aplicações digitais e comerciais.',
+    challenge: 'A Voix precisava de uma marca com leitura forte e acabamento premium, sem perder personalidade. O desafio era transformar percepção visual em confiança, desejo e reconhecimento rápido nos pontos de contato da marca.',
+    solution: 'Desenvolvemos uma direção visual refinada, com logo, composição, contraste e aplicações pensadas para criar consistência. O sistema valoriza presença, elegância e uso prático em materiais digitais, apresentações e comunicação comercial.',
+    results: [
+      'Marca com percepção mais premium',
+      'Identidade pronta para aplicações digitais',
+      'Leitura visual mais clara e memorável',
+      'Sistema de marca mais consistente para vendas',
+    ],
+    services: ['Estratégia de Marca', 'Design de Logotipo', 'Identidade Visual', 'Direção Criativa', 'Aplicações Digitais'],
+    gallery: voixImages.slice(1),
+    nextProject: 'ethereal',
+    prevProject: 'funk',
+    keyTakeaways: 'Uma identidade premium precisa ser bonita, mas também precisa funcionar com clareza em cada ponto de contato da marca.',
+    focus: 'Identidade Visual',
   },
   {
     id: 'ethereal',
@@ -136,7 +170,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Conteúdo', 'Criativos para Instagram', 'Copy Persuasiva', 'Direção de Arte', 'Planejamento de Conversão'],
     gallery: [sumitomo2, sumitomo3, sumitomo4],
     nextProject: 'zenith',
-    prevProject: 'funk',
+    prevProject: 'voix',
     keyTakeaways: 'Post de alta conversão não depende de sorte: depende de mensagem certa, criativo certo e CTA certo, no momento certo.',
     focus: 'Conversão',
   },
