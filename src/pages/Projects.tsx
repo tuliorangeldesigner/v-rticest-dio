@@ -472,7 +472,7 @@ const Projects = () => {
               </div>
 
               <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
                   {thumbnails.slice(0, 4).map((thumb, index) => (
                     <div
                       key={thumb.id}
