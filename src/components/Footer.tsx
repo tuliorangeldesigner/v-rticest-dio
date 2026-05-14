@@ -148,7 +148,7 @@ export const Footer = () => {
       {/* Bottom Legal Bar */}
       <div className="border-t border-border p-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-background">
          <p className="text-xs font-mono text-muted-foreground uppercase">
-            © 2024 TR Designer.
+            © 2024 TR Designer. - Designed by Túlio Rangel
          </p>
          <div className="flex gap-8">
             <button

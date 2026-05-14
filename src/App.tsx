@@ -12,6 +12,8 @@ import Preloader from "./components/Preloader";
 
 const Index = lazy(() => import("./pages/Index"));
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
+const Thumbnail = lazy(() => import("./pages/Thumbnail"));
+const LogosEsport = lazy(() => import("./pages/LogosEsport"));
 const Projects = lazy(() => import("./pages/Projects"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Services = lazy(() => import("./pages/Services"));
@@ -46,6 +48,8 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/work" element={<Projects />} />
+              <Route path="/thumbnail" element={<Thumbnail />} />
+              <Route path="/logos-e-sport" element={<LogosEsport />} />
               <Route path="/work/:id" element={<CaseStudy />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/services" element={<Services />} />

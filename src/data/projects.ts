@@ -57,6 +57,16 @@ import naturisGalleryOne from '@/assets/naturis1.webp';
 import naturisGalleryTwo from '@/assets/naturis2.webp';
 import naturisGalleryThree from '@/assets/naturis3.webp';
 
+const funkImageModules = import.meta.glob('/imagens/funk/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const funkImages = Object.entries(funkImageModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
+  .map(([, src]) => src);
+
 export const projects: Project[] = [
   {
     id: 'luminary',
@@ -77,10 +87,34 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Identidade Visual', 'Design de Logotipo', 'Guia de Marca', 'Materiais Institucionais'],
     gallery: [gwapo2, gwapo3, gwapo4],
-    nextProject: 'ethereal',
+    nextProject: 'funk',
     prevProject: 'amanda-felisbino',
     keyTakeaways: 'Quando a marca traduz inovação com clareza e estética coerente, o mercado percebe valor antes da proposta comercial.',
     focus: 'Reposicionamento',
+  },
+  {
+    id: 'funk',
+    title: 'FUNK',
+    category: 'Identidade Visual Para Marca Musical',
+    year: '2026',
+    client: 'FUNK',
+    heroImage: funkImages[0],
+    thumbnail: funkImages[0],
+    description: 'Identidade visual criada para uma marca com energia urbana, presença forte e apelo cultural direto. O projeto traduz ritmo, atitude e reconhecimento imediato em um sistema visual pronto para digital, eventos e comunicação de impacto.',
+    challenge: 'A marca precisava sair de uma comunicação genérica e assumir uma identidade memorável, capaz de conversar com o público do funk sem parecer improvisada, poluída ou dependente apenas de estética chamativa.',
+    solution: 'Desenvolvemos um sistema de logo com alto contraste, leitura rápida e personalidade própria. A direção visual equilibra força, movimento e aplicabilidade para que a marca funcione em avatar, capa, peça social, material promocional e presença institucional.',
+    results: [
+      'Identidade com reconhecimento imediato',
+      'Sistema visual pronto para digital e eventos',
+      'Mais força de marca em aplicações promocionais',
+      'Presença urbana com acabamento profissional',
+    ],
+    services: ['Estratégia de Marca', 'Design de Logotipo', 'Identidade Visual', 'Direção de Arte', 'Aplicações de Marca'],
+    gallery: funkImages.slice(1),
+    nextProject: 'ethereal',
+    prevProject: 'luminary',
+    keyTakeaways: 'Quando uma marca cultural une atitude, leitura rápida e consistência visual, ela ganha presença antes mesmo da primeira interação comercial.',
+    focus: 'Identidade',
   },
   {
     id: 'ethereal',
@@ -102,7 +136,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Conteúdo', 'Criativos para Instagram', 'Copy Persuasiva', 'Direção de Arte', 'Planejamento de Conversão'],
     gallery: [sumitomo2, sumitomo3, sumitomo4],
     nextProject: 'zenith',
-    prevProject: 'luminary',
+    prevProject: 'funk',
     keyTakeaways: 'Post de alta conversão não depende de sorte: depende de mensagem certa, criativo certo e CTA certo, no momento certo.',
     focus: 'Conversão',
   },

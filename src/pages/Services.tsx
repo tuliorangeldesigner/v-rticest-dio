@@ -6,6 +6,11 @@ import Footer from '@/components/Footer';
 import MagneticButton from '@/components/MagneticButton';
 import Navigation from '@/components/Navigation';
 import SEO from '@/components/SEO';
+import aftereffectsIcon from '@/assets/aftereffects.svg';
+import illustratorIcon from '@/assets/illustrator.svg';
+import photoshopIcon from '@/assets/photoshop.svg';
+import premiereIcon from '@/assets/premiere.svg';
+import adobexdIcon from '@/assets/adobexd.svg';
 
 const services = [
   {
@@ -420,9 +425,7 @@ const Services = () => {
               className="group flex flex-col items-center text-center"
             >
               <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 rounded-2xl bg-foreground/5 group-hover:bg-accent/10 transition-colors duration-300">
-                <svg viewBox="0 0 24 24" className="w-10 h-10 md:w-12 md:h-12 text-accent" fill="currentColor">
-                  <path d="M10.5 8.5v7c0 .28-.22.5-.5.5H8.5c-.28 0-.5-.22-.5-.5v-7c0-.28.22-.5.5-.5H10c.28 0 .5.22.5.5zm5.5-.5h-2c-.28 0-.5.22-.5.5v3.5c0 .28.22.5.5.5h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5H13.5c-.28 0-.5.22-.5.5s.22.5.5.5h2c1.38 0 2.5-1.12 2.5-2.5S16.88 11 15.5 11H14V9h2c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
-                </svg>
+                <img src={photoshopIcon} alt="Photoshop" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
               </div>
               <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">Photoshop</span>
             </motion.div>
@@ -436,9 +439,7 @@ const Services = () => {
               className="group flex flex-col items-center text-center"
             >
               <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 rounded-2xl bg-foreground/5 group-hover:bg-accent/10 transition-colors duration-300">
-                <svg viewBox="0 0 24 24" className="w-10 h-10 md:w-12 md:h-12 text-accent" fill="currentColor">
-                  <path d="M10.5 13.5l-1-3-1 3h2zm-3.5 2H5.5l.5-1.5h3l.5 1.5H8.5l-.5 1.5H7l-.5-1.5zm8-6.5c-.28 0-.5.22-.5.5v7c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5v-7c0-.28-.22-.5-.5-.5h-1zm-2.5.5c0-.28.22-.5.5-.5h1c.28 0 .5.22.5.5v7c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-7zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
-                </svg>
+                <img src={illustratorIcon} alt="Illustrator" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
               </div>
               <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">Illustrator</span>
             </motion.div>
@@ -452,9 +453,7 @@ const Services = () => {
               className="group flex flex-col items-center text-center"
             >
               <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 rounded-2xl bg-foreground/5 group-hover:bg-accent/10 transition-colors duration-300">
-                <svg viewBox="0 0 24 24" className="w-10 h-10 md:w-12 md:h-12 text-accent" fill="currentColor">
-                  <path d="M13.5 8l-3 8h2l.5-1.5h3l.5 1.5h2l-3-8h-2zm.5 5l1-3 1 3h-2zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM8 13c0-1.1.9-2 2-2h1V9H8c-.28 0-.5-.22-.5-.5S7.72 8 8 8h3c.28 0 .5.22.5.5v3c0 .28-.22.5-.5.5h-1c-.55 0-1 .45-1 1v1H8v-1z"/>
-                </svg>
+                <img src={aftereffectsIcon} alt="After Effects" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
               </div>
               <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">After Effects</span>
             </motion.div>
@@ -468,9 +467,7 @@ const Services = () => {
               className="group flex flex-col items-center text-center"
             >
               <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 rounded-2xl bg-foreground/5 group-hover:bg-accent/10 transition-colors duration-300">
-                <svg viewBox="0 0 24 24" className="w-10 h-10 md:w-12 md:h-12 text-accent" fill="currentColor">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM8 15V9l5 3-5 3zm6-3l2-1.5v3L14 12z"/>
-                </svg>
+                <img src={premiereIcon} alt="Premiere" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
               </div>
               <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">Premiere</span>
             </motion.div>
@@ -484,9 +481,7 @@ const Services = () => {
               className="group flex flex-col items-center text-center"
             >
               <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 rounded-2xl bg-foreground/5 group-hover:bg-accent/10 transition-colors duration-300">
-                <svg viewBox="0 0 24 24" className="w-10 h-10 md:w-12 md:h-12 text-accent" fill="currentColor">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM9.5 15l-2-6h1.5l1.25 4 1.25-4H13l-2 6H9.5zm5.5-3c0-1.1.9-2 2-2h.5V9H15c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h2.5c.28 0 .5.22.5.5v2c0 .28-.22.5-.5.5H17c-.55 0-1 .45-1 1v1h2v1h-3v-2z"/>
-                </svg>
+                <img src={adobexdIcon} alt="Adobe XD" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
               </div>
               <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">Adobe XD</span>
             </motion.div>
