@@ -405,7 +405,7 @@ const Projects = () => {
                     >
                       <div className="aspect-[21/9] overflow-hidden">
                         <img
-                          src={project.thumbnail}
+                          src="/coveredicao.webp"
                           alt={project.title}
                           loading="lazy"
                           decoding="async"
