@@ -11,7 +11,7 @@ import { ArrowUpRight, ArrowRight, Images } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 
 const logoProjects = projects.filter((project) =>
-  ['luminary', 'funk', 'voix', 'cascade', 'excellent-solucoes'].includes(project.id)
+  ['luminary', 'funk', 'voix', 'lx-company', 'cascade', 'excellent-solucoes'].includes(project.id)
 );
 const socialMediaProjects = projects.filter((project) =>
   ['ethereal', 'zenith'].includes(project.id)

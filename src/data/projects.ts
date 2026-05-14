@@ -77,6 +77,16 @@ const voixImages = Object.entries(voixImageModules)
   .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
   .map(([, src]) => src);
 
+const lxCompanyImageModules = import.meta.glob('/imagens/lx/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const lxCompanyImages = Object.entries(lxCompanyImageModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
+  .map(([, src]) => src);
+
 export const projects: Project[] = [
   {
     id: 'luminary',
@@ -145,10 +155,34 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Design de Logotipo', 'Identidade Visual', 'Direção Criativa', 'Aplicações Digitais'],
     gallery: voixImages.slice(1),
-    nextProject: 'ethereal',
+    nextProject: 'lx-company',
     prevProject: 'funk',
     keyTakeaways: 'Uma identidade premium precisa ser bonita, mas também precisa funcionar com clareza em cada ponto de contato da marca.',
     focus: 'Identidade Visual',
+  },
+  {
+    id: 'lx-company',
+    title: 'LX Company',
+    category: 'Identidade Visual Corporativa',
+    year: '2026',
+    client: 'LX Company',
+    heroImage: lxCompanyImages[0],
+    thumbnail: lxCompanyImages[0],
+    description: 'Identidade visual criada para posicionar a LX Company com presença corporativa, leitura forte e aparência premium. O projeto organiza a marca para comunicar confiança, estrutura e valor em cada ponto de contato.',
+    challenge: 'A LX Company precisava de uma identidade que parecesse sólida desde o primeiro olhar. O desafio era construir uma marca com autoridade, clareza e acabamento profissional, sem cair em uma estética genérica ou excessivamente comum.',
+    solution: 'Criamos um sistema visual com símbolo, contraste, composição e aplicações pensadas para uso comercial. A direção da marca reforça estabilidade, modernidade e reconhecimento rápido em materiais digitais, institucionais e de apresentação.',
+    results: [
+      'Marca com presença corporativa mais forte',
+      'Identidade pronta para aplicações institucionais',
+      'Mais clareza visual para comunicação comercial',
+      'Percepção premium reforçada nos pontos de contato',
+    ],
+    services: ['Estratégia de Marca', 'Design de Logotipo', 'Identidade Visual', 'Direção de Arte', 'Aplicações Corporativas'],
+    gallery: lxCompanyImages.slice(1),
+    nextProject: 'ethereal',
+    prevProject: 'voix',
+    keyTakeaways: 'Quando uma identidade visual traduz estrutura e confiança com clareza, a marca entra na conversa comercial com mais autoridade.',
+    focus: 'Branding Corporativo',
   },
   {
     id: 'ethereal',
@@ -170,7 +204,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Conteúdo', 'Criativos para Instagram', 'Copy Persuasiva', 'Direção de Arte', 'Planejamento de Conversão'],
     gallery: [sumitomo2, sumitomo3, sumitomo4],
     nextProject: 'zenith',
-    prevProject: 'voix',
+    prevProject: 'lx-company',
     keyTakeaways: 'Post de alta conversão não depende de sorte: depende de mensagem certa, criativo certo e CTA certo, no momento certo.',
     focus: 'Conversão',
   },
