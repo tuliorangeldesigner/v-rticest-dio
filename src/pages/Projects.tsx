@@ -385,9 +385,14 @@ const Projects = () => {
                     <Images className="w-5 h-5 text-accent" />
                     {videoProjects.length} case
                   </div>
-                  <div className="text-sm font-bold uppercase tracking-widest text-foreground/70">
-                    Motion
-                  </div>
+                  <Link
+                    to="/work/edicao-de-video"
+                    className="group/link flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground/70 hover:text-accent transition-colors"
+                  >
+                    <span className="hidden sm:inline">Motion</span>
+                    <span>Ver Página</span>
+                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
+                  </Link>
                 </div>
               </div>
 
