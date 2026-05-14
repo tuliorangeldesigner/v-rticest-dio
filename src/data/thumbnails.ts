@@ -9,12 +9,20 @@ const getThumbNumber = (path: string) => {
   return match ? Number(match[1]) : 0;
 };
 
+const getThumbGroup = (path: string) => {
+  const fileName = path.split('/').pop() || path;
+  const match = fileName.match(/^([a-zA-Z]+\d*)/);
+  return match ? match[1] : 'thumb';
+};
+
 export const thumbnails = Object.entries(thumbnailModules)
   .map(([path, src]) => ({
-    id: `thumb-${getThumbNumber(path)}`,
-    title: `Thumbnail ${String(getThumbNumber(path)).padStart(2, '0')}`,
+    id: `${getThumbGroup(path)}-${getThumbNumber(path)}`,
+    title: `Thumbnail ${getThumbGroup(path).replace('thumb', '') || '1'}-${String(getThumbNumber(path)).padStart(2, '0')}`,
     src: src as string,
     fileName: path.split('/').pop() || path,
   }))
-  .sort((a, b) => getThumbNumber(a.fileName) - getThumbNumber(b.fileName));
-
+  .sort((a, b) =>
+    getThumbGroup(a.fileName).localeCompare(getThumbGroup(b.fileName), 'pt-BR', { numeric: true }) ||
+    getThumbNumber(a.fileName) - getThumbNumber(b.fileName)
+  );
