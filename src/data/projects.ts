@@ -113,9 +113,9 @@ const acainiImageModules = import.meta.glob('/imagens/Açaí/*.webp', {
 const acainiEntries = Object.entries(acainiImageModules)
   .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }));
 const acainiImages = acainiEntries.map(([, src]) => src);
-const acainiCover = acainiEntries.find(([path]) => path.includes('acai (3)'))?.[1] ?? acainiImages[0];
+const acainiCover = acainiEntries.find(([path]) => path.includes('acai (3)1'))?.[1] ?? acainiImages[0];
 const acainiGallery = acainiEntries
-  .filter(([path]) => !path.includes('acai (3)'))
+  .filter(([path]) => !path.includes('acai (3)1'))
   .map(([, src]) => src);
 
 export const projects: Project[] = [
