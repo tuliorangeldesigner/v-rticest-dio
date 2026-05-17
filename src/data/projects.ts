@@ -87,6 +87,36 @@ const lxCompanyImages = Object.entries(lxCompanyImageModules)
   .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
   .map(([, src]) => src);
 
+const logoImageModules = import.meta.glob('/imagens/logo/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const getLogoImage = (fileName: string) => logoImageModules[`/imagens/logo/${fileName}`];
+
+const cathomeLogoImages = {
+  cover: getLogoImage('2-21.webp'),
+  overview: getLogoImage('2.webp'),
+  stationery: getLogoImage('2-1.webp'),
+  marks: getLogoImage('2-2.webp'),
+  apparel: getLogoImage('2-3.webp'),
+};
+
+const coringaLogoImages = {
+  cover: getLogoImage('3-42.webp'),
+  overview: getLogoImage('3.webp'),
+  stationery: getLogoImage('3-1.webp'),
+  apparel: getLogoImage('3-2.webp'),
+  marks: getLogoImage('3-3.webp'),
+};
+
+const picaroLogoImages = {
+  cover: getLogoImage('4-2.webp'),
+  overview: getLogoImage('4.webp'),
+  packaging: getLogoImage('4-1.webp'),
+};
+
 const burgerZoneImageModules = import.meta.glob('/imagens/SocialMedia.webp', {
   eager: true,
   import: 'default',
@@ -210,10 +240,98 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Design de Logotipo', 'Identidade Visual', 'Direção de Arte', 'Aplicações Corporativas'],
     gallery: lxCompanyImages.slice(1),
-    nextProject: 'ethereal',
+    nextProject: 'cathome',
     prevProject: 'voix',
     keyTakeaways: 'Quando uma identidade visual traduz estrutura e confiança com clareza, a marca entra na conversa comercial com mais autoridade.',
     focus: 'Branding Corporativo',
+  },
+  {
+    id: 'cathome',
+    title: 'Cathome',
+    category: 'Identidade Visual Para Pet Brand',
+    year: '2026',
+    client: 'Cathome',
+    heroImage: cathomeLogoImages.cover,
+    thumbnail: cathomeLogoImages.overview,
+    description: 'Identidade visual criada para uma marca pet que precisava parecer acolhedora, memorável e pronta para produto. O sistema combina mascote, símbolo e aplicações para transformar cuidado com gatos em uma marca desejável e fácil de reconhecer.',
+    challenge: 'A Cathome precisava comunicar conforto, carinho e qualidade sem cair em uma estética infantil ou genérica. O desafio era criar uma marca fofa, mas com estrutura suficiente para funcionar em etiqueta, embalagem, vestuário, avatar e materiais comerciais.',
+    solution: 'Desenvolvemos uma linguagem visual baseada em mascote proprietário, paleta quente e tipografia expressiva. O logo foi pensado para leitura rápida e uso versátil, com aplicações que reforçam a ideia de casa, cuidado e produtos premium para gatos.',
+    results: [
+      'Mascote proprietário com alta memorização',
+      'Sistema visual pronto para produtos e etiquetas',
+      'Marca mais afetiva sem perder acabamento comercial',
+      'Identidade consistente para loja, social e embalagem',
+    ],
+    services: ['Estratégia de Marca', 'Design de Logotipo', 'Mascote', 'Identidade Visual', 'Aplicações de Marca'],
+    gallery: [
+      cathomeLogoImages.cover,
+      cathomeLogoImages.overview,
+      cathomeLogoImages.stationery,
+      cathomeLogoImages.marks,
+      cathomeLogoImages.apparel,
+    ],
+    nextProject: 'coringa-cga',
+    prevProject: 'lx-company',
+    keyTakeaways: 'Marca pet precisa criar afeto no primeiro olhar, mas só vira ativo comercial quando esse afeto funciona em todos os pontos de contato.',
+    focus: 'Mascote e Produto',
+  },
+  {
+    id: 'coringa-cga',
+    title: 'Coringa CGA',
+    category: 'Identidade Visual Para Creator',
+    year: '2026',
+    client: 'Coringa CGA',
+    heroImage: coringaLogoImages.cover,
+    thumbnail: coringaLogoImages.overview,
+    description: 'Identidade visual criada para um creator com presença digital forte, linguagem gamer e necessidade de reconhecimento imediato. O projeto transforma assinatura, símbolo e avatar em um sistema visual pronto para comunidade, collabs e produtos.',
+    challenge: 'O creator precisava de uma marca com energia própria, capaz de funcionar em thumb, stream, vestuário, tag, badge e materiais de parceria. O risco era depender apenas de lettering chamativo sem construir um universo visual consistente.',
+    solution: 'Criamos uma identidade com lettering de alto impacto, símbolo de apoio e personagem gráfico para ampliar reconhecimento. A paleta roxa e turquesa constrói contraste digital, enquanto as aplicações mostram como a marca se comporta em moda, credencial, social e collabs.',
+    results: [
+      'Assinatura visual mais reconhecível',
+      'Sistema pronto para comunidade e merchandising',
+      'Mais força em assets de stream e social',
+      'Identidade com linguagem gamer sem perder leitura',
+    ],
+    services: ['Branding Para Creator', 'Lettering', 'Design de Logotipo', 'Mascote', 'Aplicações Digitais'],
+    gallery: [
+      coringaLogoImages.cover,
+      coringaLogoImages.overview,
+      coringaLogoImages.stationery,
+      coringaLogoImages.apparel,
+      coringaLogoImages.marks,
+    ],
+    nextProject: 'picaro',
+    prevProject: 'cathome',
+    keyTakeaways: 'Para creator, identidade não é só logo: é um ecossistema de sinais visuais que a comunidade reconhece em segundos.',
+    focus: 'Creator Brand',
+  },
+  {
+    id: 'picaro',
+    title: 'Picaro',
+    category: 'Identidade Visual Para Food Brand',
+    year: '2026',
+    client: 'Picaro',
+    heroImage: picaroLogoImages.cover,
+    thumbnail: picaroLogoImages.overview,
+    description: 'Identidade visual criada para uma marca de molho picante com atitude, contraste e presença de prateleira. O projeto usa personagem, textura e sistema gráfico para posicionar o produto como intenso, urbano e impossível de ignorar.',
+    challenge: 'A Picaro precisava se destacar em um mercado visualmente saturado, onde muitos produtos comunicam pimenta de forma previsível. O desafio era traduzir calor, sabor e irreverência em uma marca forte para embalagem, rótulo e comunicação digital.',
+    solution: 'Desenvolvemos um símbolo com personagem de pimenta, contraste ácido e textura grunge controlada. A identidade equilibra street food, humor e impacto de gôndola, criando um sistema fácil de aplicar em garrafas, sachês, caixas, ícones e campanhas.',
+    results: [
+      'Presença de prateleira mais agressiva',
+      'Marca com personalidade própria no segmento food',
+      'Sistema visual pronto para rótulos e embalagens',
+      'Comunicação direta para produto artesanal e urbano',
+    ],
+    services: ['Estratégia de Marca', 'Packaging Design', 'Design de Logotipo', 'Mascote', 'Sistema Visual'],
+    gallery: [
+      picaroLogoImages.cover,
+      picaroLogoImages.overview,
+      picaroLogoImages.packaging,
+    ],
+    nextProject: 'ethereal',
+    prevProject: 'coringa-cga',
+    keyTakeaways: 'Em food brand, diferenciação nasce quando sabor, embalagem e personalidade parecem parte da mesma promessa.',
+    focus: 'Packaging',
   },
   {
     id: 'ethereal',
@@ -235,7 +353,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Conteúdo', 'Criativos para Instagram', 'Copy Persuasiva', 'Direção de Arte', 'Planejamento de Conversão'],
     gallery: [sumitomo2, sumitomo3, sumitomo4],
     nextProject: 'zenith',
-    prevProject: 'lx-company',
+    prevProject: 'picaro',
     keyTakeaways: 'Post de alta conversão não depende de sorte: depende de mensagem certa, criativo certo e CTA certo, no momento certo.',
     focus: 'Conversão',
   },
