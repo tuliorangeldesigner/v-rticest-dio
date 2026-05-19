@@ -27,7 +27,7 @@ const socialMediaProjects = projects.filter((project) =>
   ['ethereal', 'zenith', 'burger-zone', 'acaini'].includes(project.id)
 );
 const siteProjects = projects.filter((project) =>
-  ['naturis', 'orbits', 'elektra', 'amanda-felisbino'].includes(project.id)
+  ['naturis', 'orbits', 'elektra', 'poema-cru', 'amanda-felisbino'].includes(project.id)
 );
 const videoProjects = projects.filter((project) =>
   ['edicao-de-video'].includes(project.id)

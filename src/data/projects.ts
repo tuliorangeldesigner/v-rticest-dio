@@ -148,6 +148,27 @@ const acainiGallery = acainiEntries
   .filter(([path]) => !path.includes('acai (3)1'))
   .map(([, src]) => src);
 
+const poemaImageModules = import.meta.glob(
+  [
+    '/imagens/poema/poema.webp',
+    '/imagens/poema/poema2.webp',
+    '/imagens/poema/poema3.webp',
+    '/imagens/poema/poema4.webp',
+  ],
+  {
+    eager: true,
+    import: 'default',
+    query: '?url',
+  }
+) as Record<string, string>;
+
+const poemaImages = {
+  cover: poemaImageModules['/imagens/poema/poema.webp'],
+  galleryOne: poemaImageModules['/imagens/poema/poema2.webp'],
+  galleryTwo: poemaImageModules['/imagens/poema/poema3.webp'],
+  galleryThree: poemaImageModules['/imagens/poema/poema4.webp'],
+};
+
 export const projects: Project[] = [
   {
     id: 'luminary',
@@ -614,11 +635,36 @@ export const projects: Project[] = [
     ],
     services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Estratégica', 'Otimização de Conversão'],
     gallery: [webImage, webImage2, webImage3, webImage4],
-    nextProject: 'amanda-felisbino',
+    nextProject: 'poema-cru',
     prevProject: 'orbits',
     keyTakeaways: 'Uma landing page forte organiza narrativa, prova e CTA para acelerar decisão de compra sem depender só de desconto.',
     focus: 'Conversão',
     projectUrl: 'https://elektraebike.netlify.app/',
+  },
+  {
+    id: 'poema-cru',
+    title: 'Poema Cru',
+    category: 'Landing Page Autoral • Produto Digital',
+    year: '2026',
+    client: 'Poema Cru',
+    heroImage: poemaImages.cover,
+    thumbnail: poemaImages.cover,
+    description: 'Site autoral criado para transformar poesia em uma oferta digital desejável, clara e emocionalmente memorável. A página apresenta eBook, poemas narrados e poemas personalizados com uma experiência sensível, sofisticada e orientada para compra.',
+    challenge: 'O Poema Cru precisava vender um produto profundamente subjetivo sem reduzir sua força poética a uma página comum de checkout. O desafio era construir desejo, confiança e entendimento rápido da oferta, mantendo a atmosfera íntima da marca e guiando o visitante até a ação sem quebrar o encantamento.',
+    solution: 'Desenvolvemos uma landing page com narrativa imersiva, copy emocional e arquitetura de conversão. A experiência organiza as opções de compra, apresenta valor simbólico, reforça autoria e transforma poesia em presente, memória e ritual. Cada bloco foi pensado para fazer o visitante sentir antes de decidir, entender antes de comparar e agir no momento certo.',
+    results: [
+      'Oferta autoral apresentada com mais clareza e desejo',
+      'Experiência digital alinhada à sensibilidade da marca',
+      'Fluxo de compra mais direto para eBook, narração e poema personalizado',
+      'Percepção premium reforçada para um produto literário e afetivo',
+    ],
+    services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Persuasiva', 'Direção Criativa', 'Otimização de Conversão'],
+    gallery: [poemaImages.galleryOne, poemaImages.galleryTwo, poemaImages.galleryThree],
+    nextProject: 'amanda-felisbino',
+    prevProject: 'elektra',
+    keyTakeaways: 'Quando a copy traduz emoção com clareza comercial, até uma oferta poética deixa de parecer abstrata e passa a ser percebida como presente, experiência e compra possível.',
+    focus: 'Conversão Emocional',
+    projectUrl: 'https://poema-cru.vercel.app/',
   },
   {
     id: 'amanda-felisbino',
@@ -640,7 +686,7 @@ export const projects: Project[] = [
     services: ['Web Design', 'Portfólio Profissional', 'UX/UI', 'Copy Estratégica', 'Direção Criativa'],
     gallery: ['/amanda-felisbino-services.webp', '/amanda-felisbino-work.webp', '/amanda-felisbino-home.webp'],
     nextProject: 'luminary',
-    prevProject: 'elektra',
+    prevProject: 'poema-cru',
     keyTakeaways: 'Quando estratégia, estética e clareza trabalham juntas, o portfólio deixa de ser vitrine e passa a ser uma ferramenta real de posicionamento.',
     focus: 'Posicionamento',
     projectUrl: 'https://amandafelisbino.vercel.app/',
