@@ -24,7 +24,7 @@ const logoProjects = projects.filter((project) =>
   ].includes(project.id)
 );
 const socialMediaProjects = projects.filter((project) =>
-  ['ethereal', 'zenith', 'burger-zone', 'acaini'].includes(project.id)
+  ['ethereal', 'zenith', 'burger-zone', 'acaini', 'variados'].includes(project.id)
 );
 const siteProjects = projects.filter((project) =>
   ['naturis', 'orbits', 'elektra', 'poema-cru', 'amanda-felisbino'].includes(project.id)

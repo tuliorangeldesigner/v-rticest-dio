@@ -148,6 +148,17 @@ const acainiGallery = acainiEntries
   .filter(([path]) => !path.includes('acai (3)1'))
   .map(([, src]) => src);
 
+const variadosImageModules = import.meta.glob('/imagens/variados/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const variadosImages = Object.entries(variadosImageModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }))
+  .filter(([path]) => !path.endsWith('/capa.webp'))
+  .map(([, src]) => src);
+const variadosCover = variadosImageModules['/imagens/variados/capa.webp'];
 const poemaImageModules = import.meta.glob(
   [
     '/imagens/poema/poema.webp',
@@ -445,10 +456,34 @@ export const projects: Project[] = [
     ],
     services: ['Social Media', 'Direção de Arte', 'Criativo para Instagram', 'Design de Oferta', 'Campanha Local'],
     gallery: acainiGallery,
-    nextProject: 'cascade',
+    nextProject: 'variados',
     prevProject: 'burger-zone',
     keyTakeaways: 'Social media para produto precisa abrir apetite visual antes da legenda: imagem, promessa e hierarquia precisam trabalhar juntas.',
     focus: 'Desejo e Oferta',
+  },
+  {
+    id: 'variados',
+    title: 'Variados',
+    category: 'Social Media Multissetorial',
+    year: '2026',
+    client: 'Marcas em Diferentes Nichos',
+    heroImage: variadosCover,
+    thumbnail: variadosCover,
+    description: 'Uma seleção de criativos para marcas, campanhas e ofertas de diferentes segmentos, criada para provar versatilidade sem perder estratégia: cada peça nasce para parar o scroll, comunicar valor rápido e transformar atenção em intenção de compra.',
+    challenge: 'Negócios de nichos diferentes costumam cair no mesmo problema: posts bonitos, mas sem gancho, hierarquia ou direção comercial. O desafio era criar peças com linguagem própria para cada contexto, mantendo leitura imediata e apelo de conversão.',
+    solution: 'Desenvolvemos uma coleção de criativos com composições fortes, contraste controlado, copy objetiva e foco em oferta. Cada imagem foi pensada para funcionar como ponto de entrada para desejo, autoridade ou ação, adaptando estética, ritmo e mensagem ao tipo de público.',
+    results: [
+      'Criativos adaptáveis para diferentes mercados',
+      'Mais clareza visual para oferta, produto e promessa',
+      'Peças prontas para feed, campanha e anúncio',
+      'Direção de arte consistente sem parecer genérica',
+    ],
+    services: ['Social Media', 'Direção de Arte', 'Copy Persuasiva', 'Criativos para Instagram', 'Campanhas Digitais'],
+    gallery: variadosImages,
+    nextProject: 'cascade',
+    prevProject: 'acaini',
+    keyTakeaways: 'Criativo variado não precisa parecer aleatório: quando estratégia, hierarquia e promessa estão claras, cada nicho ganha uma linguagem própria para vender melhor.',
+    focus: 'Versatilidade e Conversão',
   },
   {
     id: 'cascade',
@@ -470,7 +505,7 @@ export const projects: Project[] = [
     services: ['Estratégia de Marca', 'Reestruturação Visual', 'Identidade Visual', 'Direção de Arte', 'Aplicações Digitais'],
     gallery: [rocha2, rocha3, rocha4],
     nextProject: 'edicao-de-video',
-    prevProject: 'acaini',
+    prevProject: 'variados',
     keyTakeaways: 'Quando a identidade visual comunica valor antes da proposta, a negociação muda de preço para confiança e decisão.',
     focus: 'Reposicionamento',
   },
