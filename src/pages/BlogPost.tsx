@@ -3,7 +3,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
 import SEO from '@/components/SEO';
-import { ArticleSchema, BreadcrumbSchema } from '@/components/StructuredData';
+import { ArticleSchema, BreadcrumbSchema, FaqSchema } from '@/components/StructuredData';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
@@ -97,6 +97,7 @@ const BlogPost = () => {
           { name: post.title, url: `${SITE_URL}/blog/${post.id}` },
         ]}
       />
+      {post.faqs && <FaqSchema items={post.faqs} />}
       
       {/* Minimal Progress Line */}
       <motion.div
@@ -275,6 +276,13 @@ const BlogPost = () => {
                     </div>
                  ))}
               </article>
+
+              {(post.serviceLinks || post.faqs) && (
+                <aside className="lg:col-span-8 lg:col-start-5 mt-12 space-y-6 border-t border-foreground/10 pt-10">
+                  {post.serviceLinks && <div className="flex flex-wrap gap-3">{post.serviceLinks.map((link) => <Link key={link.to} to={link.to} className="inline-flex items-center gap-2 border border-accent px-5 py-3 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-white">{link.label}<ArrowRight className="h-4 w-4" /></Link>)}</div>}
+                  {post.faqs && <div className="space-y-4">{post.faqs.map((faq) => <article key={faq.question} className="border border-foreground/10 p-6"><h2 className="mb-3 font-syne text-xl font-bold">{faq.question}</h2><p className="leading-relaxed text-foreground/70">{faq.answer}</p></article>)}</div>}
+                </aside>
+              )}
 
            </div>
         </section>

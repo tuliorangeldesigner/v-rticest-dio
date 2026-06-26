@@ -13,7 +13,11 @@
   readTime: string;
   image: string;
   featured: boolean;
+  faqs?: { question: string; answer: string }[];
+  serviceLinks?: { label: string; to: string }[];
 }
+
+import { seoBlogPosts } from './seoBlogPosts';
 
 const author = {
   name: 'TR Designer',
@@ -162,7 +166,57 @@ export const blogPosts: BlogPost[] = [
     image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80',
     featured: false,
   },
+  {
+    id: 'quanto-custa-criar-site-profissional', title: 'Quanto Custa Criar um Site Profissional?', category: 'SITES', author, date: '26 de junho de 2026', readTime: '6 min de leitura', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'Entenda o que realmente define o investimento em um site profissional e como comparar propostas com critério.',
+    content: ['O custo de um site profissional não depende apenas de quantas páginas ele terá. Estratégia, arquitetura de informação, conteúdo, design, desenvolvimento e integrações mudam o escopo e o resultado final.', 'Comparar somente o menor preço costuma esconder diferenças importantes: quem pensa a jornada, quem organiza a mensagem e quem entrega uma base que a empresa consegue usar para gerar negócio.', 'Antes de pedir uma proposta, defina objetivo, público, serviços prioritários e o próximo passo desejado. Um diagnóstico bem feito evita contratar uma vitrine bonita que não ajuda o comercial.'],
+    serviceLinks: [{ label: 'Criação de sites profissionais', to: '/servicos/criacao-de-sites' }], faqs: [{ question: 'O que muda o valor de um site?', answer: 'Escopo, quantidade de páginas, estratégia, conteúdo, integrações e complexidade de desenvolvimento.' }, { question: 'Vale escolher apenas pelo menor orçamento?', answer: 'Não. Compare processo, entregáveis, clareza estratégica e suporte ao objetivo comercial.' }],
+  },
+  {
+    id: 'site-institucional-ou-landing-page', title: 'Site Institucional ou Landing Page: Qual Escolher?', category: 'SITES', author, date: '26 de junho de 2026', readTime: '5 min de leitura', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'A escolha certa depende da intenção do visitante e do objetivo comercial da empresa.',
+    content: ['O site institucional apresenta a empresa, seus serviços, repertório e formas de contato. Ele é a base para quem precisa construir presença, confiança e diferentes portas de entrada orgânicas.', 'A landing page concentra uma oferta e uma ação: captar leads, agendar, vender ou lançar algo. Ela reduz caminhos paralelos para conduzir uma decisão específica.', 'Muitas empresas precisam dos dois formatos. O site sustenta autoridade e a landing page recebe campanhas ou buscas com intenção muito clara.'],
+    serviceLinks: [{ label: 'Criação de sites', to: '/servicos/criacao-de-sites' }, { label: 'Criação de landing pages', to: '/servicos/criacao-de-landing-pages' }], faqs: [{ question: 'Landing page substitui o site?', answer: 'Não necessariamente. Ela atende uma oferta específica; o site atende a presença mais ampla da marca.' }],
+  },
+  {
+    id: 'o-que-uma-landing-page-precisa-ter', title: 'O Que uma Landing Page Precisa Ter Para Converter?', category: 'CONVERSÃO', author, date: '26 de junho de 2026', readTime: '5 min de leitura', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'Clareza de oferta, prova e um próximo passo sem fricção são os elementos que dão função a uma landing page.',
+    content: ['Uma landing page eficiente deixa claro, logo no início, o que é oferecido, para quem e qual transformação ou resultado ela busca gerar. Se a pessoa precisa adivinhar, a conversão começa a escapar.', 'Depois da proposta, entram contexto, benefícios, método, provas disponíveis e respostas às objeções. Cada bloco precisa ajudar a próxima decisão, sem criar excesso de informação.', 'O CTA deve apontar para uma ação coerente com a oferta. Formulário, WhatsApp ou agendamento funcionam melhor quando a expectativa do que acontece depois está explícita.'],
+    serviceLinks: [{ label: 'Criar uma landing page estratégica', to: '/servicos/criacao-de-landing-pages' }], faqs: [{ question: 'Uma landing page precisa ter muitas seções?', answer: 'Precisa ter as seções necessárias para reduzir dúvidas e conduzir a ação, não volume por si só.' }],
+  },
+  {
+    id: 'quanto-tempo-leva-criar-site', title: 'Quanto Tempo Leva Para Criar um Site?', category: 'SITES', author, date: '26 de junho de 2026', readTime: '4 min de leitura', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'O prazo de um site depende do escopo, da qualidade das decisões iniciais e da velocidade das validações.',
+    content: ['Não existe um prazo responsável sem entender o escopo. Um site de uma oferta, um institucional com várias frentes e uma plataforma com integrações têm necessidades diferentes.', 'A fase que mais protege o prazo é o diagnóstico: objetivo, público, páginas, conteúdo e referências são alinhados antes da produção. Isso reduz retrabalho e decisões tardias.', 'Também importa a participação da empresa. Materiais, aprovações e retornos em tempo adequado mantêm a construção fluida e ajudam a preservar qualidade.'],
+    serviceLinks: [{ label: 'Planejar a criação do seu site', to: '/servicos/criacao-de-sites' }], faqs: [{ question: 'É possível definir prazo antes do diagnóstico?', answer: 'É possível dar uma estimativa, mas o prazo real precisa considerar escopo e validações.' }],
+  },
+  {
+    id: 'quanto-custa-criar-logo-profissional', title: 'Quanto Custa Criar um Logo Profissional?', category: 'BRANDING', author, date: '26 de junho de 2026', readTime: '5 min de leitura', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'O investimento em um logo acompanha a profundidade estratégica e o sistema visual necessário para o negócio.',
+    content: ['Um logo profissional não é apenas um desenho final. O trabalho relevante começa entendendo empresa, público, percepção desejada e onde a marca será aplicada.', 'Propostas diferentes podem incluir níveis distintos de pesquisa, direção criativa, refinamento, arquivos e regras de uso. Por isso, comparar somente o valor final não mostra todo o escopo.', 'O melhor caminho é avaliar se o processo entrega uma marca adequada ao momento da empresa e preparada para seus pontos de contato reais.'],
+    serviceLinks: [{ label: 'Criação de logo profissional', to: '/servicos/criacao-de-logo' }], faqs: [{ question: 'Por que um logo profissional custa mais?', answer: 'Porque envolve estratégia, direção, refinamento e entregáveis pensados para aplicação consistente.' }],
+  },
+  {
+    id: 'diferenca-logo-e-identidade-visual', title: 'Logo e Identidade Visual: Qual é a Diferença?', category: 'BRANDING', author, date: '26 de junho de 2026', readTime: '4 min de leitura', image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'O logo é um elemento de reconhecimento; a identidade visual é o sistema que faz a marca permanecer coerente.',
+    content: ['O logo é o sinal principal de uma marca: nome, símbolo ou assinatura que permite reconhecimento. Ele precisa funcionar em diferentes tamanhos e contextos.', 'A identidade visual amplia esse sinal com tipografia, cores, composições, imagens e regras de aplicação. É ela que impede que cada material pareça pertencer a uma empresa diferente.', 'Quando a empresa precisa ganhar consistência em site, redes e materiais comerciais, pensar apenas no logo costuma ser pouco. O sistema é o que sustenta a percepção no dia a dia.'],
+    serviceLinks: [{ label: 'Criação de logo', to: '/servicos/criacao-de-logo' }, { label: 'Criação de identidade visual', to: '/servicos/identidade-visual' }], faqs: [{ question: 'Posso criar logo sem identidade visual?', answer: 'Pode, mas a marca terá menos diretrizes para manter consistência nas aplicações futuras.' }],
+  },
+  {
+    id: 'o-que-inclui-identidade-visual', title: 'O Que Inclui uma Identidade Visual?', category: 'BRANDING', author, date: '26 de junho de 2026', readTime: '5 min de leitura', image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'Entenda quais elementos formam uma identidade visual e por que o escopo deve acompanhar o momento da empresa.',
+    content: ['Uma identidade visual pode reunir marca, paleta de cores, tipografia, elementos gráficos e diretrizes de aplicação. O conjunto exato depende das necessidades reais do negócio.', 'Não se trata de acumular entregáveis. Uma empresa precisa de um sistema que ajude as pessoas a reconhecer a marca e que seja simples de aplicar nos seus canais mais importantes.', 'O diagnóstico define prioridades: para algumas empresas, a base é a marca e o guia; para outras, é importante desdobrar aplicações para site, apresentações e redes sociais.'],
+    serviceLinks: [{ label: 'Criar identidade visual', to: '/servicos/identidade-visual' }], faqs: [{ question: 'Identidade visual inclui manual de marca?', answer: 'O escopo é definido no diagnóstico; diretrizes de aplicação fazem parte de uma identidade consistente.' }],
+  },
+  {
+    id: 'como-escolher-agencia-site-identidade-visual', title: 'Como Escolher uma Agência Para Criar Site e Identidade Visual?', category: 'ESTRATÉGIA', author, date: '26 de junho de 2026', readTime: '6 min de leitura', image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=80', featured: false,
+    excerpt: 'Critérios práticos para escolher um parceiro de site e identidade visual além de portfólio e preço.',
+    content: ['Portfólio importa, mas não deve ser o único critério. Observe se as marcas e páginas mostram clareza de proposta, coerência e adequação ao contexto de cada negócio.', 'Pergunte sobre processo: como a agência entende objetivo, público, oferta e critérios de decisão antes de criar? Uma boa resposta mostra método, não apenas gosto visual.', 'Por fim, compare escopo, comunicação e capacidade de implantação. O parceiro ideal ajuda a conectar marca, presença digital e próximo passo comercial.'],
+    serviceLinks: [{ label: 'Criar site profissional', to: '/servicos/criacao-de-sites' }, { label: 'Criar identidade visual', to: '/servicos/identidade-visual' }], faqs: [{ question: 'O que avaliar além do portfólio?', answer: 'Processo, clareza de escopo, comunicação, entendimento do negócio e entregáveis aplicáveis.' }],
+  },
 ];
+
+blogPosts.push(...seoBlogPosts);
 
 export const getBlogPostById = (id: string): BlogPost | undefined => {
   return blogPosts.find((post) => post.id === id);

@@ -1,5 +1,9 @@
 ﻿import { Helmet } from 'react-helmet-async';
 
+import { createFaqPageSchema, type FaqItem } from '@/lib/seoSchemas';
+
+export type { FaqItem } from '@/lib/seoSchemas';
+
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
 
 interface OrganizationSchemaProps {
@@ -182,6 +186,16 @@ export const BreadcrumbSchema = ({ items }: { items: BreadcrumbItem[] }) => {
       item: item.url,
     })),
   };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
+export const FaqSchema = ({ items }: { items: FaqItem[] }) => {
+  const schema = createFaqPageSchema(items);
 
   return (
     <Helmet>

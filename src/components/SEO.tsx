@@ -57,7 +57,6 @@ const SEO = ({
       <meta name="author" content={author || defaultMeta.siteName} />
       <meta name="robots" content={robots} />
       <meta name="language" content={defaultMeta.language} />
-      <meta name="revisit-after" content="7 days" />
       
       {/* Canonical URL */}
       <link rel="canonical" href={resolvedUrl} />

@@ -3,6 +3,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
+import { BreadcrumbSchema, ServiceSchema } from '@/components/StructuredData';
+
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesigner.com.br').replace(/\/$/, '');
 
 type ServiceDetail = {
   slug: string;
@@ -206,6 +210,19 @@ const ServiceDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={service.title}
+        description={service.summary}
+        url={`/services/${service.slug}`}
+      />
+      <ServiceSchema name={service.title} description={service.summary} />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Início', url: SITE_URL },
+          { name: 'Serviços', url: `${SITE_URL}/services` },
+          { name: service.title, url: `${SITE_URL}/services/${service.slug}` },
+        ]}
+      />
       <Navigation />
 
       <main className="pt-28 md:pt-36 pb-20 md:pb-28">
