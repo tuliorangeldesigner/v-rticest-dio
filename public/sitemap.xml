@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://trdesigner.vercel.app/</loc>
-    <lastmod>2026-02-21</lastmod>
+    <loc>https://www.tuliorangeldesigner.com.br/</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work</loc>
-    <lastmod>2026-02-21</lastmod>
+    <loc>https://www.tuliorangeldesigner.com.br/work</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/services</loc>
-    <lastmod>2026-02-21</lastmod>
+    <loc>https://www.tuliorangeldesigner.com.br/work/logos</loc>
+    <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -43,145 +43,217 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/about</loc>
-    <lastmod>2026-02-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.tuliorangeldesigner.com.br/work/sites</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog</loc>
-    <lastmod>2026-02-21</lastmod>
+    <loc>https://www.tuliorangeldesigner.com.br/work/social-media</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/work/video</loc>
+    <lastmod>2026-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/contact</loc>
-    <lastmod>2026-02-21</lastmod>
+    <loc>https://www.tuliorangeldesigner.com.br/services</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/about</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/privacy-policy</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/contact</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/privacy-policy</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/terms-of-service</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/terms-of-service</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/services/reprogramacao-de-marca</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/thumbnail</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/logos-e-sport</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/banners-ecommerce-dropshipping</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/webdesign</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/e-sports-variados</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/diagnostico</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/services/reprogramacao-de-marca</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/services/arquitetura-de-site-e-conversao</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/services/arquitetura-de-site-e-conversao</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/services/criativos-de-performance</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/services/criativos-de-performance</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/services/sistema-completo-tr-designer</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/services/sistema-completo-tr-designer</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/luminary</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/luminary</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/ethereal</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/ethereal</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/zenith</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/zenith</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/cascade</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/variados</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/work/cascade</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/edicao-de-video</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/edicao-de-video</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/excellent-solucoes</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/excellent-solucoes</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/elektra</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/larroyd-studios</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuliorangeldesigner.com.br/work/elektra</loc>
     <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/work/poema-cru</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/work/poema-cru</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/marcas-comuns-brigam-por-preco</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/marcas-comuns-brigam-por-preco</loc>
     <lastmod>2026-02-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/site-nao-converte</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/site-nao-converte</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/percepcao-define-preco</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/percepcao-define-preco</loc>
     <lastmod>2026-02-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/criativo-engenharia-atencao</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/criativo-engenharia-atencao</loc>
     <lastmod>2026-02-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/autoridade-visual-feed</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/autoridade-visual-feed</loc>
     <lastmod>2026-01-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/branding-sem-estrategia</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/branding-sem-estrategia</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trdesigner.vercel.app/blog/ia-amplifica-estrategia</loc>
+    <loc>https://www.tuliorangeldesigner.com.br/blog/ia-amplifica-estrategia</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

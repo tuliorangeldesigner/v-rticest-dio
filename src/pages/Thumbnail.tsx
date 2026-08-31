@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
-import CustomCursor from '@/components/CustomCursor';
+import ConditionalCustomCursor from '@/components/ConditionalCustomCursor';
 import { thumbnails } from '@/data/thumbnails';
 
 const Thumbnail = () => {
@@ -48,8 +48,7 @@ const Thumbnail = () => {
         url="/thumbnail"
       />
       <Navigation />
-      <CustomCursor />
-
+      <ConditionalCustomCursor />
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-50"
         style={{ scaleX }}
@@ -264,4 +263,3 @@ const Thumbnail = () => {
 };
 
 export default Thumbnail;
-

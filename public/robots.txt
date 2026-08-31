@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /briefing/
 Disallow: /portal/
+Disallow: /targglogistica
 
-Sitemap: https://trdesigner.vercel.app/sitemap.xml
+Sitemap: https://www.tuliorangeldesigner.com.br/sitemap.xml

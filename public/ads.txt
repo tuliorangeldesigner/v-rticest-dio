@@ -1,0 +1,4 @@
+# Google AdSense:
+# Depois que o domínio for aprovado no AdSense, substitua a linha abaixo pela linha exata copiada no painel.
+# Formato oficial:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0

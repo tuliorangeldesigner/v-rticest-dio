@@ -4,7 +4,7 @@ import { createFaqPageSchema, type FaqItem } from '@/lib/seoSchemas';
 
 export type { FaqItem } from '@/lib/seoSchemas';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesigner.com.br').replace(/\/$/, '');
 
 interface OrganizationSchemaProps {
   name?: string;
@@ -78,6 +78,11 @@ export const OrganizationSchema = ({
     logo,
     description,
     email,
+    founder: {
+      '@type': 'Person',
+      name: 'Túlio Rangel',
+      jobTitle: 'Designer estratégico',
+    },
     address: {
       '@type': 'PostalAddress',
       ...address,
@@ -90,6 +95,14 @@ export const OrganizationSchema = ({
       areaServed: 'BR',
       availableLanguage: ['Portuguese'],
     },
+    knowsAbout: [
+      'Branding',
+      'Identidade visual',
+      'Criação de sites',
+      'Landing pages',
+      'Criativos de performance',
+      'SEO on-page',
+    ],
   };
 
   return (
@@ -162,7 +175,9 @@ export const ServiceSchema = ({
     provider: {
       '@type': 'Organization',
       name: provider,
+      url: SITE_URL,
     },
+    serviceType: name,
     areaServed,
     priceRange,
   };
@@ -213,6 +228,11 @@ export const WebsiteSchema = () => {
     url: SITE_URL,
     description: 'Branding estratégico, sites de alta conversão e criativos orientados por performance.',
     inLanguage: 'pt-BR',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TR Designer',
+      url: SITE_URL,
+    },
   };
 
   return (
@@ -249,6 +269,37 @@ export const ProfessionalServiceSchema = () => {
     },
     areaServed: 'BR',
     priceRange: '$$$',
+    sameAs: [
+      'https://www.linkedin.com/in/t%C3%BAlio-rangel-designer1/',
+      'https://www.instagram.com/tulio_rangel_designer/',
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Serviços da TR Designer',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Criação de sites de alta conversão',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Identidade visual e branding estratégico',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Criativos de performance',
+          },
+        },
+      ],
+    },
   };
 
   return (

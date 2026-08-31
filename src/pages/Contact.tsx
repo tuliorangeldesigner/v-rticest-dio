@@ -9,6 +9,7 @@ import { toast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { trackConversion } from '@/lib/conversion';
 import SEO from '@/components/SEO';
 
 const contactSchema = z.object({
@@ -80,6 +81,7 @@ const Contact = () => {
       }
 
       setIsSubmitted(true);
+      trackConversion('form_submit');
       toast({
         title: 'Mensagem enviada!',
         description: 'Recebemos sua solicitação e retornaremos em breve.',
@@ -150,8 +152,15 @@ const Contact = () => {
 
           {/* Accent orb */}
           <motion.div
-            className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
-            style={{ top: '20%', right: '10%', x: mousePosition.x * 3, y: mousePosition.y * 3 }}
+            className="absolute w-[360px] h-[360px] rounded-full pointer-events-none opacity-70"
+            style={{
+              top: '20%',
+              right: '10%',
+              x: mousePosition.x * 3,
+              y: mousePosition.y * 3,
+              background:
+                'radial-gradient(circle, hsl(var(--accent) / 0.14) 0%, hsl(var(--accent) / 0.06) 36%, transparent 70%)',
+            }}
           />
 
           <div className="container-wide relative z-10">
@@ -450,6 +459,15 @@ const Contact = () => {
                       <br />
                       Valor define crescimento.
                     </p>
+                    <a
+                      href={getWhatsAppLink('Olá! Quero falar sobre meu projeto.')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackConversion('whatsapp_click')}
+                      className="block text-center text-sm font-medium text-accent hover:underline"
+                    >
+                      Prefere falar agora? Chame no WhatsApp.
+                    </a>
                   </form>
                 )}
               </motion.div>

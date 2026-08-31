@@ -135,7 +135,7 @@ export const TestimonialsSection = () => {
                 transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
                 className={`absolute inset-0 ${activeIndex === index ? 'pointer-events-auto' : 'pointer-events-none'}`}
               >
-                <div className="p-8 md:p-12 border border-border/50 bg-card/30 backdrop-blur-sm">
+                <div className="p-8 md:p-12 border border-border/50 bg-card/75 shadow-xl shadow-background/20">
                   {/* Quote icon */}
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-8">
                     <Quote className="w-5 h-5 text-accent" />

@@ -20,8 +20,10 @@
   keyTakeaways?: string;
   focus?: string;
   projectUrl?: string;
+  galleryDisplay?: 'standard' | 'brand-board';
 }
 
+import { newLogoProjects } from './newLogoProjects';
 import gwapo1 from '@/assets/gwapo1.webp';
 import gwapo2 from '@/assets/gwapo2.webp';
 import gwapo3 from '@/assets/gwapo3.webp';
@@ -43,8 +45,6 @@ import excellentMockupOne from '@/assets/excellent/1 copiar.webp';
 import excellentMockupTwo from '@/assets/excellent/13 copiar.webp';
 import excellentCardCover from '@/assets/excellent/1 copiar 23.webp';
 import excellentThirdGallery from '@/assets/excellent/1 copiar 2.webp';
-import webCapa1 from '@/assets/webcapa1.webp';
-import webImage from '@/assets/web.webp';
 import webImage2 from '@/assets/web2.webp';
 import webImage3 from '@/assets/web3.webp';
 import webImage4 from '@/assets/web4.webp';
@@ -148,6 +148,17 @@ const acainiGallery = acainiEntries
   .filter(([path]) => !path.includes('acai (3)1'))
   .map(([, src]) => src);
 
+const liveCryptoImageModules = import.meta.glob('/imagens/social media live crypto/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const liveCryptoEntries = Object.entries(liveCryptoImageModules)
+  .sort(([a], [b]) => a.localeCompare(b, 'pt-BR', { numeric: true }));
+const liveCryptoCover = liveCryptoImageModules['/imagens/social media live crypto/2 (2).webp'];
+const liveCryptoGallery = liveCryptoEntries.map(([, src]) => src);
+
 const variadosImageModules = import.meta.glob('/imagens/variados/*.webp', {
   eager: true,
   import: 'default',
@@ -159,6 +170,7 @@ const variadosImages = Object.entries(variadosImageModules)
   .filter(([path]) => !path.endsWith('/capa.webp'))
   .map(([, src]) => src);
 const variadosCover = variadosImageModules['/imagens/variados/capa.webp'];
+
 const poemaImageModules = import.meta.glob(
   [
     '/imagens/poema/poema.webp',
@@ -179,6 +191,35 @@ const poemaImages = {
   galleryTwo: poemaImageModules['/imagens/poema/poema3.webp'],
   galleryThree: poemaImageModules['/imagens/poema/poema4.webp'],
 };
+
+const larroydImageModules = import.meta.glob('/imagens/larroyd/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const larroydImages = {
+  cover: larroydImageModules['/imagens/larroyd/larroyd.webp'],
+  galleryOne: larroydImageModules['/imagens/larroyd/larroyd1.webp'],
+  galleryTwo: larroydImageModules['/imagens/larroyd/larroyd2.webp'],
+  galleryThree: larroydImageModules['/imagens/larroyd/larroyd3.webp'],
+};
+
+const lucasImageModules = import.meta.glob('/imagens/LUCAS/*.webp', {
+  eager: true,
+  import: 'default',
+  query: '?url',
+}) as Record<string, string>;
+
+const lucasImages = {
+  cover: lucasImageModules['/imagens/LUCAS/1.webp'],
+  galleryOne: lucasImageModules['/imagens/LUCAS/2.webp'],
+  galleryTwo: lucasImageModules['/imagens/LUCAS/3.webp'],
+  galleryThree: lucasImageModules['/imagens/LUCAS/4.webp'],
+};
+
+const elektraCover = '/elektra-cover.webp';
+const elektraPagePreview = '/elektra-page.webp';
 
 export const projects: Project[] = [
   {
@@ -456,10 +497,34 @@ export const projects: Project[] = [
     ],
     services: ['Social Media', 'Direção de Arte', 'Criativo para Instagram', 'Design de Oferta', 'Campanha Local'],
     gallery: acainiGallery,
-    nextProject: 'variados',
+    nextProject: 'live-crypto',
     prevProject: 'burger-zone',
     keyTakeaways: 'Social media para produto precisa abrir apetite visual antes da legenda: imagem, promessa e hierarquia precisam trabalhar juntas.',
     focus: 'Desejo e Oferta',
+  },
+  {
+    id: 'live-crypto',
+    title: 'Live Crypto',
+    category: 'Social Media para Criptomoedas',
+    year: '2026',
+    client: 'Live Crypto',
+    heroImage: liveCryptoCover,
+    thumbnail: liveCryptoCover,
+    description: 'Projeto de social media para a Live Crypto, com uma direção visual criada para comunicar tecnologia, mercado e oportunidades do universo cripto com impacto e clareza.',
+    challenge: 'O desafio era transformar um tema técnico e dinâmico em peças acessíveis, reconhecíveis e capazes de prender a atenção rapidamente nas redes sociais.',
+    solution: 'Desenvolvemos uma linguagem visual de alto contraste, com hierarquia direta e composições que conectam informação, inovação e presença digital.',
+    results: [
+      'Identidade visual consistente para as redes sociais',
+      'Conteúdo técnico com leitura mais rápida',
+      'Peças prontas para feed e campanhas',
+      'Maior força visual para a comunicação da marca',
+    ],
+    services: ['Social Media', 'Direção de Arte', 'Criativos para Instagram', 'Design de Conteúdo'],
+    gallery: liveCryptoGallery,
+    nextProject: 'variados',
+    prevProject: 'acaini',
+    keyTakeaways: 'No mercado cripto, clareza e impacto visual ajudam a transformar informação complexa em conteúdo que gera atenção e confiança.',
+    focus: 'Tecnologia e Informação',
   },
   {
     id: 'variados',
@@ -481,7 +546,7 @@ export const projects: Project[] = [
     services: ['Social Media', 'Direção de Arte', 'Copy Persuasiva', 'Criativos para Instagram', 'Campanhas Digitais'],
     gallery: variadosImages,
     nextProject: 'cascade',
-    prevProject: 'acaini',
+    prevProject: 'live-crypto',
     keyTakeaways: 'Criativo variado não precisa parecer aleatório: quando estratégia, hierarquia e promessa estão claras, cada nicho ganha uma linguagem própria para vender melhor.',
     focus: 'Versatilidade e Conversão',
   },
@@ -596,10 +661,36 @@ export const projects: Project[] = [
     ],
     services: ['Estratégia de Marca', 'Reposicionamento', 'Identidade Visual', 'Direção Criativa', 'Aplicações de Marca'],
     gallery: [excellentMockupOne, excellentMockupTwo, excellentThirdGallery],
-    nextProject: 'naturis',
+    nextProject: 'cuup-coffee',
     prevProject: 'edicao-de-video',
     keyTakeaways: 'Quando a identidade visual comunica estabilidade e liderança com precisão, a marca deixa de disputar preço e passa a disputar confiança.',
     focus: 'Reposicionamento',
+  },
+  ...newLogoProjects,
+  {
+    id: 'larroyd-studios',
+    title: 'Larroyd Studios',
+    category: 'Site de Estúdio Criativo',
+    year: '2026',
+    client: 'Larroyd Studios',
+    heroImage: larroydImages.cover,
+    thumbnail: larroydImages.cover,
+    description: 'Site criado para posicionar a Larroyd Studios como um estúdio de presença forte, estética autoral e percepção premium desde o primeiro segundo. A experiência transforma portfólio, narrativa e desejo em uma vitrine digital feita para impressionar, conduzir e converter.',
+    challenge: 'A Larroyd precisava de uma presença digital que não parecesse apenas uma página bonita. O site tinha que comunicar valor antes da reunião, sustentar uma estética sofisticada, organizar a apresentação do trabalho e criar confiança para marcas que buscam uma direção criativa acima do comum.',
+    solution: 'Desenvolvemos uma experiência visual com ritmo editorial, imagens em destaque, copy persuasiva e blocos de conteúdo pensados para elevar percepção de marca. Cada seção foi construída para fazer o visitante sentir o padrão do estúdio, entender sua proposta e avançar com mais desejo para o contato.',
+    results: [
+      'Percepção premium reforçada logo no primeiro acesso',
+      'Narrativa mais forte para apresentar o estúdio e seus diferenciais',
+      'Portfólio organizado como ferramenta de desejo e autoridade',
+      'Experiência digital pronta para transformar visitas em conversas qualificadas',
+    ],
+    services: ['Web Design', 'Site Institucional', 'UX/UI', 'Copy Persuasiva', 'Direção Criativa', 'Posicionamento Digital'],
+    gallery: [larroydImages.galleryOne, larroydImages.galleryTwo, larroydImages.galleryThree],
+    nextProject: 'naturis',
+    prevProject: 'excellent-solucoes',
+    keyTakeaways: 'Um site de estúdio precisa vender sensibilidade e método ao mesmo tempo: quando estética, narrativa e clareza caminham juntas, o visitante não só vê o trabalho, ele entende o valor por trás dele.',
+    focus: 'Presença Premium',
+    projectUrl: 'https://larroydstudios.vercel.app/',
   },
   {
     id: 'naturis',
@@ -621,7 +712,7 @@ export const projects: Project[] = [
     services: ['Web Design', 'Landing Page', 'UX/UI', 'Copy Persuasiva', 'Otimização de Conversão'],
     gallery: [naturisGalleryOne, naturisGalleryTwo, naturisGalleryThree],
     nextProject: 'orbits',
-    prevProject: 'excellent-solucoes',
+    prevProject: 'larroyd-studios',
     keyTakeaways: 'Quando o site comunica autoridade, método e transformação de forma direta, o paciente decide com mais confiança e menos resistência.',
     focus: 'Conversão',
     projectUrl: 'https://naturisbr.netlify.app/',
@@ -657,8 +748,8 @@ export const projects: Project[] = [
     category: 'Landing Page • Site',
     year: '2026',
     client: 'K30 E-Bike',
-    heroImage: webCapa1,
-    thumbnail: webCapa1,
+    heroImage: elektraCover,
+    thumbnail: elektraCover,
     description: 'Landing page/site da Elektra para a bike elétrica K30, construída para valorizar produto, destacar diferenciais e conduzir o visitante para ação.',
     challenge: 'A marca precisava comunicar tecnologia, design e performance da K30 com clareza, sem cair em apresentação genérica e sem perder foco em conversão.',
     solution: 'Desenvolvemos uma estrutura com narrativa objetiva, seções de prova, hierarquia visual forte e fluxo orientado para transformar interesse em clique e contato.',
@@ -669,7 +760,7 @@ export const projects: Project[] = [
       'Experiência mais fluida da descoberta à decisão',
     ],
     services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Estratégica', 'Otimização de Conversão'],
-    gallery: [webImage, webImage2, webImage3, webImage4],
+    gallery: [elektraPagePreview, webImage2, webImage3, webImage4],
     nextProject: 'poema-cru',
     prevProject: 'orbits',
     keyTakeaways: 'Uma landing page forte organiza narrativa, prova e CTA para acelerar decisão de compra sem depender só de desconto.',
@@ -695,22 +786,47 @@ export const projects: Project[] = [
     ],
     services: ['Landing Page', 'Web Design', 'UX/UI', 'Copy Persuasiva', 'Direção Criativa', 'Otimização de Conversão'],
     gallery: [poemaImages.galleryOne, poemaImages.galleryTwo, poemaImages.galleryThree],
-    nextProject: 'amanda-felisbino',
+    nextProject: 'lucas-portfolio',
     prevProject: 'elektra',
     keyTakeaways: 'Quando a copy traduz emoção com clareza comercial, até uma oferta poética deixa de parecer abstrata e passa a ser percebida como presente, experiência e compra possível.',
     focus: 'Conversão Emocional',
     projectUrl: 'https://poema-cru.vercel.app/',
   },
   {
+    id: 'lucas-portfolio',
+    title: 'Lucas Portfólio',
+    category: 'Portfólio Profissional',
+    year: '2026',
+    client: 'Lucas',
+    heroImage: lucasImages.cover,
+    thumbnail: lucasImages.cover,
+    description: 'Portfólio criado para apresentar Lucas com presença digital profissional, visual direto e uma experiência clara para destacar trabalhos, imagem pessoal e autoridade.',
+    challenge: 'Lucas precisava de uma página de portfólio com apresentação objetiva e estética consistente, capaz de organizar sua presença digital e facilitar a avaliação do trabalho logo nos primeiros segundos.',
+    solution: 'Construímos uma página visual com capa forte, seleção de imagens do projeto e estrutura direta para conduzir o visitante pela apresentação do portfólio sem ruído.',
+    results: [
+      'Imagem de capa alinhada à apresentação do projeto',
+      'Página de case com os principais ativos visuais',
+      'Portfólio reunido dentro da seção de Sites e Landing Pages',
+      'Experiência pronta para compartilhamento com clientes e visitantes',
+    ],
+    services: ['Web Design', 'Portfólio Profissional', 'UX/UI', 'Direção Visual'],
+    gallery: [lucasImages.galleryOne, lucasImages.galleryTwo, lucasImages.galleryThree],
+    nextProject: 'amanda-felisbino',
+    prevProject: 'poema-cru',
+    keyTakeaways: 'Um portfólio eficiente precisa mostrar valor com rapidez: capa forte, narrativa objetiva e imagens bem organizadas tornam a decisão do visitante mais simples.',
+    focus: 'Portfólio',
+    projectUrl: 'https://lucas-portfolio-lime-ten.vercel.app/',
+  },
+  {
     id: 'amanda-felisbino',
-    title: 'Amanda Felisbino',
+    title: 'Fernanda Gati',
     category: 'Portfólio Profissional • Social Media',
     year: '2026',
-    client: 'Amanda Felisbino',
+    client: 'Fernanda Gati',
     heroImage: '/amanda-felisbino-home.webp',
     thumbnail: '/amanda-felisbino-home.webp',
-    description: 'Portfólio criado para posicionar Amanda Felisbino como social media, designer e criadora de conteúdo, com uma presença digital estratégica, clara e visualmente consistente.',
-    challenge: 'Amanda precisava apresentar serviços de gestão de redes sociais, produção de vídeos, design para redes e identidade visual sem parecer apenas mais um portfólio criativo. A página precisava comunicar estratégia, estética, clareza e disponibilidade para novos projetos logo no primeiro contato.',
+    description: 'Portfólio criado para posicionar Fernanda Gati como social media, designer e criadora de conteúdo, com uma presença digital estratégica, clara e visualmente consistente.',
+    challenge: 'Fernanda precisava apresentar serviços de gestão de redes sociais, produção de vídeos, design para redes e identidade visual sem parecer apenas mais um portfólio criativo. A página precisava comunicar estratégia, estética, clareza e disponibilidade para novos projetos logo no primeiro contato.',
     solution: 'Construímos um site editorial e direto, com hero de presença forte, manifesto de posicionamento, serviços organizados por necessidade do cliente, área de trabalhos em destaque e chamada final para conversa. A copy reforça que conteúdo bom une planejamento, design e consistência para fazer uma marca ser lembrada.',
     results: [
       'Presença profissional percebida no primeiro acesso',
@@ -721,7 +837,7 @@ export const projects: Project[] = [
     services: ['Web Design', 'Portfólio Profissional', 'UX/UI', 'Copy Estratégica', 'Direção Criativa'],
     gallery: ['/amanda-felisbino-services.webp', '/amanda-felisbino-work.webp', '/amanda-felisbino-home.webp'],
     nextProject: 'luminary',
-    prevProject: 'poema-cru',
+    prevProject: 'lucas-portfolio',
     keyTakeaways: 'Quando estratégia, estética e clareza trabalham juntas, o portfólio deixa de ser vitrine e passa a ser uma ferramenta real de posicionamento.',
     focus: 'Posicionamento',
     projectUrl: 'https://amandafelisbino.vercel.app/',

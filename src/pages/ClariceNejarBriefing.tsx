@@ -605,6 +605,7 @@ const ClariceNejarBriefing = () => {
         title="Briefing de Site | Clarice Nejar"
         description="Página interna de briefing para consolidar objetivos, estrutura, estética e conversão do site de Clarice Nejar."
         url="/briefing/clarice-nejar"
+        robots="noindex, nofollow"
       />
 
       <div className="noise-overlay" />

@@ -1,4 +1,5 @@
 import { get, put, del } from '@vercel/blob';
+import { parseJsonBody, rejectUnsafeMutation, writeServerError } from './_security.js';
 
 const BRIEFING_PATHNAME = 'briefings/clarice-nejar/latest.json';
 const FIELD_NAMES = [
@@ -76,6 +77,10 @@ export default async function handler(request, response) {
     });
   }
 
+  if (rejectUnsafeMutation(request, response)) {
+    return;
+  }
+
   if (request.method === 'GET') {
     try {
       const payload = await readBlobJson();
@@ -86,16 +91,13 @@ export default async function handler(request, response) {
 
       return response.status(200).json(payload);
     } catch (error) {
-      return response.status(500).json({
-        error: 'read_failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      });
+      return writeServerError(response, error);
     }
   }
 
   if (request.method === 'POST') {
     try {
-      const body = typeof request.body === 'string' ? JSON.parse(request.body) : request.body;
+      const body = parseJsonBody(request);
       const payload = normalizePayload(body);
 
       if (!payload) {
@@ -111,10 +113,7 @@ export default async function handler(request, response) {
 
       return response.status(200).json(payload);
     } catch (error) {
-      return response.status(500).json({
-        error: 'write_failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      });
+      return writeServerError(response, error);
     }
   }
 
@@ -127,10 +126,7 @@ export default async function handler(request, response) {
         return response.status(200).json({ ok: true });
       }
 
-      return response.status(500).json({
-        error: 'delete_failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      });
+      return writeServerError(response, error);
     }
   }
 

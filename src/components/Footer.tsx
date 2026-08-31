@@ -13,7 +13,7 @@ const footerLinks = {
     { name: 'Contato', href: '/contact' },
   ],
   services: [
-    { name: 'Web Design', href: '/services#web-design' },
+    { name: 'Web Design', href: '/webdesign' },
     { name: 'Branding', href: '/services#branding' },
     { name: 'UI/UX Design', href: '/services#ui-ux' },
     { name: 'Development', href: '/services#development' },

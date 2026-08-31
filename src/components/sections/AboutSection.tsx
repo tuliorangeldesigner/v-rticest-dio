@@ -58,12 +58,14 @@ export const AboutSection = () => {
 
       {/* Floating accent orb */}
       <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none"
+        className="absolute w-[360px] h-[360px] rounded-full pointer-events-none opacity-60"
         style={{
           x: orbX,
           y: orbY,
           top: '20%',
           right: '10%',
+          background:
+            'radial-gradient(circle, hsl(var(--accent) / 0.10) 0%, hsl(var(--accent) / 0.04) 38%, transparent 70%)',
         }}
       />
 

@@ -6,6 +6,21 @@ interface SmoothScrollProps {
   children: React.ReactNode;
 }
 
+declare global {
+  interface Window {
+    __smoothScrollTo?: (target: number | string | HTMLElement, options?: { immediate?: boolean }) => void;
+  }
+}
+
+const resolveScrollTarget = (target: number | string | HTMLElement) => {
+  if (typeof target === 'number') return target;
+
+  const element = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target;
+  if (!element) return null;
+
+  return element.getBoundingClientRect().top + window.scrollY;
+};
+
 export const SmoothScroll = ({ children }: SmoothScrollProps) => {
   const lenisRef = useRef<Lenis | null>(null);
   const rafIdRef = useRef<number | null>(null);
@@ -25,6 +40,14 @@ export const SmoothScroll = ({ children }: SmoothScrollProps) => {
     }
 
     rafIdRef.current = requestAnimationFrame(raf);
+
+    window.__smoothScrollTo = (target, options) => {
+      const top = resolveScrollTarget(target);
+      if (top === null) return;
+
+      lenisRef.current?.scrollTo(top, { immediate: options?.immediate });
+    };
+
     return () => {
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current);
@@ -32,6 +55,7 @@ export const SmoothScroll = ({ children }: SmoothScrollProps) => {
       }
       lenisRef.current?.destroy();
       lenisRef.current = null;
+      delete window.__smoothScrollTo;
     };
   }, []);
 

@@ -11,7 +11,7 @@ import excellentMobileCover from '@/assets/excellent/mobilecliente.webp';
 import lexsConceptImage from '@/assets/lexs/projeto-_3_.webp';
 import lexsVisualDirectionImage from '@/assets/lexs/projeto-_7_.png';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesigner.com.br').replace(/\/$/, '');
 const excellentMockupModules = import.meta.glob('/src/assets/excellent/*.webp', {
   eager: true,
   import: 'default',

@@ -12,6 +12,24 @@ dist
 dist-ssr
 *.local
 
+# Local environment files (keep only the redacted template)
+.env
+.env.*
+!.env.example
+
+# Local agent and QA workspaces
+/.codex/
+/.agents/
+/.codex-artifacts/
+/.impeccable/
+/.playwright-cli/
+
+# Local tool configuration and run artifacts
+/opencode.json
+*.err
+*.out
+/2026-07-11 20-53-34.png
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -4,23 +4,83 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, ArrowRight, Play, X } from 'lucide-react';
 import { getProjectById } from '@/data/projects';
-import CustomCursor from '@/components/CustomCursor';
+import { newLogoProjectIds } from '@/data/newLogoProjects';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import ConditionalCustomCursor from '@/components/ConditionalCustomCursor';
+import { useLanguage } from '@/lib/language';
+import { translateCopy } from '@/lib/translations';
+import { getWrappedIndex } from '@/lib/carouselIndex';
+import { useCarouselImagePreload } from '@/lib/useCarouselImagePreload';
 
 const VIDEO_BATCH_SIZE = 12;
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesigner.com.br').replace(/\/$/, '');
 const SOCIAL_IMAGE_URL = `${SITE_URL}/dc2-social.jpg`;
+
+const projectCategoryLinks = {
+  logos: {
+    ids: [
+      'luminary',
+      'funk',
+      'voix',
+      'lx-company',
+      'cathome',
+      'coringa-cga',
+      'picaro',
+      'cascade',
+      'excellent-solucoes',
+      ...newLogoProjectIds,
+    ],
+    href: '/work/logos',
+    label: 'Voltar para Logos',
+  },
+  sites: {
+    ids: ['larroyd-studios', 'naturis', 'orbits', 'elektra', 'poema-cru', 'lucas-portfolio', 'amanda-felisbino'],
+    href: '/work/sites',
+    label: 'Voltar para Sites',
+  },
+  social: {
+    ids: ['ethereal', 'zenith', 'burger-zone', 'acaini', 'live-crypto', 'variados'],
+    href: '/work/social-media',
+    label: 'Voltar para Criativos',
+  },
+  video: {
+    ids: ['edicao-de-video'],
+    href: '/work/video',
+    label: 'Voltar para Vídeos',
+  },
+} as const;
+
+type ProjectCategoryKey = keyof typeof projectCategoryLinks;
+
+const projectCategoryById = Object.entries(projectCategoryLinks).reduce(
+  (acc, [category, group]) => {
+    group.ids.forEach((projectId) => {
+      acc[projectId] = category as ProjectCategoryKey;
+    });
+
+    return acc;
+  },
+  {} as Record<string, ProjectCategoryKey>
+);
+
+const getCategoryBackLink = (projectId: string) => {
+  const category = projectCategoryById[projectId];
+
+  return category ? projectCategoryLinks[category] : projectCategoryLinks.logos;
+};
 
 const CaseStudy = () => {
   const { id } = useParams<{ id: string }>();
+  const { language } = useLanguage();
   const project = getProjectById(id || '');
   const isInProgress = false;
   const [activeVimeoId, setActiveVimeoId] = useState<string | null>(null);
-  const [activeGalleryImage, setActiveGalleryImage] = useState<string | null>(null);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null);
   const [isHeroVideoLoaded, setIsHeroVideoLoaded] = useState(false);
   const [visibleVideoCount, setVisibleVideoCount] = useState(VIDEO_BATCH_SIZE);
+  useCarouselImagePreload(project?.gallery ?? [], activeGalleryIndex);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -28,22 +88,33 @@ const CaseStudy = () => {
     damping: 30,
     restDelta: 0.001
   });
+  const t = (value: string) => translateCopy(value, language);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setVisibleVideoCount(VIDEO_BATCH_SIZE);
     setActiveVimeoId(null);
-    setActiveGalleryImage(null);
+    setActiveGalleryIndex(null);
     setIsHeroVideoLoaded(false);
   }, [id]);
 
   useEffect(() => {
-    if (!activeVimeoId && !activeGalleryImage) return;
+    if (!activeVimeoId && activeGalleryIndex === null) return;
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setActiveVimeoId(null);
-        setActiveGalleryImage(null);
+        setActiveGalleryIndex(null);
+      } else if (activeGalleryIndex !== null && project && project.gallery.length > 1) {
+        if (event.key === 'ArrowLeft') {
+          setActiveGalleryIndex((current) =>
+            current === null ? null : getWrappedIndex(current, -1, project.gallery.length)
+          );
+        } else if (event.key === 'ArrowRight') {
+          setActiveGalleryIndex((current) =>
+            current === null ? null : getWrappedIndex(current, 1, project.gallery.length)
+          );
+        }
       }
     };
 
@@ -55,7 +126,7 @@ const CaseStudy = () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [activeGalleryImage, activeVimeoId]);
+  }, [activeGalleryIndex, activeVimeoId, project]);
 
   if (!project) {
     return (
@@ -63,7 +134,7 @@ const CaseStudy = () => {
         <Navigation />
         <div className="flex-1 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-4xl font-syne font-bold mb-4">Projeto não encontrado</h1>
+            <h1 className="text-4xl font-syne font-bold mb-4">{t('Projeto não encontrado')}</h1>
             <Link to="/" className="text-accent hover:underline flex items-center justify-center gap-2">
               <ArrowLeft className="w-4 h-4" /> Voltar para a Home
             </Link>
@@ -79,19 +150,22 @@ const CaseStudy = () => {
   const totalVideos = project.videos?.length ?? 0;
   const visibleVideos = hasVideoGallery ? (project.videos ?? []).slice(0, visibleVideoCount) : [];
   const hasMoreVideos = hasVideoGallery && visibleVideoCount < totalVideos;
+  const projectTitle = t(project.title);
+  const projectDescription = isInProgress ? t('Em breve novo projeto.') : t(project.description);
+  const categoryBackLink = getCategoryBackLink(project.id);
 
   return (
       <div className="min-h-screen bg-background selection:bg-accent/20 flex flex-col">
       <Navigation />
       <SEO
-        title={project.title}
-        description={project.description}
+        title={projectTitle}
+        description={projectDescription}
         image={SOCIAL_IMAGE_URL}
         url={`${SITE_URL}/work/${project.id}`}
       />
       <Helmet>
-        <title>{project.title} | STUDIO Case Study</title>
-        <meta name="description" content={project.description} />
+        <title>{projectTitle} | STUDIO Case Study</title>
+        <meta name="description" content={projectDescription} />
         {hasVideoGallery && (
           <>
             <link rel="preconnect" href="https://vumbnail.com" crossOrigin="" />
@@ -101,8 +175,7 @@ const CaseStudy = () => {
           </>
         )}
       </Helmet>
-
-      <CustomCursor />
+      <ConditionalCustomCursor />
 
       {/* Reading Progress Bar */}
       <motion.div
@@ -121,17 +194,17 @@ const CaseStudy = () => {
             <div className="grid grid-cols-1 lg:grid-cols-4 border-b border-foreground/10">
               {/* Breadcrumbs / Back */}
               <div className="col-span-1 lg:col-span-3 p-6 border-b lg:border-b-0 lg:border-r border-foreground/10 flex items-center">
-                <Link to="/work" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground/60 hover:text-accent transition-colors">
+                <Link to={categoryBackLink.href} className="group inline-flex items-center gap-2 text-sm font-medium text-foreground/60 hover:text-accent transition-colors">
                   <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                  Voltar para Projetos
+                  {t(categoryBackLink.label)}
                 </Link>
                 <span className="mx-4 text-foreground/20">/</span>
-                <span className="text-sm text-foreground/40 uppercase tracking-wider">{project.category}</span>
+                <span className="text-sm text-foreground/40 uppercase tracking-wider">{t(project.category)}</span>
               </div>
               
               {/* Year Cell */}
               <div className="col-span-1 p-6 flex items-center justify-between lg:justify-center text-sm font-medium text-foreground/80">
-                <span className="lg:hidden text-foreground/40 uppercase tracking-wider">Ano</span>
+                <span className="lg:hidden text-foreground/40 uppercase tracking-wider">{t('Ano')}</span>
                 <div className="flex items-center gap-2 font-mono">
                    {project.year}
                 </div>
@@ -147,25 +220,25 @@ const CaseStudy = () => {
                   transition={{ duration: 0.6 }}
                   className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-epic font-bold leading-[1.05] tracking-tight text-foreground uppercase"
                 >
-                  {project.title}
+                  {projectTitle}
                 </motion.h1>
                 
                 <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
                    <p className="text-lg md:text-xl text-foreground/60 max-w-2xl leading-relaxed">
-                     {isInProgress ? 'Em breve novo projeto.' : project.description}
+                     {projectDescription}
                    </p>
                    <div className="flex items-center gap-3 flex-wrap">
                       <div className="px-4 py-2 rounded-full border border-foreground/10 text-xs font-bold uppercase tracking-widest bg-foreground/5">
-                        {isInProgress ? 'Em andamento' : 'Estudo de Caso'}
+                        {isInProgress ? t('Em andamento') : t('Estudo de Caso')}
                       </div>
                       {project.projectUrl && (
                         <a
                           href={project.projectUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="px-4 py-2 rounded-full border border-accent/40 text-xs font-bold uppercase tracking-widest text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                          className="project-site-button rounded-full border border-accent/40 text-xs font-bold uppercase tracking-widest text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
                         >
-                          Ver Site
+                          {t('Ver Site')}
                         </a>
                       )}
                    </div>
@@ -211,9 +284,9 @@ const CaseStudy = () => {
                   ) : (
                     <img
                       src={project.heroImage}
-                      alt={project.title}
+                      alt={projectTitle}
                       loading="eager"
-                      fetchPriority="high"
+                      fetchpriority="high"
                       decoding="async"
                       className="w-full h-full object-cover"
                     />
@@ -233,23 +306,23 @@ const CaseStudy = () => {
                      {/* Client Block */}
                      <div className="p-6 border-b border-foreground/10 relative group hover:bg-foreground/5 transition-colors">
                         <span className="absolute top-6 right-6 text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">01</span>
-                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-3">Cliente</h4>
+                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-3">{t('Cliente')}</h4>
                         <p className="text-lg font-syne font-bold leading-tight group-hover:translate-x-1 transition-transform duration-300">
-                           {project.client}
+                           {t(project.client)}
                         </p>
                      </div>
 
                      {/* Services Block - Digital Tags */}
                      <div className="p-6 relative group hover:bg-foreground/5 transition-colors">
                         <span className="absolute top-6 right-6 text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">02</span>
-                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-4">Escopo</h4>
+                        <h4 className="text-[10px] font-mono uppercase tracking-widest text-foreground/40 mb-4">{t('Escopo')}</h4>
                         <div className="flex flex-wrap gap-2">
                            {project.services.map((service, idx) => (
                               <span 
                                  key={idx} 
                                  className="inline-block px-3 py-1 border border-foreground/10 text-[11px] font-mono uppercase tracking-wide rounded-sm text-foreground/70 hover:border-accent hover:text-accent hover:bg-background transition-colors cursor-default"
                               >
-                                 {service}
+                                 {t(service)}
                               </span>
                            ))}
                         </div>
@@ -271,33 +344,49 @@ const CaseStudy = () => {
                     <div className="my-8 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
                       <h3 className="text-2xl md:text-3xl font-syne font-bold mb-4">Em breve novo projeto.</h3>
                       <p className="text-foreground/80 leading-relaxed m-0">
-                        Este case está em produção e será publicado com todos os detalhes em breve.
+                        {t('Este case está em produção e será publicado com todos os detalhes em breve.')}
                       </p>
                     </div>
                   ) : (
                     <>
                       {/* Challenge Section */}
-                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">O Desafio</h3>
+                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">{t('O Desafio')}</h3>
                       <p className="mb-12 text-foreground/80 leading-relaxed">
-                        {project.challenge}
+                        {t(project.challenge)}
                       </p>
 
                       {/* Solution Section */}
-                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">A Solução</h3>
+                      <h3 className="text-2xl md:text-3xl font-syne font-bold mb-6">{t('A Solução')}</h3>
                       <p className="mb-12 text-foreground/80 leading-relaxed">
-                        {project.solution}
+                        {t(project.solution)}
                       </p>
                       
                       {/* Impact / Results Highlight */}
                       <div className="my-16 p-8 border border-foreground/10 bg-foreground/5 rounded-none">
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">Principais Resultados</h4>
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-accent mb-8">{t('Principais Resultados')}</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
-                          {project.results.map((result, i) => (
-                            <div key={i}>
-                              <span className="block text-4xl md:text-5xl font-syne font-bold mb-2">{result.split(' ')[0]}</span>
-                              <span className="text-xs font-mono uppercase tracking-widest text-foreground/60">{result.split(' ').slice(1).join(' ')}</span>
-                            </div>
-                          ))}
+                          {project.results.map((result, i) => {
+                            const translatedResult = t(result);
+                            const [lead, ...rest] = translatedResult.split(' ');
+                            const isMetric = /^(R\$|\d)/.test(lead);
+
+                            return (
+                              <div key={i}>
+                                {isMetric ? (
+                                  <>
+                                    <span className="block text-4xl md:text-5xl font-syne font-bold mb-2">{lead}</span>
+                                    <span className="text-xs font-mono uppercase tracking-widest text-foreground/60">
+                                      {rest.join(' ')}
+                                    </span>
+                                  </>
+                                ) : (
+                                  <span className="block text-sm md:text-base font-mono uppercase tracking-widest leading-relaxed text-foreground/70">
+                                    {translatedResult}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     </>
@@ -308,11 +397,13 @@ const CaseStudy = () => {
                 {!isInProgress && <div className="mt-12">
                   <div className="flex items-end justify-between mb-16">
                      <div>
-                        <span className="text-xs font-mono uppercase tracking-widest text-foreground/40 block mb-2">Arquivo Visual</span>
-                        <h3 className="text-3xl font-syne font-bold">Artefatos do Projeto</h3>
+                        <span className="text-xs font-mono uppercase tracking-widest text-foreground/40 block mb-2">{t('Arquivo Visual')}</span>
+                        <h3 className="text-3xl font-syne font-bold">{t('Artefatos do Projeto')}</h3>
                      </div>
                      <span className="hidden md:block text-xs font-mono uppercase tracking-widest text-foreground/40">
-                        {hasVideoGallery ? `${totalVideos} VIDEOS PUBLICADOS` : `${project.gallery.length} Ativos Processados`}
+                        {hasVideoGallery
+                          ? `${totalVideos} ${language === 'en' ? 'PUBLISHED VIDEOS' : 'VIDEOS PUBLICADOS'}`
+                          : `${project.gallery.length} ${t('Ativos Processados')}`}
                      </span>
                   </div>
 
@@ -331,7 +422,7 @@ const CaseStudy = () => {
                               src={`https://vumbnail.com/${videoId}.jpg`}
                               alt={`Video ${i + 1}`}
                               loading="lazy"
-                              fetchPriority="low"
+                              fetchpriority="low"
                               decoding="async"
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
@@ -345,7 +436,7 @@ const CaseStudy = () => {
                               </span>
                             </div>
                             <div className="absolute bottom-3 left-3 right-3 text-[10px] font-mono uppercase tracking-widest text-white/80">
-                              Assistir no player
+                              {t('Assistir no player')}
                             </div>
                           </div>
                         </button>
@@ -358,33 +449,49 @@ const CaseStudy = () => {
                           onClick={() => setVisibleVideoCount((count) => Math.min(count + VIDEO_BATCH_SIZE, totalVideos))}
                           className="px-6 py-3 border border-foreground/20 text-xs font-mono uppercase tracking-widest text-foreground/80 hover:border-accent hover:text-accent transition-colors"
                         >
-                          Carregar mais videos
+                          {t('Carregar mais videos')}
                         </button>
                       </div>
                     )}
                     </>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className={`grid gap-6 ${project.id === 'live-crypto' ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2'}`}>
                       {project.gallery.map((image, i) => (
                         <button
                           key={i}
                           type="button"
-                          onClick={() => setActiveGalleryImage(image)}
-                          aria-label={`Ver imagem ${i + 1} em tamanho completo`}
-                          className={`group relative overflow-hidden bg-foreground/5 ${
-                            i === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'
-                          }`}
+                          onClick={() => setActiveGalleryIndex(i)}
+                          aria-label={
+                            language === 'en'
+                              ? `View image ${i + 1} in full size`
+                              : `Ver imagem ${i + 1} em tamanho completo`
+                          }
+                          className={
+                            project.galleryDisplay === 'brand-board'
+                              ? 'group relative overflow-hidden bg-foreground/5 md:col-span-2'
+                              : `group relative overflow-hidden bg-foreground/5 ${
+                                  project.id === 'live-crypto'
+                                    ? 'aspect-square'
+                                    : i === 0
+                                      ? 'md:col-span-2 aspect-[21/9]'
+                                      : 'aspect-square'
+                                }`
+                          }
                         >
                           <img
                             src={image}
                             alt={`Gallery image ${i + 1}`}
                             loading="lazy"
                             decoding="async"
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            className={
+                              project.galleryDisplay === 'brand-board'
+                                ? 'block h-auto w-full object-contain transition-transform duration-700 group-hover:scale-[1.01]'
+                                : 'h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
+                            }
                           />
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <div className="px-4 py-2 bg-background text-foreground text-xs font-bold uppercase tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                              Ver Completo
+                              {t('Ver Completo')}
                             </div>
                           </div>
                         </button>
@@ -395,20 +502,26 @@ const CaseStudy = () => {
                   {project.keyTakeaways && (
                      <div className="mt-24 relative overflow-hidden bg-accent text-accent-foreground p-8 md:p-12 selection:bg-white selection:text-accent rounded-sm">
                         {/* Background Pattern */}
-                        <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+                        <div
+                          className="absolute inset-0 opacity-10 pointer-events-none"
+                          style={{
+                            backgroundImage:
+                              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+                          }}
+                        ></div>
                         
                         <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-12 md:items-start">
                            <div className="md:w-[30%] pb-6 md:pb-0 md:pr-6">
                               <span className="text-3xl md:text-4xl font-syne font-black block leading-none mb-2 whitespace-nowrap">Insight</span>
-                              <span className="text-xs font-mono uppercase tracking-widest font-bold opacity-70">Retrospectiva</span>
+                              <span className="text-xs font-mono uppercase tracking-widest font-bold opacity-70">{t('Retrospectiva')}</span>
                            </div>
                            <div className="md:w-[70%] md:pl-4">
                               <p className="text-xl md:text-2xl font-syne font-bold leading-snug mb-4">
-                                 "{project.keyTakeaways}"
+                                 "{t(project.keyTakeaways)}"
                               </p>
                               <div className="flex items-center gap-4">
                                  <div className="h-px w-8 bg-accent-foreground"></div>
-                                 <span className="text-xs font-mono uppercase tracking-widest font-bold">Insights</span>
+                                 <span className="text-xs font-mono uppercase tracking-widest font-bold">{t('Insights')}</span>
                               </div>
                            </div>
                         </div>
@@ -425,9 +538,9 @@ const CaseStudy = () => {
         <section className="border-t border-foreground/10 bg-foreground/5 py-20">
           <div className="container-wide max-w-[90rem] mx-auto px-4 sm:px-6">
             <div className="flex items-end justify-between mb-12">
-              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">Próximo Projeto</h2>
+              <h2 className="text-3xl md:text-4xl font-syne font-bold uppercase">{t('Próximo Projeto')}</h2>
               <Link to="/work" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-accent transition-colors">
-                Ver Todos os Projetos <ArrowRight className="w-4 h-4" />
+                {t('Ver Todos os Projetos')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             
@@ -448,21 +561,21 @@ const CaseStudy = () => {
                      </div>
                      <div>
                         <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-foreground/40 mb-4">
-                          <span className="text-accent">{nextProject.category}</span>
+                          <span className="text-accent">{t(nextProject.category)}</span>
                           <span>{nextProject.year}</span>
                         </div>
                         <h3 className="text-3xl md:text-5xl font-syne font-bold leading-tight group-hover:text-accent transition-colors mb-6">
-                          {nextProject.title}
+                          {t(nextProject.title)}
                         </h3>
                         <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
-                           Ver Estudo de Caso <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                           {t('Ver Estudo de Caso')} <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                         </div>
                      </div>
                   </div>
                </Link>
             ) : (
                <div className="text-center py-12 text-foreground/40 italic">
-                  Fim do portfólio.
+                  {t('Fim do portfólio.')}
                </div>
             )}
           </div>
@@ -486,7 +599,7 @@ const CaseStudy = () => {
                 type="button"
                 onClick={() => setActiveVimeoId(null)}
                 className="h-9 w-9 border border-foreground/20 bg-background/70 flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
-                aria-label="Fechar video"
+                aria-label={t('Fechar video')}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -509,15 +622,15 @@ const CaseStudy = () => {
               rel="noreferrer"
               className="mt-3 inline-flex items-center justify-center border border-foreground/20 px-4 py-2 text-xs font-mono uppercase tracking-widest text-foreground/80 hover:border-accent hover:text-accent transition-colors"
             >
-              Abrir no Vimeo
+              {t('Abrir no Vimeo')}
             </a>
           </div>
         </div>
       )}
-      {activeGalleryImage && (
+      {activeGalleryIndex !== null && project.gallery[activeGalleryIndex] && (
         <div
           className="fixed inset-0 z-[90] bg-black/90 backdrop-blur-sm px-4 py-8 md:p-10 flex items-center justify-center"
-          onClick={() => setActiveGalleryImage(null)}
+          onClick={() => setActiveGalleryIndex(null)}
         >
           <div
             className="w-full max-w-[1200px]"
@@ -525,22 +638,56 @@ const CaseStudy = () => {
           >
             <div className="mb-3 flex items-center justify-between">
               <span className="text-xs font-mono uppercase tracking-widest text-foreground/70">
-                Visualização completa
+                {t('Visualização completa')} · {activeGalleryIndex + 1} / {project.gallery.length}
               </span>
               <button
                 type="button"
-                onClick={() => setActiveGalleryImage(null)}
+                onClick={() => setActiveGalleryIndex(null)}
                 className="h-9 w-9 border border-foreground/20 bg-background/70 flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
-                aria-label="Fechar imagem"
+                aria-label={t('Fechar imagem')}
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="w-full border border-foreground/15 bg-black flex items-center justify-center p-2 md:p-3">
+            <div className="relative w-full border border-foreground/15 bg-black flex items-center justify-center p-2 md:p-3">
+              {project.gallery.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveGalleryIndex((current) =>
+                        current === null ? null : getWrappedIndex(current, -1, project.gallery.length)
+                      )
+                    }
+                    className="absolute left-3 md:left-5 top-1/2 z-10 -translate-y-1/2 h-11 w-11 md:h-14 md:w-14 border border-white/30 bg-black/70 text-white flex items-center justify-center hover:border-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                    aria-label={t('Imagem anterior')}
+                  >
+                    <ArrowLeft className="h-5 w-5 md:h-6 md:w-6" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveGalleryIndex((current) =>
+                        current === null ? null : getWrappedIndex(current, 1, project.gallery.length)
+                      )
+                    }
+                    className="absolute right-3 md:right-5 top-1/2 z-10 -translate-y-1/2 h-11 w-11 md:h-14 md:w-14 border border-white/30 bg-black/70 text-white flex items-center justify-center hover:border-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                    aria-label={t('Próxima imagem')}
+                  >
+                    <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
+                  </button>
+                </>
+              )}
               <img
-                src={activeGalleryImage}
-                alt="Imagem em tamanho completo"
+                src={project.gallery[activeGalleryIndex]}
+                alt={
+                  language === 'en'
+                    ? `Image ${activeGalleryIndex + 1} of ${project.gallery.length} in full size`
+                    : `Imagem ${activeGalleryIndex + 1} de ${project.gallery.length} em tamanho completo`
+                }
+                decoding="sync"
+                fetchPriority="high"
                 className="max-h-[82vh] w-auto max-w-full object-contain"
               />
             </div>
@@ -554,4 +701,3 @@ const CaseStudy = () => {
 };
 
 export default CaseStudy;
-

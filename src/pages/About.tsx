@@ -138,8 +138,15 @@ const About = () => {
         />
 
         <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
-          style={{ top: '20%', right: '10%', x: mousePosition.x * 3, y: mousePosition.y * 3 }}
+          className="absolute w-[360px] h-[360px] rounded-full pointer-events-none opacity-70"
+          style={{
+            top: '20%',
+            right: '10%',
+            x: mousePosition.x * 3,
+            y: mousePosition.y * 3,
+            background:
+              'radial-gradient(circle, hsl(var(--accent) / 0.14) 0%, hsl(var(--accent) / 0.06) 36%, transparent 70%)',
+          }}
         />
 
         <div className="container-wide relative z-10">

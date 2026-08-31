@@ -1,18 +1,18 @@
-import { motion } from 'framer-motion';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/sections/HeroSection';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { OrganizationSchema, WebsiteSchema, ProfessionalServiceSchema } from '@/components/StructuredData';
 import DeferredSection from '@/components/DeferredSection';
+import ConditionalCustomCursor from '@/components/ConditionalCustomCursor';
 
-const CustomCursor = lazy(() => import('@/components/CustomCursor'));
 const AboutSection = lazy(() => import('@/components/sections/AboutSection'));
 const ServicesSection = lazy(() => import('@/components/sections/ServicesSection'));
 const WorkSection = lazy(() => import('@/components/sections/WorkSection'));
 const ProcessSection = lazy(() => import('@/components/sections/ProcessSection'));
 const TestimonialsSection = lazy(() => import('@/components/sections/TestimonialsSection'));
+const FAQSection = lazy(() => import('@/components/sections/FAQSection'));
 const CTASection = lazy(() => import('@/components/sections/CTASection'));
 
 const SectionFallback = ({ className, minHeight }: { className?: string; minHeight: string }) => (
@@ -20,43 +20,20 @@ const SectionFallback = ({ className, minHeight }: { className?: string; minHeig
 );
 
 const Index = () => {
-  const [showCustomCursor, setShowCustomCursor] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const updateCursor = () => setShowCustomCursor(mediaQuery.matches);
-
-    updateCursor();
-    mediaQuery.addEventListener('change', updateCursor);
-
-    return () => mediaQuery.removeEventListener('change', updateCursor);
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
       <SEO
         title="Portfolio, Branding e Sites de Alta Conversão"
-        description="Portfolio da TR Designer com branding estratégico, websites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium."
-        image="https://trdesigner.vercel.app/dc2-social.jpg"
-        url="https://trdesigner.vercel.app/"
+        description="Sou Túlio Rangel, designer estratégico à frente da TR Designer. Crio identidades visuais, sites de alta conversão e criativos de performance para marcas que querem crescer com autoridade."
+        image="/dc2-social.jpg"
+        url="/"
       />
       <OrganizationSchema />
       <WebsiteSchema />
       <ProfessionalServiceSchema />
+      <ConditionalCustomCursor />
 
-      {showCustomCursor ? (
-        <Suspense fallback={null}>
-          <CustomCursor />
-        </Suspense>
-      ) : null}
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="noise-overlay" />
-
+      <div>
         <Navigation />
 
         <main>
@@ -86,6 +63,11 @@ const Index = () => {
               <TestimonialsSection />
             </Suspense>
           </DeferredSection>
+          <DeferredSection className="bg-secondary/30" minHeight="960px">
+            <Suspense fallback={<SectionFallback className="bg-secondary/30" minHeight="960px" />}>
+              <FAQSection />
+            </Suspense>
+          </DeferredSection>
           <DeferredSection className="bg-background" minHeight="720px">
             <Suspense fallback={<SectionFallback className="bg-background" minHeight="720px" />}>
               <CTASection />
@@ -94,7 +76,7 @@ const Index = () => {
         </main>
 
         <Footer />
-      </motion.div>
+      </div>
     </div>
   );
 };

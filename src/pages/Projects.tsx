@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { projects } from '@/data/projects';
 import { thumbnails } from '@/data/thumbnails';
 import { esportLogos } from '@/data/esportLogos';
+import { esportsVariados } from '@/data/esportsVariados';
+import { dropBanners } from '@/data/dropBanners';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import SEO from '@/components/SEO';
@@ -24,14 +26,25 @@ const logoProjects = projects.filter((project) =>
   ].includes(project.id)
 );
 const socialMediaProjects = projects.filter((project) =>
-  ['ethereal', 'zenith', 'burger-zone', 'acaini', 'variados'].includes(project.id)
+  ['ethereal', 'zenith', 'burger-zone', 'acaini', 'live-crypto', 'variados'].includes(project.id)
 );
 const siteProjects = projects.filter((project) =>
-  ['naturis', 'orbits', 'elektra', 'poema-cru', 'amanda-felisbino'].includes(project.id)
+  ['larroyd-studios', 'naturis', 'orbits', 'elektra', 'poema-cru', 'amanda-felisbino'].includes(project.id)
 );
 const videoProjects = projects.filter((project) =>
   ['edicao-de-video'].includes(project.id)
 );
+const esportLogoCoverFiles = ['Logos1e-(12) copiar.webp', 'YHGY copiar.webp', 'Logos1 (10).webp'];
+const esportLogoCoverItems = [
+  ...esportLogoCoverFiles
+    .map((fileName) => esportLogos.find((logo) => logo.fileName === fileName))
+    .filter((logo): logo is (typeof esportLogos)[number] => Boolean(logo)),
+  ...esportLogos.slice(3, 6),
+];
+const esportsVariadosCoverFiles = ['2 (1).webp', '2 (2).webp', '2 (3).webp', '2 (4).webp', '2 (5).webp', '2 (6).webp'];
+const esportsVariadosCoverItems = esportsVariadosCoverFiles
+  .map((fileName) => esportsVariados.find((item) => item.fileName === fileName))
+  .filter((item): item is (typeof esportsVariados)[number] => Boolean(item));
 
 const Projects = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -93,8 +106,15 @@ const Projects = () => {
 
         {/* Accent orb */}
         <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
-          style={{ top: '20%', right: '10%', x: mousePosition.x * 3, y: mousePosition.y * 3 }}
+          className="absolute w-[360px] h-[360px] rounded-full pointer-events-none opacity-70"
+          style={{
+            top: '20%',
+            right: '10%',
+            x: mousePosition.x * 3,
+            y: mousePosition.y * 3,
+            background:
+              'radial-gradient(circle, hsl(var(--accent) / 0.14) 0%, hsl(var(--accent) / 0.06) 36%, transparent 70%)',
+          }}
         />
 
         <div className="container-wide relative z-10">
@@ -157,7 +177,7 @@ const Projects = () => {
 
       <section className="pb-20">
         <div className="container-wide">
-          <div className="border border-foreground/10 bg-card overflow-hidden">
+          <Link to="/work/logos" className="group block border border-foreground/10 bg-card overflow-hidden hover:border-accent/60 transition-colors duration-500">
             <div className="grid lg:grid-cols-12">
               <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
                 <div>
@@ -166,7 +186,7 @@ const Projects = () => {
                     <div className="h-px w-12 bg-accent" />
                     <span className="text-sm font-mono text-muted-foreground tracking-wider">LOGOS</span>
                   </div>
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6 group-hover:text-accent transition-colors duration-300">
                     Identidades Visuais Para Marcas Premium.
                   </h2>
                   <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
@@ -179,21 +199,20 @@ const Projects = () => {
                     <Images className="w-5 h-5 text-accent" />
                     {logoProjects.length} cases
                   </div>
-                  <div className="text-sm font-bold uppercase tracking-widest text-foreground/70">
-                    Branding
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                    Ver Página <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </div>
                 </div>
               </div>
 
               <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
                 <div className="grid sm:grid-cols-3 gap-3 md:gap-4">
-                  {logoProjects.map((project, index) => (
-                    <Link
+                  {logoProjects.slice(0, 6).map((project, index) => (
+                    <div
                       key={project.id}
-                      to={`/work/${project.id}`}
                       className="group relative overflow-hidden border border-foreground/10 bg-background"
                     >
-                      <div className="aspect-[4/5] overflow-hidden">
+                      <div className="aspect-square overflow-hidden">
                         <img
                           src={project.thumbnail}
                           alt={project.title}
@@ -217,100 +236,28 @@ const Projects = () => {
                           <ArrowUpRight className="w-5 h-5 text-white/70 group-hover:text-accent group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
 
 
       <section className="pb-20">
         <div className="container-wide">
-          <div className="border border-foreground/10 bg-card overflow-hidden">
+          <Link to="/work/sites" className="group block border border-foreground/10 bg-card overflow-hidden hover:border-accent/60 transition-colors duration-500">
             <div className="grid lg:grid-cols-12">
               <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
                 <div>
                   <div className="flex items-center gap-4 mb-8">
                     <span className="text-sm font-mono text-accent">03</span>
                     <div className="h-px w-12 bg-accent" />
-                    <span className="text-sm font-mono text-muted-foreground tracking-wider">SOCIAL MEDIA</span>
-                  </div>
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6">
-                    Criativos Para Conteúdo e Conversão.
-                  </h2>
-                  <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
-                    Projetos de social media organizados para o lead encontrar rapidamente exemplos de posts, direção criativa e comunicação visual pensada para gerar atenção e resposta.
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between gap-6 pt-6 border-t border-foreground/10">
-                  <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-widest text-foreground/60">
-                    <Images className="w-5 h-5 text-accent" />
-                    {socialMediaProjects.length} cases
-                  </div>
-                  <div className="text-sm font-bold uppercase tracking-widest text-foreground/70">
-                    Conteúdo
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
-                <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
-                  {socialMediaProjects.map((project, index) => (
-                    <Link
-                      key={project.id}
-                      to={`/work/${project.id}`}
-                      className="group relative overflow-hidden border border-foreground/10 bg-background"
-                    >
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img
-                          src={project.thumbnail}
-                          alt={project.title}
-                          loading="lazy"
-                          decoding="async"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                      <div className="absolute left-3 top-3 px-2 py-1 text-[10px] font-mono uppercase tracking-widest bg-background/90 text-foreground border border-foreground/10">
-                        {String(index + 1).padStart(2, '0')}
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-white/60 block mb-2">
-                          {project.category}
-                        </span>
-                        <div className="flex items-end justify-between gap-3">
-                          <h3 className="text-2xl md:text-3xl font-syne font-bold text-white leading-tight group-hover:text-accent transition-colors">
-                            {project.title}
-                          </h3>
-                          <ArrowUpRight className="w-5 h-5 text-white/70 group-hover:text-accent group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <section className="pb-20">
-        <div className="container-wide">
-          <div className="border border-foreground/10 bg-card overflow-hidden">
-            <div className="grid lg:grid-cols-12">
-              <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
-                <div>
-                  <div className="flex items-center gap-4 mb-8">
-                    <span className="text-sm font-mono text-accent">04</span>
-                    <div className="h-px w-12 bg-accent" />
                     <span className="text-sm font-mono text-muted-foreground tracking-wider">SITES E LANDING PAGES</span>
                   </div>
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6 group-hover:text-accent transition-colors duration-300">
                     Páginas Criadas Para Converter Interesse em Ação.
                   </h2>
                   <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
@@ -323,8 +270,8 @@ const Projects = () => {
                     <Images className="w-5 h-5 text-accent" />
                     {siteProjects.length} cases
                   </div>
-                  <div className="text-sm font-bold uppercase tracking-widest text-foreground/70">
-                    Web Design
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                    Ver Página <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </div>
                 </div>
               </div>
@@ -332,9 +279,8 @@ const Projects = () => {
               <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
                 <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
                   {siteProjects.map((project, index) => (
-                    <Link
+                    <div
                       key={project.id}
-                      to={`/work/${project.id}`}
                       className="group relative overflow-hidden border border-foreground/10 bg-background"
                     >
                       <div className="aspect-[16/10] overflow-hidden">
@@ -361,19 +307,90 @@ const Projects = () => {
                           <ArrowUpRight className="w-5 h-5 text-white/70 group-hover:text-accent group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
 
 
       <section className="pb-20">
         <div className="container-wide">
-          <div className="border border-foreground/10 bg-card overflow-hidden">
+          <Link to="/work/social-media" className="group block border border-foreground/10 bg-card overflow-hidden hover:border-accent/60 transition-colors duration-500">
+            <div className="grid lg:grid-cols-12">
+              <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
+                <div>
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className="text-sm font-mono text-accent">04</span>
+                    <div className="h-px w-12 bg-accent" />
+                    <span className="text-sm font-mono text-muted-foreground tracking-wider">SOCIAL MEDIA</span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6 group-hover:text-accent transition-colors duration-300">
+                    Criativos Para Conteúdo e Conversão.
+                  </h2>
+                  <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+                    Projetos de social media organizados para o lead encontrar rapidamente exemplos de posts, direção criativa e comunicação visual pensada para gerar atenção e resposta.
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between gap-6 pt-6 border-t border-foreground/10">
+                  <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-widest text-foreground/60">
+                    <Images className="w-5 h-5 text-accent" />
+                    {socialMediaProjects.length} cases
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                    Ver Página <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
+                <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+                  {socialMediaProjects.slice(0, 4).map((project, index) => (
+                    <div
+                      key={project.id}
+                      className="group relative overflow-hidden border border-foreground/10 bg-background"
+                    >
+                      <div className="aspect-[4/3] overflow-hidden">
+                        <img
+                          src={project.thumbnail}
+                          alt={project.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                      <div className="absolute left-3 top-3 px-2 py-1 text-[10px] font-mono uppercase tracking-widest bg-background/90 text-foreground border border-foreground/10">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-white/60 block mb-2">
+                          {project.category}
+                        </span>
+                        <div className="flex items-end justify-between gap-3">
+                          <h3 className="text-2xl md:text-3xl font-syne font-bold text-white leading-tight group-hover:text-accent transition-colors">
+                            {project.title}
+                          </h3>
+                          <ArrowUpRight className="w-5 h-5 text-white/70 group-hover:text-accent group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+
+      <section className="pb-20">
+        <div className="container-wide">
+          <Link to="/work/edicao-de-video" className="group block border border-foreground/10 bg-card overflow-hidden hover:border-accent/60 transition-colors duration-500">
             <div className="grid lg:grid-cols-12">
               <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
                 <div>
@@ -382,7 +399,7 @@ const Projects = () => {
                     <div className="h-px w-12 bg-accent" />
                     <span className="text-sm font-mono text-muted-foreground tracking-wider">EDIÇÃO DE VÍDEO E MOTION</span>
                   </div>
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6 group-hover:text-accent transition-colors duration-300">
                     Vídeos Criados Para Reter Atenção e Gerar Resposta.
                   </h2>
                   <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
@@ -395,22 +412,17 @@ const Projects = () => {
                     <Images className="w-5 h-5 text-accent" />
                     {videoProjects.length} case
                   </div>
-                  <Link
-                    to="/work/edicao-de-video"
-                    className="group/link flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground/70 hover:text-accent transition-colors"
-                  >
-                    <span>Ver Página</span>
-                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
-                  </Link>
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                    Ver Página <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </div>
                 </div>
               </div>
 
               <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
                 <div className="grid gap-3 md:gap-4">
                   {videoProjects.map((project, index) => (
-                    <Link
+                    <div
                       key={project.id}
-                      to={`/work/${project.id}`}
                       className="group relative overflow-hidden border border-foreground/10 bg-background"
                     >
                       <div className="aspect-[21/9] overflow-hidden">
@@ -437,12 +449,72 @@ const Projects = () => {
                           <ArrowUpRight className="w-6 h-6 text-white/70 group-hover:text-accent group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
+        </div>
+      </section>
+
+
+      <section className="pb-20">
+        <div className="container-wide">
+          <Link to="/banners-ecommerce-dropshipping" className="group block border border-foreground/10 bg-card overflow-hidden hover:border-accent/60 transition-colors duration-500">
+            <div className="grid lg:grid-cols-12">
+              <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
+                <div>
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className="text-sm font-mono text-accent">06</span>
+                    <div className="h-px w-12 bg-accent" />
+                    <span className="text-sm font-mono text-muted-foreground tracking-wider">BANNERS E-COMMERCE / DROPSHIPPING</span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6 group-hover:text-accent transition-colors duration-300">
+                    Criativos de Produto Feitos Para Gerar Compra.
+                  </h2>
+                  <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+                    Banners pensados para vitrine, anúncio e oferta: produto em destaque, promessa clara, hierarquia de preço e direção visual criada para transformar atenção em intenção de compra.
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between gap-6 pt-6 border-t border-foreground/10">
+                  <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-widest text-foreground/60">
+                    <Images className="w-5 h-5 text-accent" />
+                    {dropBanners.length} banners
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                    Ver Página <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
+                <div className="grid gap-3 md:gap-4">
+                  {dropBanners.slice(0, 2).map((banner, index) => (
+                    <div
+                      key={banner.id}
+                      className="relative overflow-hidden border border-foreground/10 bg-background"
+                    >
+                      <div className="aspect-[16/7] overflow-hidden">
+                        <img
+                          src={banner.src}
+                          alt={`${banner.title} para e-commerce e dropshipping`}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                      <div className="absolute left-3 top-3 px-2 py-1 text-[10px] font-mono uppercase tracking-widest bg-background/90 text-foreground border border-foreground/10">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 
@@ -457,7 +529,7 @@ const Projects = () => {
               <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
                 <div>
                   <div className="flex items-center gap-4 mb-8">
-                    <span className="text-sm font-mono text-accent">06</span>
+                    <span className="text-sm font-mono text-accent">07</span>
                     <div className="h-px w-12 bg-accent" />
                     <span className="text-sm font-mono text-muted-foreground tracking-wider">THUMBNAILS</span>
                   </div>
@@ -516,7 +588,7 @@ const Projects = () => {
               <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
                 <div>
                   <div className="flex items-center gap-4 mb-8">
-                    <span className="text-sm font-mono text-accent">07</span>
+                    <span className="text-sm font-mono text-accent">08</span>
                     <div className="h-px w-12 bg-accent" />
                     <span className="text-sm font-mono text-muted-foreground tracking-wider">LOGOS E-SPORT</span>
                   </div>
@@ -541,7 +613,7 @@ const Projects = () => {
 
               <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-                  {esportLogos.slice(0, 6).map((logo, index) => (
+                  {esportLogoCoverItems.map((logo, index) => (
                     <div
                       key={logo.id}
                       className="group relative overflow-hidden border border-foreground/10 bg-background text-left"
@@ -550,6 +622,66 @@ const Projects = () => {
                         <img
                           src={logo.src}
                           alt={logo.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300" />
+                      <div className="absolute left-3 top-3 px-2 py-1 text-[10px] font-mono uppercase tracking-widest bg-background/90 text-foreground border border-foreground/10">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+
+      <section className="pb-20">
+        <div className="container-wide">
+          <Link to="/e-sports-variados" className="group block border border-foreground/10 bg-card overflow-hidden hover:border-accent/60 transition-colors duration-500">
+            <div className="grid lg:grid-cols-12">
+              <div className="lg:col-span-5 p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10 flex flex-col justify-between gap-12">
+                <div>
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className="text-sm font-mono text-accent">09</span>
+                    <div className="h-px w-12 bg-accent" />
+                    <span className="text-sm font-mono text-muted-foreground tracking-wider">E-SPORTS VARIADOS</span>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-syne font-bold leading-tight mb-6">
+                    Artes Para Projetos Gamer Que Precisam Parecer Maiores.
+                  </h2>
+                  <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+                    Criativos para players, torneios e comunidades que precisam sair do visual amador e ganhar presença, confiança e clique antes da primeira jogada.
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between gap-6 pt-6 border-t border-foreground/10">
+                  <div className="flex items-center gap-3 text-sm font-mono uppercase tracking-widest text-foreground/60">
+                    <Images className="w-5 h-5 text-accent" />
+                    {esportsVariados.length} artes
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
+                    Ver Página <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 p-4 md:p-6 bg-foreground/[0.03]">
+                <div className="grid grid-cols-3 gap-3 md:gap-4">
+                  {esportsVariadosCoverItems.map((item, index) => (
+                    <div
+                      key={item.id}
+                      className="group relative overflow-hidden border border-foreground/10 bg-background text-left"
+                    >
+                      <div className="aspect-square overflow-hidden">
+                        <img
+                          src={item.src}
+                          alt={item.title}
                           loading="lazy"
                           decoding="async"
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

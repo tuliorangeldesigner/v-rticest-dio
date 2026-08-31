@@ -7,7 +7,7 @@ import { ArticleSchema, BreadcrumbSchema, FaqSchema } from '@/components/Structu
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesigner.com.br').replace(/\/$/, '');
 const SOCIAL_IMAGE_URL = `${SITE_URL}/dc2-social.jpg`;
 const inlineImagesByPost: Record<string, { src: string; alt: string }[]> = {
   'marcas-comuns-brigam-por-preco': [
@@ -162,7 +162,7 @@ const BlogPost = () => {
                 src={post.image} 
                 alt={post.title} 
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
                 decoding="async"
                 className="w-full h-full object-cover"
               />

@@ -14,12 +14,12 @@ interface SEOProps {
   tags?: string[];
 }
 
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://trdesigner.vercel.app').replace(/\/$/, '');
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesigner.com.br').replace(/\/$/, '');
 
 const defaultMeta = {
   siteName: 'TR Designer',
   title: 'TR Designer | Portfolio, Branding e Sites de Alta Conversão',
-  description: 'Portfolio da TR Designer com branding estratégico, websites de alta conversão e criativos orientados por performance para marcas que querem crescer com percepção premium.',
+  description: 'Sou Túlio Rangel, designer estratégico à frente da TR Designer. Crio identidades visuais, sites de alta conversão e criativos de performance para marcas que querem crescer com autoridade.',
   image: `${SITE_URL}/dc2-social.jpg`,
   url: SITE_URL,
   twitterHandle: '@trdesigner',
@@ -56,10 +56,15 @@ const SEO = ({
       <meta name="description" content={description} />
       <meta name="author" content={author || defaultMeta.siteName} />
       <meta name="robots" content={robots} />
+      <meta name="googlebot" content={robots} />
       <meta name="language" content={defaultMeta.language} />
+      <meta name="application-name" content={defaultMeta.siteName} />
+      <meta name="referrer" content="strict-origin-when-cross-origin" />
       
       {/* Canonical URL */}
       <link rel="canonical" href={resolvedUrl} />
+      <link rel="alternate" hrefLang="pt-BR" href={resolvedUrl} />
+      <link rel="alternate" hrefLang="x-default" href={resolvedUrl} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
@@ -75,6 +80,7 @@ const SEO = ({
       <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={defaultMeta.siteName} />
       <meta property="og:locale" content={defaultMeta.locale} />
+      {modifiedTime && <meta property="og:updated_time" content={modifiedTime} />}
 
       {/* Article specific (for blog posts) */}
       {type === 'article' && publishedTime && (
@@ -106,6 +112,7 @@ const SEO = ({
 
       {/* Additional SEO */}
       <meta name="theme-color" content="#0a0a0a" />
+      <meta name="apple-mobile-web-app-title" content={defaultMeta.siteName} />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     </Helmet>

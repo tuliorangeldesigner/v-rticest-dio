@@ -2,17 +2,22 @@
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
+import LanguageToggle from './LanguageToggle';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+import { trackConversion } from '@/lib/conversion';
 
 const navLinks = [
   { name: 'Home', href: '/', number: '01' },
   { name: 'Projetos', href: '/work', number: '02' },
-  { name: 'Sobre', href: '/about', number: '03' },
-  { name: 'Serviços', href: '/services', number: '04' },
-  { name: 'Blog', href: '/blog', number: '05' },
-  { name: 'Contato', href: '/contact', number: '06' },
+  { name: 'Web Design', href: '/webdesign', number: '03' },
+  { name: 'Sobre', href: '/about', number: '04' },
+  { name: 'Serviços', href: '/services', number: '05' },
+  { name: 'Blog', href: '/blog', number: '06' },
+  { name: 'Contato', href: '/contact', number: '07' },
 ];
 
 export const Navigation = () => {
+  const whatsappHref = getWhatsAppLink('Olá! Vim pelo site e quero falar sobre meu projeto.');
   const navRef = useRef<HTMLElement | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -79,16 +84,16 @@ export const Navigation = () => {
         <motion.div 
           className={`mx-auto transition-all duration-700 ${
             isScrolled 
-              ? 'mt-4 max-w-5xl rounded-2xl bg-background/60 backdrop-blur-2xl border border-border/40 shadow-2xl shadow-background/20' 
+              ? 'mt-4 nav-shell--scrolled rounded-2xl bg-background/90 border border-border/40 shadow-xl shadow-background/20'
               : 'mt-0 max-w-full bg-transparent border-none shadow-none backdrop-blur-none'
           }`}
         >
           <div className={`flex items-center justify-between transition-all duration-500 ${
-            isScrolled ? 'px-6 py-3' : 'py-6 md:py-8'
+            isScrolled ? 'px-4 xl:px-6 py-3' : 'py-6 md:py-8'
           }`}>
             
             {/* Logo - Animated morphing design */}
-            <Link to="/" className="group relative">
+            <Link to="/" className="group relative nav-logo-link shrink-0">
               <motion.div
                 className="flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
@@ -114,7 +119,7 @@ export const Navigation = () => {
                 </motion.div>
                 
                 {/* Logo text - only on desktop */}
-                <div className="hidden sm:block overflow-hidden">
+                <div className="hidden sm:block nav-logo-text">
                   <motion.span 
                     className="font-syne text-lg font-bold tracking-tight block"
                     initial={{ x: -20, opacity: 0 }}
@@ -127,32 +132,43 @@ export const Navigation = () => {
               </motion.div>
               
               {/* Glow effect on hover */}
-              <motion.div 
-                className="absolute -inset-4 bg-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+              <motion.div
+                className="absolute -inset-4 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                style={{
+                  background:
+                    'radial-gradient(circle, hsl(var(--accent) / 0.18) 0%, hsl(var(--accent) / 0.08) 38%, transparent 70%)',
+                }}
               />
             </Link>
 
             {/* Desktop Navigation - Creative layout */}
             <div 
-              className="hidden lg:flex items-center relative"
+              className="hidden lg:flex items-center relative min-w-0"
               onMouseMove={handleMouseMove}
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Cursor follower glow */}
               {hoveredIndex !== null && (
                 <motion.div
-                  className="absolute w-24 h-24 bg-accent/20 rounded-full blur-2xl pointer-events-none -z-10"
-                  style={{ x: springX, y: springY, translateX: '-50%', translateY: '-50%' }}
+                  className="absolute w-24 h-24 rounded-full pointer-events-none -z-10"
+                  style={{
+                    x: springX,
+                    y: springY,
+                    translateX: '-50%',
+                    translateY: '-50%',
+                    background:
+                      'radial-gradient(circle, hsl(var(--accent) / 0.18) 0%, hsl(var(--accent) / 0.08) 42%, transparent 72%)',
+                  }}
                 />
               )}
               
-              <div className="flex items-center">
+              <div className="flex items-center min-w-0">
                 {navLinks.map((link, index) => (
                   <Link
                     key={link.name}
                     to={link.href}
                     onMouseEnter={() => setHoveredIndex(index)}
-                    className="group relative px-5 py-3"
+                    className="group relative px-3 xl:px-5 py-3 whitespace-nowrap shrink-0"
                   >
                     {/* Number indicator */}
                     <motion.span 
@@ -201,27 +217,30 @@ export const Navigation = () => {
               </div>
               
               {/* Separator */}
-              <div className={`w-px h-6 mx-4 transition-colors duration-500 ${isScrolled ? 'bg-border/50' : 'bg-transparent'}`} />
+              <div className={`w-px h-6 mx-2 xl:mx-4 transition-colors duration-500 ${isScrolled ? 'bg-border/50' : 'bg-transparent'}`} />
               
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
+                <LanguageToggle />
+
                 {/* CTA Button with unique design */}
-                <MagneticButton className="group relative ml-2">
-                  <Link 
-                    to="/contact" 
-                    className="relative flex items-center gap-3 px-5 py-2.5 bg-foreground text-background rounded-full overflow-hidden"
+                <MagneticButton className="group relative ml-2 shrink-0">
+                  <a
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackConversion('whatsapp_click')}
+                    className="nav-cta relative flex items-center gap-3 px-4 xl:px-5 py-2.5 bg-foreground text-background rounded-full overflow-hidden adaptive-button"
                   >
                     {/* Rotating border effect */}
                     <motion.div
-                      className="absolute inset-0 rounded-full"
+                      className="absolute inset-0 rounded-full pointer-events-none"
                       style={{
                         background: 'conic-gradient(from 0deg, transparent, hsl(var(--accent)), transparent)',
                         padding: '2px',
                       }}
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                     />
                     
-                    <span className="relative z-10 text-sm font-semibold">Iniciar Projeto</span>
+                    <span className="nav-cta-label relative z-10 text-sm font-semibold">Diagnóstico gratuito</span>
                     
                     {/* Animated arrow */}
                     <motion.div
@@ -247,23 +266,24 @@ export const Navigation = () => {
                     
                     {/* Hover background */}
                     <motion.div
-                      className="absolute inset-0 bg-accent -z-0"
-                      initial={{ y: '100%' }}
-                      whileHover={{ y: 0 }}
+                      className="absolute inset-0 origin-bottom bg-accent -z-0"
+                      initial={{ scaleY: 0 }}
+                      whileHover={{ scaleY: 1 }}
                       transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
                     />
-                  </Link>
+                  </a>
                 </MagneticButton>
               </div>
             </div>
 
             {/* Tablet Navigation */}
             <div className="hidden md:flex lg:hidden items-center gap-4">
+              <LanguageToggle />
               <Link 
-                to="/contact"
-                className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full"
+                to="/diagnostico"
+                className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full adaptive-button"
               >
-                Contato
+                Diagnóstico
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -289,6 +309,7 @@ export const Navigation = () => {
 
             {/* Mobile Controls */}
             <div className="md:hidden flex items-center gap-3">
+              <LanguageToggle />
               {/* Unique hamburger menu */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -464,11 +485,11 @@ export const Navigation = () => {
                 </div>
                 
                 <Link
-                  to="/contact"
+                  to="/diagnostico"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="group inline-flex items-center gap-3 px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full"
                 >
-                  Iniciar Projeto
+                  Diagnóstico gratuito
                   <motion.div
                     className="w-6 h-6 rounded-full bg-accent-foreground/20 flex items-center justify-center"
                     whileHover={{ rotate: 45 }}

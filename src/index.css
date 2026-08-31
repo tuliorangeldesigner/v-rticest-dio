@@ -102,6 +102,19 @@
     /* Shadows */
     --shadow-elegant: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
     --shadow-glow: 0 0 60px hsl(12 100% 64% / 0.15);
+
+    /* Adaptive copy tokens */
+    --adaptive-button-min-height: 2.75rem;
+    --adaptive-button-line-height: 1.15;
+    --adaptive-copy-max-inline: 100%;
+    --project-site-button-height: 2rem;
+    --project-site-button-padding-inline: 1rem;
+    --project-site-button-line-height: 1;
+    --adaptive-card-text-measure: 68ch;
+    --language-toggle-radius: 999px;
+    --nav-scrolled-max-inline: 74rem;
+    --nav-logo-min-inline: 12.75rem;
+    --nav-cta-min-inline: 10.25rem;
     
     /* Animation Tokens */
     --duration-fast: 0.2s;
@@ -162,10 +175,35 @@
     scroll-behavior: auto;
   }
 
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+  }
+
+  #root {
+    isolation: isolate;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -237,6 +275,104 @@
   .magnetic-btn {
     @apply relative inline-flex items-center justify-center overflow-hidden;
     transition: transform var(--duration-fast) var(--ease-smooth);
+  }
+
+  .language-toggle {
+    @apply inline-flex items-center gap-1 border border-foreground/15 bg-background/90 p-1 shadow-sm;
+    border-radius: var(--language-toggle-radius);
+    inline-size: fit-content;
+    max-inline-size: 100%;
+  }
+
+  .language-toggle__button {
+    @apply inline-flex items-center justify-center px-2.5 py-1 text-[11px] font-mono font-bold uppercase text-muted-foreground transition-all duration-300;
+    border-radius: var(--language-toggle-radius);
+    line-height: 1;
+    min-inline-size: 2rem;
+    min-block-size: 1.75rem;
+  }
+
+  .language-toggle__button:hover,
+  .language-toggle__button--active {
+    @apply bg-foreground text-background;
+  }
+
+  .nav-shell--scrolled {
+    max-inline-size: min(calc(100vw - 2rem), var(--nav-scrolled-max-inline));
+  }
+
+  .nav-logo-link {
+    min-inline-size: auto;
+  }
+
+  .nav-logo-text {
+    overflow: visible;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    min-inline-size: var(--nav-cta-min-inline);
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  .nav-cta > span,
+  .nav-cta-label {
+    max-inline-size: none;
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  @media (min-width: 1024px) {
+    .nav-logo-link {
+      min-inline-size: var(--nav-logo-min-inline);
+    }
+  }
+
+  .adaptive-button,
+  a[class*="rounded-full"][class*="px-"],
+  button[class*="rounded-full"][class*="px-"] {
+    inline-size: fit-content;
+    max-inline-size: var(--adaptive-copy-max-inline);
+    min-block-size: var(--adaptive-button-min-height);
+    white-space: normal;
+    text-wrap: balance;
+    line-height: var(--adaptive-button-line-height);
+  }
+
+  .adaptive-button > span,
+  a[class*="rounded-full"][class*="px-"] > span,
+  button[class*="rounded-full"][class*="px-"] > span {
+    min-inline-size: 0;
+    max-inline-size: 24ch;
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
+  .project-site-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: var(--project-site-button-height);
+    min-block-size: var(--project-site-button-height);
+    padding-inline: var(--project-site-button-padding-inline);
+    padding-block: 0;
+    white-space: nowrap;
+    text-wrap: nowrap;
+    line-height: var(--project-site-button-line-height);
+  }
+
+  .nav-cta.adaptive-button {
+    min-inline-size: var(--nav-cta-min-inline);
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  .nav-cta.adaptive-button > span,
+  .nav-cta.adaptive-button .nav-cta-label {
+    max-inline-size: none;
+    white-space: nowrap;
+    text-wrap: nowrap;
   }
 
   .magnetic-btn::before {
@@ -361,6 +497,32 @@
 }
 
 @layer utilities {
+  html[data-language] :where(h1, h2, h3, h4, p, li, blockquote, span, a, button, label) {
+    overflow-wrap: break-word;
+  }
+
+  html[data-language] :where(article, section, aside, header, footer, .group, [class*="bg-card"], [class*="border-border"]) {
+    min-inline-size: 0;
+  }
+
+  html[data-language="en"] :where(h1, h2, h3, .font-syne, .font-epic) {
+    text-wrap: balance;
+  }
+
+  @media (max-width: 640px) {
+    .language-toggle {
+      gap: 0.125rem;
+      padding: 0.1875rem;
+    }
+
+    .language-toggle__button {
+      min-inline-size: 1.75rem;
+      min-block-size: 1.625rem;
+      padding-inline: 0.45rem;
+      font-size: 10px;
+    }
+  }
+
   .text-balance {
     text-wrap: balance;
   }

@@ -17,7 +17,6 @@
   serviceLinks?: { label: string; to: string }[];
 }
 
-import { seoBlogPosts } from './seoBlogPosts';
 
 const author = {
   name: 'TR Designer',
@@ -216,7 +215,6 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
-blogPosts.push(...seoBlogPosts);
 
 export const getBlogPostById = (id: string): BlogPost | undefined => {
   return blogPosts.find((post) => post.id === id);

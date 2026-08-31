@@ -5,6 +5,7 @@ import MagneticButton from '@/components/MagneticButton';
 import { AnimatedLine } from '@/components/AnimatedText';
 import { ArrowUpRight } from 'lucide-react';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { trackConversion } from '@/lib/conversion';
 
 const words = [
   { text: 'Presença', number: '01' },
@@ -91,12 +92,14 @@ export const CTASection = () => {
 
       {/* Floating accent orb */}
       <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
+        className="absolute w-[360px] h-[360px] rounded-full pointer-events-none opacity-70"
         style={{
           x: orbX,
           y: orbY,
           top: '30%',
           left: '20%',
+          background:
+            'radial-gradient(circle, hsl(var(--accent) / 0.14) 0%, hsl(var(--accent) / 0.06) 36%, transparent 70%)',
         }}
       />
 
@@ -188,6 +191,7 @@ export const CTASection = () => {
               <MagneticButton>
                 <a
                   href={whatsappHref}
+                  onClick={() => trackConversion('whatsapp_click')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-semibold text-sm md:text-base rounded-full overflow-hidden"
@@ -201,9 +205,9 @@ export const CTASection = () => {
                     <ArrowUpRight className="w-4 h-4" />
                   </motion.div>
                   <motion.div
-                    className="absolute inset-0 bg-accent"
-                    initial={{ y: '100%' }}
-                    whileHover={{ y: 0 }}
+                    className="absolute inset-0 origin-bottom bg-accent"
+                    initial={{ scaleY: 0 }}
+                    whileHover={{ scaleY: 1 }}
                     transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
                   />
                 </a>

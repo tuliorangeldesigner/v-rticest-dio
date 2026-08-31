@@ -95,8 +95,15 @@ const Blog = () => {
         />
 
         <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
-          style={{ top: '20%', right: '10%', x: mousePosition.x * 3, y: mousePosition.y * 3 }}
+          className="absolute w-[360px] h-[360px] rounded-full pointer-events-none opacity-70"
+          style={{
+            top: '20%',
+            right: '10%',
+            x: mousePosition.x * 3,
+            y: mousePosition.y * 3,
+            background:
+              'radial-gradient(circle, hsl(var(--accent) / 0.14) 0%, hsl(var(--accent) / 0.06) 36%, transparent 70%)',
+          }}
         />
 
         <div className="container-wide relative z-10">
@@ -165,7 +172,7 @@ const Blog = () => {
                 <div className="flex flex-col md:flex-row h-full md:h-[400px]">
                   <div className="w-full md:w-2/5 relative overflow-hidden h-[250px] md:h-full border-b md:border-b-0 md:border-r border-border">
                     <div className="absolute top-4 left-4 z-10">
-                      <span className="px-3 py-1 bg-background/90 backdrop-blur text-xs font-mono font-bold uppercase tracking-wider border border-border">
+                      <span className="px-3 py-1 bg-background/95 text-xs font-mono font-bold uppercase tracking-wider border border-border shadow-lg">
                         ESTRATÉGIA
                       </span>
                     </div>
@@ -326,11 +333,11 @@ const Blog = () => {
                         alt={post.title}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-all duration-700 ease-out"
+                        className="w-full h-full object-cover saturate-[0.65] group-hover:saturate-100 scale-110 group-hover:scale-100 transition-all duration-700 ease-out"
                       />
                       <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                      <div className="absolute bottom-4 right-4 bg-background/90 backdrop-blur-sm p-3 rounded-full opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                      <div className="absolute bottom-4 right-4 bg-background/95 p-3 rounded-full opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 shadow-lg">
                         <ArrowUpRight className="w-5 h-5 text-foreground" />
                       </div>
                     </div>

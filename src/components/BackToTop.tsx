@@ -22,15 +22,17 @@ const BackToTop = () => {
       }
     };
 
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, [isPortalRoute]);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    if (window.__smoothScrollTo) {
+      window.__smoothScrollTo(0);
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
