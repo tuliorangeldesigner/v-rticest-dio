@@ -23,7 +23,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Portfolio, Branding e Sites de Alta Conversão"
+        title="Branding, Sites e Criativos de Performance"
         description="Sou Túlio Rangel, designer estratégico à frente da TR Designer. Crio identidades visuais, sites de alta conversão e criativos de performance para marcas que querem crescer com autoridade."
         image="/dc2-social.jpg"
         url="/"

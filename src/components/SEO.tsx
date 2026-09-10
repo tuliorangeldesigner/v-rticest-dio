@@ -18,7 +18,7 @@ const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.tuliorangeldesig
 
 const defaultMeta = {
   siteName: 'TR Designer',
-  title: 'TR Designer | Portfolio, Branding e Sites de Alta Conversão',
+  title: 'TR Designer | Branding, Sites e Criativos de Performance',
   description: 'Sou Túlio Rangel, designer estratégico à frente da TR Designer. Crio identidades visuais, sites de alta conversão e criativos de performance para marcas que querem crescer com autoridade.',
   image: `${SITE_URL}/dc2-social.jpg`,
   url: SITE_URL,
